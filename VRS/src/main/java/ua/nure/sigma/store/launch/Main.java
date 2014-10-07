@@ -1,4 +1,4 @@
-package ua.nure.sigma.launch;
+package ua.nure.sigma.store.launch;
 import java.io.File;
 import org.apache.catalina.startup.Tomcat;
 

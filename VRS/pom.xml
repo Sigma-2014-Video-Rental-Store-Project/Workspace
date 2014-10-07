@@ -62,7 +62,7 @@
                 <assembleDirectory>target</assembleDirectory>
                 <programs>
                     <program>
-                        <mainClass>ua.nure.sigma.launch.Main</mainClass>
+                        <mainClass>ua.nure.sigma.store.launch.Main</mainClass>
                         <name>webapp</name>
                     </program>
                 </programs>
