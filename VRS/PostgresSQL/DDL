@@ -1,0 +1,78 @@
+#CONNECT 'jdbc:postgresql://ec2-54-225-101-4.compute-1.amazonaws.com:5432/d473dqv367ur4k?username=zmmxgimazgcmky&password=_ijE3dNnY6iyWcdmpElG_NxQL3';
+
+#postgres://zmmxgimazgcmky:_ijE3dNnY6iyWcdmpElG_NxQL3@ec2-54-225-101-4.compute-1.amazonaws.com:5432/d473dqv367ur4k
+
+
+CREATE TABLE ROLES
+(
+    ROLE_ID    serial primary key,
+    ROLE_NAME  VARCHAR(40) not null
+);
+
+CREATE TABLE ADMINS
+(
+    ADMIN_ID    serial primary key,
+    ROLE_ID     integer not null,
+    foreign key (ROLE_ID) references ROLES (ROLE_ID) ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+CREATE TABLE SEX
+(
+    SEX_ID    serial primary key,
+    SEX       VARCHAR(20) not null
+);
+
+CREATE TABLE CUSTOMERS
+(
+    CUSTOMER_ID    	serial primary key,
+    LAST_NAME      	VARCHAR(20) not null,
+    FIRST_NAME     	VARCHAR(20) not null,
+    MIDLE_NAME     	VARCHAR(20) not null,
+    CUSTOMER_EMAIL  VARCHAR(40) not null,
+    CUSTOMER_PHONE  VARCHAR(12) not null,
+    SEX_ID			integer     not null,    
+    CUSTOMER_PHOTO	VARCHAR(40) not null,
+    BONUS			decimal,
+    foreign key (SEX_ID) references SEX (SEX_ID) OON UPDATE CASCADE ON DELETE SET NULL
+);
+
+CREATE TABLE CATEGORIES
+(
+    CATEGORY_ID    serial primary key,
+    CATEGORY_NAME  VARCHAR(40) not null
+);
+
+CREATE TABLE FILMS
+(
+    FILM_ID    		serial primary key,
+    TITLE      		VARCHAR(40) not null,
+    YEAR       		integer not null,
+    DESCRIPTION 	VARCHAR(160) not null,
+    COVER			VARCHAR(40) not null,
+    AMOUNT			integer not null,
+    GENERAL_PRICE	decimal not null,
+    RENT_PRICE		decimal not null,
+    BONUS_FOR_RENT	decimal not null
+);
+
+CREATE TABLE FILM_CATEGORIES
+(
+    CATEGORY_ID    	integer REFERENCES CATEGORIES,
+    FILM_ID        	integer REFERENCES FILMS,
+    PRIMARY KEY 	(CATEGORY_ID, FILM_ID)
+);
+
+
+CREATE TABLE FILM_CATEGORIES
+(
+    CUSTOMER_ID    			INTEGER REFERENCES CUSTOMERS,
+    FILM_ID        			INTEGER REFERENCES FILMS,
+    COUNT 					INTEGER NOT NULL,
+    RENTED_DATE				DATE NOT NULL,
+    ACCEPTED_FUTURE_DATE	DATE NOT NULL,
+    ACCEPTED_DATE			DATE,
+    PRIMARY KEY 			(CUSTOMER_ID, FILM_ID)
+);
+
+
+
