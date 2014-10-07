@@ -4,7 +4,7 @@
   <groupId>ua.nure.sigma</groupId>
   <artifactId>store</artifactId>
   <version>1.0</version>
-  <name>embeddedTomcatSample Maven Webapp</name>
+  <name>TheVideoRentalStore</name>
   <url>http://maven.apache.org</url>
   <properties>
     <tomcat.version>7.0.34</tomcat.version>
