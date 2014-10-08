@@ -1,4 +1,4 @@
-package ua.nure.sigma..store.entity;
+package ua.nure.sigma.store.entity;
 
 /**
  * @author Sergey Laposhko
