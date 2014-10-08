@@ -13,6 +13,7 @@ CREATE TABLE ADMINS
 (
     ADMIN_ID    serial primary key,
     ROLE_ID     integer not null,
+    ADMIN_EMAIL VARCHAR(40) UNIQUE not null 
     foreign key (ROLE_ID) references ROLES (ROLE_ID) ON UPDATE CASCADE ON DELETE SET NULL
 );
 

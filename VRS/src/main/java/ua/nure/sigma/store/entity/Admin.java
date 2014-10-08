@@ -1,4 +1,4 @@
-package main.java.ua.nure.sigma.store.entity;
+package ua.nure.sigma.store.entity;
 
 /**
  * Java Bean that represents admin of rental store.
