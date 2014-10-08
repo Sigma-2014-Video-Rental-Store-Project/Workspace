@@ -5,21 +5,22 @@
 
 CREATE TABLE ROLES
 (
-    ROLE_ID    serial primary key,
+    ROLE_ID    bigserial primary key,
     ROLE_NAME  VARCHAR(40) not null
 );
 
 CREATE TABLE ADMINS
 (
-    ADMIN_ID    serial primary key,
-    ROLE_ID     integer not null,
-    ADMIN_EMAIL VARCHAR(40) UNIQUE not null 
+    ADMIN_ID    bigserial primary key,
+    ROLE_ID     bigint not null,
+    ADMIN_EMAIL VARCHAR(40) UNIQUE not null,
+    PASSWORD_HASH
     foreign key (ROLE_ID) references ROLES (ROLE_ID) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE SEX
 (
-    SEX_ID    serial primary key,
+    SEX_ID    bigserial primary key,
     SEX       VARCHAR(20) not null
 );
 
@@ -33,7 +34,7 @@ CREATE TABLE CUSTOMERS
     CUSTOMER_PHONE  VARCHAR(12) not null,
     SEX_ID			integer     not null,    
     CUSTOMER_PHOTO	VARCHAR(40) not null,
-    BONUS			decimal,
+    BONUS			double precision,
     foreign key (SEX_ID) references SEX (SEX_ID) OON UPDATE CASCADE ON DELETE SET NULL
 );
 
@@ -51,9 +52,9 @@ CREATE TABLE FILMS
     DESCRIPTION 	VARCHAR(160) not null,
     COVER			VARCHAR(40) not null,
     AMOUNT			integer not null,
-    GENERAL_PRICE	decimal not null,
-    RENT_PRICE		decimal not null,
-    BONUS_FOR_RENT	decimal not null
+    GENERAL_PRICE	double precision not null,
+    RENT_PRICE		double precision not null,
+    BONUS_FOR_RENT	double precision not null
 );
 
 CREATE TABLE FILM_CATEGORIES

@@ -8,41 +8,41 @@ import ua.nure.sigma.store.dao.*;
 public class PosgreSqlDAO extends DAOFactory {
     @Override
     public AdminDAO getAdminDAO() {
-        return null;
+        return new PosgreSqlAdminDAO();
     }
 
     @Override
     public CustomerDAO getCustomerDAO() {
-        return null;
+        return new PostgreSqlCustomerDAO();
     }
 
     @Override
     public CategoryDAO getCategoryDAO() {
-        return null;
+        return new PostgreSqlCategoryDAO();
     }
 
     @Override
     public FilmDAO getFilmDAO() {
-        return null;
+        return new PostgreSqlFilmDAO();
     }
 
     @Override
     public RentDAO getRentDAO() {
-        return null;
+        return new PostgreSqlRentDAO();
     }
 
     @Override
     public RoleDAO getRoleDAO() {
-        return null;
+        return new PostgreSqlRoleDAO();
     }
 
     @Override
     public FilmCategoryDAO getFilmCategoryDAO() {
-        return null;
+        return new PostgreSqlFilmCategoryDAO();
     }
 
     @Override
     public SexDAO getSexDAO() {
-        return null;
+        return new PostgreSqlSexDAO();
     }
 }

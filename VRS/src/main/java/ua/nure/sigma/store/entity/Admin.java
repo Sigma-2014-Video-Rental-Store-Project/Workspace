@@ -9,7 +9,7 @@ package ua.nure.sigma.store.entity;
 public class Admin {
 
 	private long id;
-	private String login;
+	private String email;
 	private int password;
 	private int roleId;
 
@@ -35,20 +35,21 @@ public class Admin {
 	/**
 	 * Login getter.
 	 * 
-	 * @return login of user.
+	 * @return email of user.
 	 */
-	public String getLogin() {
-		return login;
+
+	public String getEmail() {
+		return email;
 	}
 
 	/**
 	 * Login setter.
 	 * 
-	 * @param login
+	 * @param email
 	 *            of user.
 	 */
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	/**
