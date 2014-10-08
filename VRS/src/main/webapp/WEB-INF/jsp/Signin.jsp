@@ -9,10 +9,10 @@
     <title>Signin Video Rental Store</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="main.webapp.css/bootstrap.min.css" rel="stylesheet">
+    <link href="src/main/webapp/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="main.webapp.css/signin.css" rel="stylesheet">
+    <link href="src/main/webapp/css/signin.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
