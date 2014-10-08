@@ -31,3 +31,6 @@ local.properties
 # Maven
 log/
 target/
+
+#exclude tomcat
+tomcat.8080/
