@@ -7,7 +7,7 @@
 UNIX:
 	sh target/bin/webapp
 5)в браузере переходим на страницу:
-	localhost:8080/Signin.jsp
+	localhost:8080/
 
 
 !! Если вам нужен war-файл(деплоится на сервер локальный):
