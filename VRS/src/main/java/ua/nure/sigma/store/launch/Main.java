@@ -6,8 +6,17 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-	//TODO: include correct path
-        String webappDirLocation = "src/main/webapp/WEB-INF/jsp/";
+        String webappDirLocation;
+        String OS = (System.getProperty("os.name")).toUpperCase();
+        if (OS.contains("WIN"))
+        {
+            //it is simply the location of the "AppData" folder
+            webappDirLocation = "src\\main\\webapp\\WEB-INF\\jsp\\";
+        }
+        else
+        {
+            webappDirLocation = "src/main/webapp/WEB-INF/jsp/";
+        }
         Tomcat tomcat = new Tomcat();
 
         //The port that we should run on can be set into an environment variable

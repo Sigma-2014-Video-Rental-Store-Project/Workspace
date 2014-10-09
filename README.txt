@@ -1,0 +1,10 @@
+Для запуска приложения необходимо:
+1) в консоли перейти в каталог VRS
+2) выполнить команду mvn clean
+3) mvn package
+4) WIN:
+	target\bin\webapp
+UNIX:
+	sh target/bin/webapp
+5)в браузере переходим на страницу:
+	localhost:8080/Signin.jsp
