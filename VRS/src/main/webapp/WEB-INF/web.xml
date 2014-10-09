@@ -29,4 +29,9 @@
         <location>/WEB-INF/jsp/no_page.jsp</location>
     </error-page>
 
+    <context-param>
+        <param-name>cookieLifetime</param-name>
+        <param-value>300</param-value>
+    </context-param>
+
 </web-app>

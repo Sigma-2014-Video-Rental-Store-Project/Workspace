@@ -6,7 +6,7 @@
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
 
-    <title>Signin Video Rental Store</title>
+    <title>Sign in Video Rental Store</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -29,21 +29,23 @@
 
     <div class="container">
 
-      <form class="form-signin" role="form">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="email" class="form-control" placeholder="Email address" required="" autofocus="">
-        <input type="password" class="form-control" placeholder="Password" required="">
+      <form class="form-signin" role="form" action="controller" method="post">
+        <input type="hidden" name="command" value="signInCommand"/>
+        <h2 class="form-signin-heading">Sign in, please.</h2>
+        <input name="email" type="email" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input name="password" type="password" class="form-control" placeholder="Password" required="">
         <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
+          <input name="remember-me" type="checkbox" value="remember-me">Remember me
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
 
-    </div> <!-- /container -->
-
+    </div>
+    <!-- /container -->
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./Signin Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
   
 
-</body></html>
+</body>
+</html>

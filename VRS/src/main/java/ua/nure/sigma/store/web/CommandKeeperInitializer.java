@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.web;
 
+import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
 
 /**
@@ -46,7 +47,8 @@ public final class CommandKeeperInitializer {
      *            that will be filled with key-command pairs.
      */
     private static void fillWithCommands(CommandKeeper commandKeeper) {
-        commandKeeper.add("wrongCommand", new WrongCommand());
+        commandKeeper.add("wrong", new WrongCommand());
+        commandKeeper.add("signIn", new SignInCommand());
     }
 
 }
