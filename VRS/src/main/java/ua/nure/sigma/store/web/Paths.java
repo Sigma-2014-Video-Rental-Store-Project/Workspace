@@ -18,7 +18,12 @@ public final class Paths {
 		throw new AssertionError("Must not be instantiated.");
 	}
 
-	// Paths of the client side resources.
+	// Paths of the client side resources:
 	public static final String PAGE_NO_PAGE = "/WEB-INF/jsp/no_page.jsp";
+    public static final String PAGE_SIGN_IN = "/WEB-INF/jsp/sign_in.jsp";
 
+    // Paths of the server command keys:
+    public static final String COMMAND_SIGN_IN = "controller?command=signIn";
+    public static final String COMMAND_ADMIN_VIEW = "controller?command=adminView";
+    public static final String COMMAND_ROOT_VIEW = "controller?command=rootView";
 }

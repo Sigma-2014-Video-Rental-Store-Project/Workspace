@@ -1,15 +1,23 @@
+# Eclipse 
 *.pydevproject
 .metadata
 .gradle
+Deployment/
+*.war
+*.jsp~
+*.xml~
 bin/
 tmp/
 *.tmp
 *.bak
 *.swp
+*.txt~
 *~.nib
 local.properties
 .settings/
 .loadpath
+.classpath
+.project
 
 # External tool builders
 .externalToolBuilders/
@@ -31,6 +39,7 @@ local.properties
 # Maven
 log/
 target/
+build/
 
-#exclude tomcat
+# Exclude tomcat
 tomcat.8080/

@@ -28,7 +28,7 @@ public abstract class DAOFactory {
         return INSTANCE;
     }
 
-    private static Connection getConnection() throws URISyntaxException, SQLException {
+    public static Connection getConnection() throws URISyntaxException, SQLException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
         String username = dbUri.getUserInfo().split(":")[0];
@@ -46,5 +46,72 @@ public abstract class DAOFactory {
     public abstract RoleDAO getRoleDAO();
     public abstract FilmCategoryDAO getFilmCategoryDAO();
     public abstract SexDAO getSexDAO();
+    public static void commitAndClose(Connection connection) {
+//        LOG.trace("Commit and close operation starts.");
+        if (connection != null) {
+            try {
+                connection.commit();
+//                LOG.trace("Commit finished.");
+                connection.close();
+//                LOG.trace("Connection closing finished.");
+            } catch (SQLException ex) {
+//                LOG.error("Can not commit transaction and close connection.",
+//                        ex);
+            }
+        }
+    }
 
+    /**
+     * Closes ResultSet given as an argument.
+     *
+     * @param rs
+     *            ResultSet to be closed.
+     */
+    public static void close(ResultSet rs) {
+//        LOG.trace("ResultSet closing starts.");
+        if (rs != null) {
+            try {
+                rs.close();
+//                LOG.trace("ResultSet closing finished.");
+            } catch (SQLException ex) {
+//                LOG.error("Can not close a result set.", ex);
+            }
+        }
+    }
+
+    /**
+     * Closes Statement given as an argument.
+     *
+     * @param statement
+     *            Statement to be closed.
+     */
+    public static void close(Statement statement) {
+        //LOG.trace("Statement closing starts.");
+        if (statement != null) {
+            try {
+                statement.close();
+          //      LOG.trace("Statement closing finished.");
+            } catch (SQLException ex) {
+//                LOG.error("Can not close a statement.", ex);
+            }
+        }
+    }
+
+    /**
+     * Rollbacks the given connection.
+     *
+     * @param connection
+     *            Connection to be rollbacked and closed.
+     */
+    public static void rollback(Connection connection) {
+        if (connection != null) {
+//            LOG.trace("Connection rollback starts.");
+            try {
+                connection.rollback();
+//                LOG.trace("Connection rollback finished.");
+            } catch (SQLException ex) {
+//                LOG.error("Can not rollback transaction.", ex);
+            }
+        }
+    }
 }
