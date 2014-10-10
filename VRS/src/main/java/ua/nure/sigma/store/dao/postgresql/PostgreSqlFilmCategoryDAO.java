@@ -20,7 +20,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO{
 
     private static final String SQL_SELECT_FROM_ADMINS_BY_EMAIL =
             "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
-    private static final String SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID = "SELECT FILM_ID FROM FILMS WHERE CATEGORY_ID = ?";
+    private static final String SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID = "SELECT FILM_ID FROM FILM_CATEGORIES WHERE CATEGORY_ID = ?";
     private static final String SQL_SELECT_FROM_FILMS_ALL_FILM = "SELECT * FROM FILMS";
     private static final String SQL_INSERT_INTO_FILMS = "INSERT INTO FILMS VALUES(?,?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_FILM =
@@ -39,7 +39,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO{
         try {
             connection = DAOFactory.getConnection();
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID);
-            pstmnt.setLong(1, id);
+            pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             while(rs.next()) {
                films.add(filmDAO.findFilmByID(connection,rs.getInt("FILM_ID")));
