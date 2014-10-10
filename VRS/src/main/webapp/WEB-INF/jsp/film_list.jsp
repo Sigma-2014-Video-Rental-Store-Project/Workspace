@@ -3,11 +3,14 @@
                     contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"/>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
-    <title>Insert title here</title>
+    <title>Films</title>
 </head>
 <body>
+${films}
+${myfilm.title}
 <f:view>
     <div id="films">
         <table>
@@ -20,24 +23,23 @@
                     <th scope="col">Edit</th>
                 </tr>
             </thead>
-            <c:forEach var="film" items="${films.model}">
-                <tbody>
-                    <tr>
-                        <td>${film.name}</td>
-                        <td>${film.count}</td>
-                        <td>${film.rentPrice}</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tbody>
-            </c:forEach>
+            <tbody>
+                <c:forEach items="${films.model}"  var="current">
+                        <tr>
+                            <td><c:out value="${current.title}" />${current.title}</td>
+                            <td><c:out value="${current.amount}" />${current.amount}</td>
+                            <td><c:out value="${current.rentPrice}" /></td>
+                            <td>smth&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                </c:forEach>
+            </tbody>
         </table>
     </div>
 
     <div id="pages">
-        <jsp:include page="pager.jsp">
-            <jsp:param name="pager" value="${films}"/>
-        </jsp:include>
+        <c:set var="pager" value="${films.pager}" scope="request" />
+        <jsp:include page="pager.jsp"/>
     </div>
 </f:view>
 </body>

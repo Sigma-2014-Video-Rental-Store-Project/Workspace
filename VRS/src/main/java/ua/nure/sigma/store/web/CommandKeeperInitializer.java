@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.web;
 
+import ua.nure.sigma.store.web.command.FullFilmList;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
 
@@ -49,6 +50,7 @@ public final class CommandKeeperInitializer {
     private static void fillWithCommands(CommandKeeper commandKeeper) {
         commandKeeper.add("wrong", new WrongCommand());
         commandKeeper.add("signIn", new SignInCommand());
+        commandKeeper.add("fullFilmList", new FullFilmList());
     }
 
 }
