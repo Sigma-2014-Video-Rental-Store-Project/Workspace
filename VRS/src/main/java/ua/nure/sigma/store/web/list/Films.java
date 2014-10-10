@@ -2,6 +2,7 @@ package ua.nure.sigma.store.web.list;
 
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.logic.Pager;
+import ua.nure.sigma.store.web.Paths;
 
 import java.util.List;
 
@@ -21,5 +22,13 @@ public class Films {
 
     public Pager getPager(){
         return pager;
+    }
+
+    public void setPageIndex(int index) {
+        pager.setPageIndex(index);
+    }
+
+    public String getPageNumPrefix(){
+        return Paths.COMMAND_FULL_FILM_LIST + "&" + "pageIndex=";
     }
 }

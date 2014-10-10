@@ -18,7 +18,7 @@ public class PagerTest {
 
     @Before
     public void createModel(){
-        originModel = new ArrayList<>();
+        originModel = new ArrayList<Integer>();
         originModel.add(1);
         originModel.add(2);
         originModel.add(3);

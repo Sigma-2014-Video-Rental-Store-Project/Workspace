@@ -26,8 +26,8 @@ ${myfilm.title}
             <tbody>
                 <c:forEach items="${films.model}"  var="current">
                         <tr>
-                            <td><c:out value="${current.title}" />${current.title}</td>
-                            <td><c:out value="${current.amount}" />${current.amount}</td>
+                            <td><c:out value="${current.title}" /></td>
+                            <td><c:out value="${current.amount}" /></td>
                             <td><c:out value="${current.rentPrice}" /></td>
                             <td>smth&nbsp;</td>
                             <td>&nbsp;</td>
@@ -39,6 +39,7 @@ ${myfilm.title}
 
     <div id="pages">
         <c:set var="pager" value="${films.pager}" scope="request" />
+        <c:set var="prefix" value="${films.pageNumPrefix}" scope="request"/>
         <jsp:include page="pager.jsp"/>
     </div>
 </f:view>

@@ -20,7 +20,7 @@
                         <td class="current_page">${i}</td>
                     </c:when>
                     <c:otherwise>
-                        <td><a href="${pager.setPageIndex(i)}">${i}</a></td>
+                        <td><a href="${prefix}${i}">${i}</a></td>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -34,15 +34,15 @@
                                 <td class="current_page">${i}</td>
                             </c:when>
                             <c:otherwise>
-                                <td><a href="${pager.setPageIndex(i)}">${i}</a></td>
+                                <td><a href="${prefix}${i}">${i}</a></td>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                     <td>...</td>
-                    <td><a href="${pager.setPageIndex(pager.pages)}">${pager.pages}</a></td>
+                    <td><a href="${prefix}${i}">${pager.pages}</a></td>
                 </c:when>
                 <c:when test="${pager.pageIndex > pager.pages - 4 }">
-                    <td><a href="${pager.setPageIndex(1)}">1</a></td>
+                    <td><a href="${prefix}${i}">1</a></td>
                     <td>...</td>
                     <c:forEach begin="${pager.pages - 4 }" end="${pager.pages}" var="i">
                         <c:choose>
@@ -50,7 +50,7 @@
                                 <td class="current_page">${i}</td>
                             </c:when>
                             <c:otherwise>
-                                <td><a href="${pager.setPageIndex(i)}">${i}</a></td>
+                                <td><a href="${prefix}${i}">${i}</a></td>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
