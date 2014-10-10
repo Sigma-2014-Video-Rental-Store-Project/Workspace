@@ -65,25 +65,35 @@ public class PostgreSqlFilmDAO implements FilmDAO {
     public Film findFilmByID(int id) {
         Film film = null;
         Connection connection = null;
+        try {
+            connection = DAOFactory.getConnection();
+            film = findFilmByID(connection,id);
+        } catch (Exception e) {
+            DAOFactory.rollback(connection);
+//            LOG.error("Can not obtain User by id.", e);
+        } finally {
+            DAOFactory.commitAndClose(connection);
+        }
+        return film;
+    }
+
+    public Film findFilmByID(Connection connection, int id) {
+        Film film = null;
         PreparedStatement pstmnt = null;
         ResultSet rs = null;
         try {
-            connection = DAOFactory.getConnection();
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_BY_ID);
             pstmnt.setLong(1, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 film = extractFilm(rs);
             }
-        } catch (Exception e) {
-            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by id.", e);
-        } finally {
+        }catch (Exception e){
+
+        }finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
-            DAOFactory.commitAndClose(connection);
         }
-
         return film;
     }
 
