@@ -4,14 +4,14 @@ package ua.nure.sigma.store.entity;
  * Created by nikolaienko on 08.10.14.
  */
 public class Role {
-    private long id;
+    private int id;
     private String name;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

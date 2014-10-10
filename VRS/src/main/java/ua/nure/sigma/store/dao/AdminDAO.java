@@ -11,7 +11,7 @@ import ua.nure.sigma.store.entity.*;
 public interface AdminDAO {
 
     Admin findAdminByLogin(String login);
-    Admin findAdminById(long id);
+    Admin findAdminById(int id);
     List<Admin> findAllAdmins();
     List<Admin> findAllAdmin(Connection connection) throws SQLException;
     void createAdmin(Admin admin);

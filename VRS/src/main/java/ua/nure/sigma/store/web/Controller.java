@@ -32,7 +32,7 @@ public final class Controller extends HttpServlet {
     public static final String USER_ATTRIBUTE_NAME = "user";
     public static final String USER_ID_COOKIE_NAME = "user-id";
 
-    private static final long serialVersionUID = 1L;
+    private static final int serialVersionUID = 1;
     private static final Logger LOG = Logger.getLogger(Controller.class);
 
     private final CommandKeeper commandKeeper;
@@ -80,7 +80,7 @@ public final class Controller extends HttpServlet {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (USER_ID_COOKIE_NAME.equals(cookie.getName())) {
-                    long id = Long.parseLong(cookie.getValue());
+                    int id = Integer.parseInt(cookie.getValue());
                     DAOFactory daoFactory = PosgreSqlDAO.getInstance();
                     AdminDAO adminDAO = daoFactory.getAdminDAO();
                     Admin user = adminDAO.findAdminById(id);

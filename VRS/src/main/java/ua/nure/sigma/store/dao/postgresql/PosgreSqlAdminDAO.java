@@ -34,7 +34,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
      */
     private Admin extractAdmin(ResultSet rs) throws SQLException {
         Admin admin = new Admin();
-        admin.setId(rs.getLong("ADMIN_ID"));
+        admin.setId(rs.getInt("ADMIN_ID"));
         admin.setEmail(rs.getString("ADMIN"));
         admin.setPassword(rs.getInt("password"));
         admin.setRoleId(rs.getInt("role_id"));
@@ -70,7 +70,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
     }
 
     @Override
-    public Admin findAdminById(long id) {
+    public Admin findAdminById(int id) {
         Admin admin = null;
         Connection connection = null;
         PreparedStatement pstmnt = null;
@@ -78,7 +78,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         try {
             connection = DAOFactory.getConnection();
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_ADMINS_BY_ID);
-            pstmnt.setLong(1, id);
+            pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 admin = extractAdmin(rs);
@@ -155,7 +155,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             pstmnt = connection.prepareStatement(SQL_UPDATE_ADMIN_PASSWORD);
             int position = 1;
             pstmnt.setInt(position++, admin.getPassword());
-            pstmnt.setLong(position, admin.getId());
+            pstmnt.setInt(position, admin.getId());
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
@@ -174,7 +174,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             connection = DAOFactory.getConnection();
             pstmnt = connection.prepareStatement(SQL_DELETE_ADMIN);
             int position = 1;
-            pstmnt.setLong(position, admin.getId());
+            pstmnt.setInt(position, admin.getId());
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);

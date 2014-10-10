@@ -20,7 +20,7 @@ public class PostgreSqlRoleDAO implements RoleDAO{
 
     private Role extractRole(ResultSet rs) throws SQLException {
         Role role = new Role();
-        role.setId(rs.getLong("ROLE_ID"));
+        role.setId(rs.getInt("ROLE_ID"));
         role.setName(rs.getString("ROLE_NAME"));
         return role;
     }
@@ -35,7 +35,7 @@ public class PostgreSqlRoleDAO implements RoleDAO{
             connection = DAOFactory.getConnection();
             pstmnt = connection
                     .prepareStatement(SQL_SELECT_FROM_ROLE_BY_ID);
-            pstmnt.setLong(1, id);
+            pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 role = extractRole(rs);

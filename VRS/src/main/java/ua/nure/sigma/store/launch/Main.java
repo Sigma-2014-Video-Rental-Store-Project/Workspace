@@ -1,12 +1,19 @@
 package ua.nure.sigma.store.launch;
 import java.io.File;
+import java.util.List;
+
 import org.apache.catalina.startup.Tomcat;
+import ua.nure.sigma.store.dao.DAOFactory;
+import ua.nure.sigma.store.entity.Admin;
+import ua.nure.sigma.store.entity.Role;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        int hash = "admin".hashCode();
 
-	//TODO: include correct path
+        Role adminList = DAOFactory.getInstance().getRoleDAO().findRoleByID(1);
+
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
 

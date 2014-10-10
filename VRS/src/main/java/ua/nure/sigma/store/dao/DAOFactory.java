@@ -29,7 +29,8 @@ public abstract class DAOFactory {
     }
 
     public static Connection getConnection() throws URISyntaxException, SQLException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
+//        URI dbUri = new URI(System.getenv("DATABASE_URL"));
+        URI dbUri = new URI("postgres://luiqbfalbzbmva:zejlOFp6cr_-OZ2WXSKY3Owy9r@ec2-54-225-239-184.compute-1.amazonaws.com:5432/dadh22f44alqo");
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];

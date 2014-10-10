@@ -24,15 +24,15 @@ public class PostgreSqlFilmDAO implements FilmDAO {
 
     private Film extractFilm(ResultSet rs) throws SQLException {
         Film film = new Film();
-        film.setFilmId(rs.getLong("FILM_ID"));
+        film.setFilmId(rs.getInt("FILM_ID"));
         film.setTitle(rs.getString("TITLE"));
         film.setYear(rs.getInt("YEAR"));
         film.setDescription(rs.getString("DESCRIPTION"));
         film.setCover(rs.getString("COVER"));
         film.setAmount(rs.getInt("AMOUNT"));
-        film.setGeneralPrice(rs.getDouble("GENERAL_PRICE"));
-        film.setRentPrice(rs.getInt("RENT_PRICE"));
-        film.setBonusForRent(rs.getInt("BONUS_FOR_RENT"));
+        film.setGeneralPrice(rs.getLong("GENERAL_PRICE"));
+        film.setRentPrice(rs.getLong("RENT_PRICE"));
+        film.setBonusForRent(rs.getLong("BONUS_FOR_RENT"));
         return film;
     }
 
@@ -83,7 +83,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         ResultSet rs = null;
         try {
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_BY_ID);
-            pstmnt.setLong(1, id);
+            pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 film = extractFilm(rs);
@@ -103,9 +103,9 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         pstmnt.setString(position++, film.getDescription());
         pstmnt.setString(position++, film.getCover());
         pstmnt.setInt(position++, film.getAmount());
-        pstmnt.setDouble(position++, film.getGeneralPrice());
-        pstmnt.setDouble(position++, film.getRentPrice());
-        pstmnt.setDouble(position++, film.getBonusForRent());
+        pstmnt.setLong(position++, film.getGeneralPrice());
+        pstmnt.setLong(position++, film.getRentPrice());
+        pstmnt.setLong(position++, film.getBonusForRent());
     }
 
     @Override
@@ -136,7 +136,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             pstmnt = connection.prepareStatement(SQL_UPDATE_FILM);
             int position = 1;
             setupPrepareStatement(pstmnt,film,position);
-            pstmnt.setLong(position++, film.getFilmId());
+            pstmnt.setInt(position++, film.getFilmId());
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
@@ -155,7 +155,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             connection = DAOFactory.getConnection();
             pstmnt = connection.prepareStatement(SQL_DELETE_FILM);
             int position = 1;
-            pstmnt.setLong(position, film.getFilmId());
+            pstmnt.setInt(position, film.getFilmId());
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);

@@ -8,7 +8,7 @@ package ua.nure.sigma.store.entity;
  */
 public class Admin {
 
-	private long id;
+	private int id;
 	private String email;
 	private int password;
 	private int roleId;
@@ -18,7 +18,7 @@ public class Admin {
 	 * 
 	 * @return id of user.
 	 */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -28,7 +28,7 @@ public class Admin {
 	 * @param id
 	 *            of user.
 	 */
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

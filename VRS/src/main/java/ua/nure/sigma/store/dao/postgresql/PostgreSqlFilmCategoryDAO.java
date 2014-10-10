@@ -35,7 +35,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO{
         Connection connection = null;
         PreparedStatement pstmnt = null;
         ResultSet rs = null;
-        FilmDAO filmDAO = new PostgreSqlFilmDAO();
+        FilmDAO filmDAO = DAOFactory.getInstance().getFilmDAO();
         try {
             connection = DAOFactory.getConnection();
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID);

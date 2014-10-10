@@ -4,21 +4,21 @@ package ua.nure.sigma.store.entity;
  * @author Sergey Laposhko
  */
 public class Film {
-    private long filmId;
+    private int filmId;
     private String title;
     private int year;
     private String description;
     private String cover;
     private int amount;
-    private double generalPrice;
-    private double rentPrice;
-    private double bonusForRent;
+    private long generalPrice;
+    private long rentPrice;
+    private long bonusForRent;
 
-    public void setFilmId(long filmId) {
+    public void setFilmId(int filmId) {
         this.filmId = filmId;
     }
 
-    public long getFilmId() {
+    public int getFilmId() {
         return filmId;
     }
 
@@ -62,27 +62,27 @@ public class Film {
         return amount;
     }
 
-    public void setGeneralPrice(double generalPrice) {
+    public void setGeneralPrice(long generalPrice) {
         this.generalPrice = generalPrice;
     }
 
-    public double getGeneralPrice() {
+    public long getGeneralPrice() {
         return generalPrice;
     }
 
-    public void setRentPrice(double rentPrice) {
+    public void setRentPrice(long rentPrice) {
         this.rentPrice = rentPrice;
     }
 
-    public double getRentPrice() {
+    public long getRentPrice() {
         return rentPrice;
     }
 
-    public void setBonusForRent(double bonusForRent) {
+    public void setBonusForRent(long bonusForRent) {
         this.bonusForRent = bonusForRent;
     }
 
-    public double getBonusForRent() {
+    public long getBonusForRent() {
         return bonusForRent;
     }
 }
