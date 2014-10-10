@@ -2,6 +2,8 @@
 *.pydevproject
 .metadata
 .gradle
+Deployment/
+*.war
 bin/
 tmp/
 *.tmp
