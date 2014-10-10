@@ -3,15 +3,25 @@
                     contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"/>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
+<link href="css/linkBlock.css" rel="stylesheet">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
     <title>Films</title>
 </head>
 <body>
-${films}
 ${myfilm.title}
 <f:view>
+    <div id="category">
+        <c:forEach items="${categories.model}" var="current">
+            <div style="background: #919191; padding: .3em 3px;">
+                <a href="controller?command=fullFilmList&categories=${current.id}" class="categoryButton">
+                    <c:out value="${current.name}" />
+                </a>
+            </div>
+            </br>
+        </c:forEach>
+    </div>
     <div id="films">
         <table>
             <thead>

@@ -12,7 +12,7 @@ import java.util.List;
 public class Films {
     private Pager pager;
 
-    public Films(List<Film> films){
+    public Films(List<Film> films) {
         pager = new Pager(films);
     }
 
