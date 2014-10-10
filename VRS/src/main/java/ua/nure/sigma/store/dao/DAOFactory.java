@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao;
 
+import javax.net.ssl.SSLSocketFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
@@ -30,11 +31,11 @@ public abstract class DAOFactory {
 
     public static Connection getConnection() throws URISyntaxException, SQLException {
 //        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-        URI dbUri = new URI("postgres://luiqbfalbzbmva:zejlOFp6cr_-OZ2WXSKY3Owy9r@ec2-54-225-239-184.compute-1.amazonaws.com:5432/dadh22f44alqo");
+        URI dbUri = new URI("postgres://luiqbfalbzbmva:zejlOFp6cr_-OZ2WXSKY3Owy9r@ec2-54-225-239-184.compute-1.amazonaws.com:5432/dadh22f44alqo?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()+"?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
         return DriverManager.getConnection(dbUrl, username, password);
     }

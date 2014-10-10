@@ -10,9 +10,6 @@ import ua.nure.sigma.store.entity.Role;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        int hash = "admin".hashCode();
-
-        Role adminList = DAOFactory.getInstance().getRoleDAO().findRoleByID(1);
 
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
