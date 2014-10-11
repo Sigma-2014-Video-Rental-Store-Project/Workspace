@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Сергей on 11.10.14.
+ * Created by Sergey Laposhko on 11.10.14.
  */
 
 public class FilmListPageCommand extends Command {

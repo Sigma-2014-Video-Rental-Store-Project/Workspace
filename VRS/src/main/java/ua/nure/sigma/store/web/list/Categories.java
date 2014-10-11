@@ -5,7 +5,7 @@ import ua.nure.sigma.store.entity.Category;
 import java.util.List;
 
 /**
- * Created by Максим on 10.10.2014.
+ * Created by Maxim on 10.10.2014.
  */
 public class Categories {
     private List<Category> categories;

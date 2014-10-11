@@ -3,7 +3,7 @@ package ua.nure.sigma.store.logic;
 import java.util.List;
 
 /**
- * Created by Сергей on 10.10.14.
+ * Created by Sergey Laposhko on 10.10.14.
  */
 public class Pager {
 

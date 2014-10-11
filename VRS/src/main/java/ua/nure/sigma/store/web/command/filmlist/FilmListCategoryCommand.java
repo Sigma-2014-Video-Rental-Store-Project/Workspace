@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Сергей on 11.10.14.
+ * Created by Sergey Laposhko on 11.10.14.
  */
 public class FilmListCategoryCommand extends Command {
 
@@ -23,7 +23,7 @@ public class FilmListCategoryCommand extends Command {
             //todo filter films by category
             //this code may help you
 //            DAOFactory df = DAOFactory.getInstance();
-//            List<Film> filmList = df.getFilmCategoryDAO().findFilmsByCategoryID(df.getCategoryDAO().findCategoryIdByName("драма"));
+//            List<Film> filmList = df.getFilmCategoryDAO().findFilmsByCategoryID(df.getCategoryDAO().findCategoryIdByName("drama"));
         } else {
             List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
             if (categories.size() == 0) {
