@@ -1,8 +1,9 @@
 package ua.nure.sigma.store.web;
 
-import ua.nure.sigma.store.web.command.FullFilmListCommand;
+import ua.nure.sigma.store.web.command.filmlist.FilmListCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
+import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
 
 /**
  * This service class provides transactional instantiation of
@@ -50,7 +51,7 @@ public final class CommandKeeperInitializer {
     private static void fillWithCommands(CommandKeeper commandKeeper) {
         commandKeeper.add("wrong", new WrongCommand());
         commandKeeper.add("signIn", new SignInCommand());
-        commandKeeper.add("fullFilmList", new FullFilmListCommand());
+        commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
     }
 
 }
