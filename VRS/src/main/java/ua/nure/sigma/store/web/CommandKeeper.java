@@ -67,7 +67,7 @@ public final class CommandKeeper {
 	 */
 	public final Command get(String commandName) {
 		if (!commands.containsKey(commandName)) {
-			return commands.get("wrongCommand");
+			return commands.get("wrong");
 		}
 
 		return commands.get(commandName);

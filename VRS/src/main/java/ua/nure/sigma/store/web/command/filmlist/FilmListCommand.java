@@ -20,6 +20,7 @@ import java.util.List;
  * Created by Сергей on 10.10.14.
  */
 public class FilmListCommand extends Command implements IComplexCommand {
+
     static final String FILMS_PARAM_NAME = "films";
     static final String CATEGORIES_PARAM_NAME = "categories";
     static final String PAGE_PARAM_NAME = "pageIndex";

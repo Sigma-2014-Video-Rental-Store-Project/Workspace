@@ -15,6 +15,7 @@ import java.util.List;
  * Created by Сергей on 11.10.14.
  */
 public class FilmListCategoryCommand extends Command {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String categoriesString = (String) request.getParameter(FilmListCommand.CATEGORIES_PARAM_NAME);
@@ -39,4 +40,5 @@ public class FilmListCategoryCommand extends Command {
         }
         return null;
     }
+
 }

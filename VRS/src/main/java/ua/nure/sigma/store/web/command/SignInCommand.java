@@ -29,8 +29,8 @@ public class SignInCommand extends Command {
 
     private static final long serialVersionUID = 1L;
     private static final String COOKIE_LIFETIME_PARAMETER_NAME = "cookieLifetime";
-    private static final String EMAIL_PARAMETER_NAME = "cookieLifetime";
-    private static final String PASSWORD_PARAMETER_NAME = "cookieLifetime";
+    private static final String EMAIL_PARAMETER_NAME = "email";
+    private static final String PASSWORD_PARAMETER_NAME = "password";
     private static final String REMEMBER_ME_PARAMETER_NAME =   "remember-me";
     private static final String REMEMBER_ME_PARAMETER_VALUE =  "remember";
     private static final String ERROR_CODE_PARAMETER_NAME =  "&errorCode=";
