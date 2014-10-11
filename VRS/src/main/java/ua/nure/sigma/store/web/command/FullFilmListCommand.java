@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.web.command;
 
+import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
@@ -25,12 +26,16 @@ public class FullFilmListCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String pageString = (String) request.getParameter(PAGE_PARAM_NAME);
-        System.out.println(pageString);
+
+        //todo implement it with polymorphism
         if (pageString != null && !pageString.equals("")) {
+            //changing page index
             Films filmsParam = (Films) request.getSession().getAttribute(FILMS_PARAM_NAME);
             filmsParam.setPageIndex(Integer.valueOf(pageString));
         } else {
-            List<Film> films = PosgreSqlDAO.getInstance().getFilmDAO().findAllFilms();
+            //if no page index, put full film list to session
+            DAOFactory df = DAOFactory.getInstance();
+            List<Film> films = df.getFilmDAO().findAllFilms();
             if (films.size() == 0) {
                 //todo Delete it when db is filled
                 for (int i = 0; i < 20; i++) {
@@ -47,6 +52,9 @@ public class FullFilmListCommand extends Command {
         String categoriesString = (String) request.getParameter(CATEGORIES_PARAM_NAME);
         if (categoriesString != null && !categoriesString.equals("")) {
             //todo filter films by category
+            //this code may help you
+//            DAOFactory df = DAOFactory.getInstance();
+//            List<Film> filmList = df.getFilmCategoryDAO().findFilmsByCategoryID(df.getCategoryDAO().findCategoryIdByName("драма"));
         } else {
             List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
             if (categories.size() == 0) {
