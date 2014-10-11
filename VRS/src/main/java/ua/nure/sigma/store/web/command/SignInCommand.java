@@ -96,7 +96,8 @@ public class SignInCommand extends Command {
             forward = Paths.COMMAND_ADMIN_VIEW;
         }
         if (admin.getRoleId() == 2) {
-            forward = Paths.COMMAND_ROOT_VIEW;
+           //forward = Paths.COMMAND_ROOT_VIEW; todo need to delete it???
+            forward = Paths.COMMAND_FULL_FILM_LIST;
         }
         session.setAttribute(Controller.USER_ATTRIBUTE_NAME, admin);
         if (rememberMe) {
