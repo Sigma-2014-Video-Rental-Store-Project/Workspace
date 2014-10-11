@@ -27,7 +27,6 @@ public class FullFilmListCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String pageString = request.getParameter(PAGE_PARAM_NAME);
 
-        System.err.println("wellllllllllll");
         //todo implement it with polymorphism
         if (pageString != null && !pageString.equals("")) {
             //changing page index
