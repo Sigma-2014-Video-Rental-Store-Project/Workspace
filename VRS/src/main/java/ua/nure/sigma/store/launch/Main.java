@@ -14,8 +14,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Admin a = DAOFactory.getInstance().getAdminDAO().findAdminById(1);
-
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
 
