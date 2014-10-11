@@ -36,9 +36,9 @@ public class FullFilmListCommand extends Command {
             //if no page index, put full film list to session
             DAOFactory df = DAOFactory.getInstance();
             List<Film> films = df.getFilmDAO().findAllFilms();
-            if (films.size() == 0) {
+            if (films.size() > 0) {
                 //todo Delete it when db is filled
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 95; i++) {
                     Film film = new Film();
                     film.setTitle(String.valueOf(i));
                     film.setAmount(i);

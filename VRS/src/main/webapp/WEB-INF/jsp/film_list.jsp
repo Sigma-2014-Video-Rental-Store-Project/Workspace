@@ -38,11 +38,11 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Copies left</th>
-                    <th scope="col">Price per day</th>
-                    <th scope="col">Add to cart</th>
-                    <th scope="col">Edit</th>
+                    <th class="name-column" scope="col">Name</th>
+                    <th class="copies-column" scope="col">Copies left</th>
+                    <th class="price-column" scope="col">Price per day</th>
+                    <th class="add-column" scope="col">Add to cart</th>
+                    <th class="edit-column" scope="col">Edit</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,8 +51,8 @@
                         <td><c:out value="${current.title}"/></td>
                         <td><c:out value="${current.amount}"/></td>
                         <td><c:out value="${current.rentPrice}"/></td>
-                        <td><a href=""></a>&nbsp;</td>
-                        <td><a href=""></a>&nbsp;</td>
+                        <td><a href="">add</a>&nbsp;</td>
+                        <td><a href="">edit</a>&nbsp;</td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -70,9 +70,4 @@
     </div>
 </f:view>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-<script src="../../assets/js/docs.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </html>
