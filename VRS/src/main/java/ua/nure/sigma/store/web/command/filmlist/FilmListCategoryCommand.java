@@ -1,9 +1,12 @@
 package ua.nure.sigma.store.web.command.filmlist;
 
+import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.Category;
+import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.command.Command;
 import ua.nure.sigma.store.web.list.Categories;
+import ua.nure.sigma.store.web.list.Films;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +23,10 @@ public class FilmListCategoryCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String categoriesString = (String) request.getParameter(FilmListCommand.CATEGORIES_PARAM_NAME);
         if (categoriesString != null && !categoriesString.equals("")) {
-            //todo filter films by category
-            //this code may help you
-//            DAOFactory df = DAOFactory.getInstance();
-//            List<Film> filmList = df.getFilmCategoryDAO().findFilmsByCategoryID(df.getCategoryDAO().findCategoryIdByName("drama"));
+            List<Film> films =
+                    DAOFactory.getInstance().getFilmCategoryDAO().findFilmsByCategoryID(Integer.parseInt(categoriesString));
+            Films paramFilms = new Films(films);
+            request.getSession().setAttribute(FilmListCommand.FILMS_PARAM_NAME, paramFilms);
         } else {
             List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
             if (categories.size() == 0) {

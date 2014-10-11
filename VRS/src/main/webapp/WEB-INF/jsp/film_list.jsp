@@ -3,7 +3,7 @@
                     contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"/>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
-<link href="css/linkBlock.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/film_list.css" rel="stylesheet">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -24,13 +24,15 @@
         <jsp:include page="../jspf/header.jspf"/>
     </div>
     <div id="category">
-        <c:forEach items="${categories.model}" var="current">
-            <div style="background: #919191; padding: .3em 3px;">
-                <a href="controller?command=fullFilmList&categories=${current.id}" class="categoryButton">
-                    <c:out value="${current.name}"/>
-                </a>
-            </div>
-        </c:forEach>
+        <ul class="nav nav-sidebar">
+            <c:forEach items="${categories.model}" var="current">
+                <li>
+                    <a href="controller?command=fullFilmList&categories=${current.id}">
+                        <c:out value="${current.name}"/>
+                    </a>
+                </li>
+            </c:forEach>
+        </ul>
     </div>
     <div id="content-body">
         <div id="films">

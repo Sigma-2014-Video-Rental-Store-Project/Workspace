@@ -25,7 +25,6 @@ import java.io.IOException;
  *
  * @author Denys Shevchenko
  * @author Maxim Sinkevich
- *
  * @version 1.0
  */
 public final class Controller extends HttpServlet {
@@ -73,6 +72,10 @@ public final class Controller extends HttpServlet {
     private String preProcess(HttpServletRequest request,
                               HttpServletResponse response) {
         HttpSession session = request.getSession(true);
+        boolean b = true;
+        if (b) {
+            return null;
+        }
         if (session.getAttribute(USER_ATTRIBUTE_NAME) != null) {
             return null;
         }
