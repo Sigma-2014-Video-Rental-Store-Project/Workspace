@@ -1,0 +1,15 @@
+#pager{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.current_page{
+    color: #fff;
+    background-color: #428bca;
+}
+.page{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}

@@ -29,8 +29,8 @@ public class SignInCommand extends Command {
 
     private static final long serialVersionUID = 1L;
     private static final String COOKIE_LIFETIME_PARAMETER_NAME = "cookieLifetime";
-    private static final String EMAIL_PARAMETER_NAME = "cookieLifetime";
-    private static final String PASSWORD_PARAMETER_NAME = "cookieLifetime";
+    private static final String EMAIL_PARAMETER_NAME = "email";
+    private static final String PASSWORD_PARAMETER_NAME = "password";
     private static final String REMEMBER_ME_PARAMETER_NAME =   "remember-me";
     private static final String REMEMBER_ME_PARAMETER_VALUE =  "remember";
     private static final String ERROR_CODE_PARAMETER_NAME =  "&errorCode=";
@@ -96,7 +96,8 @@ public class SignInCommand extends Command {
             forward = Paths.COMMAND_ADMIN_VIEW;
         }
         if (admin.getRoleId() == 2) {
-            forward = Paths.COMMAND_ROOT_VIEW;
+           //forward = Paths.COMMAND_ROOT_VIEW; todo need to delete it???
+            forward = Paths.COMMAND_FULL_FILM_LIST;
         }
         session.setAttribute(Controller.USER_ATTRIBUTE_NAME, admin);
         if (rememberMe) {

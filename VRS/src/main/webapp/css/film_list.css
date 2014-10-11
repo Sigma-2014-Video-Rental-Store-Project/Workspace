@@ -1,0 +1,48 @@
+body {
+  background-color: #eee;
+}
+#header{
+    width: 100%;
+    margin-bottom: 20px;
+    clear: both;
+}
+#category{
+    width: 20%;
+    float: left;
+}
+#content-body{
+    width: 77%;
+    float: right;
+    margin-right: 1%;
+    margin-left: 1%;
+    position: relative;
+}
+#footer{
+     width: 100%;
+     clear: both;
+ }
+#films{
+    height: 450px;
+}
+#pages{
+    width:100%;
+    bottom:0;
+    ali:center;
+    /*position:absolute;*/
+    margin-top: 20px;
+}
+.name-column{
+    width: 40%;
+}
+.copies-column{
+    width: 15%;
+}
+.price-column{
+    width: 15%;
+}
+.add-column{
+    width: 15%;
+}
+.edit-column{
+    width: 15%;
+}

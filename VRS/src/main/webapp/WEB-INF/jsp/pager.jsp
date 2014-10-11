@@ -10,17 +10,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="css/pager.css" rel="stylesheet">
 <body>
-<table>
+<table id="pager">
     <c:choose>
         <c:when test="${pager.pages < 6}">
             <c:forEach begin="1" end="${pager.pages}" var="i">
                 <c:choose>
                     <c:when test="${pager.pageIndex eq i}">
-                        <td class="current_page">${i}</td>
+                        <td class="current_page page">${i}</td>
                     </c:when>
                     <c:otherwise>
-                        <td><a href="${prefix}${i}">${i}</a></td>
+                        <td class="page"><a href="${prefix}${i}">${i}</a></td>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -31,31 +32,45 @@
                     <c:forEach begin="1" end="5" var="i">
                         <c:choose>
                             <c:when test="${pager.pageIndex eq i}">
-                                <td class="current_page">${i}</td>
+                                <td class="current_page page">${i}</td>
                             </c:when>
                             <c:otherwise>
-                                <td><a href="${prefix}${i}">${i}</a></td>
+                                <td class="page"><a href="${prefix}${i}">${i}</a></td>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                    <td>...</td>
-                    <td><a href="${prefix}${i}">${pager.pages}</a></td>
+                    <td class="page">...</td>
+                    <td class="page"><a href="${prefix}${i}">${pager.pages}</a></td>
                 </c:when>
                 <c:when test="${pager.pageIndex > pager.pages - 4 }">
-                    <td><a href="${prefix}${i}">1</a></td>
-                    <td>...</td>
+                    <td class="page"><a href="${prefix}${i}">1</a></td>
+                    <td class="page">...</td>
                     <c:forEach begin="${pager.pages - 4 }" end="${pager.pages}" var="i">
                         <c:choose>
                             <c:when test="${pager.pageIndex eq i}">
-                                <td class="current_page">${i}</td>
+                                <td class="current_page page">${i}</td>
                             </c:when>
                             <c:otherwise>
-                                <td><a href="${prefix}${i}">${i}</a></td>
+                                <td class="page"><a href="${prefix}${i}">${i}</a></td>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
+                    <td class="page"><a href="${prefix}${i}">1</a></td>
+                    <td class="page">...</td>
+                    <c:forEach begin="${pager.pageIndex - 2 }" end="${pager.pageIndex + 2 }" var="i">
+                        <c:choose>
+                            <c:when test="${pager.pageIndex eq i}">
+                                <td class="current_page page">${i}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="page"><a href="${prefix}${i}">${i}</a></td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <td class="page">...</td>
+                    <td class="page"><a href="${prefix}${i}">${pager.pages}</a></td>
                 </c:otherwise>
             </c:choose>
         </c:otherwise>

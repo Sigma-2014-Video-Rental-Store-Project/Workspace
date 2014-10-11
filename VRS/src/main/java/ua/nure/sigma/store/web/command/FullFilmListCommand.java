@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.web.command;
 
+import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
@@ -17,23 +18,27 @@ import java.util.List;
  * Created by Сергей on 10.10.14.
  */
 public class FullFilmListCommand extends Command {
+
     private static final String FILMS_PARAM_NAME = "films";
     private static final String CATEGORIES_PARAM_NAME = "categories";
     private static final String PAGE_PARAM_NAME = "pageIndex";
 
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String pageString = (String) request.getParameter(PAGE_PARAM_NAME);
-        System.out.println(pageString);
+        String pageString = request.getParameter(PAGE_PARAM_NAME);
+
+        //todo implement it with polymorphism
         if (pageString != null && !pageString.equals("")) {
+            //changing page index
             Films filmsParam = (Films) request.getSession().getAttribute(FILMS_PARAM_NAME);
             filmsParam.setPageIndex(Integer.valueOf(pageString));
         } else {
-            List<Film> films = PosgreSqlDAO.getInstance().getFilmDAO().findAllFilms();
-            if (films.size() == 0) {
+            //if no page index, put full film list to session
+            DAOFactory df = DAOFactory.getInstance();
+            List<Film> films = df.getFilmDAO().findAllFilms();
+            if (films.size() > 0) {
                 //todo Delete it when db is filled
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 95; i++) {
                     Film film = new Film();
                     film.setTitle(String.valueOf(i));
                     film.setAmount(i);
@@ -47,6 +52,9 @@ public class FullFilmListCommand extends Command {
         String categoriesString = (String) request.getParameter(CATEGORIES_PARAM_NAME);
         if (categoriesString != null && !categoriesString.equals("")) {
             //todo filter films by category
+            //this code may help you
+//            DAOFactory df = DAOFactory.getInstance();
+//            List<Film> filmList = df.getFilmCategoryDAO().findFilmsByCategoryID(df.getCategoryDAO().findCategoryIdByName("драма"));
         } else {
             List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
             if (categories.size() == 0) {
