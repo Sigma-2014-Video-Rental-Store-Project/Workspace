@@ -18,15 +18,16 @@ import java.util.List;
  * Created by Сергей on 10.10.14.
  */
 public class FullFilmListCommand extends Command {
+
     private static final String FILMS_PARAM_NAME = "films";
     private static final String CATEGORIES_PARAM_NAME = "categories";
     private static final String PAGE_PARAM_NAME = "pageIndex";
 
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String pageString = (String) request.getParameter(PAGE_PARAM_NAME);
+        String pageString = request.getParameter(PAGE_PARAM_NAME);
 
+        System.err.println("wellllllllllll");
         //todo implement it with polymorphism
         if (pageString != null && !pageString.equals("")) {
             //changing page index

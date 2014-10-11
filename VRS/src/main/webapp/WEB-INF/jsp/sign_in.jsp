@@ -30,7 +30,7 @@
     <div class="container">
 
       <form class="form-signin" role="form" action="controller" method="post">
-        <input type="hidden" name="command" value="signInCommand"/>
+        <input type="hidden" name="command" value="signIn"/>
         <h2 class="form-signin-heading">Sign in, please.</h2>
         <input name="email" type="email" class="form-control" placeholder="Email address" required="" autofocus="">
         <input name="password" type="password" class="form-control" placeholder="Password" required="">

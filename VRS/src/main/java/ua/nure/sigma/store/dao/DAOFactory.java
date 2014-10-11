@@ -48,6 +48,7 @@ public abstract class DAOFactory {
     public abstract RoleDAO getRoleDAO();
     public abstract FilmCategoryDAO getFilmCategoryDAO();
     public abstract SexDAO getSexDAO();
+
     public static void commitAndClose(Connection connection) {
 //        LOG.trace("Commit and close operation starts.");
         if (connection != null) {
