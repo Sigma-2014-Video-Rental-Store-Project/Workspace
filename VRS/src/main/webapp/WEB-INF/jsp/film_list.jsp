@@ -13,15 +13,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="signin page for Rental Store">
-    <meta name="author" content="Vlad Samotskiy">
+    <meta name="description" content="Film list page.">
+    <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
     <title>Films</title>
 </head>
 <body>
 <f:view>
     <div id="header">
-        <jsp:include page="../jspf/header.jspf"></jsp:include>
+        <jsp:include page="../jspf/header.jspf"/>
     </div>
     <div id="category">
         <c:forEach items="${categories.model}" var="current">
@@ -30,7 +30,6 @@
                     <c:out value="${current.name}"/>
                 </a>
             </div>
-            </br>
         </c:forEach>
     </div>
     <div id="content-body">
@@ -66,7 +65,7 @@
         </div>
     </div>
     <div id="footer">
-        <jsp:include page="../jspf/footer.jspf"></jsp:include>
+        <jsp:include page="../jspf/footer.jspf"/>
     </div>
 </f:view>
 </body>
