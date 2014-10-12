@@ -21,7 +21,7 @@
 <body>
 <f:view>
     <div id="header">
-        <jsp:include page="../jspf/header.jspf"/>
+        <%@ include file="/WEB-INF/jspf/header.jspf" %>
     </div>
     <div id="category">
         <ul class="nav nav-sidebar">

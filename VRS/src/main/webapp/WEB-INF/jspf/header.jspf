@@ -6,12 +6,10 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav" style="font-size:16px">
-                <li class="active"><a href="#films">Fims</a></li>
+                <li class="active"><a href="#films">Films</a></li>
                 <li><a href="#customers">Customers</a></li>
                 <li><a href="#cart">Cart</a></li>
-                <c:if test="${true == true}"> <!-- ${admin.getId == 0} -->
-                    <li><a href="#mngusr">Manage users</a></li>
-                </c:if>
+                <c:if test="${user.roleId eq 1}"><li><a href="#mngusr">Manage users</a></li></c:if>
             </ul>
             <a style="float:right;height:50px;padding:15px 15px;font-size:14px" href="#logout">logout</a>
             <a class="navbar-brand" style="float:right;height:50px;padding:15px 15px;font-size:14px">admin@mail.com</a>

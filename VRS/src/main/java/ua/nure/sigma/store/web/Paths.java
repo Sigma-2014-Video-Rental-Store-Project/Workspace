@@ -25,7 +25,5 @@ public final class Paths {
 
     // Paths of the server command keys:
     public static final String COMMAND_SIGN_IN = "controller?command=signIn";
-    public static final String COMMAND_ADMIN_VIEW = "controller?command=adminView";
-    public static final String COMMAND_ROOT_VIEW = "controller?command=rootView";
     public static final String COMMAND_FULL_FILM_LIST = "controller?command=fullFilmList";
 }
