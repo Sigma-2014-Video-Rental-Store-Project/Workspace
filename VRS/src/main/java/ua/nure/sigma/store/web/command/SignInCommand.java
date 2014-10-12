@@ -52,6 +52,8 @@ public class SignInCommand extends Command {
         String email = request.getParameter(EMAIL_PARAMETER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
 
+        LOG.debug("Sign in command started.");
+
         // Error handler.
         String forward = Paths.COMMAND_SIGN_IN;
 
