@@ -72,10 +72,6 @@ public final class Controller extends HttpServlet {
     private String preProcess(HttpServletRequest request,
                               HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        boolean b = true;
-        if (b) {
-            return null;
-        }
         if (session.getAttribute(USER_ATTRIBUTE_NAME) != null) {
             return null;
         }
