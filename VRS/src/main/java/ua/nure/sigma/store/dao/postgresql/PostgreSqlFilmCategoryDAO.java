@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by nikolaienko on 07.10.14.
  */
-public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO{
+public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
 
     private static final String SQL_SELECT_FROM_ADMINS_BY_EMAIL =
             "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
@@ -26,7 +26,6 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO{
     private static final String SQL_UPDATE_FILM =
             "UPDATE FILMS SET TITLE = ?, YEAR =?, DESCRIPTION =?, COVER =?, AMOUNT =?, GENERAL_PRICE =?, RENT_PRICE =?, BONUS_FOR_RENT =? WHERE FILM_ID = ?";
     private static final String SQL_DELETE_FILM = "DELETE FROM FILMS WHERE FILM_ID = ?";
-
 
 
     @Override
@@ -41,8 +40,8 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO{
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID);
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
-            while(rs.next()) {
-               films.add(filmDAO.findFilmByID(connection,rs.getInt("FILM_ID")));
+            while (rs.next()) {
+                films.add(filmDAO.findFilmByID(connection, rs.getInt("FILM_ID")));
             }
         } catch (Exception e) {
             DAOFactory.rollback(connection);
