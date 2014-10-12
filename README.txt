@@ -15,7 +15,7 @@ UNIX:
 Файл появится в директории target.
 
 Для тестирования список админов:пароль
-superadmin@vrs.com : admin
-admin1@vrs.com : admin
-admin2@vrs.com : admin
+superadmin@vrs.com : superadmin
+admin1@vrs.com : admin1
+admin2@vrs.com : admin2
 
