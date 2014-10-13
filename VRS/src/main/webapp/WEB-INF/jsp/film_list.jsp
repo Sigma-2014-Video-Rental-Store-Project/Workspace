@@ -61,6 +61,17 @@
                     <button id="search-button"class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input type="radio" name="options" id="option1" checked> Option 1 (preselected)
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="options" id="option2"> Option 2
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="options" id="option3"> Option 3
+                </label>
+            </div>
         </div>
 
         <div id="films">
@@ -99,4 +110,7 @@
     </div>
 </f:view>
 </body>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/film_list.js"></script>
 </html>
