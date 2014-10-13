@@ -21,6 +21,10 @@
         <div id="header">
             <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
+        <div id="content-body">
+            <button type="button" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-danger">Remove</button>
+        </div>
         <div id="footer">
             <jsp:include page="../jspf/footer.jspf"/>
         </div>
