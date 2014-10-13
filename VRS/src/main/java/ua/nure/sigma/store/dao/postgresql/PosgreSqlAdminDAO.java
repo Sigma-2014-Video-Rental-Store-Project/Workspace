@@ -35,9 +35,9 @@ public class PosgreSqlAdminDAO implements AdminDAO{
     private Admin extractAdmin(ResultSet rs) throws SQLException {
         Admin admin = new Admin();
         admin.setId(rs.getInt("ADMIN_ID"));
-        admin.setEmail(rs.getString("ADMIN"));
-        admin.setPassword(rs.getInt("password"));
-        admin.setRoleId(rs.getInt("role_id"));
+        admin.setEmail(rs.getString("ADMIN_EMAIL"));
+        admin.setPassword(rs.getInt("PASSWORD_HASH"));
+        admin.setRoleId(rs.getInt("ROLE_ID"));
         return admin;
     }
 
@@ -58,7 +58,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
                 admin = extractAdmin(rs);
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
+//            DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by login.", e);
         } finally {
             DAOFactory.close(pstmnt);
@@ -84,7 +84,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
                 admin = extractAdmin(rs);
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
+//            DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by id.", e);
         } finally {
             DAOFactory.close(pstmnt);
@@ -109,7 +109,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
                 admin.add(extractAdmin(rs));
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
+//            DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by login.", e);
         } finally {
             DAOFactory.close(stmnt);

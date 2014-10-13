@@ -50,7 +50,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
                 admin.add(extractFilm(rs));
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
+//            DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by login.", e);
         } finally {
             DAOFactory.close(stmnt);

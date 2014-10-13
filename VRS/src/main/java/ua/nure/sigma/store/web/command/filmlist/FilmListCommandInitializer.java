@@ -8,11 +8,11 @@ public final class FilmListCommandInitializer {
     private static FilmListCommand command = new FilmListCommand();
 
     static {
-        command.addCommandListener(new FilmListPageCommand());
         command.addCommandListener(new FilmListCategoryCommand());
+        command.addCommandListener(new FilmListPageCommand());
     }
 
-    public static FilmListCommand getCommand(){
+    public static FilmListCommand getCommand() {
         return command;
     }
 
