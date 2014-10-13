@@ -1,5 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="signin page for Rental Store">
@@ -39,14 +40,15 @@
           <input name="remember-me" type="checkbox" value="remember-me">Remember me
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<c:if test="${not empty param.errorCode}">
+			<span class="error"><font face="verdana" size="5" color="red">Wrong login or password</font><span>
+		</c:if>
       </form>
-
-    </div>
+	</div>
     <!-- /container -->
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./Signin Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
-  
 
 </body>
 </html>
