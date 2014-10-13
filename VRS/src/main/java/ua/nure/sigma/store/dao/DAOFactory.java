@@ -53,7 +53,7 @@ public abstract class DAOFactory {
 //        LOG.trace("Commit and close operation starts.");
         if (connection != null) {
             try {
-                connection.commit();
+//                connection.commit();
 //                LOG.trace("Commit finished.");
                 connection.close();
 //                LOG.trace("Connection closing finished.");

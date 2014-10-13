@@ -33,7 +33,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
                 id = rs.getInt("CATEGORY_ID");
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
+//            DAOFactory.rollback(connection);
 //            LOG.error("Can not find Category id by name.", e);
         } finally {
             DAOFactory.close(pstmnt);
@@ -75,7 +75,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
                 categoryList.add(extractCategory(rs));
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
+//            DAOFactory.rollback(connection);
 //            LOG.error("Can not find all Categories.", e);
         } finally {
             DAOFactory.close(stmnt);
@@ -101,7 +101,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
                 category = extractCategory(rs);
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
+//            DAOFactory.rollback(connection);
 //            LOG.error("Can not find Category by id.", e);
         } finally {
             DAOFactory.close(pstmnt);

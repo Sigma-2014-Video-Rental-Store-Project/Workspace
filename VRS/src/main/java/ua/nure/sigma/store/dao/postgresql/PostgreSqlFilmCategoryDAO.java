@@ -44,10 +44,11 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO{
             while(rs.next()) {
                films.add(filmDAO.findFilmByID(connection,rs.getInt("FILM_ID")));
             }
-        } catch (Exception e) {
-            DAOFactory.rollback(connection);
+        } catch (Exception e) {           
 //            LOG.error("Can not obtain User by id.", e);
         } finally {
+	        DAOFactory.close(pstmnt);
+            DAOFactory.close(rs);
             DAOFactory.commitAndClose(connection);
         }
         return films;

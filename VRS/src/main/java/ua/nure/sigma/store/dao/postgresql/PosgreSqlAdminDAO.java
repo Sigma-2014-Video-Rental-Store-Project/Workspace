@@ -37,7 +37,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         admin.setId(rs.getInt("ADMIN_ID"));
         admin.setEmail(rs.getString("ADMIN_EMAIL"));
         admin.setPassword(rs.getInt("PASSWORD_HASH"));
-        admin.setRoleId(rs.getInt("role_id"));
+        admin.setRoleId(rs.getInt("ROLE_ID"));
         return admin;
     }
 
