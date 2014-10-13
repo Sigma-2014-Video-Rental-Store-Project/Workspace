@@ -1,8 +1,10 @@
 package ua.nure.sigma.store.web;
 
-import ua.nure.sigma.store.web.command.filmlist.FilmListCommand;
+
+import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
+import ua.nure.sigma.store.web.command.editfilm.EditFilmCommandInitializer;
 import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
 
 /**
@@ -11,9 +13,7 @@ import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
  * objects and {@code String} keys connected with each of them.
  *
  * @author Denys Shevchenko
- *
  * @version 1.0
- *
  * @see CommandKeeper
  */
 public final class CommandKeeperInitializer {
@@ -45,14 +45,14 @@ public final class CommandKeeperInitializer {
      * Fills {@code CommandKeeper} with a list of the specified {@code Command}
      * objects and {@code String} keys connected with each of them.
      *
-     * @param commandKeeper
-     *            that will be filled with key-command pairs.
+     * @param commandKeeper that will be filled with key-command pairs.
      */
     private static void fillWithCommands(CommandKeeper commandKeeper) {
         commandKeeper.add("wrong", new WrongCommand());
         commandKeeper.add("signIn", new SignInCommand());
         commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
-		commandKeeper.add("logout", new LogOutCommand());
+        commandKeeper.add("editFilm", EditFilmCommandInitializer.getCommand());
+        commandKeeper.add("logout", new LogOutCommand());
     }
 
 }

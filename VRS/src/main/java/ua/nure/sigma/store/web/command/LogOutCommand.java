@@ -1,6 +1,6 @@
 package ua.nure.sigma.store.web.command;
 
-import org.apache.log4j.Logger;
+import org.apache.log4j.*;
 import ua.nure.sigma.store.web.Controller;
 import ua.nure.sigma.store.web.Paths;
 
