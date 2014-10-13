@@ -26,13 +26,13 @@
     <div id="category">
         <ul class="nav nav-sidebar">
             <li>
-                <a href="controller?command=fullFilmList&categories=0">
+                <a href="controller?command=fullFilmList&categories=0&pageIndex=1">
                     <c:out value="all categories"/>
                 </a>
             </li>
             <c:forEach items="${categories.model}" var="current">
                 <li>
-                    <a href="controller?command=fullFilmList&categories=${current.id}">
+                    <a href="controller?command=fullFilmList&categories=${current.id}&pageIndex=1">
                         <c:out value="${current.name}"/>
                     </a>
                 </li>
