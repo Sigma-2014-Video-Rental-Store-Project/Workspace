@@ -21,13 +21,9 @@ body {
      width: 100%;
      clear: both;
  }
-#films{
-    height: 450px;
-}
 #pages{
     width:100%;
     bottom:0;
-    ali:center;
     /*position:absolute;*/
     margin-top: 20px;
 }
@@ -45,4 +41,22 @@ body {
 }
 .edit-column{
     width: 15%;
+}
+#search-buttons{
+}
+#search-button{
+    float: right;
+    width: 10%;
+}
+#key-search{
+    float: left;
+    width: 88%;
+}
+#add-new-film-button{
+    display: block;
+    float: right;
+}
+#filter-buttons{
+    display: inline;
+    float: left;
 }
