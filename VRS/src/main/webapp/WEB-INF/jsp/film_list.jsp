@@ -40,6 +40,29 @@
         </ul>
     </div>
     <div id="content-body">
+        <div id="buttons">
+            <div id="filter-buttons">
+                <form class="search form-inline" role="form" action="controller" method="post">
+                    <%--<input type="hidden" name="command" value="TODO fullFilmList"/>--%>
+                    <button class="btn btn-primary" type="submit">All</button>
+                    <button class="btn btn-default" type="submit">Available</button>
+                </form>
+            </div>
+            <div id="add-new-film-button">
+                <form class="add-new-film" role="form" action="controller" method="post">
+                    <%--<input type="hidden" name="command" value="TODO"/>--%>
+                    <button class="btn btn-success" type="submit">Add new film</button>
+                </form>
+            </div>
+            <div id="search-buttons">
+                <form class="search" role="form" action="controller" method="post">
+                    <input type="hidden" name="command" value="fullFilmList"/>
+                    <input id="key-search" name="key" type="text" class="form-control" placeholder="Keywords" required="" autofocus="">
+                    <button id="search-button"class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
         <div id="films">
             <table class="table table-striped">
                 <thead>
