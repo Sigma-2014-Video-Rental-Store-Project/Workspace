@@ -40,7 +40,7 @@
                 <thead>
                 <tr>
                     <th class="name-column" scope="col">Name</th>
-                    <th class="copies-column" scope="col">Copies left</th>
+                    <th class="copies-column" scope="col">Amount</th>
                     <th class="price-column" scope="col">Price per day</th>
                     <th class="add-column" scope="col">Add to cart</th>
                     <th class="edit-column" scope="col">Edit</th>
