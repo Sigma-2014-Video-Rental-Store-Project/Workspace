@@ -93,14 +93,8 @@ public class SignInCommand extends Command {
     public static String setUpAuthorization(HttpSession session, Admin admin,
                                             HttpServletResponse response, boolean rememberMe) {
         LOG.debug("Authorization set up process started.");
-        String forward = null;
-        if (admin.getRoleId() == 1) {
-            forward = Paths.COMMAND_ADMIN_VIEW;
-        }
-        if (admin.getRoleId() == 2) {
-           //forward = Paths.COMMAND_ROOT_VIEW; todo need to delete it???
-            forward = Paths.COMMAND_FULL_FILM_LIST;
-        }
+        String forward = Paths.COMMAND_FULL_FILM_LIST;
+
         session.setAttribute(Controller.USER_ATTRIBUTE_NAME, admin);
         if (rememberMe) {
 

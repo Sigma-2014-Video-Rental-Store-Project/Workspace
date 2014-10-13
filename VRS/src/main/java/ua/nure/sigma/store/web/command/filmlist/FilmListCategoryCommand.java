@@ -22,25 +22,26 @@ public class FilmListCategoryCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String categoriesString = (String) request.getParameter(FilmListCommand.CATEGORIES_PARAM_NAME);
-        if (categoriesString != null && !categoriesString.equals("")) {
+        int categoriesId = 0;
+        if (categoriesString != null) {
+            categoriesId = Integer.parseInt(categoriesString);
+        }
+        List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
+        if (categoriesId > 0 && categoriesId <= categories.size()) {
             List<Film> films =
-                    DAOFactory.getInstance().getFilmCategoryDAO().findFilmsByCategoryID(Integer.parseInt(categoriesString));
+                    DAOFactory.getInstance().getFilmCategoryDAO().findFilmsByCategoryID(categoriesId);
+            if (films.size() == 0) {
+                films = DAOFactory.getInstance().getFilmDAO().findAllFilms();
+            }
             Films paramFilms = new Films(films);
             request.getSession().setAttribute(FilmListCommand.FILMS_PARAM_NAME, paramFilms);
         } else {
-            List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
-            if (categories.size() == 0) {
-                //todo Delete it when db is filled
-                for (int i = 0; i < 10; i++) {
-                    Category cat = new Category();
-                    cat.setName(String.valueOf(i));
-                    cat.setId(i);
-                    categories.add(cat);
-                }
-            }
-            Categories paramCategories = new Categories(categories);
-            request.getSession().setAttribute(FilmListCommand.CATEGORIES_PARAM_NAME, paramCategories);
+            List<Film> films = DAOFactory.getInstance().getFilmDAO().findAllFilms();
+            Films paramFilms = new Films(films);
+            request.getSession().setAttribute(FilmListCommand.FILMS_PARAM_NAME, paramFilms);
         }
+        Categories paramCategories = new Categories(categories);
+        request.getSession().setAttribute(FilmListCommand.CATEGORIES_PARAM_NAME, paramCategories);
         return null;
     }
 
