@@ -1,6 +1,6 @@
 package ua.nure.sigma.store.web;
 
-import ua.nure.sigma.store.web.command.filmlist.FilmListCommand;
+import ua.nure.sigma.store.web.command.*;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
 import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
@@ -52,7 +52,7 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("wrong", new WrongCommand());
         commandKeeper.add("signIn", new SignInCommand());
         commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
-		commandKeeper.add("logout", new LogOutCommand());
+        commandKeeper.add("logout", new LogOutCommand());
     }
 
 }
