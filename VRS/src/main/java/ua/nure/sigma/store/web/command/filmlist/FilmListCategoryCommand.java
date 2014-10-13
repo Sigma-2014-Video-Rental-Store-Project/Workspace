@@ -30,9 +30,6 @@ public class FilmListCategoryCommand extends Command {
         if (categoriesId > 0 && categoriesId <= categories.size()) {
             List<Film> films =
                     DAOFactory.getInstance().getFilmCategoryDAO().findFilmsByCategoryID(categoriesId);
-            if (films.size() == 0) {
-                films = DAOFactory.getInstance().getFilmDAO().findAllFilms();
-            }
             Films paramFilms = new Films(films);
             request.getSession().setAttribute(FilmListCommand.FILMS_PARAM_NAME, paramFilms);
         } else {

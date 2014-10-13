@@ -26,13 +26,13 @@
     <div id="category">
         <ul class="nav nav-sidebar">
             <li>
-                <a href="controller?command=fullFilmList&categories=0">
+                <a href="controller?command=fullFilmList&categories=0&pageIndex=1">
                     <c:out value="all categories"/>
                 </a>
             </li>
             <c:forEach items="${categories.model}" var="current">
                 <li>
-                    <a href="controller?command=fullFilmList&categories=${current.id}">
+                    <a href="controller?command=fullFilmList&categories=${current.id}&pageIndex=1">
                         <c:out value="${current.name}"/>
                     </a>
                 </li>
@@ -45,7 +45,7 @@
                 <thead>
                 <tr>
                     <th class="name-column" scope="col">Name</th>
-                    <th class="copies-column" scope="col">Copies left</th>
+                    <th class="copies-column" scope="col">Amount</th>
                     <th class="price-column" scope="col">Price per day</th>
                     <th class="add-column" scope="col">Add to cart</th>
                     <th class="edit-column" scope="col">Edit</th>
