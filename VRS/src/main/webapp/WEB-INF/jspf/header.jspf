@@ -11,8 +11,12 @@
                 <li><a href="#cart">Cart</a></li>
                 <c:if test="${user.roleId eq 1}"><li><a href="#mngusr">Manage users</a></li></c:if>
             </ul>
-            <a style="float:right;height:50px;padding:15px 15px;font-size:14px" href="#logout">logout</a>
-            <a class="navbar-brand" style="float:right;height:50px;padding:15px 15px;font-size:14px">admin@mail.com</a>
+            <form id="logout" action="controller" method="post" name = "logoutform">
+			<input type="hidden" name="command" value="logout">
+			</form>
+			<a href="#" style="float:right;height:30px;padding:0px 15px;font-size:14px"
+			onclick="document.forms['logoutform'].submit();">Logout</a>
+            <a class="navbar-brand" style="float:right;height:30px;padding:0px 15px;font-size:14px">admin@mail.com</a>
         </div>
         <!--/.nav-collapse -->
     </div>

@@ -52,6 +52,7 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("wrong", new WrongCommand());
         commandKeeper.add("signIn", new SignInCommand());
         commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
+		commandKeeper.add("logout", new LogOutCommand());
     }
 
 }
