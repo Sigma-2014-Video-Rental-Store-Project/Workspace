@@ -26,13 +26,13 @@
     <div id="category">
         <ul class="nav nav-sidebar">
             <li>
-                <a href="controller?command=fullFilmList&categories=0&pageIndex=1">
+                <a href="#" onclick="setSeveralAttr(['categories', 'pageIndex'], ['0', '1'])">
                     <c:out value="all categories"/>
                 </a>
             </li>
             <c:forEach items="${categories.model}" var="current">
                 <li>
-                    <a href="controller?command=fullFilmList&categories=${current.id}&pageIndex=1">
+                    <a href="#" onclick="setSeveralAttr(['categories', 'pageIndex'], ['${current.id}', '1'])">
                         <c:out value="${current.name}"/>
                     </a>
                 </li>
@@ -41,12 +41,13 @@
     </div>
     <div id="content-body">
         <div id="buttons">
-            <div id="filter-buttons">
-                <form class="search form-inline" role="form" action="controller" method="post">
-                    <%--<input type="hidden" name="command" value="TODO fullFilmList"/>--%>
-                    <button class="btn btn-primary" type="submit">All</button>
-                    <button class="btn btn-default" type="submit">Available</button>
-                </form>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active" id="all-filter-label">
+                    <input type="radio" id="all-filter" checked> All
+                </label>
+                <label class="btn btn-primary" id="available-filter-label">
+                    <input type="radio" id="available-filter"> Available
+                </label>
             </div>
             <div id="add-new-film-button">
                 <form class="add-new-film" role="form" action="controller" method="post">
@@ -57,20 +58,10 @@
             <div id="search-buttons">
                 <form class="search" role="form" action="controller" method="post">
                     <input type="hidden" name="command" value="fullFilmList"/>
-                    <input id="key-search" name="key" type="text" class="form-control" placeholder="Keywords" required="" autofocus="">
-                    <button id="search-button"class="btn btn-primary" type="submit">Search</button>
+                    <input id="key-search" name="key" type="text" class="form-control" placeholder="Keywords"
+                           required="" autofocus="">
+                    <button id="search-button" class="btn btn-primary" type="submit">Search</button>
                 </form>
-            </div>
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                    <input type="radio" name="options" id="option1" checked> Option 1 (preselected)
-                </label>
-                <label class="btn btn-primary">
-                    <input type="radio" name="options" id="option2"> Option 2
-                </label>
-                <label class="btn btn-primary">
-                    <input type="radio" name="options" id="option3"> Option 3
-                </label>
             </div>
         </div>
 
@@ -113,4 +104,5 @@
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/film_list.js"></script>
+<script type="text/javascript" src="js/attribute_funcs.js"></script>
 </html>

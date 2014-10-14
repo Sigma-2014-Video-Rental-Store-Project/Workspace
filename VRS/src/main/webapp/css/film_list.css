@@ -21,6 +21,10 @@ body {
      width: 100%;
      clear: both;
  }
+#films{
+    height: 425px;
+    clear: both;
+}
 #pages{
     width:100%;
     bottom:0;
