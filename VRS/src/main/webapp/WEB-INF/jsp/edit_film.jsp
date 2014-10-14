@@ -23,11 +23,12 @@
         </div>
         <div id="content-body">
             <button type="button" class="btn btn-success">Save</button>
-            <button type="button" class="btn btn-danger">Remove</button>
+            <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],['22', 'true'])">Remove</button>
         </div>
         <div id="footer">
             <jsp:include page="../jspf/footer.jspf"/>
         </div>
     </f:view>
 </body>
+<script type="text/javascript" src="js/attribute_funcs.js"></script>
 </html>
