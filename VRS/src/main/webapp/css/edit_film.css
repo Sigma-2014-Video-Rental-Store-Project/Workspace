@@ -1,0 +1,22 @@
+.cover {
+    margin: 20px;
+}
+
+.figure {
+	float: left;
+	width: 200px;
+	margin: 0 10px 10px 10px;
+}
+
+.photo {
+		background: url(../img/drop_shadow.gif) no-repeat right bottom;
+}
+
+.photo img {
+	border: 1px solid #666;
+	background-color: #FFF;
+	padding: 4px;
+	position: relative;
+	top: -5px;
+	left:-5px;
+}

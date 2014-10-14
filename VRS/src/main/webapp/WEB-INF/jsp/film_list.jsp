@@ -83,7 +83,7 @@
                         <td><c:out value="${current.amount}"/></td>
                         <td><c:out value="${current.rentPrice}"/></td>
                         <td><a href="">add</a>&nbsp;</td>
-                        <td><a href="">edit</a>&nbsp;</td>
+                        <td><a href="controller?command=editFilm&filmId=${current.filmId}">edit</a>&nbsp;</td>
                     </tr>
                 </c:forEach>
                 </tbody>
