@@ -26,39 +26,40 @@
         <div id="header">
             <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
-        
-		<div id="content-body">
-			<div id=leftside>
-				<p id="text">Film name:</p>
-				<input type="text" class="form-control" style="margin-bottom:2%;">
-				<div id="bordered" style="margin-bottom:2%;">
-					<img data-src="holder.js/140x140" class="center" src="http://cs540107.vk.me/c7005/v7005726/2c818/I-bf-lL08Vg.jpg" >
-				</div>
-				<input type="file" id="exampleInputFile">
-			</div>
-			<div id=rightside>
-				<div>
-					<div id="genre" style="margin-bottom:1.5%;">
-						<p id="text">Genre:</p>
-						<select class="form-control">
-							<option>Comedy</option>
-						</select>
-					</div>
-					<div style="float:right;width:20%;">
-						<button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],['22', 'true'])">Remove film</button>
-					</div>	
-				</div>
-				<div>
-					<textarea class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;"></textarea>
-				</div>
-				<div>
-					<div style="float:left; width:50%;">
-						<div style="float:left;">
-							<p id="text">Copies: </p>
-						</div>
-						<div style="float:right; width:30%">
-								<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
-						</div>
+        <form action="controller" method="post">
+            <input type="hidden" name="command" value="editFilm" />
+		    <div id="content-body">
+			    <div id=leftside>
+				    <p id="text">Film name:</p>
+				    <input type="text" name="filmName" class="form-control" style="margin-bottom:2%;">
+				    <div id="bordered" style="margin-bottom:2%;">
+					    <img data-src="holder.js/140x140" class="center" src="http://cs540107.vk.me/c7005/v7005726/2c818/I-bf-lL08Vg.jpg" >
+				    </div>
+				    <input type="file" id="exampleInputFile">
+			    </div>
+			    <div id=rightside>
+				    <div>
+					    <div id="genre" style="margin-bottom:1.5%;">
+						    <p id="text">Genre:</p>
+						    <select name="categoryName" class="form-control">
+							    <option>Comedy</option>
+						    </select>
+					    </div>
+					    <div style="float:right;width:20%;">
+						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],['22', 'true'])">Remove film</button>
+					    </div>
+				    </div>
+				    <div>
+					    <textarea class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;"></textarea>
+				    </div>
+				    <div>
+					    <div style="float:left; width:50%;">
+						    <div style="float:left;">
+							    <p id="text">Copies: </p>
+						    </div>
+						    <div style="float:right; width:30%">
+							    <input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+						    </div>
 					</div>
 					<div style="float:right; width:50%; max-width:50%;">
 						<div style="float:right;">
@@ -102,12 +103,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		
-        <div id="footer">
-            <jsp:include page="../jspf/footer.jspf"/>
-        </div>
+            <div id="footer">
+                <jsp:include page="../jspf/footer.jspf"/>
+            </div>
+        </form>
     </f:view>
-	
 </body>
 </html>

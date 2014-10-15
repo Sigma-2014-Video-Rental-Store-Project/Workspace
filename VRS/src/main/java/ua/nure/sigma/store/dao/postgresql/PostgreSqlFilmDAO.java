@@ -1,4 +1,5 @@
 package ua.nure.sigma.store.dao.postgresql;
+
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.FilmDAO;
 import ua.nure.sigma.store.entity.Film;
@@ -67,7 +68,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         Connection connection = null;
         try {
             connection = DAOFactory.getConnection();
-            film = findFilmByID(connection,id);
+            film = findFilmByID(connection, id);
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by id.", e);
@@ -88,9 +89,9 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             if (rs.next()) {
                 film = extractFilm(rs);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
-        }finally {
+        } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
         }
@@ -116,7 +117,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             connection = DAOFactory.getConnection();
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_FILMS);
             int position = 1;
-            setupPrepareStatement(pstmnt,film,position);
+            setupPrepareStatement(pstmnt, film, position);
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
@@ -135,7 +136,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             connection = DAOFactory.getConnection();
             pstmnt = connection.prepareStatement(SQL_UPDATE_FILM);
             int position = 1;
-            setupPrepareStatement(pstmnt,film,position);
+            setupPrepareStatement(pstmnt, film, position);
             pstmnt.setInt(position++, film.getFilmId());
             pstmnt.executeUpdate();
         } catch (Exception e) {
