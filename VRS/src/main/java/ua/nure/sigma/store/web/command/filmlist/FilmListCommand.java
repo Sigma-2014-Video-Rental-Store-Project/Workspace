@@ -25,6 +25,8 @@ public class FilmListCommand extends Command implements IComplexCommand {
     static final String FILMS_PARAM_NAME = "films";
     static final String CATEGORIES_PARAM_NAME = "categories";
     static final String PAGE_PARAM_NAME = "pageIndex";
+    static final String SORT_PARAM_NAME = "sorting";
+    static final String DIRECT_PARAM_NAME = "direct";
 
     List<Command> commandsListeners;
 
