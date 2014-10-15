@@ -32,13 +32,13 @@ body {
     margin-top: 20px;
 }
 .name-column{
-    width: 40%;
+    width: 30%;
 }
 .copies-column{
-    width: 15%;
+    width: 20%;
 }
 .price-column{
-    width: 15%;
+    width: 20%;
 }
 .add-column{
     width: 15%;
@@ -63,4 +63,8 @@ body {
 #filter-buttons{
     display: inline;
     float: left;
+}
+.sort-icon{
+    /*float: right;*/
+    padding-left: 4px;
 }
