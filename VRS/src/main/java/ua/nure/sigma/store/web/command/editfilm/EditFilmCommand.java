@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class EditFilmCommand extends Command implements IComplexCommand {
 
-    static final String FILMID_PARAM_NAME = "filmID";
+    static final String FILMID_PARAM_NAME = "filmId";
     static final String REMOVE_PARAM_NAME = "remove";
     static final String FILM_TITLE_PARAM_NAME = "filmName";
     static final String FILM_CATEGORIES_PARAM_NAME = "categoryName";

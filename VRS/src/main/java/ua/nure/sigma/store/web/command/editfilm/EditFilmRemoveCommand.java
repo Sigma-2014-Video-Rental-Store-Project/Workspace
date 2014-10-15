@@ -22,6 +22,7 @@ public class EditFilmRemoveCommand extends Command {
         if (filmIDString != null) {
             filmId = Integer.parseInt(filmIDString);
         }
+
         if (Boolean.valueOf(remove)) {
             Film removeFilm = DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId);
             DAOFactory.getInstance().getFilmDAO().deleteFilm(removeFilm);

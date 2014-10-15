@@ -46,7 +46,7 @@
 						    </select>
 					    </div>
 					    <div style="float:right;width:20%;">
-						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],['22', 'true'])">Remove film</button>
+						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],['21', 'true'])">Remove film</button>
 					    </div>
 				    </div>
 				    <div>
@@ -106,7 +106,9 @@
             <div id="footer">
                 <jsp:include page="../jspf/footer.jspf"/>
             </div>
-        </form>
+            </div>
+       </form>
     </f:view>
 </body>
+<script type="text/javascript" src="js/attribute_funcs.js"></script>
 </html>
