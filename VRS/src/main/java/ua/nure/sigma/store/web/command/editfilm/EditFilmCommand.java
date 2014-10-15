@@ -15,6 +15,10 @@ import java.util.List;
  * Created by Maksin Sinkevich on 13.10.2014.
  */
 public class EditFilmCommand extends Command implements IComplexCommand {
+
+    static final String FILMID_PARAM_NAME = "filmID";
+    static final String REMOVE_PARAM_NAME = "remove";
+
     List<Command> commandsListeners;
 
     EditFilmCommand() {
