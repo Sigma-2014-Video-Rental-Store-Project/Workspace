@@ -11,13 +11,19 @@ import java.util.List;
  */
 public class Films {
     private Pager pager;
+    private List<Film> originModel;
 
     public Films(List<Film> films) {
         pager = new Pager(films);
+        originModel = films;
     }
 
     public List<Film> getModel(){
         return (List<Film>) pager.getModel();
+    }
+
+    public List<Film> getAllFilms(){
+        return originModel;
     }
 
     public Pager getPager(){

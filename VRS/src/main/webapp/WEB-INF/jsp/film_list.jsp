@@ -3,9 +3,9 @@
                     contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"/>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
-<link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/film_list.css" rel="stylesheet">
+<link rel="stylesheet" href="css/font-awesome.min.css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
@@ -69,9 +69,22 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th class="name-column" scope="col">Name</th>
-                    <th class="copies-column" scope="col">Amount</th>
-                    <th class="price-column" scope="col">Price per day</th>
+                    <th class="name-column" scope="col">Name
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['name','up'])"><u><i
+                                class="fa fa-arrow-up"></i></u></a>
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['name','down'])"><u><i
+                                class="fa fa-arrow-down"></i></u></a></th>
+                    <th class="copies-column" scope="col">Amount
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['copies','up'])"><u><i
+                                class="fa fa-arrow-up"></i></u></a>
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['copies','down'])"><u><i
+                                class="fa fa-arrow-down"></i></u></a>
+                    </th>
+                    <th class="price-column" scope="col">Price per day
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['price','up'])"><u><i
+                                class="fa fa-arrow-up"></i></u></a>
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['price','down'])"><u><i
+                                class="fa fa-arrow-down"></i></u></a></th>
                     <th class="add-column" scope="col">Add to cart</th>
                     <th class="edit-column" scope="col">Edit</th>
                 </tr>

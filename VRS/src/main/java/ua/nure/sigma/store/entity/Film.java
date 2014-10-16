@@ -13,6 +13,7 @@ public class Film {
     private long generalPrice;
     private long rentPrice;
     private long bonusForRent;
+    private int copiesLeft;
 
     public void setFilmId(int filmId) {
         this.filmId = filmId;
@@ -84,5 +85,13 @@ public class Film {
 
     public long getBonusForRent() {
         return bonusForRent;
+    }
+
+    public void setCopiesLeft(int copiesLeft) {
+        this.copiesLeft = copiesLeft;
+    }
+
+    public int getCopiesLeft() {
+        return copiesLeft;
     }
 }

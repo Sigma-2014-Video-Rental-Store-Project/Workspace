@@ -16,8 +16,16 @@ import java.util.List;
  */
 public class EditFilmCommand extends Command implements IComplexCommand {
 
-    static final String FILMID_PARAM_NAME = "filmID";
+    static final String FILMID_PARAM_NAME = "filmId";
     static final String REMOVE_PARAM_NAME = "remove";
+    static final String FILM_TITLE_PARAM_NAME = "filmTitle";
+    static final String FILM_CATEGORIES_PARAM_NAME = "categoryName";
+    static final String FILM_AMOUNT_PARAM_NAME = "amount";
+    static final String FILM_DESCRIPTION_PARAM_NAME = "description";
+    static final String FILM_GENERAL_PRICE_PARAM_NAME = "generalPrice";
+    static final String FILM_RENT_PRICE_PARAM_NAME = "rentPrice";
+    static final String FILM_BONUS_PARAM_NAME = "bonus";
+    static final String FILM_YEAR_PARAM_NAME = "year";
 
     List<Command> commandsListeners;
 
