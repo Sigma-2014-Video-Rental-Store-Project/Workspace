@@ -10,11 +10,15 @@ import java.util.Map;
 public class FilmComparatorFactory {
 
     public static final String FILM_NAME_COMPARATOR = "name";
+    public static final String FILM_PRICE_COMPARATOR = "price";
+    public static final String FILM_COPIES_LEFT_COMPARATOR = "copiesLeft";
 
     private static Map<String, Comparator> comparators;
     static {
         comparators = new HashMap<String, Comparator>();
         comparators.put(FILM_NAME_COMPARATOR, new FilmNameComparator());
+        comparators.put(FILM_PRICE_COMPARATOR, new FilmPriceComparator());
+        comparators.put(FILM_COPIES_LEFT_COMPARATOR, new FilmCopiesLeftComparator());
     }
 
     /***

@@ -10,6 +10,7 @@ public final class FilmListCommandInitializer {
     static {
         command.addCommandListener(new FilmListCategoryCommand());
         command.addCommandListener(new FilmListPageCommand());
+        command.addCommandListener(new FilmListSortCommand());
     }
 
     public static FilmListCommand getCommand() {

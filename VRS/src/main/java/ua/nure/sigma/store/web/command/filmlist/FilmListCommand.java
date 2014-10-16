@@ -1,12 +1,10 @@
 package ua.nure.sigma.store.web.command.filmlist;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
-import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
-import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
-import ua.nure.sigma.store.web.list.Categories;
 import ua.nure.sigma.store.web.list.Films;
 
 import javax.servlet.ServletException;
@@ -28,6 +26,8 @@ public class FilmListCommand extends Command implements IComplexCommand {
     static final String SORT_PARAM_NAME = "sorting";
     static final String DIRECT_PARAM_NAME = "direct";
 
+    private static final Logger LOG = org.apache.log4j.Logger.getLogger(FilmListCommand.class);
+
     List<Command> commandsListeners;
 
     FilmListCommand() {
@@ -36,24 +36,18 @@ public class FilmListCommand extends Command implements IComplexCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        LOG.debug("Film list command started.");
         checkAndCreateFilmList(request, response);
         notifyAllCommands(request, response);
+        LOG.debug("Film list command finished.");
         return Paths.PAGE_FILM_LIST;
     }
 
     private void checkAndCreateFilmList(HttpServletRequest request, HttpServletResponse response) {
         if (request.getSession().getAttribute(FILMS_PARAM_NAME) == null) {
+            LOG.debug("Creating list of films");
             DAOFactory df = DAOFactory.getInstance();
             List<Film> films = df.getFilmDAO().findAllFilms();
-            if (films.size() >= 0) {
-                //todo Delete it when db is filled
-                for (int i = 0; i < 95; i++) {
-                    Film film = new Film();
-                    film.setTitle(String.valueOf(i));
-                    film.setAmount(i);
-                    films.add(film);
-                }
-            }
             Films paramFilms = new Films(films);
             request.getSession().setAttribute(FILMS_PARAM_NAME, paramFilms);
         }

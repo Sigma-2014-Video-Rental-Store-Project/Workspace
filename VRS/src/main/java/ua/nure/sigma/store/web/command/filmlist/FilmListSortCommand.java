@@ -1,8 +1,10 @@
 package ua.nure.sigma.store.web.command.filmlist;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.comparators.FilmComparatorFactory;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.command.Command;
+import ua.nure.sigma.store.web.list.Films;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +21,12 @@ public class FilmListSortCommand extends Command {
 
     private static final String UP_DIR = "up";
     private static final String DOWN_DIR = "down";
+    private static final Logger LOG = Logger.getLogger(FilmListSortCommand.class);
 
-    /***
+    /**
      * Initiates the sorting action.
-     * @param request request's session attribute "film list" can be changed.
+     *
+     * @param request  request's session attribute "film list" can be changed.
      * @param response response
      * @return null
      * @throws IOException
@@ -30,17 +34,25 @@ public class FilmListSortCommand extends Command {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<Film> films = (List<Film>) request.getSession().getAttribute(FilmListCommand.FILMS_PARAM_NAME);
-        Comparator<Film> comparator = FilmComparatorFactory.getComparator((String) request.getSession().getAttribute(FilmListCommand.SORT_PARAM_NAME));
-        if(comparator == null)
-            return null;
+        String sortName = (String) request.getParameter(FilmListCommand.SORT_PARAM_NAME);
+        String direct = (String) request.getParameter(FilmListCommand.DIRECT_PARAM_NAME);
+        LOG.debug("Sorting command started.");
+        if (sortName != null && direct != null) {
+            LOG.debug("Sorting started with sortname = " + sortName + "; direct = " + direct + ".");
 
-        Collections.sort(films, comparator);
-        String direct = (String) request.getSession().getAttribute(FilmListCommand.DIRECT_PARAM_NAME);
-        if(direct.equals(DOWN_DIR))
-            Collections.reverse(films);
+            List<Film> films = ((Films) request.getSession().getAttribute(FilmListCommand.FILMS_PARAM_NAME)).getAllFilms();
+            Comparator<Film> comparator = FilmComparatorFactory.getComparator(sortName);
+            if (comparator == null)
+                return null;
 
-        request.getSession().setAttribute(FilmListCommand.FILMS_PARAM_NAME, films);
+            Collections.sort(films, comparator);
+            if (direct.equals(DOWN_DIR))
+                Collections.reverse(films);
+
+            request.getSession().setAttribute(FilmListCommand.FILMS_PARAM_NAME, new Films(films));
+            LOG.debug("Sorting finished");
+        }
+        LOG.debug("Sorting command finished");
         return null;
     }
 }
