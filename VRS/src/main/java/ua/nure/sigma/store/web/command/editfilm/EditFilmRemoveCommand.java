@@ -19,13 +19,16 @@ public class EditFilmRemoveCommand extends Command {
         String filmIDString = (String) request.getParameter(EditFilmCommand.FILMID_PARAM_NAME);
         String remove = (String) request.getParameter(EditFilmCommand.REMOVE_PARAM_NAME);
         int filmId = 0;
-        if (filmIDString != null) {
-            filmId = Integer.parseInt(filmIDString);
-        }
+        try {
+            if (filmIDString != null) {
+                filmId = Integer.parseInt(filmIDString);
+            }
 
-        if (Boolean.valueOf(remove)) {
-            Film removeFilm = DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId);
-            DAOFactory.getInstance().getFilmDAO().deleteFilm(removeFilm);
+            if (Boolean.valueOf(remove)) {
+                Film removeFilm = DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId);
+                DAOFactory.getInstance().getFilmDAO().deleteFilm(removeFilm);
+            }
+        } catch (Exception e) {
         }
         return null;
     }
