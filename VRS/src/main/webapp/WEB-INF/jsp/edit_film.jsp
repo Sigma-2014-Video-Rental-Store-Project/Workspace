@@ -26,12 +26,13 @@
         <div id="header">
             <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
-        <form action="controller" method="post">
+        <form action="controller" method="post" name="editFilm">
             <input type="hidden" name="command" value="editFilm" />
+            <input type="hidden" name="filmId" value="93" />
 		    <div id="content-body">
 			    <div id=leftside>
 				    <p id="text">Film name:</p>
-				    <input type="text" name="filmName" class="form-control" style="margin-bottom:2%;">
+				    <input type="text" name="filmTitle" class="form-control" style="margin-bottom:2%;">
 				    <div id="bordered" style="margin-bottom:2%;">
 					    <img data-src="holder.js/140x140" class="center" src="http://cs540107.vk.me/c7005/v7005726/2c818/I-bf-lL08Vg.jpg" >
 				    </div>
@@ -46,11 +47,11 @@
 						    </select>
 					    </div>
 					    <div style="float:right;width:20%;">
-						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],['21', 'true'])">Remove film</button>
+						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],[filmId.value, 'true'])">Remove film</button>
 					    </div>
 				    </div>
 				    <div>
-					    <textarea class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;"></textarea>
+					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;"></textarea>
 				    </div>
 				    <div>
 					    <div style="float:left; width:50%;">
@@ -58,13 +59,13 @@
 							    <p id="text">Copies: </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+							    <input type="text" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;">
 						    </div>
 						</div>
 						<div style="float:right; width:50%; max-width:50%;">
 							<div style="float:right;">
 								<div style="float:right; width:30%;">
-									<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;">
 								</div>
 								<div style="float:right;">
 									<p id="text" >General price: </p>
@@ -78,24 +79,25 @@
 								<p id="text">Rent price: </p>
 							</div>
 							<div style="float:right; width:30%">
-									<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+									<input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
 							</div>
 						</div>
 						<div style="float:right; width:50%;">
 							<div style="float:right;">
 								<div style="float:right; width:30%;">
-									<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
 								</div>
 								<div style="float:right;">
 									<p id="text" >Bonus value: </p>
 								</div>
+								<input name="year" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
 							</div>
 						</div>
 					</div>
 					<div>
 						<div style="float:right; padding-right:10%;">
 							<div style="float:right;">
-								<button type="button" class="btn btn-success" style="width:200%;">Save</button>
+								<button type="submit" class="btn btn-success" style="width:200%;">Save</button>
 							</div>
 							<div style="float:right;">
 								<button type="button" class="btn btn-default">Cancel</button>
