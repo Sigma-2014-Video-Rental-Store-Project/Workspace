@@ -58,8 +58,8 @@
             <div id="search-buttons">
                 <form class="search" role="form" action="controller" method="post">
                     <input type="hidden" name="command" value="fullFilmList"/>
-                    <input id="key-search" name="key" type="text" class="form-control" placeholder="Keywords"
-                           required="" autofocus="">
+                    <input id="product_search" style = "float: left; width: 88%;" name="key" type="text"class="form-control"
+		                placeholder="Keywords" required="" autofocus="" data-provide="typeahead">
                     <button id="search-button" class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>
@@ -118,4 +118,22 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/film_list.js"></script>
 <script type="text/javascript" src="js/attribute_funcs.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/bootstrap-typeahead.js"></script>
+
+<script>
+$(document).ready(function($) {
+// Workaround for bug in mouse item selection
+$.fn.typeahead.Constructor.prototype.blur = function() {
+var that = this;
+setTimeout(function () { that.hide() }, 250);
+};
+ 
+$('#product_search').typeahead({
+source: function(query, process) {
+return [<c:forEach items="${films.model}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
+}
+});
+})
+</script>
 </html>
