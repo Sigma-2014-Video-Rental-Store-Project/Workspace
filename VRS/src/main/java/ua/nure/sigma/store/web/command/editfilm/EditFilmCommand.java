@@ -36,6 +36,7 @@ public class EditFilmCommand extends Command implements IComplexCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         notifyAllCommands(request, response);
+        System.err.println(request.getParameter("filmId"));
         return Paths.PAGE_EDIT_FILM;
     }
 

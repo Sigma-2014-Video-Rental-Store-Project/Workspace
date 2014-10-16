@@ -7,9 +7,6 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/edit_film.css" rel="stylesheet">
 <link href="css/bootstrap-spinedit.css" rel="stylesheet" >
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-spinedit.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,9 +31,9 @@
 				    <p id="text">Film name:</p>
 				    <input type="text" name="filmTitle" class="form-control" style="margin-bottom:2%;">
 				    <div id="bordered" style="margin-bottom:2%;">
-					    <img data-src="holder.js/140x140" class="center" src="http://cs540107.vk.me/c7005/v7005726/2c818/I-bf-lL08Vg.jpg" >
+					    <img id="cover" data-src="holder.js/140x140" class="center" src="http://cs540107.vk.me/c7005/v7005726/2c818/I-bf-lL08Vg.jpg" >
 				    </div>
-				    <input type="file" id="exampleInputFile">
+				    <input type="file" id="inputFile" onChange="setUpCoverRepresentation(this);">
 			    </div>
 			    <div id=rightside>
 				    <div>
@@ -112,5 +109,9 @@
        </form>
     </f:view>
 </body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-spinedit.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/attribute_funcs.js"></script>
+<script type="text/javascript" src="js/cover.js"></script>
 </html>
