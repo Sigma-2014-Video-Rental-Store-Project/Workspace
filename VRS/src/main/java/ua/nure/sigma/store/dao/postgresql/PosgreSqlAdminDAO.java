@@ -50,6 +50,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection
                     .prepareStatement(SQL_SELECT_FROM_ADMINS_BY_EMAIL);
             pstmnt.setString(1, login);
@@ -77,6 +78,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_ADMINS_BY_ID);
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
@@ -103,6 +105,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             stmnt = connection.createStatement();
             rs = stmnt.executeQuery(SQL_SELECT_FROM_ADMINS_ALL_ADMIN);
             while (rs.next()) {
@@ -131,12 +134,13 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_ADMINS);
             int position = 1;
             pstmnt.setInt(position++, admin.getRoleId());
             pstmnt.setString(position++, admin.getEmail());
             pstmnt.setInt(position++, admin.getPassword());
-            pstmnt.executeUpdate();
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not add new client.", e);
@@ -152,11 +156,12 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_UPDATE_ADMIN_PASSWORD);
             int position = 1;
             pstmnt.setInt(position++, admin.getPassword());
             pstmnt.setInt(position, admin.getId());
-            pstmnt.executeUpdate();
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not update User's block.", e);
@@ -172,10 +177,11 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_DELETE_ADMIN);
             int position = 1;
             pstmnt.setInt(position, admin.getId());
-            pstmnt.executeUpdate();
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not update User's block.", e);

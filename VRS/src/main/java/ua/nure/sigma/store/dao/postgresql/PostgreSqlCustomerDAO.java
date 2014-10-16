@@ -17,9 +17,10 @@ import java.util.List;
  */
 public class PostgreSqlCustomerDAO implements CustomerDAO{
 
+
     private static final String SQL_SELECT_FROM_CUSTOMERS_BY_ID = "SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
     private static final String SQL_SELECT_FROM_CUSTOMERS_ALL_CUSTOMER = "SELECT * FROM CUSTOMERS";
-    private static final String SQL_INSERT_INTO_CUSTOMERS = "INSERT INTO FILMS VALUES(?,?,?,?,?,?,?,?)";
+    private static final String SQL_INSERT_INTO_CUSTOMERS = "INSERT INTO CUSTOMERS VALUES(?,?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_CUSTOMERS =
             "UPDATE FILMS SET LAST_NAME = ?, FIRST_NAME =?, MIDLE_NAME =?, COVER =?, CUSTOMER_EMAIL =?, CUSTOMER_PHONE =?, SEX_ID =?, CUSTOMER_PHOTO, BONUS =? WHERE CUSTOMER_ID = ?";
     private static final String SQL_DELETE_CUSTOMER = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
@@ -42,7 +43,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         return customer;
     }
 
-    void setupPrepareStatement(PreparedStatement pstmnt, Customer customer, Integer position) throws SQLException {
+    int setupPrepareStatement(PreparedStatement pstmnt, Customer customer, int position) throws SQLException {
         pstmnt.setString(position++, customer.getLastName());
         pstmnt.setString(position++, customer.getFirstName());
         pstmnt.setString(position++, customer.getMidleName());
@@ -51,6 +52,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         pstmnt.setInt(position++, customer.getSexID());
         pstmnt.setString(position++, customer.getCustomerPhoto());
         pstmnt.setLong(position++, customer.getBonus());
+        return position;
     }
 
     @Override
@@ -59,10 +61,11 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_CUSTOMERS);
             int position = 1;
             setupPrepareStatement(pstmnt,customer,position);
-            pstmnt.executeUpdate();
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not add new client.", e);
@@ -98,6 +101,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
 
     @Override
     public List<Customer> findAllDebtors() {
+        //TODO: implement find all debtor
         return null;
     }
 
@@ -107,6 +111,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         Customer customer = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             customer = findCustomerByID(connection,id);
         } catch (Exception e) {//
 //            LOG.error("Can not obtain User by id.", e);
@@ -148,10 +153,11 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_DELETE_CUSTOMER);
             int position = 1;
             pstmnt.setInt(position, id);
-            pstmnt.executeUpdate();
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not update User's block.", e);
@@ -168,11 +174,12 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_UPDATE_CUSTOMERS);
             int position = 1;
             setupPrepareStatement(pstmnt,customer,position);
             pstmnt.setInt(position++, customer.getCustomerID());
-            pstmnt.executeUpdate();
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //           LOG.error("Can not update User's block.", e);

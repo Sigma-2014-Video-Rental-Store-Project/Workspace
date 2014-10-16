@@ -33,6 +33,7 @@ public class PostgreSqlRoleDAO implements RoleDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection
                     .prepareStatement(SQL_SELECT_FROM_ROLE_BY_ID);
             pstmnt.setInt(1, id);
@@ -59,6 +60,7 @@ public class PostgreSqlRoleDAO implements RoleDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection
                     .prepareStatement(SQL_SELECT_FROM_ROLE_BY_NAME);
             pstmnt.setString(1, name);

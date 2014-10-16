@@ -25,6 +25,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection
                     .prepareStatement(SQL_SELECT_FROM_CATEGORIES_BY_NAME);
             pstmnt.setString(1, name);
@@ -69,6 +70,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             stmnt = connection.createStatement();
             rs = stmnt.executeQuery(SQL_SELECT_FROM_CATEGORIES);
             while (rs.next()) {
@@ -94,6 +96,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_CATEGORIES_BY_ID);
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();

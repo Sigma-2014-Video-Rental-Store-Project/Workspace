@@ -33,6 +33,7 @@ public class PostgreSqlSexDAO implements SexDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_SEX_BY_ID);
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
@@ -59,6 +60,7 @@ public class PostgreSqlSexDAO implements SexDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             stmnt = connection.createStatement();
             rs = stmnt.executeQuery(SQL_SELECT_FROM_SEX_ALL_SEX);
             while (rs.next()) {

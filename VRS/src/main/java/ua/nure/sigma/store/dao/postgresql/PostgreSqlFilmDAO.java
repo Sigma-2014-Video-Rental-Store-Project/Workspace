@@ -17,7 +17,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
     private static final String SQL_SELECT_FROM_FILM_BY_ID = "SELECT * FROM FILMS WHERE FILM_ID = ?";
     private static final String SQL_SELECT_FROM_FILMS_ALL_FILM = "SELECT * FROM FILMS";
-    private static final String SQL_INSERT_INTO_FILMS = "INSERT INTO FILMS VALUES(?,?,?,?,?,?,?,?)";
+    private static final String SQL_INSERT_INTO_FILMS = "INSERT INTO FILMS (TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT) VALUES(?,?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_FILM =
             "UPDATE FILMS SET TITLE = ?, YEAR =?, DESCRIPTION =?, COVER =?, AMOUNT =?, GENERAL_PRICE =?, RENT_PRICE =?, BONUS_FOR_RENT =? WHERE FILM_ID = ?";
     private static final String SQL_DELETE_FILM = "DELETE FROM FILMS WHERE FILM_ID = ?";
@@ -45,6 +45,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             stmnt = connection.createStatement();
             rs = stmnt.executeQuery(SQL_SELECT_FROM_FILMS_ALL_FILM);
             while (rs.next()) {
@@ -68,6 +69,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         Connection connection = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             film = findFilmByID(connection, id);
         } catch (Exception e) {
             DAOFactory.rollback(connection);
@@ -98,7 +100,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         return film;
     }
 
-    void setupPrepareStatement(PreparedStatement pstmnt, Film film, Integer position) throws SQLException {
+    int setupPrepareStatement(PreparedStatement pstmnt, Film film, int position) throws SQLException {
         pstmnt.setString(position++, film.getTitle());
         pstmnt.setInt(position++, film.getYear());
         pstmnt.setString(position++, film.getDescription());
@@ -107,6 +109,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         pstmnt.setLong(position++, film.getGeneralPrice());
         pstmnt.setLong(position++, film.getRentPrice());
         pstmnt.setLong(position++, film.getBonusForRent());
+        return position;
     }
 
     @Override
@@ -115,10 +118,12 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_FILMS);
             int position = 1;
+            //pstmnt.setString(position++, "DEFAULT");
             setupPrepareStatement(pstmnt, film, position);
-            pstmnt.executeUpdate();
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not add new client.", e);
@@ -134,9 +139,10 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_UPDATE_FILM);
             int position = 1;
-            setupPrepareStatement(pstmnt, film, position);
+            position = setupPrepareStatement(pstmnt, film, position);
             pstmnt.setInt(position++, film.getFilmId());
             pstmnt.executeUpdate();
         } catch (Exception e) {
@@ -150,13 +156,19 @@ public class PostgreSqlFilmDAO implements FilmDAO {
 
     @Override
     public void deleteFilm(Film film) {
+        deleteFilm(film.getFilmId());
+    }
+
+    @Override
+    public void deleteFilm(int filmID) {
         Connection connection = null;
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_DELETE_FILM);
             int position = 1;
-            pstmnt.setInt(position, film.getFilmId());
+            pstmnt.setInt(position, filmID);
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);

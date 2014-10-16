@@ -21,12 +21,8 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
     private static final String SQL_SELECT_FROM_ADMINS_BY_EMAIL =
             "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
     private static final String SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID = "SELECT FILM_ID FROM FILM_CATEGORIES WHERE CATEGORY_ID = ?";
-    private static final String SQL_SELECT_FROM_FILMS_ALL_FILM = "SELECT * FROM FILMS";
-    private static final String SQL_INSERT_INTO_FILMS = "INSERT INTO FILMS VALUES(?,?,?,?,?,?,?,?)";
-    private static final String SQL_UPDATE_FILM =
-            "UPDATE FILMS SET TITLE = ?, YEAR =?, DESCRIPTION =?, COVER =?, AMOUNT =?, GENERAL_PRICE =?, RENT_PRICE =?, BONUS_FOR_RENT =? WHERE FILM_ID = ?";
-    private static final String SQL_DELETE_FILM = "DELETE FROM FILMS WHERE FILM_ID = ?";
-
+    private static final String SQL_INSERT_INTO_FILM_CATEGORIES = "INSERT INTO FILM_CATEGORIES VALUES(?,?)";
+    private static final String SQL_DELETE_FILM_CATEGORIES = "DELETE FROM FILM_CATEGORIES WHERE FILM_ID = ?";
 
     @Override
     public List<Film> findFilmsByCategoryID(int id) {
@@ -37,6 +33,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
         FilmDAO filmDAO = DAOFactory.getInstance().getFilmDAO();
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID);
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
@@ -56,40 +53,88 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
     @Override
     public void createFilmCategory(Film film, Category category, Connection connection) throws SQLException {
 
-    }
+        PreparedStatement pstmnt = null;
+        try {
+            pstmnt = connection.prepareStatement(SQL_INSERT_INTO_FILM_CATEGORIES);
+            int position = 1;
+            pstmnt.setInt(position++, category.getId());
+            pstmnt.setInt(position++, film.getFilmId());
 
-    @Override
-    public void createFilmCategories(Film film, List<Category> categoryList, Connection connection) throws SQLException {
-
-    }
-
-    @Override
-    public void updateFilmCategories(Film film, List<Category> categoryList, Connection connection) throws SQLException {
-
-    }
-
-    @Override
-    public void updateFilmCategories(Film film, List<Category> categoryList) {
-
+            pstmnt.execute();
+        } catch (Exception e) {
+            DAOFactory.rollback(connection);
+//            LOG.error("Can not add new client.", e);
+        } finally {
+            DAOFactory.close(pstmnt);
+        }
     }
 
     @Override
     public void createFilmCategory(Film film, Category category) {
+        Connection connection = null;
+        try {
+            createFilmCategory(film,category,connection);
 
+        } catch (Exception e){
+
+        }finally {
+            DAOFactory.commitAndClose(connection);
+        }
     }
 
     @Override
     public void createFilmCategories(Film film, List<Category> categoryList) {
-
+        for (Category category : categoryList){
+            createFilmCategory(film, category);
+        }
     }
+
+
+    @Override
+    public void updateFilmCategories(Film film, List<Category> categoryList) {
+        Connection connection = null;
+        try {
+            connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
+            deleteFilmCategories(film,connection);
+            for (Category category:categoryList){
+                createFilmCategory(film,category,connection);
+            }
+        } catch (Exception e){
+            DAOFactory.rollback(connection);
+        }finally {
+            DAOFactory.commitAndClose(connection);
+        }
+    }
+
+
 
     @Override
     public void deleteFilmCategories(Film film) {
+        Connection connection = null;
+        try {
+            deleteFilmCategories(film,connection);
+        } catch (Exception e){
+
+        }finally {
+            DAOFactory.commitAndClose(connection);
+        }
 
     }
 
     @Override
     public void deleteFilmCategories(Film film, Connection connection) throws SQLException {
-
+        PreparedStatement pstmnt = null;
+        try {
+            pstmnt = connection.prepareStatement(SQL_INSERT_INTO_FILM_CATEGORIES);
+            int position = 1;
+            pstmnt.setInt(position++, film.getFilmId());
+            pstmnt.execute();
+        } catch (Exception e) {
+            DAOFactory.rollback(connection);
+//            LOG.error("Can not add new client.", e);
+        } finally {
+            DAOFactory.close(pstmnt);
+        }
     }
 }

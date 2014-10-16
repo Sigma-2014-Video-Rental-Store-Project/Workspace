@@ -45,4 +45,9 @@ public class PosgreSqlDAO extends DAOFactory {
     public SexDAO getSexDAO() {
         return new PostgreSqlSexDAO();
     }
+
+    @Override
+    public FilmRentedDAO getFilmRentedDAO() {
+        return new PostgreSqlFimsRentedDAO();
+    }
 }
