@@ -41,7 +41,7 @@
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		<c:if test="${not empty param.errorCode}">
-			<span class="error"><font face="verdana" size="5" color="red">Wrong login or password</font><span>
+			<span class="error"><font face="verdana" size="4" color="red">Wrong login or password</font><span>
 		</c:if>
       </form>
 	</div>

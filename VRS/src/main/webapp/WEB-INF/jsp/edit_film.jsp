@@ -60,49 +60,49 @@
 						    <div style="float:right; width:30%">
 							    <input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
 						    </div>
+						</div>
+						<div style="float:right; width:50%; max-width:50%;">
+							<div style="float:right;">
+								<div style="float:right; width:30%;">
+									<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+								</div>
+								<div style="float:right;">
+									<p id="text" >General price: </p>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div style="float:right; width:50%; max-width:50%;">
-						<div style="float:right;">
-							<div style="float:right; width:30%;">
-								<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+					<div>
+						<div style="float:left; width:50%;">
+							<div style="float:left;">
+								<p id="text">Rent price: </p>
+							</div>
+							<div style="float:right; width:30%">
+									<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+							</div>
+						</div>
+						<div style="float:right; width:50%;">
+							<div style="float:right;">
+								<div style="float:right; width:30%;">
+									<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+								</div>
+								<div style="float:right;">
+									<p id="text" >Bonus value: </p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div style="float:right; padding-right:10%;">
+							<div style="float:right;">
+								<button type="button" class="btn btn-success" style="width:200%;">Save</button>
 							</div>
 							<div style="float:right;">
-								<p id="text" >General price: </p>
+								<button type="button" class="btn btn-default">Cancel</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div>
-					<div style="float:left; width:50%;">
-						<div style="float:left;">
-							<p id="text">Rent price: </p>
-						</div>
-						<div style="float:right; width:30%">
-								<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
-						</div>
-					</div>
-					<div style="float:right; width:50%;">
-						<div style="float:right;">
-							<div style="float:right; width:30%;">
-								<input type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
-							</div>
-							<div style="float:right;">
-								<p id="text" >Bonus value: </p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div style="float:right; padding-right:10%;">
-						<div style="float:right;">
-							<button type="button" class="btn btn-success" style="width:200%;">Save</button>
-						</div>
-						<div style="float:right;">
-							<button type="button" class="btn btn-default">Cancel</button>
-						</div>
-					</div>
-				</div>
-			</div>
             <div id="footer">
                 <jsp:include page="../jspf/footer.jspf"/>
             </div>
