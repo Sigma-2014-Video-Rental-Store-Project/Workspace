@@ -16,8 +16,8 @@ public class EditFilmRemoveCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String filmIDString = (String) request.getParameter(EditFilmCommand.FILMID_PARAM_NAME);
-        String remove = (String) request.getParameter(EditFilmCommand.REMOVE_PARAM_NAME);
+        String filmIDString = request.getParameter(EditFilmCommand.FILMID_PARAM_NAME);
+        String remove = request.getParameter(EditFilmCommand.REMOVE_PARAM_NAME);
         int filmId = 0;
         try {
             if (filmIDString != null) {

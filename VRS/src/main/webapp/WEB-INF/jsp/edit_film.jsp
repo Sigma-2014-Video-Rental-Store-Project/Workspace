@@ -44,7 +44,7 @@
 						    </select>
 					    </div>
 					    <div style="float:right;width:20%;">
-						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],[filmId.value, 'true'])">Remove film</button>
+						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove', 'get'],[filmId.value, 'true', 'true'])">Remove film</button>
 					    </div>
 				    </div>
 				    <div>
