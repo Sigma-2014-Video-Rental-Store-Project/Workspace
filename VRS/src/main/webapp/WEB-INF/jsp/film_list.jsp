@@ -41,7 +41,7 @@
     </div>
     <div id="content-body">
         <div id="buttons">
-            <div class="btn-group" data-toggle="buttons">
+            <div id="filter-buttons" class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary active" id="all-filter-label">
                     <input type="radio" id="all-filter" checked> All
                 </label>
@@ -66,7 +66,7 @@
         </div>
 
         <div id="films">
-            <table class="table table-striped">
+            <table id="films-table" class="table table-striped">
                 <thead>
                 <tr>
                     <th class="name-column" scope="col">Name
@@ -74,7 +74,7 @@
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['name','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a></th>
-                    <th class="copies-column" scope="col">Amount
+                    <th class="copies-column" scope="col">Copies left
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['copies','up'])"><u><i
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['copies','down'])"><u><i
@@ -93,10 +93,10 @@
                 <c:forEach items="${films.model}" var="current">
                     <tr>
                         <td><c:out value="${current.title}"/></td>
-                        <td><c:out value="${current.amount}"/></td>
+                        <td><c:out value="${current.copiesLeft}"/></td>
                         <td><c:out value="${current.rentPrice}"/></td>
                         <td><a href="">add</a>&nbsp;</td>
-                        <td><a href="controller?command=editFilm&filmId=${current.filmId}">edit</a>&nbsp;</td>
+                        <td><a href="controller?command=editFilm&filmId=${current.filmId}&get=true">edit</a>&nbsp;</td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -131,7 +131,7 @@ setTimeout(function () { that.hide() }, 250);
  
 $('#product_search').typeahead({
 source: function(query, process) {
-return [<c:forEach items="${films.model}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
+return [<c:forEach items="${films.allFilms}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
 }
 });
 })

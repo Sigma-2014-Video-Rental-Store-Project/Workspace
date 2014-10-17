@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.web.command.filmlist;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.web.command.Command;
 import ua.nure.sigma.store.web.list.Films;
 
@@ -13,6 +14,9 @@ import java.io.IOException;
  */
 
 public class FilmListPageCommand extends Command {
+
+    private static final Logger LOG = Logger.getLogger(FilmListPageCommand.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String pageString = (String) request.getParameter(FilmListCommand.PAGE_PARAM_NAME);
@@ -21,6 +25,7 @@ public class FilmListPageCommand extends Command {
             //changing page index
             Films filmsParam = (Films) request.getSession().getAttribute(FilmListCommand.FILMS_PARAM_NAME);
             filmsParam.setPageIndex(Integer.valueOf(pageString));
+            LOG.debug("Selected page = " + pageString);
         }
 
         return null;

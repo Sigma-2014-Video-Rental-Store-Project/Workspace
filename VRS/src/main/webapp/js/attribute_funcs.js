@@ -36,16 +36,16 @@ function setSeveralAttr(prmNames, vals){
     var query = d[1];
     if(query) {
         var params = query.split("&");
-        for(var i = 0; i < params.length && i < vals.length; i++) {
+        for(var i = 0; i < params.length ; i++) { // page sort direct
             var keyval = params[i].split("=");
-            var isParamPresents = false;
-            for(var j = 0; j < prmNames.length; j++){
+            var shouldAddToRes = true;
+            for(var j = 0; j < prmNames.length && j < vals.length; j++){ //sort direct
                 if(keyval[0] == prmNames[j]){
-                    isParamPresents = true;
+                    shouldAddToRes = false;
                     break;
                 }
             }
-            if(!isParamPresents){
+            if(shouldAddToRes){
                 res += params[i] + '&';
             }
         }

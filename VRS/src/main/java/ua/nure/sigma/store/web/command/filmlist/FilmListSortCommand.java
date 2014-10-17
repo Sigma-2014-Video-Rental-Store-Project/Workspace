@@ -49,7 +49,7 @@ public class FilmListSortCommand extends Command {
             if (direct.equals(DOWN_DIR))
                 Collections.reverse(films);
 
-            request.getSession().setAttribute(FilmListCommand.FILMS_PARAM_NAME, new Films(films));
+ // TODO           request.getSession().setAttribute(FilmListCommand.FILMS_PARAM_NAME, new Films(films));
             LOG.debug("Sorting finished");
         }
         LOG.debug("Sorting command finished");

@@ -11,7 +11,7 @@ public class FilmComparatorFactory {
 
     public static final String FILM_NAME_COMPARATOR = "name";
     public static final String FILM_PRICE_COMPARATOR = "price";
-    public static final String FILM_COPIES_LEFT_COMPARATOR = "copiesLeft";
+    public static final String FILM_COPIES_LEFT_COMPARATOR = "copies";
 
     private static Map<String, Comparator> comparators;
     static {

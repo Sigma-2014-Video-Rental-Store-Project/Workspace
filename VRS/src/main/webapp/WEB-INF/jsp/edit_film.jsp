@@ -43,7 +43,7 @@
 							    <option>Comedy</option>
 						    </select>
 					    </div>
-					    <div style="float:right;width:20%;">
+					    <div style="float:right;">
 						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],[filmId.value, 'true'])">Remove film</button>
 					    </div>
 				    </div>
@@ -51,7 +51,7 @@
 					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;"></textarea>
 				    </div>
 				    <div>
-					    <div style="float:left; width:50%;">
+					    <div style="float:left; width:45%;">
 						    <div style="float:left;">
 							    <p id="text">Copies: </p>
 						    </div>
@@ -59,52 +59,58 @@
 							    <input type="text" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;">
 						    </div>
 						</div>
-						<div style="float:right; width:50%; max-width:50%;">
-							<div style="float:right;">
+						<div style="float:right; width:45%; max-width:45%;">
+								<div style="float:left;">
+									<p id="text">General price: </p>
+								</div>
 								<div style="float:right; width:30%;">
 									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;">
 								</div>
-								<div style="float:right;">
-									<p id="text" >General price: </p>
-								</div>
-							</div>
 						</div>
 					</div>
 					<div>
-						<div style="float:left; width:50%;">
-							<div style="float:left;">
-								<p id="text">Rent price: </p>
-							</div>
-							<div style="float:right; width:30%">
-									<input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
-							</div>
+					    <div style="float:left; width:45%;">
+						    <div style="float:left;">
+							    <p id="text">Rent price: </p>
+						    </div>
+						    <div style="float:right; width:30%">
+							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+						    </div>
 						</div>
-						<div style="float:right; width:50%;">
-							<div style="float:right;">
+						<div style="float:right; width:45%; max-width:45%;">
+							
+								<div style="float:left;">
+									<p id="text" >Bonus value: </p>
+								</div>
 								<div style="float:right; width:30%;">
 									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
 								</div>
-								<div style="float:right;">
-									<p id="text" >Bonus value: </p>
-								</div>
-								<input name="year" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
-							</div>
 						</div>
 					</div>
 					<div>
-						<div style="float:right; padding-right:10%;">
+					    <div style="float:left; width:45%;">
+						    <div style="float:left;">
+							    <p id="text">Year: </p>
+						    </div>
+						    <div style="float:right; width:30%">
+							    <input name="year" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+						    </div>
+						</div>
+					</div>
+					<div>
+						<div style="float:right; clear:left; width:50%;">
 							<div style="float:right;">
-								<button type="submit" class="btn btn-success" style="width:200%;">Save</button>
+								<button type="submit" class="btn btn-success" style="margin-left:3%;">Save</button>
 							</div>
 							<div style="float:right;">
-								<button type="button" class="btn btn-default">Cancel</button>
+								<button type="submit" class="btn btn-default">Cancel</button>
 							</div>
 						</div>
 					</div>
 				</div>
-            <div id="footer">
-                <jsp:include page="../jspf/footer.jspf"/>
-            </div>
+				<div id="footer">
+					<jsp:include page="../jspf/footer.jspf"/>
+				</div>
             </div>
        </form>
     </f:view>

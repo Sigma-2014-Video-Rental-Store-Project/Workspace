@@ -22,7 +22,7 @@ body {
      clear: both;
  }
 #films{
-    height: 425px;
+    min-height: 425px;
     clear: both;
 }
 #pages{
@@ -61,10 +61,8 @@ body {
     float: right;
 }
 #filter-buttons{
-    display: inline;
-    float: left;
+
 }
 .sort-icon{
-    /*float: right;*/
     padding-left: 4px;
 }

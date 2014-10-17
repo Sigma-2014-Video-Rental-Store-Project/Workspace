@@ -26,6 +26,8 @@ public class EditFilmCommand extends Command implements IComplexCommand {
     static final String FILM_RENT_PRICE_PARAM_NAME = "rentPrice";
     static final String FILM_BONUS_PARAM_NAME = "bonus";
     static final String FILM_YEAR_PARAM_NAME = "year";
+    static final String REQUEST_PARAM_NAME = "get";
+    static final String POST_RESULT = "controller?command=editFilm&get=true";
 
     List<Command> commandsListeners;
 
@@ -36,8 +38,11 @@ public class EditFilmCommand extends Command implements IComplexCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         notifyAllCommands(request, response);
-        System.err.println(request.getParameter("filmId"));
-        return Paths.PAGE_EDIT_FILM;
+        String get = request.getParameter(EditFilmCommand.REQUEST_PARAM_NAME);
+        if (get != null && get.equals("true")) {
+            return Paths.PAGE_EDIT_FILM;
+        }
+        return POST_RESULT;
     }
 
     private void notifyAllCommands(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

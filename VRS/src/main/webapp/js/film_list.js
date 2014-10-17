@@ -17,13 +17,12 @@ if (getUrlParameter(filterParamName) == availableValueName) {
     availableFilterLabel.toggleClass(activeClass);
     allFilterLabel.toggleClass(activeClass);
 }
+
 allFilterLabel.on("click", function () {
-    if (!allFilterLabel.hasClass(activeClass))
-        window.location.search = commandAndPageSearch + allFilterName;
+    setAttr(filterParamName, allValueName);
 });
 availableFilterLabel.on("click", function () {
-    if (!availableFilterLabel.hasClass(activeClass))
-        window.location.search = commandAndPageSearch + availableFilterName;
+    setAttr(filterParamName, availableValueName);
 });
 function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1);
