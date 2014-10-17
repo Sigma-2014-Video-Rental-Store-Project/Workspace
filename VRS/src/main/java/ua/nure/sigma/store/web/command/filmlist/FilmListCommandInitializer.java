@@ -9,10 +9,15 @@ public final class FilmListCommandInitializer {
 
     static {
         command.addCommandListener(new FilmListCategoryCommand());
-        command.addCommandListener(new FilmListPageCommand());
         command.addCommandListener(new FilmListSortCommand());
+        command.addCommandListener(new FilmListFilterCommand());
+        command.addCommandListener(new FilmListPageCommand());
     }
 
+    /**
+     *
+     * @return returns complex command with command that want to listen the same request and are connected with this command.
+     */
     public static FilmListCommand getCommand() {
         return command;
     }

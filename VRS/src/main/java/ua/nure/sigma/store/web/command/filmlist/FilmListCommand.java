@@ -25,6 +25,7 @@ public class FilmListCommand extends Command implements IComplexCommand {
     static final String PAGE_PARAM_NAME = "pageIndex";
     static final String SORT_PARAM_NAME = "sorting";
     static final String DIRECT_PARAM_NAME = "direct";
+    static final String FILTER_PARAM_NAME = "filter";
 
     private static final Logger LOG = org.apache.log4j.Logger.getLogger(FilmListCommand.class);
 

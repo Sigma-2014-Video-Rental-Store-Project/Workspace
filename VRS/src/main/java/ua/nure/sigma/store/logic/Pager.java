@@ -17,6 +17,10 @@ public class Pager {
     private List<?> origModel;
     private List<?> model;
 
+    /**
+     *
+     * @param model list of objects to page
+     */
     public Pager(List<?> model) {
         this.origModel = model;
         this.records = DEFAULT_RECORDS_NUMBER;
@@ -38,6 +42,9 @@ public class Pager {
         }
     }
 
+    /**
+     * reloads paging.
+     */
     public void updateModel() {
         int fromIndex = getFirst();
         int toIndex = getFirst() + records;
@@ -49,6 +56,9 @@ public class Pager {
         this.model = origModel.subList(fromIndex, toIndex);
     }
 
+    /**
+     * Sets the next page.
+     */
     public void next() {
         if(this.pageIndex < pages) {
             this.pageIndex++;
@@ -57,6 +67,9 @@ public class Pager {
         updateModel();
     }
 
+    /**
+     * Sets the prev page.
+     */
     public void prev() {
         if(this.pageIndex > 1) {
             this.pageIndex--;
@@ -65,35 +78,69 @@ public class Pager {
         updateModel();
     }
 
+    /**
+     *
+     * @return Max counts of elements on the page.
+     */
     public int getRecords() {
         return records;
     }
 
+    /**
+     *
+     * @return total count of elements.
+     */
     public int getRecordsTotal() {
         return recordsTotal;
     }
 
+    /**
+     * Returns current page index.
+     * @return
+     */
     public int getPageIndex() {
         return pageIndex;
     }
 
+    /**
+     *
+     * @return total count of pages
+     */
     public int getPages() {
         return pages == 0? 1 : pages;
     }
 
+    /**
+     *
+     * @return index of the first element on the page.
+     */
     public int getFirst() {
         return (pageIndex * records) - records;
     }
 
+    /**
+     *
+     * @return elements of the page.
+     */
     public List<?> getModel() {
         return model;
     }
 
+    /**
+     * Sets page.
+     * @param pageIndex number of wished page. If more then pages, sets DEFAULT.
+     */
     public void setPageIndex(int pageIndex) {
+        if(pageIndex > pages)
+            pageIndex = DEFAULT_PAGE_INDEX;
         this.pageIndex = pageIndex;
         updateModel();
     }
 
+    /**
+     * Sets count of elements on each page.
+     * @param count count of elements on each page.
+     */
     public void setRecordCountOnPage(int count){
         if(count > 0){
             records = count;
