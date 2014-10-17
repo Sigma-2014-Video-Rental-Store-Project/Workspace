@@ -25,7 +25,7 @@
         </div>
         <form action="controller" method="post" name="editFilm">
             <input type="hidden" name="command" value="editFilm" />
-            <input type="hidden" name="filmId" value="93" />
+            <input type="hidden" name="filmId" value="" />
 		    <div id="content-body">
 			    <div id=leftside>
 				    <p id="text">Film name:</p>
