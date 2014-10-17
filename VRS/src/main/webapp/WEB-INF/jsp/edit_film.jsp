@@ -25,7 +25,7 @@
         </div>
         <form action="controller" method="post" name="editFilm">
             <input type="hidden" name="command" value="editFilm" />
-            <input type="hidden" name="filmId" value="93" />
+            <input type="hidden" name="filmId" value="" />
 		    <div id="content-body">
 			    <div id=leftside>
 				    <p id="text">Film name:</p>
@@ -44,7 +44,7 @@
 						    </select>
 					    </div>
 					    <div style="float:right;width:20%;">
-						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],[filmId.value, 'true'])">Remove film</button>
+						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove', 'get'],[filmId.value, 'true', 'true'])">Remove film</button>
 					    </div>
 				    </div>
 				    <div>

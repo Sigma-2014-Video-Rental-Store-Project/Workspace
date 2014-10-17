@@ -29,14 +29,12 @@ public class EditFilmSaveCommand extends Command {
         if (filmIDString != null) {
             filmId = Integer.parseInt(filmIDString);
         }
-        LOG.debug("filmId=" + filmId);
 
         if (!Boolean.valueOf(remove)) {
             Film editingFilm = DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId);
             if (editingFilm == null) {
                 editingFilm = new Film();
             }
-            LOG.debug("editingFilmId=" + editingFilm.getFilmId());
 
             try {
                 String categoryName = request.getParameter(EditFilmCommand.FILM_CATEGORIES_PARAM_NAME);
@@ -57,11 +55,8 @@ public class EditFilmSaveCommand extends Command {
                 if (DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId) == null) {
                     DAOFactory.getInstance().getFilmDAO().createFilm(editingFilm);
                     List<Film> filmList = DAOFactory.getInstance().getFilmDAO().findAllFilms();
-                    LOG.debug("filmlistsize=" + filmList.size());
-                    LOG.debug("lastId=" + filmList.get(filmList.size() - 1).getFilmId());
                     filmId = filmList.get(filmList.size() - 1).getFilmId();
                     editingFilm.setCover(filmId + ".jpg");
-                    LOG.debug("New Film");
                 }
                 editingFilm.setFilmId(filmId);
                 DAOFactory.getInstance().getFilmCategoryDAO().createFilmCategory(editingFilm,
