@@ -1,48 +1,48 @@
 package ua.nure.sigma.store.entity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by vlad on 13.10.14.
  */
 
-//Rent is entity that must be tested and discoution
 public class Rent {
-    //private long rentID;
-    private Customer customer;;
+    private long rentID;
+    private int customerID;
+    private Date rentDate;
+    private List<FilmForRent> filmList;
 
-    public Film getFilm() {
-        return film;
+    public Date getRentDate() {
+        return rentDate;
     }
 
-    public void setFilm(Film film) {
-        this.film = film;
+    public void setRentDate(Date rentDate) {
+        this.rentDate = rentDate;
     }
 
-    private Film film;
-   // private List<Film> filmList;
-
-//    public long getRentID() {
-//        return rentID;
-//    }
-//
-//    public void setRentID(long rentID) {
-//        this.rentID = rentID;
-//    }
-
-    public Customer getCustomer() {
-        return customer;
+    public long getRentID() {
+        return rentID;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setRentID(long rentID) {
+        this.rentID = rentID;
     }
 
-//    public List<Film> getFilmList() {
-//        return filmList;
-//    }
-//
-//    public void setFilmList(List<Film> filmList) {
-//        this.filmList = filmList;
-//    }
+    public List<FilmForRent> getFilmList() {
+        return filmList;
+    }
+
+    public void setFilmList(List<FilmForRent> filmList) {
+        this.filmList = filmList;
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
 }
+

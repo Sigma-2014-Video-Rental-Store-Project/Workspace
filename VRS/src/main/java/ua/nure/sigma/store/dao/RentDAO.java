@@ -12,10 +12,8 @@ import java.util.List;
  */
 public interface RentDAO {
 
-    void createRent(Film film,Customer customer, Date dueDate);
-    void updateRent(int filmID, int customer_id, int copies);
+    void createRent(Rent rent);
     Customer findCustomerByRentID(long rentID);
-    List<Rent> findRentByCustomerID(int id);
-    int findCountOfRentedCopiesByFilmID(int film_id);
-    void updateRentFilmCopy(int filmID, int customer_id, int copies);
+    List<Rent> findRentByCustomerID(int customerID);
+    void closeRent(long rentID);
 }
