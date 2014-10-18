@@ -9,6 +9,7 @@ public class EditFilmCommandInitializer {
     static {
         command.addCommandListener(new EditFilmRemoveCommand());
         command.addCommandListener(new EditFilmSaveCommand());
+        command.addCommandListener(new EditFilmFillCommand());
     }
 
     public static EditFilmCommand getCommand() {
