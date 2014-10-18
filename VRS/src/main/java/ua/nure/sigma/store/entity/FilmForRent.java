@@ -6,11 +6,22 @@ import java.util.Date;
  * Created by vlad on 17.10.14.
  */
 public class FilmForRent {
+
+    private int rentID;
     private int filmID;
     private int copies;
     private int copiesLeft;
     private Date futureDate;
     private Date acceptedDate;
+
+    public int getRentID() {
+        return rentID;
+    }
+
+    public void setRentID(int rentID) {
+        this.rentID = rentID;
+    }
+
 
     public Date getAcceptedDate() {
         return acceptedDate;
