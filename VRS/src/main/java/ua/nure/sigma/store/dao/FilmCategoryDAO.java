@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface FilmCategoryDAO {
     List<Film> findFilmsByCategoryID(int id);
+    List<Category> findCategoriesByFilmID(int id);
     void createFilmCategory(Film film, Category category,Connection connection)throws SQLException;
     void updateFilmCategories(Film film, List<Category> categoryList);
     void createFilmCategory(Film film, Category category);
