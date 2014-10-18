@@ -136,10 +136,10 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
 
 
     @Override
-    public void deleteFilmCategories(int filmID, int categoryID) {
+    public void deleteFilmCategories(int filmID) {
         Connection connection = null;
         try {
-            deleteFilmCategories(filmID,categoryID,connection);
+            deleteFilmCategories(filmID,connection);
         } catch (Exception e){
 
         }finally {
@@ -149,13 +149,12 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
     }
 
     @Override
-    public void deleteFilmCategories(int filmID, int categoryID, Connection connection) throws SQLException {
+    public void deleteFilmCategories(int filmID, Connection connection) throws SQLException {
         PreparedStatement pstmnt = null;
         try {
             pstmnt = connection.prepareStatement(SQL_DELETE_FILM_CATEGORIES);
             int position = 1;
             pstmnt.setInt(position++, filmID);
-            pstmnt.setInt(position++, categoryID);
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);

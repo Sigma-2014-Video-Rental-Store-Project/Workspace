@@ -17,6 +17,6 @@ public interface FilmCategoryDAO {
     void updateFilmCategories(Film film, List<Category> categoryList);
     void createFilmCategory(Film film, Category category);
     void createFilmCategories(Film film, List<Category> categoryList);
-    void deleteFilmCategories(int filmID, int categoryID);
-    void deleteFilmCategories(int filmID, int categoryID, Connection connection)throws SQLException;
+    void deleteFilmCategories(int filmID);
+    void deleteFilmCategories(int filmID,Connection connection)throws SQLException;
 }
