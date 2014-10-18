@@ -56,10 +56,10 @@
                 </form>
             </div>
             <div id="search-buttons">
-                <form class="search" role="form" action="controller" method="post">
+                <form class="search" role="form" action="controller" method="get">
                     <input type="hidden" name="command" value="fullFilmList"/>
                     <input id="product_search" style = "float: left; width: 88%;" name="key" type="text"class="form-control"
-		                placeholder="Keywords" required="" autofocus="" data-provide="typeahead">
+		                placeholder="Keywords" required="" autofocus="" autocomplete="off" data-provide="typeahead">
                     <button id="search-button" class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>
@@ -92,7 +92,7 @@
                 <tbody>
                 <c:forEach items="${films.model}" var="current">
                     <tr>
-                        <td><a href="controller?command=editFilm&filmId=${current.filmId}>${current.title}</td>
+                        <td><a href="controller?command=editFilm&filmId=${current.filmId}">${current.title}<a/></td>
                         <td><c:out value="${current.copiesLeft}"/></td>
                         <td><c:out value="${current.rentPrice}"/></td>
                         <td><a href="">add</a>&nbsp;</td>

@@ -13,6 +13,7 @@ public final class FilmListCommandInitializer {
         command.addCommandListener(new FilmListSortCommand());
         command.addCommandListener(new FilmListFilterCommand());
         command.addCommandListener(new FilmListPageCommand());
+        command.addCommandListener(new FilmListSearchCommand());
     }
 
     /**
