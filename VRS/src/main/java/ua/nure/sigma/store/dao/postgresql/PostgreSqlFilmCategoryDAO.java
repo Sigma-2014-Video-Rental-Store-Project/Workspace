@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao.postgresql;
 
+import ua.nure.sigma.store.dao.CategoryDAO;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.FilmCategoryDAO;
 import ua.nure.sigma.store.dao.FilmDAO;
@@ -18,8 +19,8 @@ import java.util.List;
  */
 public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
 
-    private static final String SQL_SELECT_FROM_ADMINS_BY_EMAIL =
-            "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
+    private static final String SQL_SELECT_FROM_FILM_CATEGORIES_CATEGORIES_BY_FILM_ID =
+            "SELECT * FROM FILM_CATEGORIES WHERE FILM_ID = ?";
     private static final String SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID = "SELECT FILM_ID FROM FILM_CATEGORIES WHERE CATEGORY_ID = ?";
     private static final String SQL_INSERT_INTO_FILM_CATEGORIES = "INSERT INTO FILM_CATEGORIES VALUES(?,?)";
     private static final String SQL_DELETE_FILM_CATEGORIES = "DELETE FROM FILM_CATEGORIES WHERE FILM_ID = ?";
@@ -48,6 +49,32 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
             DAOFactory.commitAndClose(connection);
         }
         return films;
+    }
+
+    @Override
+    public List<Category> findCategoriesByFilmID(int id) {
+        List<Category> categories = new ArrayList<Category>();
+        Connection connection = null;
+        PreparedStatement pstmnt = null;
+        ResultSet rs = null;
+        CategoryDAO categoryDAO = DAOFactory.getInstance().getCategoryDAO();
+        try {
+            connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
+            pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_CATEGORIES_CATEGORIES_BY_FILM_ID);
+            pstmnt.setInt(1, id);
+            rs = pstmnt.executeQuery();
+            while (rs.next()) {
+                categories.add(categoryDAO.findCategoryByID(connection, rs.getInt("CATEGORY_ID")));
+            }
+        } catch (Exception e) {
+//            LOG.error("Can not obtain User by id.", e);
+        } finally {
+            DAOFactory.close(pstmnt);
+            DAOFactory.close(rs);
+            DAOFactory.commitAndClose(connection);
+        }
+        return categories;
     }
 
     @Override

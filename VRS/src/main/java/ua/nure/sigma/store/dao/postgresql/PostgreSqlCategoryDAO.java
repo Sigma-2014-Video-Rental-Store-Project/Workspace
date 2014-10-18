@@ -92,26 +92,39 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
     public Category findCategoryByID(int id) {
         Category category = null;
         Connection connection = null;
-        PreparedStatement pstmnt = null;
-        ResultSet rs = null;
+
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
+            category = findCategoryByID(connection,id);
+        } catch (Exception e) {
+//            DAOFactory.rollback(connection);
+//            LOG.error("Can not find Category by id.", e);
+         } finally {
+            DAOFactory.commitAndClose(connection);
+        }
+
+        return category;
+    }
+
+    @Override
+    public Category findCategoryByID(Connection connection, int id) {
+        Category category = null;
+        PreparedStatement pstmnt = null;
+        ResultSet rs = null;
+        try {
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_CATEGORIES_BY_ID);
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 category = extractCategory(rs);
             }
-        } catch (Exception e) {
-//            DAOFactory.rollback(connection);
-//            LOG.error("Can not find Category by id.", e);
-        } finally {
+        }catch (Exception e){
+
+        }finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
-            DAOFactory.commitAndClose(connection);
         }
-
         return category;
     }
 }
