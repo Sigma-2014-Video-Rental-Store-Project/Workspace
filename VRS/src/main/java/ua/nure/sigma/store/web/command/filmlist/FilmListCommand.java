@@ -26,6 +26,8 @@ public class FilmListCommand extends Command implements IComplexCommand {
     static final String SORT_PARAM_NAME = "sorting";
     static final String DIRECT_PARAM_NAME = "direct";
     static final String FILTER_PARAM_NAME = "filter";
+    static final String ADD_TO_CART_ID_PARAM_NAME = "toCartId";
+    public static final String CART_PARAM_NAME = "cart";
 
     private static final Logger LOG = org.apache.log4j.Logger.getLogger(FilmListCommand.class);
 
