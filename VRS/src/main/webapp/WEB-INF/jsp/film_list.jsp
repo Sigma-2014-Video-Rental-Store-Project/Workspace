@@ -92,7 +92,7 @@
                 <tbody>
                 <c:forEach items="${films.model}" var="current">
                     <tr>
-                        <td><c:out value="${current.title}"/></td>
+                        <td><a href="controller?command=editFilm&filmId=${current.filmId}>${current.title}</td>
                         <td><c:out value="${current.copiesLeft}"/></td>
                         <td><c:out value="${current.rentPrice}"/></td>
                         <td><a href="">add</a>&nbsp;</td>

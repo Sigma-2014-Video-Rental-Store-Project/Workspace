@@ -25,30 +25,23 @@
         </div>
         <form action="controller" method="post" name="editFilm">
             <input type="hidden" name="command" value="editFilm" />
-            <input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
+            <input type="hidden" name="filmId" value="93" />
 		    <div id="content-body">
 			    <div id=leftside>
-				    <p id="text">Film name:</p>
-				    <input type="text" name="filmTitle" class="form-control" style="margin-bottom:2%;" value="${editFilmObject.title}">
+					<p id="text">Some film name (year) <button type="button" class="btn btn-link">edit</button></p>
 				    <div id="bordered" style="margin-bottom:2%;">
-					    <img id="cover" data-src="holder.js/140x140" class="center" src="filmCovers/${editFilmObject.cover}" >
+					    <img id="cover" data-src="holder.js/140x140" class="center" src="http://cs540107.vk.me/c7005/v7005726/2c818/I-bf-lL08Vg.jpg" >
 				    </div>
-				    <input type="file" id="inputFile" onChange="setUpCoverRepresentation(this);">
+				    <p id="text">avaliable in stock 5/5</p>
 			    </div>
 			    <div id=rightside>
 				    <div>
 					    <div id="genre" style="margin-bottom:1.5%;">
-						    <p id="text">Genre:</p>
-						    <select name="categoryName" class="form-control">
-							    <option>Comedy</option>
-						    </select>
-					    </div>
-					    <div style="float:right;">
-						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],[filmId.value, 'true'])">Remove film</button>
+						    <p id="text">Genre: Comedy</p>
 					    </div>
 				    </div>
 				    <div>
-					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;">${editFilmObject.description}</textarea>
+					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;"></textarea>
 				    </div>
 				    <div>
 					    <div style="float:left; width:45%;">
@@ -56,45 +49,16 @@
 							    <p id="text">Copies: </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max="15" value="${editFilmObject.copiesLeft}">
+							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="1" max="5" value="1">
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
 								<div style="float:left;">
-									<p id="text">General price: </p>
+									<p id="text">Days: </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.generalPrice}">
+									<input type="number" name="Days"  class="form-control" style="margin-bottom:2%; margin-left:3%;" min="1" max="5" value="1">
 								</div>
-						</div>
-					</div>
-					<div>
-					    <div style="float:left; width:45%;">
-						    <div style="float:left;">
-							    <p id="text">Rent price: </p>
-						    </div>
-						    <div style="float:right; width:30%">
-							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.rentPrice}">
-						    </div>
-						</div>
-						<div style="float:right; width:45%; max-width:45%;">
-							
-								<div style="float:left;">
-									<p id="text" >Bonus value: </p>
-								</div>
-								<div style="float:right; width:30%;">
-									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"  value="${editFilmObject.bonusForRent}">
-								</div>
-						</div>
-					</div>
-					<div>
-					    <div style="float:left; width:45%;">
-						    <div style="float:left;">
-							    <p id="text">Year: </p>
-						    </div>
-						    <div style="float:right; width:30%">
-							    <input name="year" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.year}">
-						    </div>
 						</div>
 					</div>
 					<div>
