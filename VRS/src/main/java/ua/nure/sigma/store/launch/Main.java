@@ -13,7 +13,7 @@ import ua.nure.sigma.store.web.list.Categories;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-
+        
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
 
