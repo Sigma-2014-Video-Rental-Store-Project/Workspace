@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
+import ua.nure.sigma.store.validator.Validator;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 
@@ -17,7 +18,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is responsible for submitting changes made on edit form
@@ -41,10 +44,12 @@ public class EditFilmSaveCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(EditFilmSaveCommand.class);
 
-    private List<String> imageExtensions;
+    private final List<String> imageExtensions;
+    private final Validator validator;
 
-    public EditFilmSaveCommand(List<String> imageExtensions) {
+    public EditFilmSaveCommand(List<String> imageExtensions, Validator validator) {
         this.imageExtensions = imageExtensions;
+        this.validator = validator;
     }
 
     @Override
@@ -80,8 +85,15 @@ public class EditFilmSaveCommand extends Command {
             return Paths.PAGE_NO_PAGE;
         }
 
-        // Sets new values for current film.
-        setUpFieldValues(request, filmToEdit);
+        // Validates new values for current film and sets them if they are correct.
+        String errorMessage = setUpFieldValues(request, filmToEdit);
+        if (errorMessage != null) {
+
+            // Has to be transferred between two requests.
+            request.getSession().setAttribute("errorMessage", errorMessage);
+
+            return Paths.COMMAND_EDIT_FILM + "&filmId=" + filmId;
+        }
 
         // Sets categories for current film.
         setUpCategories(request, filmToEdit);
@@ -97,28 +109,52 @@ public class EditFilmSaveCommand extends Command {
             LOG.debug("EditFilmSaveCommand finished.");
         }
 
+        // Removes error message of this page if it exists.
+        request.getSession().removeAttribute("errorMessage");
+
         return Paths.COMMAND_FULL_FILM_LIST;
     }
 
     /**
      * Sets new values for title, amount, description, general price,
      * rent price, bonus for rent and year fields for the current film.
+     * Also validates them and if the validation fails, returns error message
+     * to set on edit film form.
      *
      * @param request    that will provide parameter values.
      * @param filmToEdit that will be modified.
      */
-    private void setUpFieldValues(HttpServletRequest request, Film filmToEdit) {
-        filmToEdit.setTitle(request.getParameter(FILM_TITLE_PARAM_NAME));
-        filmToEdit.setAmount(Integer.parseInt(request.getParameter(FILM_AMOUNT_PARAM_NAME)));
-        filmToEdit.setDescription(request.getParameter(FILM_DESCRIPTION_PARAM_NAME));
-        filmToEdit.setGeneralPrice(Long.parseLong(
-                request.getParameter(FILM_GENERAL_PRICE_PARAM_NAME)));
-        filmToEdit.setRentPrice(Long.parseLong(
-                request.getParameter(FILM_RENT_PRICE_PARAM_NAME)));
-        filmToEdit.setBonusForRent(Long.parseLong(
-                request.getParameter(FILM_BONUS_PARAM_NAME)));
-        filmToEdit.setYear(Integer.parseInt(
-                request.getParameter(FILM_YEAR_PARAM_NAME)));
+    private String setUpFieldValues(HttpServletRequest request, Film filmToEdit) {
+        String titleString = request.getParameter(FILM_TITLE_PARAM_NAME);
+        String amountString = request.getParameter(FILM_AMOUNT_PARAM_NAME);
+        String descriptionString = request.getParameter(FILM_DESCRIPTION_PARAM_NAME);
+        String generalPriceString = request.getParameter(FILM_GENERAL_PRICE_PARAM_NAME);
+        String rentPriceString = request.getParameter(FILM_RENT_PRICE_PARAM_NAME);
+        String bonusForRentString = request.getParameter(FILM_BONUS_PARAM_NAME);
+        String yearString = request.getParameter(FILM_YEAR_PARAM_NAME);
+
+        Map<String, String> attributes = new HashMap<String, String>(10);
+        attributes.put("title", titleString);
+        attributes.put("amount", amountString);
+        attributes.put("description", descriptionString);
+        attributes.put("generalPrice", generalPriceString);
+        attributes.put("rentPrice", rentPriceString);
+        attributes.put("bonusForRent", bonusForRentString);
+        attributes.put("year", yearString);
+        String errorMessage = validator.validate(attributes);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
+
+        filmToEdit.setTitle(titleString);
+        filmToEdit.setAmount(Integer.parseInt(amountString));
+        filmToEdit.setDescription(descriptionString);
+        filmToEdit.setGeneralPrice(Long.parseLong(generalPriceString));
+        filmToEdit.setRentPrice(Long.parseLong(rentPriceString));
+        filmToEdit.setBonusForRent(Long.parseLong(bonusForRentString));
+        filmToEdit.setYear(Integer.parseInt(yearString));
+
+        return null;
     }
 
     /**

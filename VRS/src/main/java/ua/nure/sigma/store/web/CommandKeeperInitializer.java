@@ -1,6 +1,8 @@
 package ua.nure.sigma.store.web;
 
 
+import ua.nure.sigma.store.validator.Validator;
+import ua.nure.sigma.store.validator.film.*;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
@@ -59,16 +61,26 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("logout", new LogOutCommand());
         commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
 
-        // Edit for specific.
+        // Edit form specific commands.
         List<String> extensions = new ArrayList<String>();
         extensions.add(".jpg");
         extensions.add(".jpeg");
         extensions.add(".png");
         extensions.add(".gif");
         extensions.add(".bmp");
+
+        Validator validator = new Validator();
+        validator.addCondition("title", new FilmTitleCondition());
+        validator.addCondition("amount", new FilmAmountCondition());
+        validator.addCondition("description", new FilmDescriptionCondition());
+        validator.addCondition("generalPrice", new FilmGeneralPriceCondition());
+        validator.addCondition("rentPrice", new FilmRentPriceCondition());
+        validator.addCondition("bonusForRent", new FilmBonusForRentCondition());
+        validator.addCondition("year", new FilmYearCondition());
+
         commandKeeper.add("editFilm", new EditFilmCommand());
         commandKeeper.add("editFilmRemove", new EditFilmRemoveCommand());
-        commandKeeper.add("editFilmSave", new EditFilmSaveCommand(extensions));
+        commandKeeper.add("editFilmSave", new EditFilmSaveCommand(extensions, validator));
 
 		commandKeeper.add("filmDetails", FilmDetailsCommandInitializer.getCommand());
     }

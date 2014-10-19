@@ -128,6 +128,9 @@
 							</div>
 						</div>
 					</div>
+					<c:if test="${not empty errorMessage}">
+                        <div class="error" style="margin-top: 130px;"><font face="verdana" size="4" color="red">${errorMessage}</font><div>
+                    </c:if>
 			    </div>
 			</form>
         </div>
