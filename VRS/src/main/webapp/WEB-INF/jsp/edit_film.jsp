@@ -42,7 +42,9 @@
 				    <div id="bordered" style="margin-bottom:2%;">
 					    <img id="cover" data-src="holder.js/140x140" class="center" src="filmCovers/${editFilmObject.cover}" >
 				    </div>
-				    <input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
+				    <span class="btn btn-primary btn-file">
+				        Browse...<input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
+				    </span>
 			    </div>
 			    <div id=rightside>
 				    <div>
