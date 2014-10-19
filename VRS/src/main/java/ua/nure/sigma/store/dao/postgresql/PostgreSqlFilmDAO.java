@@ -143,7 +143,6 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             int position = 1;
             position = setupPrepareStatement(pstmnt, film, position);
             pstmnt.setInt(position, film.getFilmId());
-            System.err.println(pstmnt.toString());
             pstmnt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

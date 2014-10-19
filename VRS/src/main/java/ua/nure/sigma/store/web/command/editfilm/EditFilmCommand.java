@@ -2,14 +2,18 @@ package ua.nure.sigma.store.web.command.editfilm;
 
 import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
+import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
+import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
+import ua.nure.sigma.store.web.list.Categories;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * This class is responsible for creating edit form for
@@ -69,6 +73,15 @@ public class EditFilmCommand extends Command {
 
             return Paths.PAGE_NO_PAGE;
         }
+
+        List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
+        Categories paramCategories = new Categories(categories);
+        request.setAttribute("categories", paramCategories);
+
+        List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId);
+        Categories categoryOfCurrentFilm = new Categories(categoryOfCurrentFilmList);
+        request.setAttribute("filmCategory", categoryOfCurrentFilm);
+
         request.setAttribute(EDIT_FILM_OBJECT, filmToEdit);
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("Next film was set as '%s' attribute in the request scope: %s",

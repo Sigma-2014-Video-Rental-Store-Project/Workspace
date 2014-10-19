@@ -40,4 +40,18 @@
         <param-value>300</param-value>
     </context-param>
 
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>ua.nure.sigma.store.web.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/WEB-INF/jsp/*</url-pattern>
+        <servlet-name>Controller</servlet-name>
+    </filter-mapping>
+
 </web-app>

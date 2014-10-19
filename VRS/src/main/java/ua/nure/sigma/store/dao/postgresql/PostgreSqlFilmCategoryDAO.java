@@ -23,7 +23,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
             "SELECT * FROM FILM_CATEGORIES WHERE FILM_ID = ?";
     private static final String SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID = "SELECT FILM_ID FROM FILM_CATEGORIES WHERE CATEGORY_ID = ?";
     private static final String SQL_INSERT_INTO_FILM_CATEGORIES = "INSERT INTO FILM_CATEGORIES VALUES(?,?)";
-    private static final String SQL_DELETE_FILM_CATEGORIES = "DELETE FROM FILM_CATEGORIES WHERE FILM_ID = ? AND CATEGORY_ID = ?";
+    private static final String SQL_DELETE_FILM_CATEGORIES = "DELETE FROM FILM_CATEGORIES WHERE FILM_ID = ?";
 
     @Override
     public List<Film> findFilmsByCategoryID(int id) {
@@ -79,13 +79,12 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
 
     @Override
     public void createFilmCategory(Film film, Category category, Connection connection) throws SQLException {
-
         PreparedStatement pstmnt = null;
         try {
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_FILM_CATEGORIES);
             int position = 1;
             pstmnt.setInt(position++, category.getId());
-            pstmnt.setInt(position++, film.getFilmId());
+            pstmnt.setInt(position, film.getFilmId());
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
@@ -154,8 +153,8 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
         try {
             pstmnt = connection.prepareStatement(SQL_DELETE_FILM_CATEGORIES);
             int position = 1;
-            pstmnt.setInt(position++, filmID);
-            pstmnt.execute();
+            pstmnt.setInt(position, filmID);
+            pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not add new client.", e);

@@ -43,7 +43,7 @@ public class EditFilmSaveCommand extends Command {
 
     private List<String> imageExtensions;
 
-    public EditFilmSaveCommand(List<String> imageExtensions){
+    public EditFilmSaveCommand(List<String> imageExtensions) {
         this.imageExtensions = imageExtensions;
     }
 
@@ -80,9 +80,34 @@ public class EditFilmSaveCommand extends Command {
             return Paths.PAGE_NO_PAGE;
         }
 
-        String categoryName = request.getParameter(FILM_CATEGORIES_PARAM_NAME);
-        int categoryId = DAOFactory.getInstance().getCategoryDAO().findCategoryIdByName(categoryName);
+        // Sets new values for current film.
+        setUpFieldValues(request, filmToEdit);
 
+        // Sets categories for current film.
+        setUpCategories(request, filmToEdit);
+
+        // Request call for film cover change.
+        setUpFilmCover(request, filmToEdit);
+
+        // Commits new state of the current film to database.
+        DAOFactory.getInstance().getFilmDAO().updateFilm(filmToEdit);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(String.format("Next film with id equals to '%d' has been updated.",
+                    filmId));
+            LOG.debug("EditFilmSaveCommand finished.");
+        }
+
+        return Paths.COMMAND_FULL_FILM_LIST;
+    }
+
+    /**
+     * Sets new values for title, amount, description, general price,
+     * rent price, bonus for rent and year fields for the current film.
+     *
+     * @param request    that will provide parameter values.
+     * @param filmToEdit that will be modified.
+     */
+    private void setUpFieldValues(HttpServletRequest request, Film filmToEdit) {
         filmToEdit.setTitle(request.getParameter(FILM_TITLE_PARAM_NAME));
         filmToEdit.setAmount(Integer.parseInt(request.getParameter(FILM_AMOUNT_PARAM_NAME)));
         filmToEdit.setDescription(request.getParameter(FILM_DESCRIPTION_PARAM_NAME));
@@ -94,23 +119,32 @@ public class EditFilmSaveCommand extends Command {
                 request.getParameter(FILM_BONUS_PARAM_NAME)));
         filmToEdit.setYear(Integer.parseInt(
                 request.getParameter(FILM_YEAR_PARAM_NAME)));
-
-        // TODO Category processing.
-        categorySetup(request, filmToEdit);
-
-        // Request call for film cover change.
-        setUpFilmCover(request, filmId, filmToEdit);
-
-        DAOFactory.getInstance().getFilmDAO().updateFilm(filmToEdit);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(String.format("Next film with id equals to '%d' has been updated.",
-                    filmId));
-            LOG.debug("EditFilmSaveCommand finished.");
-        }
-
-        return Paths.COMMAND_FULL_FILM_LIST;
     }
 
+    /**
+     * @param request    that will provide parameter values.
+     * @param filmToEdit that will be modified.
+     */
+    private void setUpCategories(HttpServletRequest request, Film filmToEdit) {
+        String[] categories = request.getParameterValues(FILM_CATEGORIES_PARAM_NAME);
+        if (categories != null) {
+            List<Category> categoryList = new ArrayList<Category>();
+            for (String categoryName : categories) {
+                LOG.debug(categoryName);
+                int categoryId = DAOFactory.getInstance().getCategoryDAO().findCategoryIdByName(categoryName);
+                categoryList.add(DAOFactory.getInstance().getCategoryDAO().findCategoryByID(categoryId));
+            }
+            DAOFactory.getInstance().getFilmCategoryDAO().updateFilmCategories(filmToEdit, categoryList);
+        }
+    }
+
+    /**
+     * This method processes a part of network transfer as a file, that represents
+     * new image for film cover. Returns filename of this image.
+     *
+     * @param part that represents image.
+     * @return filename of the image.
+     */
     private static String getFilename(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
@@ -121,14 +155,20 @@ public class EditFilmSaveCommand extends Command {
         return null;
     }
 
-    private void setUpFilmCover(HttpServletRequest request, int filmId, Film filmToEdit) {
-        LOG.debug("Started to upload film cover image.");
-        InputStream in = null;
-        FileOutputStream out = null;
+    /**
+     * Sets new film cover if it was changed since the edit form call.
+     *
+     * @param request    that will provide parameter values.
+     * @param filmToEdit that will be modified.
+     */
+    private void setUpFilmCover(HttpServletRequest request, Film filmToEdit) {
+        LOG.debug("Started to update film cover image.");
+        int filmId = filmToEdit.getFilmId();
         try {
             Part filePart = request.getPart("inputFile");
             String filename = getFilename(filePart);
-            if(filename.isEmpty()){
+            if (filename.isEmpty()) {
+                LOG.debug("No need to update film cover image.");
                 return;
             }
             String coverExtension = filename.split("\\.")[1];
@@ -141,12 +181,11 @@ public class EditFilmSaveCommand extends Command {
                 LOG.debug("Image extension to process: " + coverExtension);
                 LOG.debug("New film cover path: " + newCoverPath);
             }
-            in = filePart.getInputStream();
+            InputStream in = filePart.getInputStream();
             File file = new File(newCoverPath);
-
-            for(String extension: imageExtensions){
+            for (String extension : imageExtensions) {
                 File cover = new File(coverRepositoryPath + filmId + extension);
-                if(cover.exists()){
+                if (cover.exists()) {
                     boolean success = cover.delete();
                     if (!success) {
                         RuntimeException e = new RuntimeException("Delete permission denied.");
@@ -156,38 +195,14 @@ public class EditFilmSaveCommand extends Command {
                     break;
                 }
             }
-            out = new FileOutputStream(file);
+            FileOutputStream out = new FileOutputStream(file);
             IOUtils.copy(in, out);
-            filmToEdit.setCover(filmId+"." + coverExtension);
+            filmToEdit.setCover(filmId + "." + coverExtension);
         } catch (ServletException ex) {
             LOG.error("Servlet exception occurred while setting film cover.", ex);
         } catch (IOException ex) {
             LOG.error("Input data processing exception occurred while setting film cover.", ex);
-        } finally {
-            try {
-                out.close();
-                in.close();
-            } catch (IOException ioException){
-                LOG.error("Cannot close film cover streams.", ioException);
-            } catch (NullPointerException nullPointerException){
-                LOG.error("Cannot close film cover streams.", nullPointerException);
-            }
         }
         LOG.debug("Finished to upload film cover image.");
-    }
-
-    private void categorySetup(HttpServletRequest request, Film filmToEdit) {
-        String[] categories = request.getParameterValues(FILM_CATEGORIES_PARAM_NAME);
-        LOG.debug(categories);
-        if (categories != null) {
-            int categoryId = -1;
-            List<Category> categoriesList = new ArrayList<Category>();
-            for (int i = 0; i < categories.length; i++) {
-                LOG.debug(categories[i]);
-                categoryId = DAOFactory.getInstance().getCategoryDAO().findCategoryIdByName(categories[i]);
-                categoriesList.add(DAOFactory.getInstance().getCategoryDAO().findCategoryByID(categoryId));
-            }
-            DAOFactory.getInstance().getFilmCategoryDAO().updateFilmCategories(filmToEdit, categoriesList);
-        }
     }
 }
