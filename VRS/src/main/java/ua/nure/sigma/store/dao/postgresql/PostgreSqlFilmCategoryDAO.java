@@ -122,7 +122,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
-            deleteFilmCategories(film,connection);
+            deleteFilmCategories(film.getFilmId(),connection);
             for (Category category:categoryList){
                 createFilmCategory(film,category,connection);
             }

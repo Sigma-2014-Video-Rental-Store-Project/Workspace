@@ -1,4 +1,4 @@
-package ua.nure.sigma.store.web.command.editfilm;
+package ua.nure.sigma.store.web.command.filmdetails;
 
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Film;
@@ -16,22 +16,19 @@ import java.util.List;
 /**
  * Created by Vlad Samotskiy on 18.10.14.
  */
-public class EditFilmFillCommand extends Command {
+public class FilmDetailsFillCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String filmIDString = request.getParameter(EditFilmCommand.FILMID_PARAM_NAME);
+        String filmIDString = request.getParameter(FilmDetailsCommand.FILMID_PARAM_NAME);
 		List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
         int filmId = 0;
         Film film = new Film();
         try {
             if (filmIDString != null) {
                 filmId = Integer.parseInt(filmIDString);
-                film = DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId);   
-                List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId);
-				Categories categoryOfCurrentFilm = new Categories(categoryOfCurrentFilmList);
-				request.getSession().setAttribute("editFilmObject", film);
-				request.getSession().setAttribute("filmCategory", categoryOfCurrentFilm);
+                film = DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId);            
             }
+        request.getSession().setAttribute("editFilmObject", film);
         } catch (Exception e) {
         }
 		Categories paramCategories = new Categories(categories);

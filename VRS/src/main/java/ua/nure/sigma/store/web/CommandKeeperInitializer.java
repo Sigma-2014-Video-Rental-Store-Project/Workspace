@@ -6,6 +6,7 @@ import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmCommandInitializer;
 import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
+import ua.nure.sigma.store.web.command.filmdetails.FilmDetailsCommandInitializer;
 
 /**
  * This service class provides transactional instantiation of
@@ -53,6 +54,7 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
         commandKeeper.add("editFilm", EditFilmCommandInitializer.getCommand());
         commandKeeper.add("logout", new LogOutCommand());
+		commandKeeper.add("filmDetails", FilmDetailsCommandInitializer.getCommand());
     }
 
 }
