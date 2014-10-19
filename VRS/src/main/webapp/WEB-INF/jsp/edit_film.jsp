@@ -7,6 +7,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/edit_film.css" rel="stylesheet">
 <link href="css/bootstrap-spinedit.css" rel="stylesheet" >
+<link href="css/sumoselect.css" rel="stylesheet" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,6 +18,7 @@
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
     <title>Films edit</title>
+	
 </head>
 <body>
     <f:view>
@@ -44,15 +46,30 @@
 			    </div>
 			    <div id=rightside>
 				    <div>
-					    <div id="genre" style="margin-bottom:1.5%;">
+					    <div id="genre">
 						    <p id="text">Genre:</p>
-						    <select name="categoryName" class="form-control">
-							    <option>Comedy</option>
-						    </select>
+							<select name="categoryName"   multiple="multiple" onchange="console.log($(this).children(':selected').length)" class="testsel">
+							<c:forEach items="${categories.model}" var="current">
+								<c:forEach items="${filmCategory.model}" var="cur">	
+									<c:choose>
+										<c:when test="${current.name == cur.name}">
+											<option value="<c:out value="${current.name}"/>" selected> 
+												<c:out value="${current.name}"/>
+											</option>
+										</c:when>
+										<c:otherwise>
+										<option value="<c:out value="${current.name}"/>"> 
+											<c:out value="${current.name}"/>
+										</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:forEach>
+							</select>
 					    </div>
 				    </div>
 				    <div>
-					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;">${editFilmObject.description}</textarea>
+					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;">${editFilmObject.description}</textarea>
 				    </div>
 				    <div>
 					    <div style="float:left; width:45%;">
@@ -124,4 +141,12 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/attribute_funcs.js"></script>
 <script type="text/javascript" src="js/cover.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="js/jquery.sumoselect.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
+            window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
+        });
+    </script>
 </html>

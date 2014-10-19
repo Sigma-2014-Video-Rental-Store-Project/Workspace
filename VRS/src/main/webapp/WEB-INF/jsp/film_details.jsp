@@ -8,6 +8,7 @@
 <link href="css/edit_film.css" rel="stylesheet">
 <link href="css/bootstrap-spinedit.css" rel="stylesheet" >
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -23,25 +24,23 @@
         <div id="header">
             <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
-        <form action="controller" method="post" name="editFilm">
-            <input type="hidden" name="command" value="editFilm" />
-            <input type="hidden" name="filmId" value="93" />
+        <form action="controller" method="post" name="filmDetails">           
 		    <div id="content-body">
 			    <div id=leftside>
-					<p id="text">Some film name (year) <button type="button" class="btn btn-link">edit</button></p>
+					<p id="text">${editFilmObject.title} (${editFilmObject.year}) <a href="controller?command=editFilm&filmId=${editFilmObject.filmId}&get=true">edit</a></p>
 				    <div id="bordered" style="margin-bottom:2%;">
-					    <img id="cover" data-src="holder.js/140x140" class="center" src="http://cs540107.vk.me/c7005/v7005726/2c818/I-bf-lL08Vg.jpg" >
+					    <img id="cover" data-src="holder.js/140x140" class="center" src="filmCovers/${editFilmObject.cover}" >
 				    </div>
-				    <p id="text">avaliable in stock 5/5</p>
+				    <p id="text">avaliable in stock ${editFilmObject.copiesLeft}/${editFilmObject.amount}</p>
 			    </div>
 			    <div id=rightside>
 				    <div>
-					    <div id="genre" style="margin-bottom:1.5%;">
-						    <p id="text">Genre: Comedy</p>
+					    <div id="genre" style="margin-bottom:0.5%;">
+						    <p id="text">Genre:</p>
 					    </div>
 				    </div>
 				    <div>
-					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;"></textarea>
+					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;" readonly>${editFilmObject.description}</textarea>
 				    </div>
 				    <div>
 					    <div style="float:left; width:45%;">
@@ -49,7 +48,7 @@
 							    <p id="text">Copies: </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="1" max="5" value="1">
+							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max=${editFilmObject.copiesLeft} value="0">
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
@@ -57,17 +56,14 @@
 									<p id="text">Days: </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input type="number" name="Days"  class="form-control" style="margin-bottom:2%; margin-left:3%;" min="1" max="5" value="1">
+									<input type="number" name="Days"  class="form-control" style="margin-bottom:2%; margin-left:3%;" min="1" max="100" value="1">
 								</div>
 						</div>
 					</div>
 					<div>
 						<div style="float:right; clear:left; width:50%;">
 							<div style="float:right;">
-								<button type="submit" class="btn btn-success" style="margin-left:3%;">Save</button>
-							</div>
-							<div style="float:right;">
-								<button type="submit" class="btn btn-default">Cancel</button>
+								<button type="submit" class="btn btn-success" style="margin-left:3%;">Add to cart</button>
 							</div>
 						</div>
 					</div>

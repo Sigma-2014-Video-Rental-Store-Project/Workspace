@@ -9,11 +9,11 @@ public final class FilmListCommandInitializer {
 
     static {
         command.addCommandListener(new FilmListCategoryCommand());
+        command.addCommandListener(new FilmListSearchCommand());
         command.addCommandListener(new FilmListAddToCartCommand());
         command.addCommandListener(new FilmListSortCommand());
         command.addCommandListener(new FilmListFilterCommand());
         command.addCommandListener(new FilmListPageCommand());
-        command.addCommandListener(new FilmListSearchCommand());
     }
 
     /**

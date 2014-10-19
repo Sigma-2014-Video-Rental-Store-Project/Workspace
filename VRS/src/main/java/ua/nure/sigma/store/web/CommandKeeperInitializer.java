@@ -8,6 +8,7 @@ import ua.nure.sigma.store.web.command.editfilm.EditFilmCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmRemoveCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmSaveCommand;
 import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
+import ua.nure.sigma.store.web.command.filmdetails.FilmDetailsCommandInitializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,8 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("editFilm", new EditFilmCommand());
         commandKeeper.add("editFilmRemove", new EditFilmRemoveCommand());
         commandKeeper.add("editFilmSave", new EditFilmSaveCommand(extensions));
+
+		commandKeeper.add("filmDetails", FilmDetailsCommandInitializer.getCommand());
     }
 
 }
