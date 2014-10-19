@@ -27,8 +27,11 @@ public class FilmDetailsFillCommand extends Command {
             if (filmIDString != null) {
                 filmId = Integer.parseInt(filmIDString);
                 film = DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId);            
+				List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId);
+				Categories categoryOfCurrentFilm = new Categories(categoryOfCurrentFilmList);
+				request.getSession().setAttribute("editFilmObject", film);
+				request.getSession().setAttribute("filmCategory", categoryOfCurrentFilm);
             }
-        request.getSession().setAttribute("editFilmObject", film);
         } catch (Exception e) {
         }
 		Categories paramCategories = new Categories(categories);
