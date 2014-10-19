@@ -26,7 +26,7 @@ public class FilmDetailsFillCommand extends Command {
         try {
             if (filmIDString != null) {
                 filmId = Integer.parseInt(filmIDString);
-                film = DAOFactory.getInstance().getFilmDAO().findFilmByID(filmId);            
+                film = DAOFactory.getInstance().getFilmDAO().findFilmById(filmId);
 				List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId);
 				Categories categoryOfCurrentFilm = new Categories(categoryOfCurrentFilmList);
 				request.getSession().setAttribute("editFilmObject", film);
