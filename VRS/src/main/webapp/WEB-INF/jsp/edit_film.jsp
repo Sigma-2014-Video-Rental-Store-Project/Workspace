@@ -23,17 +23,24 @@
         <div id="header">
             <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
-        <form action="controller" method="post" name="editFilm">
-            <input type="hidden" name="command" value="editFilm" />
-            <input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
-		    <div id="content-body">
-			    <div id=leftside>
+		<div id="content-body">
+		    <div id="remove-block">
+		        <form action="controller" method="post" name="editFilmRemove">
+                    <input type="hidden" name="command" value="editFilmRemove" />
+                    <input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
+                    <button class="btn btn-danger">Remove film</button>
+                </form>
+            </div>
+            <form action="controller" method="post" enctype="multipart/form-data">
+                 <input type="hidden" name="command" value="editFilmSave" />
+                 <input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
+			     <div id=leftside>
 				    <p id="text">Film name:</p>
 				    <input type="text" name="filmTitle" class="form-control" style="margin-bottom:2%;" value="${editFilmObject.title}">
 				    <div id="bordered" style="margin-bottom:2%;">
 					    <img id="cover" data-src="holder.js/140x140" class="center" src="filmCovers/${editFilmObject.cover}" >
 				    </div>
-				    <input type="file" id="inputFile" onChange="setUpCoverRepresentation(this);">
+				    <input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
 			    </div>
 			    <div id=rightside>
 				    <div>
@@ -42,9 +49,6 @@
 						    <select name="categoryName" class="form-control">
 							    <option>Comedy</option>
 						    </select>
-					    </div>
-					    <div style="float:right;">
-						    <button type="button" class="btn btn-danger" onclick="setSeveralAttr(['filmId', 'remove'],[filmId.value, 'true'])">Remove film</button>
 					    </div>
 				    </div>
 				    <div>
@@ -56,7 +60,7 @@
 							    <p id="text">Copies: </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max="15" value="${editFilmObject.copiesLeft}">
+							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max="15" value="${editFilmObject.amount}">
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
@@ -103,16 +107,16 @@
 								<button type="submit" class="btn btn-success" style="margin-left:3%;">Save</button>
 							</div>
 							<div style="float:right;">
-								<button type="submit" class="btn btn-default">Cancel</button>
+								<a href="controller?command=fullFilmList"><button type="button" class="btn btn-default">Cancel</button></a>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div id="footer">
-					<jsp:include page="../jspf/footer.jspf"/>
-				</div>
-            </div>
-       </form>
+			    </div>
+			</form>
+        </div>
+        <div id="footer">
+        	<jsp:include page="../jspf/footer.jspf"/>
+        </div>
     </f:view>
 </body>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>

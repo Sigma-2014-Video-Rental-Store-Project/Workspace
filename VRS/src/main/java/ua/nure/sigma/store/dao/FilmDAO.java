@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface FilmDAO {
     List<Film> findAllFilms();
-    Film findFilmByID(int id);
-    public Film findFilmByID(Connection connection, int id);
+    Film findFilmById(int id);
+    public Film findFilmById(Connection connection, int id);
     void createFilm(Film film);
     void updateFilm(Film film);
     void deleteFilm(Film film);
-    void deleteFilm(int filmID);
+    void deleteFilm(int filmId);
 }

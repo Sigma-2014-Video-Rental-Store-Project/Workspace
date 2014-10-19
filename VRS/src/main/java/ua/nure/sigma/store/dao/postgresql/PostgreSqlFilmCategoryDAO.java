@@ -38,7 +38,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             while (rs.next()) {
-                films.add(filmDAO.findFilmByID(connection, rs.getInt("FILM_ID")));
+                films.add(filmDAO.findFilmById(connection, rs.getInt("FILM_ID")));
             }
         } catch (Exception e) {           
 //            LOG.error("Can not obtain User by id.", e);

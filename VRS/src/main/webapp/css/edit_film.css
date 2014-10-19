@@ -37,3 +37,9 @@ border: 1px solid #ccc;
 	font-size:150%;
 	margin-bottom:1%;
 }
+
+#remove-block {
+    margin-left:63%;
+    margin-top: 32px;
+    position: absolute;
+}

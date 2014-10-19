@@ -6,11 +6,12 @@ import org.apache.log4j.PropertyConfigurator;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.io.File;
 
 /**
  * Context listener.
  *
- * @author Denis Shevchenko
+ * @author Denys Shevchenko
  * @version 1.0
  */
 public class ContextListener implements ServletContextListener {
@@ -23,6 +24,7 @@ public class ContextListener implements ServletContextListener {
 
         ServletContext servletContext = event.getServletContext();
         initLog4J(servletContext);
+        initFileUploaderParams(servletContext);
 
         log("Servlet context initialization finished");
     }
@@ -42,6 +44,16 @@ public class ContextListener implements ServletContextListener {
         }
         log("Log4J initialization finished");
         LOG.debug("Log4j has been initialized");
+    }
+
+    /**
+     * Initializes directory values for film cover uploader.
+     *
+     * @param servletContext to get real paths for film cover directory.
+     */
+    private void initFileUploaderParams(ServletContext servletContext) {
+        String realFilmCoversPath = servletContext.getRealPath("filmCovers/");
+        servletContext.setAttribute("COVERS_DIR", realFilmCoversPath + File.separator);
     }
 
     @Override

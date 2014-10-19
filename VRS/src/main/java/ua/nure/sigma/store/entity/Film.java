@@ -94,4 +94,20 @@ public class Film {
     public int getCopiesLeft() {
         return copiesLeft;
     }
+
+    @Override
+    public String toString() {
+        return "Film {" +
+                "filmId=" + filmId +
+                ", title='" + title + '\'' +
+                ", year=" + year +
+                ", description='" + description + '\'' +
+                ", cover='" + cover + '\'' +
+                ", amount=" + amount +
+                ", generalPrice=" + generalPrice +
+                ", rentPrice=" + rentPrice +
+                ", bonusForRent=" + bonusForRent +
+                ", copiesLeft=" + copiesLeft +
+                '}';
+    }
 }

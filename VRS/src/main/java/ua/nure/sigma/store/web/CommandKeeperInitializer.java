@@ -4,8 +4,13 @@ package ua.nure.sigma.store.web;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
-import ua.nure.sigma.store.web.command.editfilm.EditFilmCommandInitializer;
+import ua.nure.sigma.store.web.command.editfilm.EditFilmCommand;
+import ua.nure.sigma.store.web.command.editfilm.EditFilmRemoveCommand;
+import ua.nure.sigma.store.web.command.editfilm.EditFilmSaveCommand;
 import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This service class provides transactional instantiation of
@@ -50,9 +55,19 @@ public final class CommandKeeperInitializer {
     private static void fillWithCommands(CommandKeeper commandKeeper) {
         commandKeeper.add("wrong", new WrongCommand());
         commandKeeper.add("signIn", new SignInCommand());
-        commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
-        commandKeeper.add("editFilm", EditFilmCommandInitializer.getCommand());
         commandKeeper.add("logout", new LogOutCommand());
+        commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
+
+        // Edit for specific.
+        List<String> extensions = new ArrayList<String>();
+        extensions.add(".jpg");
+        extensions.add(".jpeg");
+        extensions.add(".png");
+        extensions.add(".gif");
+        extensions.add(".bmp");
+        commandKeeper.add("editFilm", new EditFilmCommand());
+        commandKeeper.add("editFilmRemove", new EditFilmRemoveCommand());
+        commandKeeper.add("editFilmSave", new EditFilmSaveCommand(extensions));
     }
 
 }
