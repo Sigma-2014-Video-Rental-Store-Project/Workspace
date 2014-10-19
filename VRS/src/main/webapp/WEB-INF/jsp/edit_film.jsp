@@ -41,7 +41,7 @@
 				    <div>
 					    <div id="genre">
 						    <p id="text">Genre:</p>
-							<select   multiple="multiple" onchange="console.log($(this).children(':selected').length)" class="testsel">
+							<select name="categoryName"   multiple="multiple" onchange="console.log($(this).children(':selected').length)" class="testsel">
 							<c:forEach items="${categories.model}" var="current">
 								<c:forEach items="${filmCategory.model}" var="cur">	
 									<c:choose>

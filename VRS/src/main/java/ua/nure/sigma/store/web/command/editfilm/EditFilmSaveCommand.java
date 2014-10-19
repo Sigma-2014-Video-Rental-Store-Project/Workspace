@@ -5,6 +5,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
+import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.command.Command;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public class EditFilmSaveCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String filmIDString = request.getParameter(EditFilmCommand.FILMID_PARAM_NAME);
         String remove = request.getParameter(EditFilmCommand.REMOVE_PARAM_NAME);
+
         int filmId = 0;
         if (filmIDString != null) {
             filmId = Integer.parseInt(filmIDString);
@@ -59,10 +62,8 @@ public class EditFilmSaveCommand extends Command {
                     editingFilm.setCover(filmId + ".jpg");
                 }
                 editingFilm.setFilmId(filmId);
-                DAOFactory.getInstance().getFilmCategoryDAO().createFilmCategory(editingFilm,
-                        DAOFactory.getInstance().getCategoryDAO().findCategoryByID(categoryId));
                 DAOFactory.getInstance().getFilmDAO().updateFilm(editingFilm);
-
+                categorySetup(request, editingFilm);
                 // Temp call for film cover change.
                 setUpFilmCover(request, filmId);
 
@@ -72,6 +73,21 @@ public class EditFilmSaveCommand extends Command {
             }
         }
         return null;
+    }
+
+    private void categorySetup(HttpServletRequest request, Film editingFilm) {
+        String[] categories = request.getParameterValues(EditFilmCommand.FILM_CATEGORIES_PARAM_NAME);
+        LOG.debug(categories);
+        if (categories != null) {
+            int categoryId = -1;
+            List<Category> categoriesList = new ArrayList<Category>();
+            for (int i = 0; i < categories.length; i++) {
+                LOG.debug(categories[i]);
+                categoryId = DAOFactory.getInstance().getCategoryDAO().findCategoryIdByName(categories[i]);
+                categoriesList.add(DAOFactory.getInstance().getCategoryDAO().findCategoryByID(categoryId));
+            }
+            DAOFactory.getInstance().getFilmCategoryDAO().updateFilmCategories(editingFilm, categoriesList);
+        }
     }
 
     private void setUpFilmCover(HttpServletRequest request, int filmId) {
