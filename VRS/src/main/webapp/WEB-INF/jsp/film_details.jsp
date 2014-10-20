@@ -36,11 +36,11 @@
 			    <div id=rightside>
 				    <div>
 					    <div id="genre" style="margin-bottom:0.5%;">
-						    <p id="text">Genre:</p>
+						    <p id="text">Genre: ${catString}</p>
 					    </div>
 				    </div>
 				    <div>
-					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;margin-top:10%;" readonly>${editFilmObject.description}</textarea>
+					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;" readonly>${editFilmObject.description}</textarea>
 				    </div>
 				    <div>
 					    <div style="float:left; width:45%;">

@@ -94,7 +94,7 @@
                     <tr>
                         <td><a href="controller?command=filmDetails&filmId=${current.filmId}">${current.title}</a></td>
                         <td><c:out value="${current.copiesLeft}"/></td>
-                        <td><c:out value="${current.rentPrice}"/></td>
+                        <td><c:out value="${current.rentPrice/100}"/></td>
                         <td><a class="add-to-cart-link" href="#" onclick="sendGetRequest('${current.filmId}',this)">add</a>&nbsp;</td>
                         <td><a href="controller?command=editFilm&filmId=${current.filmId}">edit</a>&nbsp;</td>
                     </tr>
