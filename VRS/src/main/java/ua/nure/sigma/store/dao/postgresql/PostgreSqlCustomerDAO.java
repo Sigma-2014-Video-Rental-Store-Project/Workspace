@@ -30,14 +30,14 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         Customer customer = new Customer();
         customer.setCustomerID(rs.getInt("CUSTOMER_ID"));
         customer.setLastName(rs.getString("LAST_NAME"));
-        customer.setFirstName(rs.getString("FIRS_NAME"));
+        customer.setFirstName(rs.getString("FIRST_NAME"));
         customer.setMidleName(rs.getString("MIDLE_NAME"));
         customer.setCustomerEmail(rs.getString("CUSTOMER_EMAIL"));
         customer.setCustomerPhone(rs.getString("CUSTOMER_PHONE"));
         customer.setSexID(rs.getInt("SEX_ID"));
         customer.setCustomerPhoto(rs.getString("CUSTOMER_PHOTO"));
         try {
-            customer.addBonus(rs.getLong("BONUS_FOR_RENT"));
+            customer.addBonus(rs.getLong("BONUS"));
         } catch (NotEnoughOfBonusExeption notEnoughOfBonusExeption) {
         }
         return customer;
