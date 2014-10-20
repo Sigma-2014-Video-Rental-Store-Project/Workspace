@@ -19,9 +19,8 @@ public class PostgreSqlFilmDAO implements FilmDAO {
     private static final String SQL_SELECT_FROM_FILMS_ALL_FILM = "SELECT * FROM FILMS";
     private static final String SQL_INSERT_INTO_FILMS = "INSERT INTO FILMS (TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT) VALUES(?,?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_FILM =
-            "UPDATE FILMS SET TITLE = ?, YEAR =?, DESCRIPTION =?, COVER =?, AMOUNT =?, GENERAL_PRICE =?, RENT_PRICE =?, BONUS_FOR_RENT =? WHERE FILM_ID = ?";
+            "UPDATE FILMS SET TITLE = ?, YEAR =?, DESCRIPTION =?, COVER =?, AMOUNT =?, GENERAL_PRICE = ?, RENT_PRICE = ?, BONUS_FOR_RENT = ? WHERE FILM_ID = ?";
     private static final String SQL_DELETE_FILM = "DELETE FROM FILMS WHERE FILM_ID = ?";
-
 
     private Film extractFilm(ResultSet rs) throws SQLException {
         Film film = new Film();
@@ -64,13 +63,13 @@ public class PostgreSqlFilmDAO implements FilmDAO {
     }
 
     @Override
-    public Film findFilmByID(int id) {
+    public Film findFilmById(int id) {
         Film film = null;
         Connection connection = null;
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
-            film = findFilmByID(connection, id);
+            film = findFilmById(connection, id);
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by id.", e);
@@ -80,7 +79,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         return film;
     }
 
-    public Film findFilmByID(Connection connection, int id) {
+    public Film findFilmById(Connection connection, int id) {
         Film film = null;
         PreparedStatement pstmnt = null;
         ResultSet rs = null;
@@ -143,9 +142,10 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             pstmnt = connection.prepareStatement(SQL_UPDATE_FILM);
             int position = 1;
             position = setupPrepareStatement(pstmnt, film, position);
-            pstmnt.setInt(position++, film.getFilmId());
+            pstmnt.setInt(position, film.getFilmId());
             pstmnt.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
             DAOFactory.rollback(connection);
 //            LOG.error("Can not update User's block.", e);
         } finally {
@@ -160,7 +160,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
     }
 
     @Override
-    public void deleteFilm(int filmID) {
+    public void deleteFilm(int filmId) {
         Connection connection = null;
         PreparedStatement pstmnt = null;
         try {
@@ -168,7 +168,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_DELETE_FILM);
             int position = 1;
-            pstmnt.setInt(position, filmID);
+            pstmnt.setInt(position, filmId);
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);

@@ -1,11 +1,19 @@
 package ua.nure.sigma.store.web;
 
 
+import ua.nure.sigma.store.validator.Validator;
+import ua.nure.sigma.store.validator.film.*;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
-import ua.nure.sigma.store.web.command.editfilm.EditFilmCommandInitializer;
+import ua.nure.sigma.store.web.command.editfilm.EditFilmCommand;
+import ua.nure.sigma.store.web.command.editfilm.EditFilmRemoveCommand;
+import ua.nure.sigma.store.web.command.editfilm.EditFilmSaveCommand;
 import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
+import ua.nure.sigma.store.web.command.filmdetails.FilmDetailsCommandInitializer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This service class provides transactional instantiation of
@@ -50,9 +58,31 @@ public final class CommandKeeperInitializer {
     private static void fillWithCommands(CommandKeeper commandKeeper) {
         commandKeeper.add("wrong", new WrongCommand());
         commandKeeper.add("signIn", new SignInCommand());
-        commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
-        commandKeeper.add("editFilm", EditFilmCommandInitializer.getCommand());
         commandKeeper.add("logout", new LogOutCommand());
+        commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
+
+        // Edit form specific commands.
+        List<String> extensions = new ArrayList<String>();
+        extensions.add(".jpg");
+        extensions.add(".jpeg");
+        extensions.add(".png");
+        extensions.add(".gif");
+        extensions.add(".bmp");
+
+        Validator validator = new Validator();
+        validator.addCondition("title", new FilmTitleCondition());
+        validator.addCondition("amount", new FilmAmountCondition());
+        validator.addCondition("description", new FilmDescriptionCondition());
+        validator.addCondition("generalPrice", new FilmGeneralPriceCondition());
+        validator.addCondition("rentPrice", new FilmRentPriceCondition());
+        validator.addCondition("bonusForRent", new FilmBonusForRentCondition());
+        validator.addCondition("year", new FilmYearCondition());
+
+        commandKeeper.add("editFilm", new EditFilmCommand());
+        commandKeeper.add("editFilmRemove", new EditFilmRemoveCommand());
+        commandKeeper.add("editFilmSave", new EditFilmSaveCommand(extensions, validator));
+
+		commandKeeper.add("filmDetails", FilmDetailsCommandInitializer.getCommand());
     }
 
 }

@@ -5,7 +5,7 @@ import ua.nure.sigma.store.entity.Film;
 import java.util.List;
 
 /**
- * Created by Сергей on 17.10.14.
+ * Created by Sergey Laposhko on 17.10.14.
  */
 public class FilmListFilterAllState implements IListFilterState<Film> {
     @Override

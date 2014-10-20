@@ -12,10 +12,11 @@ import java.util.List;
  */
 public interface FilmCategoryDAO {
     List<Film> findFilmsByCategoryID(int id);
+    List<Category> findCategoriesByFilmID(int id);
     void createFilmCategory(Film film, Category category,Connection connection)throws SQLException;
     void updateFilmCategories(Film film, List<Category> categoryList);
     void createFilmCategory(Film film, Category category);
     void createFilmCategories(Film film, List<Category> categoryList);
-    void deleteFilmCategories(Film film);
-    void deleteFilmCategories(Film film,Connection connection)throws SQLException;
+    void deleteFilmCategories(int filmID);
+    void deleteFilmCategories(int filmID,Connection connection)throws SQLException;
 }

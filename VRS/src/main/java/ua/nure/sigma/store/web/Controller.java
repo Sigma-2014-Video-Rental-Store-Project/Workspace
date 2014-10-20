@@ -10,6 +10,7 @@ import ua.nure.sigma.store.web.command.SignInCommand;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import java.io.IOException;
 
@@ -27,6 +28,7 @@ import java.io.IOException;
  * @author Maxim Sinkevich
  * @version 1.0
  */
+@MultipartConfig
 public final class Controller extends HttpServlet {
 
     public static final String USER_ATTRIBUTE_NAME = "user";

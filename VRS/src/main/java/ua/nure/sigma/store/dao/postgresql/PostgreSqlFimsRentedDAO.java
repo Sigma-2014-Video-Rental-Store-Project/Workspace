@@ -19,8 +19,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
     private static final String SQL_SELECT_FROM_FILM_RENTED_BY_RENT_ID = "SELECT * FROM FILM_AT_RENT WHERE FILM_ID = ?";
     private static final String SQL_SELECT_FILM_RENTED = "SELECT * FROM FILM ILM_AT_RENT WHERE RENT_ID = ? AND FILM_ID = ?";
     private static final String SQL_INSERT_INTO_FILM_AT_RENTED = "INSERT INTO FILM_AT_RENT VALUES(?,?,?,?,?,NULL)";
-    private static final String SQL_UPDATE_FILM_RENTED =
-            "UPDATE FILM_AT_RENT SET СOPIES_LEFT = ? WHERE RENT_ID = ? AND FILM_ID = ?";
+    private static final String SQL_UPDATE_FILM_RENTED = "UPDATE FILM_ATRENT SET COPIES_LEFT = ? WHERE RENT_ID =? AND FILM_ID = ?";
     private static final String SQL_CLOSE_FILM_RENT = "UPDATE FILM_AT_RENT SET ACCEPTED_DATE = CURRENT_DATE, COPIES_LEFT = 0 WHERE RENT_ID = ? AND FILM_ID = ?";
 
 
