@@ -149,8 +149,8 @@ public class EditFilmSaveCommand extends Command {
         filmToEdit.setTitle(titleString);
         filmToEdit.setAmount(Integer.parseInt(amountString));
         filmToEdit.setDescription(descriptionString);
-        filmToEdit.setGeneralPrice(Long.parseLong(generalPriceString));
-        filmToEdit.setRentPrice(Long.parseLong(rentPriceString));
+        filmToEdit.setGeneralPrice(Long.parseLong(generalPriceString) * 100);
+        filmToEdit.setRentPrice(Long.parseLong(rentPriceString) * 100);
         filmToEdit.setBonusForRent(Long.parseLong(bonusForRentString));
         filmToEdit.setYear(Integer.parseInt(yearString));
 

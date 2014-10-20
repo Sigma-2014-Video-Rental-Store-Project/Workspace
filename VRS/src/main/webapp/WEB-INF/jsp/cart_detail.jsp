@@ -26,6 +26,9 @@
             <div name="customer_select">
                 <form class="search" role="form" action="controller" method="get">
                     <input type="hidden" name="command" value="cart"/>
+                    <c:forEach items="${customers.model}" var="current">
+                        <c:out value="${current.firstName} ${current.lastName}"/>
+                    </c:forEach>
                     <input id="customer_search" style = "float: left; width: 88%;" name="customer" type="text"class="form-control"
                         placeholder="Select customer" required="" autofocus="" autocomplete="off" data-provide="typeahead">
                     <button id="select_button" class="btn btn-primary" type="submit">Select</button>
@@ -36,6 +39,7 @@
             </div>
         </f:view>
     </body>
+    <script src="js/bootstrap-typeahead.js"></script>
     <script>
         $(document).ready(function($) {
             $.fn.typeahead.Constructor.prototype.blur = function() {
@@ -45,9 +49,11 @@
 
         $('#customer_search').typeahead({
             source: function(query, process) {
-                return [<c:forEach items="${customers.model}" var="current">"<c:out value="${current.firstName}"/><c:out value="${current.lastName}"/>",
+                return [<c:forEach items="${customers.model}" var="current">,
+                <c:out value="${current.firstName} ${current.lastName}"/>,
                 </c:forEach>];
             }
         });
+        })
     </script>
 </html>
