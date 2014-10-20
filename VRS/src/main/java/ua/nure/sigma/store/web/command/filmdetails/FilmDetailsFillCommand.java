@@ -28,9 +28,19 @@ public class FilmDetailsFillCommand extends Command {
                 filmId = Integer.parseInt(filmIDString);
                 film = DAOFactory.getInstance().getFilmDAO().findFilmById(filmId);
 				List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId);
+				String cat = "";
+				for(int i = 0; i < categoryOfCurrentFilmList.size(); i++){
+					if(i<categoryOfCurrentFilmList.size()-1){
+						cat += categoryOfCurrentFilmList.get(i).getName().toString() + ", ";
+					}
+					else{
+						cat += categoryOfCurrentFilmList.get(i).getName().toString();
+					}
+				}
 				Categories categoryOfCurrentFilm = new Categories(categoryOfCurrentFilmList);
 				request.getSession().setAttribute("editFilmObject", film);
 				request.getSession().setAttribute("filmCategory", categoryOfCurrentFilm);
+				request.getSession().setAttribute("catString", cat);
             }
         } catch (Exception e) {
         }

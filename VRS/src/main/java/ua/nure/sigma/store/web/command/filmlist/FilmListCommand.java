@@ -21,6 +21,7 @@ import java.util.List;
 public class FilmListCommand extends Command implements IComplexCommand {
 
     static final String FILMS_PARAM_NAME = "films";
+    static final String ALL_FILMS_PARAM_NAME = "allFilms";
     static final String CATEGORIES_PARAM_NAME = "categories";
     static final String PAGE_PARAM_NAME = "pageIndex";
     static final String SORT_PARAM_NAME = "sorting";
@@ -53,6 +54,7 @@ public class FilmListCommand extends Command implements IComplexCommand {
             List<Film> films = df.getFilmDAO().findAllFilms();
             Films paramFilms = new Films(films);
             request.getSession().setAttribute(FILMS_PARAM_NAME, paramFilms);
+            request.getSession().setAttribute(ALL_FILMS_PARAM_NAME, paramFilms);
         }
     }
 

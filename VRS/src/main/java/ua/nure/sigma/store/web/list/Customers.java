@@ -1,7 +1,6 @@
 package ua.nure.sigma.store.web.list;
 
 import ua.nure.sigma.store.entity.Customer;
-import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.logic.Pager;
 import ua.nure.sigma.store.states.IListFilterState;
 import ua.nure.sigma.store.web.Paths;
@@ -59,5 +58,4 @@ public class Customers {
         filterState = newState;
         pager = new Pager(filterState.getFilteredList(originModel));
     }
-
 }

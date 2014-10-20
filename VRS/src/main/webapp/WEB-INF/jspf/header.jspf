@@ -9,6 +9,8 @@
                 <li class="active"><a href="controller?command=fullFilmList">Films</a></li>
                 <li><a href="controller?command=customerList">Customers</a></li>
                 <li><a href="#cart">Cart</a></li>
+                <li><a href="#customers">Customers</a></li>
+                <li><a href="controller?command=cartDetails">Cart</a></li>
                 <c:if test="${user.roleId eq 1}"><li><a href="#mngusr">Manage users</a></li></c:if>
             </ul>
             <form id="logout" action="controller" method="post" name = "logoutform">

@@ -6,13 +6,13 @@ import ua.nure.sigma.store.validator.film.*;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
-import ua.nure.sigma.store.web.command.customerlist.CustomerListCommand;
+import ua.nure.sigma.store.web.command.cart.CartDetailFillCommand;
 import ua.nure.sigma.store.web.command.customerlist.CustomerListCommandInitializer;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmRemoveCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmSaveCommand;
-import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
 import ua.nure.sigma.store.web.command.filmdetails.FilmDetailsCommandInitializer;
+import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +85,9 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("editFilmRemove", new EditFilmRemoveCommand());
         commandKeeper.add("editFilmSave", new EditFilmSaveCommand(extensions, validator));
 
-		commandKeeper.add("filmDetails", FilmDetailsCommandInitializer.getCommand());
+        commandKeeper.add("filmDetails", FilmDetailsCommandInitializer.getCommand());
+
+        commandKeeper.add("cartDetails", new CartDetailFillCommand());
     }
 
 }

@@ -94,7 +94,7 @@
                     <tr>
                         <td><a href="controller?command=filmDetails&filmId=${current.filmId}">${current.title}</a></td>
                         <td><c:out value="${current.amount - current.copiesLeft}"/></td>
-                        <td><c:out value="${current.rentPrice}"/></td>
+                        <td><c:out value="${current.rentPrice/100}"/></td>
                         <td><a class="add-to-cart-link" href="#" onclick="sendGetRequest('${current.filmId}',this)">add</a>&nbsp;</td>
                         <td><a href="controller?command=editFilm&filmId=${current.filmId}">edit</a>&nbsp;</td>
                     </tr>
@@ -131,7 +131,7 @@ setTimeout(function () { that.hide() }, 250);
  
 $('#product_search').typeahead({
 source: function(query, process) {
-return [<c:forEach items="${films.allFilms}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
+return [<c:forEach items="${allFilms.allFilms}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
 }
 });
 })

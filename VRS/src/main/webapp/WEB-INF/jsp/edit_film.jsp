@@ -52,20 +52,20 @@
 						    <p id="text">Genre:</p>
 							<select name="categoryName"   multiple="multiple" onchange="console.log($(this).children(':selected').length)" class="testsel">
 							<c:forEach items="${categories.model}" var="current">
+								<c:set var="bool" value="false"/>
 								<c:forEach items="${filmCategory.model}" var="cur">	
-									<c:choose>
-										<c:when test="${current.name == cur.name}">
+										<c:if test="${current.name == cur.name}">
 											<option value="<c:out value="${current.name}"/>" selected> 
 												<c:out value="${current.name}"/>
 											</option>
-										</c:when>
-										<c:otherwise>
-										<option value="<c:out value="${current.name}"/>"> 
-											<c:out value="${current.name}"/>
-										</option>
-										</c:otherwise>
-									</c:choose>
+											<c:set var="bool" value="true"/>
+										</c:if>
 								</c:forEach>
+								<c:if test="${bool eq 'false'}">
+									<option value="<c:out value="${current.name}"/>"> 
+												<c:out value="${current.name}"/>
+									</option>
+								</c:if>
 							</c:forEach>
 							</select>
 					    </div>
@@ -87,7 +87,7 @@
 									<p id="text">General price: </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.generalPrice}">
+									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.generalPrice/100}">
 								</div>
 						</div>
 					</div>
@@ -97,7 +97,7 @@
 							    <p id="text">Rent price: </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.rentPrice}">
+							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.rentPrice/100}">
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
