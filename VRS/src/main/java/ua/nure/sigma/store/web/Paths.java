@@ -24,6 +24,7 @@ public final class Paths {
     public static final String PAGE_FILM_LIST = "/WEB-INF/jsp/film_list.jsp";
     public static final String PAGE_EDIT_FILM = "/WEB-INF/jsp/edit_film.jsp";
 	public static final String PAGE_FILM_DETAILS = "/WEB-INF/jsp/film_details.jsp";
+    public static final String PAGE_CUSTOMER_LIST = "/WEB-INF/jsp/customer_list.jsp";
 
     // Paths of the server command keys:
     public static final String COMMAND_SIGN_IN = "controller?command=signIn";
