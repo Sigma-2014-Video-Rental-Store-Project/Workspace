@@ -22,22 +22,20 @@ public class Films {
     }
 
     /**
-     *
      * @return films on the page.
      */
-    public List<Film> getModel(){
+    public List<Film> getModel() {
         return (List<Film>) pager.getModel();
     }
 
     /**
-     *
      * @return list of films in selected category.
      */
-    public List<Film> getAllFilms(){
+    public List<Film> getAllFilms() {
         return originModel;
     }
 
-    public Pager getPager(){
+    public Pager getPager() {
         return pager;
     }
 
@@ -45,11 +43,11 @@ public class Films {
         pager.setPageIndex(index);
     }
 
-    public String getPageNumPrefix(){
+    public String getPageNumPrefix() {
         return Paths.COMMAND_FULL_FILM_LIST + "&" + "pageIndex=";
     }
 
-    public void setFilterState(IListFilterState<Film> newState){
+    public void setFilterState(IListFilterState<Film> newState) {
         filterState = newState;
         pager = new Pager(filterState.getFilteredList(originModel));
     }
