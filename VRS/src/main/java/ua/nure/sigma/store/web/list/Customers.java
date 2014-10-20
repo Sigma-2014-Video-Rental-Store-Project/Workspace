@@ -5,7 +5,7 @@ import ua.nure.sigma.store.entity.Customer;
 import java.util.List;
 
 /**
- * Created by Максим on 20.10.2014.
+ * Created by Maxim on 20.10.2014.
  */
 public class Customers {
     private List<Customer> customers;

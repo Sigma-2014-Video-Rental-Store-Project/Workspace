@@ -1,18 +1,18 @@
 package ua.nure.sigma.store.launch;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.catalina.startup.Tomcat;
 import ua.nure.sigma.store.dao.DAOFactory;
-import ua.nure.sigma.store.entity.Admin;
-import ua.nure.sigma.store.entity.Category;
-import ua.nure.sigma.store.entity.Film;
-import ua.nure.sigma.store.entity.Role;
+import ua.nure.sigma.store.entity.*;
 import ua.nure.sigma.store.web.list.Categories;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
+        List<Customer> customers = DAOFactory.getInstance().getCustomerDAO().findAllCustomers();
 
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
