@@ -133,6 +133,8 @@ public class EditFilmSaveCommand extends Command {
         String bonusForRentString = request.getParameter(FILM_BONUS_PARAM_NAME);
         String yearString = request.getParameter(FILM_YEAR_PARAM_NAME);
 
+        
+        
         Map<String, String> attributes = new HashMap<String, String>(10);
         attributes.put("title", titleString);
         attributes.put("amount", amountString);
@@ -149,8 +151,8 @@ public class EditFilmSaveCommand extends Command {
         filmToEdit.setTitle(titleString);
         filmToEdit.setAmount(Integer.parseInt(amountString));
         filmToEdit.setDescription(descriptionString);
-        filmToEdit.setGeneralPrice(Long.parseLong(generalPriceString) * 100);
-        filmToEdit.setRentPrice(Long.parseLong(rentPriceString) * 100);
+        filmToEdit.setGeneralPrice(Long.parseLong(generalPriceString));
+        filmToEdit.setRentPrice(Long.parseLong(rentPriceString));
         filmToEdit.setBonusForRent(Long.parseLong(bonusForRentString));
         filmToEdit.setYear(Integer.parseInt(yearString));
 

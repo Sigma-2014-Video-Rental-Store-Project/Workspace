@@ -87,7 +87,7 @@
 									<p id="text">General price: </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.generalPrice/100}">
+									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.generalPrice}">
 								</div>
 						</div>
 					</div>
@@ -97,7 +97,7 @@
 							    <p id="text">Rent price: </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.rentPrice/100}">
+							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.rentPrice}">
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
