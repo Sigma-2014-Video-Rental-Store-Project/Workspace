@@ -1,21 +1,18 @@
 package ua.nure.sigma.store.web.command.filmlist;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
-import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
-import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.command.Command;
-import ua.nure.sigma.store.web.list.Categories;
 import ua.nure.sigma.store.web.list.Films;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Vasiliy Skidanenko on 17.10.14.

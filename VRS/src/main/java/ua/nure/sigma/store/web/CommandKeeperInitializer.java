@@ -6,7 +6,8 @@ import ua.nure.sigma.store.validator.film.*;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
-import ua.nure.sigma.store.web.command.cart.CartDetailCustomersFillCommand;
+import ua.nure.sigma.store.web.command.cart.CartDetailFillCommand;
+import ua.nure.sigma.store.web.command.cart.SearchCartCommand;
 import ua.nure.sigma.store.web.command.customerlist.CustomerListCommandInitializer;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmRemoveCommand;
@@ -87,7 +88,8 @@ public final class CommandKeeperInitializer {
 
         commandKeeper.add("filmDetails", FilmDetailsCommandInitializer.getCommand());
 
-        commandKeeper.add("cartDetails", new CartDetailCustomersFillCommand());
+        commandKeeper.add("cartDetails", new CartDetailFillCommand());
+        commandKeeper.add("cartSearch", new SearchCartCommand());
     }
 
 }

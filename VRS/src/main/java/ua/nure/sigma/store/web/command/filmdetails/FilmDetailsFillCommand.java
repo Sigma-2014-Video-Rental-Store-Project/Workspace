@@ -1,11 +1,11 @@
 package ua.nure.sigma.store.web.command.filmdetails;
 
 import ua.nure.sigma.store.dao.DAOFactory;
-import ua.nure.sigma.store.entity.Film;
+import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.Category;
+import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.command.Command;
 import ua.nure.sigma.store.web.list.Categories;
-import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
