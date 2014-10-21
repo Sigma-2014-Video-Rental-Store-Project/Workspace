@@ -19,7 +19,7 @@
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
     <title>Films edit</title>
-	
+	<fmt:setLocale value="en_US" />
 </head>
 <body>
     <f:view>

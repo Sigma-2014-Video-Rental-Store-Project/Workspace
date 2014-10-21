@@ -18,6 +18,7 @@
     <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
     <title>Films</title>
+	<fmt:setLocale value="en_US" />
 </head>
 <body>
 <f:view>
