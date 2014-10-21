@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Сергей on 20.10.14.
+ * Created by  on 20.10.14.
  */
 public class CustomerListCommand extends Command implements IComplexCommand {
 
