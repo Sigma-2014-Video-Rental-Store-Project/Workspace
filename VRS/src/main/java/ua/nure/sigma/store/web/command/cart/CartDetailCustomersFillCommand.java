@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Maksim Sinkevich on 20.10.2014.
  */
-public class CartDetailFillCommand extends Command {
+public class CartDetailCustomersFillCommand extends Command {
 
     public static final String CUSTOMERS_PARAM_NAME = "customers";
 
