@@ -32,7 +32,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         film.setGeneralPrice(rs.getLong("GENERAL_PRICE"));
         film.setRentPrice(rs.getLong("RENT_PRICE"));
         film.setBonusForRent(rs.getLong("BONUS_FOR_RENT"));
-        film.setCopiesLeft(rs.getInt("copiesLeft"));
+        film.setCopiesLeft(film.getAmount()- rs.getInt("rentedCp"));
         return film;
     }
 
