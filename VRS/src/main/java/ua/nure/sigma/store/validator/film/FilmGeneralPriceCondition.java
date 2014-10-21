@@ -18,7 +18,8 @@ public class FilmGeneralPriceCondition implements Condition {
             return "The general price of the film must not be empty.";
         }
         try {
-            int generalPrice = Integer.parseInt(attribute);
+            // to cent
+            int generalPrice =  (int) Double.parseDouble(attribute) * 100;
             if (generalPrice < GENERAL_PRICE_LIMIT) {
                 return "The general price of the film must not be lower or equals to " + GENERAL_PRICE_LIMIT + ".";
             }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Сергей on 20.10.14.
+ * Created by  on 20.10.14.
  */
 public class CustomerListPageCommand extends Command {
 

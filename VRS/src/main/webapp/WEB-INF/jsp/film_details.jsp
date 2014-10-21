@@ -48,7 +48,7 @@
 							    <p id="text">Copies: </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max=${editFilmObject.copiesLeft} value="0">
+							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max=${editFilmObject.amount - editFilmObject.copiesLeft} value="0">
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
@@ -60,7 +60,7 @@
 								</div>
 						</div>
 					</div>
-					<div>
+					<div style="margin-top:10%;">
 						<div style="float:right; clear:left; width:50%;">
 							<div style="float:right;">
 								<button type="submit" class="btn btn-success" style="margin-left:3%;">Add to cart</button>

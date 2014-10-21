@@ -62,7 +62,7 @@ INSERT INTO FILMS (FILM_ID, TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRI
 	"8.jpg", 3, 320.0, 5.5, 0.0); /* Leon */
 INSERT INTO FILMS (FILM_ID, TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT)
 	VALUES(9, "Начало", 2010, "Способности Кобба сделали его ценным игроком в мире промышленного шпионажа, они же превратили его в извечного беглеца и лишили всего, что он когда-либо любил.",
-	"9.jpg", 7, 420.0, 6.5, 1.0); /* Inception * /
+	"9.jpg", 7, 420.0, 6.5, 1.0); 
 INSERT INTO FILMS (FILM_ID, TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT)
 	VALUES(10, "Бойцовский клуб", 1999, "Терзаемый хронической бессонницей и отчаянно пытающийся вырваться из скучной жизни, клерк встречает Тайлера Дардена, торговца мылом с извращенной философией.",
 	"10.jpg", 4, 370.0, 3.5, 1.5); /* Fight Club */
@@ -108,11 +108,45 @@ UPDATE FILMS SET TITLE='Форрест Гамп', DESCRIPTION= 'От лица г
 
 UPDATE FILMS SET TITLE='1+1', DESCRIPTION='Пострадав в результате несчастного случая, богатый аристократ Филипп нанимает в помощники жителя предместья Дрисса, только что освободившегося из тюрьмы.'  WHERE FILM_ID=5;
 
-UPDATE FILMS SET TITLE='Игры разума', DESCRIPTION= 'От всемирной известности до греховных глубин — все это познал на своей шкуре Джон Форбс Нэш-младший.'  WHERE FILM_ID=6;
+UPDATE FILMS SET TITLE='Игры разума', DESCRIPTION= 'От всемирной известности до греховных глубин — все это познал на своей шкуре Джон Форбс Нэш-младший.', COVER = '6.jpg' WHERE FILM_ID=6;
 
 UPDATE FILMS SET TITLE='Леон', DESCRIPTION= 'Профессиональный убийца Леон, знакомится со своей очаровательной соседкой Матильдой, семью которой расстреливают полицейские, замешанные в торговле наркотиками.'  WHERE FILM_ID=8;
 
 UPDATE FILMS SET TITLE='Иван Васильевич меняет профессию ', DESCRIPTION= 'Инженер-изобретатель Тимофеев сконструировал машину времени, которая соединила его квартиру с палатами государя Ивана Грозного.'  WHERE FILM_ID=12;
+
+UPDATE FILMS SET TITLE='Бойцовский клуб', DESCRIPTION= 'Терзаемый хронической бессонницей и отчаянно пытающийся вырваться из скучной жизни, клерк встречает Тайлера Дардена, торговца мылом с извращенной философией.', COVER = '10.jpg' WHERE FILM_ID=10;
+
+UPDATE FILMS SET TITLE='Крестный отец', DESCRIPTION= 'Криминальная сага, повествующая о нью-йоркской сицилийской мафиозной семье Корлеоне. Фильм охватывает период 1945-1955 годов.', COVER = '14.jpg' WHERE FILM_ID=14;
+
+
+UPDATE FILMS SET TITLE='Король Лев', DESCRIPTION= ' величественного Короля-Льва Муфасы рождается наследник по имени Симба. В детстве малыш становится жертвой интриг своего дяди Шрама, мечтающего о власти.', COVER = '7.jpg' WHERE FILM_ID=7;
+
+
+UPDATE FILMS SET TITLE='Начало', DESCRIPTION= 'Способности Кобба сделали его ценным игроком в мире промышленного шпионажа, они же превратили его в извечного беглеца и лишили всего, что он когда-либо любил.', COVER = '9.jpg' WHERE FILM_ID=9;
+
+
+UPDATE FILMS SET TITLE='Достучаться до небес', DESCRIPTION= 'Судьба сводит героев картины в больнице, где врачи выносят им смертный приговор. Счет времени их жизней идет на часы.', COVER = '13.jpg' WHERE FILM_ID=13;
+
+
+UPDATE FILMS SET TITLE='Престиж', DESCRIPTION= 'Роберт и Альфред — фокусники-иллюзионисты, которые на рубеже XIX и XX веков соперничали друг с другом в Лондоне.', COVER = '15.jpg' WHERE FILM_ID=15;
+
+
+UPDATE FILMS SET TITLE='Криминальное чтиво', DESCRIPTION= 'Винсент Вега и Джулс Винфилд проводят время в философских беседах в перерыве между разборками своего криминального босса Марселласа Уоллеса.', COVER = '17.jpg' WHERE FILM_ID=17;
+
+
+UPDATE FILMS SET  COVER = '1.jpg' WHERE FILM_ID=1;
+UPDATE FILMS SET  COVER = '2.jpg' WHERE FILM_ID=2;
+UPDATE FILMS SET  COVER = '3.jpg' WHERE FILM_ID=3;
+UPDATE FILMS SET  COVER = '4.jpg' WHERE FILM_ID=4;
+UPDATE FILMS SET  COVER = '5.jpg' WHERE FILM_ID=5;
+UPDATE FILMS SET  COVER = '8.jpg' WHERE FILM_ID=8;
+UPDATE FILMS SET  COVER = '11.jpg' WHERE FILM_ID=11;
+UPDATE FILMS SET  COVER = '12.jpg' WHERE FILM_ID=12;
+UPDATE FILMS SET  COVER = '16.jpg' WHERE FILM_ID=16;
+UPDATE FILMS SET  COVER = '18.jpg' WHERE FILM_ID=18;
+UPDATE FILMS SET  COVER = '19.jpg' WHERE FILM_ID=19;
+UPDATE FILMS SET  COVER = '20.jpg' WHERE FILM_ID=20;
+
 
 
 INSERT INTO FILM_CATEGORIES (CATEGORY_ID, FILM_ID) VALUES (2, 1);
@@ -152,3 +186,8 @@ UPDATE CATEGORIES SET CATEGORY_NAME='comedy' WHERE CATEGORY_ID=13;
 UPDATE CATEGORIES SET CATEGORY_NAME='concert' WHERE CATEGORY_ID=14;
 UPDATE CATEGORIES SET CATEGORY_NAME='short' WHERE CATEGORY_ID=15;
 
+Select films.FILM_ID ,TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT, coalesce(rented.rentedCopies, 0) as copiesLeft from films LEFT OUTER JOIN (SELECT film_id, sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ACCEPTED_DATE IS NULL group by film_id) rented on rented.film_id = films.film_id;
+
+Select films.FILM_ID ,TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT, coalesce(rented.rentedCopies, 0) as copiesLeft from films LEFT OUTER JOIN (SELECT film_id, sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ACCEPTED_DATE IS NULL group by film_id) rented on rented.film_id = films.film_id WHERE FILM_ID = 2;
+
+ 

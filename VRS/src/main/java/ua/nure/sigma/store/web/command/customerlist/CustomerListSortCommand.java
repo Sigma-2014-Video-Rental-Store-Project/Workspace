@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by Сергей on 20.10.14.
+ * Created by  on 20.10.14.
  */
 public class CustomerListSortCommand extends Command {
 

@@ -9,6 +9,7 @@
 <link href="css/bootstrap-spinedit.css" rel="stylesheet" >
 <link href="css/sumoselect.css" rel="stylesheet" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -18,7 +19,7 @@
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
     <title>Films edit</title>
-	
+	<fmt:setLocale value="en_US" />
 </head>
 <body>
     <f:view>
@@ -87,7 +88,7 @@
 									<p id="text">General price (\$): </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.generalPrice/100}">
+									<input type="text" name="generalPrice" class="form-control" style="margin-bottom:2%; margin-left:3%;" value='<fmt:formatNumber type="number" minFractionDigits="2" value="${editFilmObject.generalPrice/100}"/>'>
 								</div>
 						</div>
 					</div>
@@ -97,7 +98,7 @@
 							    <p id="text">Rent price (\$): </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.rentPrice/100}">
+							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value='<fmt:formatNumber type="number" minFractionDigits="2" value="${editFilmObject.rentPrice/100}"/>'>
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
@@ -153,5 +154,5 @@
             window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
             window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
         });
-    </script>
+  </script>
 </html>

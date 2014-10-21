@@ -12,8 +12,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        List<Customer> customers = DAOFactory.getInstance().getCustomerDAO().findAllCustomers();
-
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
 
