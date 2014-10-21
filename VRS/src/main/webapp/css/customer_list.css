@@ -1,0 +1,64 @@
+body {
+  background-color: #eee;
+}
+#header{
+    width: 100%;
+    margin-bottom: 20px;
+    clear: both;
+}
+#content-body{
+    width: 94%;
+    float: right;
+    margin-right: 3%;
+    margin-left: 3%;
+    position: relative;
+}
+#footer{
+     width: 100%;
+     clear: both;
+ }
+#customers{
+    min-height: 425px;
+    clear: both;
+}
+#pages{
+    width:100%;
+    bottom:0;
+    /*position:absolute;*/
+    margin-top: 20px;
+}
+.name-column{
+    width: 30%;
+}
+.copies-column{
+    width: 20%;
+}
+.price-column{
+    width: 20%;
+}
+.add-column{
+    width: 15%;
+}
+.edit-column{
+    width: 15%;
+}
+#search-buttons{
+}
+#search-button{
+    float: right;
+    width: 10%;
+}
+#key-search{
+    float: left;
+    width: 88%;
+}
+#add-new-film-button{
+    display: block;
+    float: right;
+}
+#filter-buttons{
+
+}
+.sort-icon{
+    padding-left: 4px;
+}
