@@ -1,7 +1,6 @@
 package ua.nure.sigma.store.states;
 
-import ua.nure.sigma.store.entity.Customer;
-import ua.nure.sigma.store.web.list.ua.nure.sigma.store.web.list.entity.CustomerListItem;
+import ua.nure.sigma.store.web.list.entity.CustomerListItem;
 
 import java.util.List;
 
