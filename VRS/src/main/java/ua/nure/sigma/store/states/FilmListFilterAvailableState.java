@@ -2,6 +2,7 @@ package ua.nure.sigma.store.states;
 
 import ua.nure.sigma.store.entity.Film;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +17,12 @@ public class FilmListFilterAvailableState implements IListFilterState<Film> {
      */
     @Override
     public List<Film> getFilteredList(List<Film> list) {
-        for(int i = 0; i < list.size(); i++){
-            if(list.get(i).getCopiesLeft() <= 0){
-                list.remove(i);
-                i--;
+        List<Film> res = new ArrayList<Film>();
+        for (Film aList : list) {
+            if (aList.getCopiesLeft() > 0) {
+                res.add(aList);
             }
         }
-        return list;
+        return res;
     }
 }

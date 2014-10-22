@@ -18,6 +18,20 @@ public class Customer {
     private String customerPhoto;
     private long bonus;
 
+    public Customer(){}
+
+    public Customer(Customer customer){
+        customerID = customer.getCustomerID();
+        lastName = customer.getLastName();
+        firstName = customer.getFirstName();
+        midleName = customer.getMidleName();
+        customerEmail = customer.getCustomerEmail();
+        customerPhone = customer.getCustomerPhone();
+        sexID = customer.getSexID();
+        customerPhoto = customer.getCustomerPhoto();
+        bonus = customer.getBonus();
+    }
+
     public int getCustomerID() {
         return customerID;
     }

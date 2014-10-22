@@ -1,5 +1,5 @@
 /**
- * Created by Сергей on 14.10.14.
+ * Created by Sergey Laposhko on 14.10.14.
  */
 //Common functions for working with attributes.
 

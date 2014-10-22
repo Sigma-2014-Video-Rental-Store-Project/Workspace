@@ -66,12 +66,25 @@
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['name','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a></th>
+
                     <th class="copies-rented-column" scope="col">Copies rented
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['rentedCopies','up'])"><u><i
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['rentedCopies','down'])"><u><i
-                                class="fa fa-arrow-down"></i></u></a>
-                    </th>
+                                class="fa fa-arrow-down"></i></u></a></th>
+
+                    <th class="return-date-column" scope="col">Return date
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['returnDate','up'])"><u><i
+                                class="fa fa-arrow-up"></i></u></a>
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['returnDate','down'])"><u><i
+                                class="fa fa-arrow-down"></i></u></a></th>
+
+                    <th class="bonus-column" scope="col">Bonus
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['bonus','up'])"><u><i
+                                class="fa fa-arrow-up"></i></u></a>
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['bonus','down'])"><u><i
+                                class="fa fa-arrow-down"></i></u></a></th>
+
                     <th class="edit-column" scope="col">Edit</th>
                 </tr>
                 </thead>
@@ -79,8 +92,11 @@
                 <c:forEach items="${customers.model}" var="current">
                     <tr>
                         <td><a href="controller?command=customerDetails&customerId=${current.customerID}">${current.lastName}</a></td>
-                        <td><c:out value="${current.bonus}TODO"/></td>
-                        <td><a href="controller?command=editCustomer&customerId=${current.customerId}&get=true">edit</a>&nbsp;</td>
+                        <td><c:out value="${current.copiesRented}"/></td>
+                        <td><c:out value="${current.returnDate}"/></td>
+                        <td><c:out value="${current.bonus}"/></td>
+                        <td><a href="controller?command=editCustomer&customerId=${current.customerID}&get=true">edit</a>&nbsp;</td>
+
                     </tr>
                 </c:forEach>
                 </tbody>

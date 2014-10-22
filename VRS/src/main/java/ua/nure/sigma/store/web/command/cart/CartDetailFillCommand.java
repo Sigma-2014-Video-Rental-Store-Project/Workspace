@@ -25,7 +25,7 @@ public class CartDetailFillCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<Customer> customers = DAOFactory.getInstance().getCustomerDAO().findAllCustomers();
-        Customers customersParam = new Customers(customers);
+        Customers customersParam = new Customers(null); // TODO replace null with customers!!!s
         Rent rent = (Rent) request.getSession().getAttribute(SearchCartCommand.CART_RENT_PARAM_NAME);
         if (rent != null) {
             List<FilmForRent> filmForRents = rent.getFilmList();
