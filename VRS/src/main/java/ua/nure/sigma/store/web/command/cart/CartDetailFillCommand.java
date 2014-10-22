@@ -21,6 +21,7 @@ import java.util.List;
 public class CartDetailFillCommand extends Command {
 
     public static final String TOTAL_BONUSES_PARAM_NAME = "totalBonuses";
+    static final long millisecondsInDay = 86400000;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -28,16 +29,16 @@ public class CartDetailFillCommand extends Command {
         if (customers == null) {
             new CustomerListFillAllCustomersCommand().execute(request, response);
         }
+        long bonuses = 0;
         Rent rent = (Rent) request.getSession().getAttribute(SearchCartCommand.CART_RENT_PARAM_NAME);
         if (rent != null) {
             List<FilmForRent> filmForRents = rent.getFilmList();
-            long totalBonuses = 0;
-            int days;
+            long days;
             for (FilmForRent f : filmForRents) {
-                days = f.getFutureDate().getDay() - f.getAcceptedDate().getDay();
-                totalBonuses += DAOFactory.getInstance().getFilmDAO().findFilmById(f.getFilmID()).getBonusForRent() * days;
+                days = (f.getFutureDate().getTime() - rent.getRentDate().getTime()) / millisecondsInDay;
+                bonuses += DAOFactory.getInstance().getFilmDAO().findFilmById(f.getFilmID()).getBonusForRent() * days;
             }
-            request.setAttribute(TOTAL_BONUSES_PARAM_NAME, totalBonuses);
+            request.setAttribute(TOTAL_BONUSES_PARAM_NAME, bonuses);
         }
         return Paths.PAGE_CART_DETAIL_FILMS;
     }
