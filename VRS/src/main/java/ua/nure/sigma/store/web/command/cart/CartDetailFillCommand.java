@@ -22,7 +22,7 @@ public class CartDetailFillCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<Customer> customers = DAOFactory.getInstance().getCustomerDAO().findAllCustomers();
-        Customers customersParam = new Customers(customers);
+        Customers customersParam = new Customers(null); // TODO replace null with customers!!!s
         request.setAttribute(CUSTOMERS_PARAM_NAME, customersParam);
         return Paths.PAGE_CART_DETAIL_FILMS;
     }
