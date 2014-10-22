@@ -20,7 +20,7 @@ public class NewCustomerCommandInitializer {
     }
 
     public static Command getCommand(){
-        return null;
+        return new AddNewCustomerCommand();//TODO temp fix!!!
     }
 }
 
