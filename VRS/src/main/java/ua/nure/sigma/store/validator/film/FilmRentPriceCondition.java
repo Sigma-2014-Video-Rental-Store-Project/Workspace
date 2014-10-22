@@ -14,7 +14,7 @@ import java.util.Locale;
  */
 public class FilmRentPriceCondition implements Condition {
 
-    private static final int RENT_PRICE_LIMIT = 0;
+    private static final long RENT_PRICE_LIMIT = 0;
 
     @Override
     public String validate(String attribute) {
@@ -23,9 +23,13 @@ public class FilmRentPriceCondition implements Condition {
         }
         try {
 //            int rentPrice = (int) Double.parseDouble(attribute) * 100;
-            Locale fmtLocale = Locale.getDefault(Locale.Category.FORMAT);
+
+           // attribute = "32,00";
+            System.out.println(attribute);
+
+            Locale fmtLocale = Locale.getDefault();
             NumberFormat formatter = NumberFormat.getInstance(fmtLocale);
-            int rentPrice =  (int)formatter.parse(attribute).doubleValue()*100;
+            long rentPrice =  (long)formatter.parse(attribute).doubleValue()*100;
             if (rentPrice < RENT_PRICE_LIMIT) {
                 return "The rent price of the film must not be lower or equals to " + RENT_PRICE_LIMIT + ".";
             }
@@ -35,6 +39,7 @@ public class FilmRentPriceCondition implements Condition {
             e.printStackTrace();
         }
 
+        System.out.println("ok");
         return null;
     }
 
