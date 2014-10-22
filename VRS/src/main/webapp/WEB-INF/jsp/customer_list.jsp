@@ -39,12 +39,12 @@
                 <label class="btn btn-primary" id="with-films-filter-label">
                     <input type="radio" id="available-filter"> With films
                 </label>
+
             </div>
             <div id="add-new-film-button">
-                <form class="add-new-film" role="form" action="controller" method="post">
-                    <%--<input type="hidden" name="command" value="TODO"/>--%>
-                    <%--<button class="btn btn-success" type="submit">Add new customer</button>--%>
-                    <p><a href="controller?command=newCustomer"/></p>
+                <form class="add-new-film" role="form" action="controller?command" method="get">
+                    <input type="hidden" name="command" value="newCustomer"/>
+                    <button class="btn btn-success" type="submit">Add customer</button>
                 </form>
             </div>
             <div id="search-buttons">
