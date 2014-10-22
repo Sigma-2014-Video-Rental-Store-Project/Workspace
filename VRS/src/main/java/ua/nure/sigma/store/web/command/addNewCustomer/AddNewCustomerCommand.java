@@ -16,6 +16,6 @@ import java.io.IOException;
 public class AddNewCustomerCommand extends Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        return Paths.PAGE_CUSTOMER_LIST; //Temp fix!!!
+        return Paths.PAGE_ADD_NEW_CUSTOMER;
     }
 }

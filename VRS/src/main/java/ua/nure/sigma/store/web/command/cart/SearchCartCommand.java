@@ -6,6 +6,7 @@ import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.entity.Rent;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
+import ua.nure.sigma.store.web.command.filmlist.FilmListSearchCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +42,7 @@ public class SearchCartCommand extends Command {
         if (customerId != -1) {
             cartRent.setCustomerID(customerId);
         }
+        customerName = FilmListSearchCommand.decodeGetParameter(customerName);
         request.getSession().setAttribute(CART_RENT_PARAM_NAME, cartRent);
         request.setAttribute(CUSTOMER_FULLNAME_PARAM_NAME, customerName);
         return Paths.PAGE_CART_DETAIL_FILMS;

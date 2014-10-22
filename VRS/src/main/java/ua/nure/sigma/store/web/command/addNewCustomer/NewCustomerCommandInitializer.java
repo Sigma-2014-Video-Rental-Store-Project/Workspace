@@ -21,6 +21,7 @@ public class NewCustomerCommandInitializer {
 
     public static Command getCommand(){
         return new AddNewCustomerCommand();//TODO temp fix!!!
+
     }
 }
 

@@ -92,6 +92,7 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("filmDetails", FilmDetailsCommandInitializer.getCommand());
         commandKeeper.add("cartDetails", new CartDetailFillCommand());
         commandKeeper.add("cartSearch", new SearchCartCommand());
+
         commandKeeper.add("newCustomer", new AddNewCustomerCommand());
         commandKeeper.add("addNewFilm", new AddNewFilmCommand());
     }
