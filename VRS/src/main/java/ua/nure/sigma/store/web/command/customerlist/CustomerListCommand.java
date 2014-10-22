@@ -53,61 +53,14 @@ public class CustomerListCommand extends Command implements IComplexCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         LOG.debug("CustomerListCommand starts.");
-        checkAndCreateCustomerList(request, response);
         notifyAllCommands(request, response);
         LOG.debug("CustomerListCommand finishes.");
         return Paths.PAGE_CUSTOMER_LIST;
     }
 
-    private void checkAndCreateCustomerList(HttpServletRequest request, HttpServletResponse response) {
-        if (request.getSession().getAttribute(CUSTOMERS_PARAM_NAME) == null) {
-            LOG.debug("Creating list of customers.");
-
-            DAOFactory df = DAOFactory.getInstance();
-            List<Customer> customers = df.getCustomerDAO().findAllCustomers();
-            List<CustomerListItem> listItems = new ArrayList<CustomerListItem>();
-
-            convertFromCustomersToCustomerListItems(customers, listItems);
-
-            Customers paramCustomers = new Customers(listItems);
-            request.getSession().setAttribute(CUSTOMERS_PARAM_NAME, paramCustomers);
-        }
-    }
-
     private void notifyAllCommands(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         for (Command command : commands) {
             command.execute(request, response);
-        }
-    }
-
-    private void convertFromCustomersToCustomerListItems(List<Customer> customers, List<CustomerListItem> listItems) {
-        RentDAO rentDAO = DAOFactory.getInstance().getRentDAO();
-        FilmRentedDAO filmRentedDAO = DAOFactory.getInstance().getFilmRentedDAO();
-        Date today = new Date();
-
-        for (Customer customer : customers) {
-            int copiesRented = 0;
-            Date minReturnDate = null;
-
-            for (Rent rent : rentDAO.findRentByCustomerID(customer.getCustomerID())) {
-                for (FilmForRent filmForRent : filmRentedDAO.findFilmRentedByRentID(rent.getRentID())) {
-                    Date rentDate = filmForRent.getFutureDate(); // TODO
-                    if (rentDate.compareTo(today) > 0) {
-                        copiesRented++; //Count of copies rented increases.
-
-                        if (minReturnDate == null) // If we have no minDate, then set any return date that is more then today
-                            minReturnDate = rentDate;
-                        else {
-                            if (rentDate.compareTo(minReturnDate) < 0)
-                                minReturnDate = rentDate;
-                        }
-
-                    }
-                }
-            }
-
-            CustomerListItem item = new CustomerListItem(customer, minReturnDate, copiesRented);
-            listItems.add(item);
         }
     }
 

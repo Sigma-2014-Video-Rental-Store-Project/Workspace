@@ -10,6 +10,7 @@ public class CustomerListCommandInitializer {
 
     static {
         command = new CustomerListCommand();
+        command.addCommandListener(new CustomerListFillAllCustomersCommand());
 //        command.addCommandListener(new FilmListSearchCommand());
 //        command.addCommandListener(new FilmListAddToCartCommand());
         command.addCommandListener(new CustomerListSortCommand());
