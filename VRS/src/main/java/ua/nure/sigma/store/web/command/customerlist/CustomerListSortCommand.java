@@ -1,11 +1,10 @@
 package ua.nure.sigma.store.web.command.customerlist;
 
 import org.apache.log4j.Logger;
-import ua.nure.sigma.store.comparators.FilmComparatorFactory;
-import ua.nure.sigma.store.entity.Film;
+import ua.nure.sigma.store.comparators.CustomerComparatorFactory;
 import ua.nure.sigma.store.web.command.Command;
-import ua.nure.sigma.store.web.command.filmlist.FilmListCommand;
-import ua.nure.sigma.store.web.list.Films;
+import ua.nure.sigma.store.web.list.Customers;
+import ua.nure.sigma.store.web.list.entity.CustomerListItem;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by Сергей on 20.10.14.
+ * Created by Sergey Laposhko on 20.10.14.
  */
 public class CustomerListSortCommand extends Command {
 
@@ -32,8 +31,8 @@ public class CustomerListSortCommand extends Command {
         if (sortName != null && direct != null) {
             LOG.debug("Sorting started with sortname = " + sortName + "; direct = " + direct + ".");
 
-            List<Film> films = ((Films) request.getSession().getAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME)).getAllFilms();
-            Comparator<Film> comparator = FilmComparatorFactory.getComparator(sortName);//TODO
+            List<CustomerListItem> films = ((Customers) request.getSession().getAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME)).getAllItems();
+            Comparator<CustomerListItem> comparator = CustomerComparatorFactory.getComparator(sortName);
             if (comparator == null)
                 return null;
 
