@@ -32,6 +32,10 @@ public class CustomerListItem extends Customer {
         this.returnDate = returnDate;
     }
 
+    /**
+     *
+     * @return TODO maybe you need redo filling this field.
+     */
     public int getCopiesRented() {
         return copiesRented;
     }
@@ -39,9 +43,5 @@ public class CustomerListItem extends Customer {
     public void setCopiesRented(int copiesRented) {
         this.copiesRented = copiesRented;
     }
-
-
-
-
 
 }

@@ -30,8 +30,6 @@ public class Customers {
         return (List<CustomerListItem>) pager.getModel();
     }
 
-
-
     /**
      *
      * @return list of all customers.
