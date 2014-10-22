@@ -6,6 +6,9 @@ import ua.nure.sigma.store.validator.film.*;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
+import ua.nure.sigma.store.web.command.addNewCustomer.AddNewCustomerCommand;
+import ua.nure.sigma.store.web.command.addNewCustomer.NewCustomerCommandInitializer;
+import ua.nure.sigma.store.web.command.addNewCustomer.NewCustomerListCommand;
 import ua.nure.sigma.store.web.command.cart.CartDetailFillCommand;
 import ua.nure.sigma.store.web.command.cart.SearchCartCommand;
 import ua.nure.sigma.store.web.command.customerlist.CustomerListCommandInitializer;
@@ -64,7 +67,7 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("logout", new LogOutCommand());
         commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
         commandKeeper.add("customerList", CustomerListCommandInitializer.getCommand());
-
+        commandKeeper.add("newCustomer", NewCustomerCommandInitializer.getCommand());
         // Edit form specific commands.
         List<String> extensions = new ArrayList<String>();
         extensions.add(".jpg");
@@ -90,6 +93,7 @@ public final class CommandKeeperInitializer {
 
         commandKeeper.add("cartDetails", new CartDetailFillCommand());
         commandKeeper.add("cartSearch", new SearchCartCommand());
+        commandKeeper.add("newCustomer", new AddNewCustomerCommand());
     }
 
 }

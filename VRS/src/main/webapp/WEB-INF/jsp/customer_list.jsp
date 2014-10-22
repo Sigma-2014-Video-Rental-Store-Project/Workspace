@@ -43,7 +43,8 @@
             <div id="add-new-film-button">
                 <form class="add-new-film" role="form" action="controller" method="post">
                     <%--<input type="hidden" name="command" value="TODO"/>--%>
-                    <button class="btn btn-success" type="submit">Add new customer</button>
+                    <%--<button class="btn btn-success" type="submit">Add new customer</button>--%>
+                    <p><a href="controller?command=newCustomer"/></p>
                 </form>
             </div>
             <div id="search-buttons">
