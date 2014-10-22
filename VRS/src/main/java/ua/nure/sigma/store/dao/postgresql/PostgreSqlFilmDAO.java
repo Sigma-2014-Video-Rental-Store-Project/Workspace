@@ -14,9 +14,9 @@ import java.util.List;
 public class PostgreSqlFilmDAO implements FilmDAO {
 
     private static final String SQL_SELECT_FROM_FILM_BY_ID =
-            "Select films.FILM_ID ,TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT, coalesce(rented.rentedCopies, FILMS.AMOUNT) as rentedCp from films LEFT OUTER JOIN (SELECT film_id, sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ACCEPTED_DATE IS NULL group by film_id) rented on rented.film_id = films.film_id WHERE FILMS.FILM_ID = ? ";
+            "Select films.FILM_ID ,TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT, coalesce(rented.rentedCopies, 0) as rentedCp from films LEFT OUTER JOIN (SELECT film_id, sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ACCEPTED_DATE IS NULL group by film_id) rented on rented.film_id = films.film_id WHERE FILMS.FILM_ID = ? ";
     private static final String SQL_SELECT_FROM_FILMS_ALL_FILM =
-            "Select films.FILM_ID ,TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT, coalesce(rented.rentedCopies,  FILMS.AMOUNT) as rentedCp from films LEFT OUTER JOIN (SELECT film_id, sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ACCEPTED_DATE IS NULL group by film_id) rented on rented.film_id = films.film_id";
+            "Select films.FILM_ID ,TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT, coalesce(rented.rentedCopies,  0) as rentedCp from films LEFT OUTER JOIN (SELECT film_id, sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ACCEPTED_DATE IS NULL group by film_id) rented on rented.film_id = films.film_id";
     private static final String SQL_INSERT_INTO_FILMS = "INSERT INTO FILMS (TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT) VALUES(?,?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_FILM =
             "UPDATE FILMS SET TITLE = ?, YEAR =?, DESCRIPTION =?, COVER =?, AMOUNT =?, GENERAL_PRICE = ?, RENT_PRICE = ?, BONUS_FOR_RENT = ? WHERE FILM_ID = ?";
