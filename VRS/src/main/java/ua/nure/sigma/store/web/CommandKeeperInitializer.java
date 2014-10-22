@@ -93,6 +93,7 @@ public final class CommandKeeperInitializer {
 
         commandKeeper.add("cartDetails", new CartDetailFillCommand());
         commandKeeper.add("cartSearch", new SearchCartCommand());
+
         commandKeeper.add("newCustomer", new AddNewCustomerCommand());
     }
 
