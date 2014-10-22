@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.web.command.addNewCustomer;
 
+import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,6 @@ import java.io.IOException;
 public class AddNewCustomerCommand extends Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        return null;
+        return Paths.PAGE_CUSTOMER_LIST; //Temp fix!!!
     }
 }
