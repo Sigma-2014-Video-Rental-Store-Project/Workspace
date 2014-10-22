@@ -18,7 +18,7 @@ public class FilmRentPriceCondition implements Condition {
             return "The rent price of the film must not be empty.";
         }
         try {
-            int rentPrice = Integer.parseInt(attribute);
+            int rentPrice = (int) Double.parseDouble(attribute) * 100;
             if (rentPrice < RENT_PRICE_LIMIT) {
                 return "The rent price of the film must not be lower or equals to " + RENT_PRICE_LIMIT + ".";
             }

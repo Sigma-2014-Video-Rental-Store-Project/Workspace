@@ -1,14 +1,12 @@
 package ua.nure.sigma.store.web.command;
 
-import java.io.IOException;
+import org.apache.log4j.Logger;
+import ua.nure.sigma.store.web.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-
-import ua.nure.sigma.store.web.Paths;
+import java.io.IOException;
 
 /**
  * This is a command that must be executed in case when some unprocessable

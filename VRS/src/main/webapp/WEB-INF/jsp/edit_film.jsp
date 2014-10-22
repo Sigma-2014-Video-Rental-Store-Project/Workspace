@@ -9,6 +9,7 @@
 <link href="css/bootstrap-spinedit.css" rel="stylesheet" >
 <link href="css/sumoselect.css" rel="stylesheet" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -18,7 +19,7 @@
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
     <title>Films edit</title>
-	
+	<fmt:setLocale value="en_US" />
 </head>
 <body>
     <f:view>
@@ -26,13 +27,6 @@
             <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
 		<div id="content-body">
-		    <div id="remove-block">
-		        <form action="controller" method="post" name="editFilmRemove">
-                    <input type="hidden" name="command" value="editFilmRemove" />
-                    <input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
-                    <button class="btn btn-danger">Remove film</button>
-                </form>
-            </div>
             <form action="controller" method="post" enctype="multipart/form-data">
                  <input type="hidden" name="command" value="editFilmSave" />
                  <input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
@@ -48,7 +42,7 @@
 			    </div>
 			    <div id=rightside>
 				    <div>
-					    <div id="genre">
+					    <div id="genre" style="float:left;">
 						    <p id="text">Genre:</p>
 							<select name="categoryName"   multiple="multiple" onchange="console.log($(this).children(':selected').length)" class="testsel">
 							<c:forEach items="${categories.model}" var="current">
@@ -69,6 +63,13 @@
 							</c:forEach>
 							</select>
 					    </div>
+						<div style="float:right;">
+							<form action="controller" method="post" name="editFilmRemove">
+								<input type="hidden" name="command" value="editFilmRemove" />
+								<input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
+								<button class="btn btn-danger">Remove film</button>
+							</form>
+						</div>
 				    </div>
 				    <div>
 					    <textarea name="description" class="form-control" rows="6" style="margin-bottom:2%;">${editFilmObject.description}</textarea>
@@ -84,20 +85,20 @@
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
 								<div style="float:left;">
-									<p id="text">General price: </p>
+									<p id="text">General price (\$): </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input type="text" name="generalPrice"  class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.generalPrice}">
+									<input type="text" name="generalPrice" class="form-control" style="margin-bottom:2%; margin-left:3%;" value='<fmt:formatNumber type="number" minFractionDigits="2" value="${editFilmObject.generalPrice/100}"/>'>
 								</div>
 						</div>
 					</div>
 					<div>
 					    <div style="float:left; width:45%;">
 						    <div style="float:left;">
-							    <p id="text">Rent price: </p>
+							    <p id="text">Rent price (\$): </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="${editFilmObject.rentPrice}">
+							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value='<fmt:formatNumber type="number" minFractionDigits="2" value="${editFilmObject.rentPrice/100}"/>'>
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
@@ -153,5 +154,5 @@
             window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
             window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
         });
-    </script>
+  </script>
 </html>

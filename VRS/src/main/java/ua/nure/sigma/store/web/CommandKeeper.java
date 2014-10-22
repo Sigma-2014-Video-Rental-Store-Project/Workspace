@@ -1,9 +1,9 @@
 package ua.nure.sigma.store.web;
 
+import ua.nure.sigma.store.web.command.Command;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import ua.nure.sigma.store.web.command.Command;
 
 /**
  * This class acts as a encapsulated container for {@code Command} objects. It
