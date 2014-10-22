@@ -52,10 +52,7 @@
                 </label>
             </div>
             <div id="add-new-film-button">
-                <form class="add-new-film" role="form" action="controller" method="post">
-                    <%--<input type="hidden" name="command" value="TODO"/>--%>
-                    <button class="btn btn-success" type="submit">Add new film</button>
-                </form>
+                    <button class="btn btn-success" onclick="controller?command=addNewFilm">Add new film</button>
             </div>
             <div id="search-buttons">
                 <form class="search" role="form" action="controller" method="get">
