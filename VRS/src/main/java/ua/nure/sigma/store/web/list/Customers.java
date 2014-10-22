@@ -1,22 +1,22 @@
 package ua.nure.sigma.store.web.list;
 
-import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.logic.Pager;
 import ua.nure.sigma.store.states.IListFilterState;
 import ua.nure.sigma.store.web.Paths;
+import ua.nure.sigma.store.web.list.entity.CustomerListItem;
 
 import java.util.List;
 
 /**
- * Created by Сергей on 20.10.14.
+ * Created by Sergey Laposhko on 20.10.14.
  */
 public class Customers {
 
     private Pager pager;
-    private List<Customer> originModel;
-    IListFilterState<Customer> filterState;
+    private List<CustomerListItem> originModel;
+    IListFilterState<CustomerListItem> filterState;
 
-    public Customers(List<Customer> customers){
+    public Customers(List<CustomerListItem> customers){
         pager = new Pager(customers);
         originModel = customers;
         filterState = null;
@@ -26,8 +26,8 @@ public class Customers {
      *
      * @return customers on the page.
      */
-    public List<Customer> getModel(){
-        return (List<Customer>) pager.getModel();
+    public List<CustomerListItem> getModel(){
+        return (List<CustomerListItem>) pager.getModel();
     }
 
 
@@ -36,7 +36,7 @@ public class Customers {
      *
      * @return list of all customers.
      */
-    public List<Customer> getAllFilms(){
+    public List<CustomerListItem> getAllItems(){
         return originModel;
     }
 
@@ -54,7 +54,7 @@ public class Customers {
     }
 
     //Set filter that will filter the customers.
-    public void setFilterState(IListFilterState<Customer> newState){
+    public void setFilterState(IListFilterState<CustomerListItem> newState){
         filterState = newState;
         pager = new Pager(filterState.getFilteredList(originModel));
     }
