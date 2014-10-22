@@ -27,7 +27,7 @@ import java.util.List;
 public class CustomerListCommand extends Command implements IComplexCommand {
 
     public static final String FILTER_PARAM_NAME = "filter";
-    public static final String SORT_PARAM_NAME = "sort";
+    public static final String SORT_PARAM_NAME = "sorting";
     public static final String DIRECT_PARAM_NAME = "direct";
     static final String CUSTOMERS_PARAM_NAME = "customers";
     static final String PAGE_PARAM_NAME = "pageIndex";
