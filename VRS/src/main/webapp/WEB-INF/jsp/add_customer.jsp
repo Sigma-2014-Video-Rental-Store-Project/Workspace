@@ -31,5 +31,8 @@
   </div>
   <div id="content-body"> <p> This page is not implemented yet</p></div>
 
+  <div id="footer">
+    <jsp:include page="../jspf/footer.jspf"/>
+  </div>
 </body>
 </html>
