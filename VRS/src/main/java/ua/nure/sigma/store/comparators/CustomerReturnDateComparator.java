@@ -5,7 +5,7 @@ import ua.nure.sigma.store.web.list.entity.CustomerListItem;
 import java.util.Comparator;
 
 /**
- * Created by Сергей on 22.10.14.
+ * Created by Sergey Laposhko on 22.10.14.
  */
 public class CustomerReturnDateComparator implements Comparator<CustomerListItem> {
 

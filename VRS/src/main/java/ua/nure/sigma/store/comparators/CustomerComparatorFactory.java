@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Сергей on 22.10.14.
+ * Created by Sergey Laposhko on 22.10.14.
  */
 public class CustomerComparatorFactory {
 
