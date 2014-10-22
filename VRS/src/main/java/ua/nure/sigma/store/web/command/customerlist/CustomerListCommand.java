@@ -3,12 +3,10 @@ package ua.nure.sigma.store.web.command.customerlist;
 import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Customer;
-import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 import ua.nure.sigma.store.web.command.filmlist.IComplexCommand;
 import ua.nure.sigma.store.web.list.Customers;
-import ua.nure.sigma.store.web.list.Films;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

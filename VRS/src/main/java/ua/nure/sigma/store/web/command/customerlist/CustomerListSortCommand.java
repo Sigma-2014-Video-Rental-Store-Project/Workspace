@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import ua.nure.sigma.store.comparators.FilmComparatorFactory;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.command.Command;
-import ua.nure.sigma.store.web.command.filmlist.FilmListCommand;
 import ua.nure.sigma.store.web.list.Films;
 
 import javax.servlet.ServletException;
