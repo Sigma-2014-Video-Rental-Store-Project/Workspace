@@ -6,12 +6,12 @@ import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.entity.Rent;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
+import ua.nure.sigma.store.web.command.filmlist.FilmListSearchCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -42,13 +42,9 @@ public class SearchCartCommand extends Command {
         if (customerId != -1) {
             cartRent.setCustomerID(customerId);
         }
-        customerName = decodeGetParameter(customerName);
+        customerName = FilmListSearchCommand.decodeGetParameter(customerName);
         request.getSession().setAttribute(CART_RENT_PARAM_NAME, cartRent);
         request.setAttribute(CUSTOMER_FULLNAME_PARAM_NAME, customerName);
         return Paths.PAGE_CART_DETAIL_FILMS;
-    }
-
-    public static String decodeGetParameter(String parameter) throws UnsupportedEncodingException {
-        return new String(parameter.getBytes("ISO-8859-1"), "UTF8");
     }
 }
