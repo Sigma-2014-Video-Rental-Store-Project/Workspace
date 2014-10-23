@@ -130,7 +130,7 @@
 
         $('#product_search').typeahead({
             source: function(query, process) {
-                return [<c:forEach items="${films.allFilms}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
+                return [<c:forEach items="${customers.model}" var="current">"<c:out value="${current.firstName} ${current.lastName}"/>",</c:forEach>];
             }
         });
     })
