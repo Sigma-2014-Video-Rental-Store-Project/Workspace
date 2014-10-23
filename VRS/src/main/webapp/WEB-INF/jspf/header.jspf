@@ -8,7 +8,7 @@
             <ul class="nav navbar-nav" style="font-size:16px">
                 <li class="active"><a href="controller?command=fullFilmList">Films</a></li>
                 <li><a href="controller?command=customerList">Customers</a></li>
-                <li><a href="controller?command=cartDetails">Cart</a></li>
+                <li><a href="controller?command=cartDetails"> <span class="badge pull-right">${cartRent.countOfFilm}</span>Cart</a></li>
                 <li><a href="#customers">Customers</a></li>
                 <c:if test="${user.roleId eq 1}"><li><a href="#mngusr">Manage users</a></li></c:if>
             </ul>

@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,16 @@ public class Rent {
     private long rentID;
     private int customerID;
     private Date rentDate;
-    private List<FilmForRent> filmList;
+    private List<FilmForRent> filmList= new ArrayList<FilmForRent>();
+    private int countOfFilm;
+
+    public int getCountOfFilm() {
+        return countOfFilm;
+    }
+
+    public void setCountOfFilm(int countOfFilm) {
+        this.countOfFilm = countOfFilm;
+    }
 
     public Date getRentDate() {
         return rentDate;
