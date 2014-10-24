@@ -39,6 +39,9 @@ public class SearchCartCommand extends Command {
             }
         }
 
+        /*
+        *   Set cart to customer
+        */
         if (customerId != -1) {
             cartRent.setCustomerID(customerId);
         }

@@ -26,11 +26,17 @@ public class CartDetailFillCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Customers customers = (Customers) request.getSession().getAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME);
+        /*
+        * Create customer list if not exitst
+        */
         if (customers == null) {
             new CustomerListFillAllCustomersCommand().execute(request, response);
         }
         long bonuses = 0;
         Rent rent = (Rent) request.getSession().getAttribute(SearchCartCommand.CART_RENT_PARAM_NAME);
+        /*
+        *   Count bonuses
+        */
         if (rent != null) {
             List<FilmForRent> filmForRents = rent.getFilmList();
             long days;
@@ -38,8 +44,8 @@ public class CartDetailFillCommand extends Command {
                 days = (f.getFutureDate().getTime() - rent.getRentDate().getTime()) / millisecondsInDay;
                 bonuses += DAOFactory.getInstance().getFilmDAO().findFilmById(f.getFilmID()).getBonusForRent() * days;
             }
-            request.setAttribute(TOTAL_BONUSES_PARAM_NAME, bonuses);
         }
+        request.setAttribute(TOTAL_BONUSES_PARAM_NAME, bonuses);
         return Paths.PAGE_CART_DETAIL_FILMS;
     }
 }
