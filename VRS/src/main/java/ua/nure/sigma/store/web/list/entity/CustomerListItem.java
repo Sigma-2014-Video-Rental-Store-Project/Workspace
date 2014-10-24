@@ -3,6 +3,7 @@ package ua.nure.sigma.store.web.list.entity;
 import ua.nure.sigma.store.entity.Customer;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Sergey Laposhko on 21.10.14.
@@ -11,6 +12,11 @@ public class CustomerListItem extends Customer {
 
     private int copiesRented;
     private Date returnDate;
+    private long leftDays;
+
+    public long getLeftDays() {
+        return (returnDate == null)? 0 : TimeUnit.DAYS.convert(returnDate.getTime()-new Date().getTime(),TimeUnit.MILLISECONDS);
+    }
 
     /**
      * Initiates custmerListItem with customer and 2 more params.

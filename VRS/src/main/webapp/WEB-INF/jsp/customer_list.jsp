@@ -90,7 +90,20 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${customers.model}" var="current">
-                    <tr>
+                    <c:choose>
+                        <c:when test="${current.leftDays < 4}">
+                            <tr bgcolor="#e0ffff">
+                        </c:when>
+                        <c:when test="${current.leftDays < 3}">
+                            <tr bgcolor="#ffb6c1">
+                        </c:when>
+                        <c:when test="${current.leftDays < 2}">
+                            <tr bgcolor="#f08080">
+                        </c:when>
+                        <c:when test="${current.leftDays < 0}">
+                            <tr bgcolor="#808080">
+                        </c:when>
+                    </c:choose>
                         <td><a href="controller?command=customerDetails&customerId=${current.customerID}">${current.lastName}</a></td>
                         <td><c:out value="${current.copiesRented}"/></td>
                         <td><c:out value="${current.returnDate}"/></td>
