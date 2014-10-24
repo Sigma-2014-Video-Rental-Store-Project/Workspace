@@ -28,13 +28,13 @@
     <div id="category">
         <ul class="nav nav-sidebar">
             <li>
-                <a href="#" onclick="setSeveralAttr(['categories', 'pageIndex'], ['0', '1'])">
+                <a href="#" onclick="setSeveralAttrForCategory(['categories', 'pageIndex'], ['0', '1'])">
                     <c:out value="all categories"/>
                 </a>
             </li>
             <c:forEach items="${categories.model}" var="current">
                 <li>
-                    <a href="#" onclick="setSeveralAttr(['categories', 'pageIndex'], ['${current.id}', '1'])">
+                    <a href="#" onclick="setSeveralAttrForCategory(['categories', 'pageIndex'], ['${current.id}', '1'])">
                         <c:out value="${current.name}"/>
                     </a>
                 </li>
