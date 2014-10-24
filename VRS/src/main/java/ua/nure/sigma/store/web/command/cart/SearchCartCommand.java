@@ -39,7 +39,10 @@ public class SearchCartCommand extends Command {
             }
         }
 
-        if (customerId != -1) {
+        /*
+        *   Set cart to customer
+        */
+        if (customerId != -1 && cartRent != null) {
             cartRent.setCustomerID(customerId);
         }
         customerName = FilmListSearchCommand.decodeGetParameter(customerName);

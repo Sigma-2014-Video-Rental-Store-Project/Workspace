@@ -1,6 +1,7 @@
 package ua.nure.sigma.store.web.command.cart;
 
 import ua.nure.sigma.store.dao.DAOFactory;
+import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.entity.FilmForRent;
 import ua.nure.sigma.store.entity.Rent;
 import ua.nure.sigma.store.web.Paths;
@@ -26,20 +27,30 @@ public class CartDetailFillCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Customers customers = (Customers) request.getSession().getAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME);
+        /*
+        * Create customer list if not exitst
+        */
         if (customers == null) {
             new CustomerListFillAllCustomersCommand().execute(request, response);
         }
         long bonuses = 0;
         Rent rent = (Rent) request.getSession().getAttribute(SearchCartCommand.CART_RENT_PARAM_NAME);
+        /*
+        *   Count bonuses
+        */
         if (rent != null) {
+            if (rent.getCustomerID() != 0) {
+                Customer customer = DAOFactory.getInstance().getCustomerDAO().findCustomerByID(rent.getCustomerID());
+                request.setAttribute(SearchCartCommand.CUSTOMER_FULLNAME_PARAM_NAME, customer.getLastName() + customer.getFirstName());
+            }
             List<FilmForRent> filmForRents = rent.getFilmList();
             long days;
             for (FilmForRent f : filmForRents) {
                 days = (f.getFutureDate().getTime() - rent.getRentDate().getTime()) / millisecondsInDay;
                 bonuses += DAOFactory.getInstance().getFilmDAO().findFilmById(f.getFilmID()).getBonusForRent() * days;
             }
-            request.setAttribute(TOTAL_BONUSES_PARAM_NAME, bonuses);
         }
+        request.setAttribute(TOTAL_BONUSES_PARAM_NAME, bonuses);
         return Paths.PAGE_CART_DETAIL_FILMS;
     }
 }

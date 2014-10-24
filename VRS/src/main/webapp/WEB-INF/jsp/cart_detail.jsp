@@ -23,14 +23,21 @@
             <div id="header">
                     <%@ include file="/WEB-INF/jspf/header.jspf" %>
             </div>
+            <div id="bonuses">
+                <c:out value="Total bonuses: ${totalBonuses}"/>
+            </div>
             <div name="customer_select">
                 <form class="search" role="form" action="controller" method="get">
-                    <c:out value="${totalBonuses}"/>
                     <input type="hidden" name="command" value="cartSearch"/>
                     <input id="customer_search" style = "float: left; width: 88%;" name="customerFullName" type="text" class="form-control"
                         placeholder="Select customer" value="${customerFullName}" required="" autofocus="" autocomplete="off" data-provide="typeahead">
                     <button id="select_button" class="btn btn-primary" type="submit">Select</button>
                 </form>
+            </div>
+            <div id="continueButton">
+                <a href="controller?command=cartContinue">
+                    <button class="btn btn-success">Continues</button>
+                </a>
             </div>
             <div id="footer">
                 <jsp:include page="../jspf/footer.jspf"/>
