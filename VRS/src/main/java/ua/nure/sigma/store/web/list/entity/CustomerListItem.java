@@ -15,7 +15,7 @@ public class CustomerListItem extends Customer {
     private long leftDays;
 
     public long getLeftDays() {
-        return (returnDate == null)? 0 : TimeUnit.DAYS.convert(returnDate.getTime()-new Date().getTime(),TimeUnit.MILLISECONDS);
+        return (returnDate == null)? Long.MAX_VALUE : TimeUnit.DAYS.convert(returnDate.getTime()-new Date().getTime(),TimeUnit.MILLISECONDS);
     }
 
     /**
