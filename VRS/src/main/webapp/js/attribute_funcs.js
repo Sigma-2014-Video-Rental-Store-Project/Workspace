@@ -40,7 +40,7 @@ function setSeveralAttr(prmNames, vals){
             var keyval = params[i].split("=");
             var shouldAddToRes = true;
             for(var j = 0; j < prmNames.length && j < vals.length; j++){ //sort direct
-                if(keyval[0] == prmNames[j]){
+                if(keyval[0] == prmNames[j]||keyval[0]=="key"){
                     shouldAddToRes = false;
                     break;
                 }
