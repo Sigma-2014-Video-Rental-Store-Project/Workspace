@@ -11,7 +11,7 @@ import java.util.List;
 public interface FilmRentedDAO {
 
     List<FilmForRent> findFilmRentedByRentID(long rentID);
-    void createFilmsRented(long rentID, List<FilmForRent> forRents, Connection connection);
+    void createFilmsRented(long rentID, List<FilmForRent> forRents, Connection connection) throws Exception;
     int findFilmCopiesAtRent(int filmID);
     int findFilmRentLeftCopies(long rentID, int filmID);
     void updateFilmRent(long rentID, int filmID, int copies);

@@ -36,14 +36,18 @@ public class PostgreSqlRentDAO implements RentDAO {
     public void createRent(Rent rent) {
         Connection connection = null;
         PreparedStatement pstmnt = null;
+        ResultSet rs = null;
+        long currentID = 0;
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_RENTS);
             int position = 1;
             pstmnt.setInt(position++,rent.getCustomerID());
-            pstmnt.execute();
-            long currentID = pstmnt.executeQuery().getLong(1);
+            rs = pstmnt.executeQuery();
+            if (rs.next()){
+                currentID = rs.getLong(1);
+            }
             DAOFactory.getInstance().getFilmRentedDAO().createFilmsRented(currentID, rent.getFilmList(),connection);
         } catch (Exception e) {
             DAOFactory.rollback(connection);

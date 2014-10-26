@@ -53,7 +53,7 @@
                 </label>
             </div>
             <div id="add-new-film-button">
-                    <button class="btn btn-success" onclick="controller?command=addNewFilm">Add new film</button>
+                    <a href="controller?command=addNewFilm"><button class="btn btn-success">Add new film</button></a>
             </div>
             <div id="search-buttons">
                 <form class="search" role="form" action="controller" method="get">
