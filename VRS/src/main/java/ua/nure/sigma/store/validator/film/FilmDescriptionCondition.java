@@ -10,7 +10,7 @@ import ua.nure.sigma.store.validator.Condition;
  */
 public class FilmDescriptionCondition implements Condition {
 
-    private static final int MAX_DESCRIPTION_LENGTH = 160;
+    private static final int MAX_DESCRIPTION_LENGTH = 360;
 
     @Override
     public String validate(String attribute) {

@@ -98,9 +98,12 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
     public void createFilmCategory(Film film, Category category) {
         Connection connection = null;
         try {
+            connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             createFilmCategory(film,category,connection);
 
         } catch (Exception e){
+            DAOFactory.rollback(connection);
 
         }finally {
             DAOFactory.commitAndClose(connection);

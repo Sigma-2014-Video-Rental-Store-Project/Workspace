@@ -27,14 +27,8 @@ import java.util.List;
 public class AddNewFilmCommand extends Command{
 	 public static final String FILM_ID_PARAM_NAME = "filmId";
 
-	    private static final Logger LOG = Logger.getLogger(EditFilmCommand.class);
+	    private static final Logger LOG = Logger.getLogger(AddNewFilmCommand.class);
 
-	    /**
-	     * Processes request for the {@literal Edit Form} representation. Must be supplied
-	     * with {@code filmId} parameter through the {@code request}. Notice, that if there
-	     * is no {@code filmId} parameter at all or it cannot be parsed properly, this
-	     * command will redirect request on standard no page handler.
-	     */
 	    @Override
 	    public String execute(HttpServletRequest request,
 	                          HttpServletResponse response) throws IOException, ServletException {

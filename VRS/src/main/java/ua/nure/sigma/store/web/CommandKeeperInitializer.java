@@ -9,6 +9,8 @@ import ua.nure.sigma.store.web.command.WrongCommand;
 import ua.nure.sigma.store.web.command.addNewCustomer.AddNewCustomerCommand;
 import ua.nure.sigma.store.web.command.addNewCustomer.NewCustomerCommandInitializer;
 import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmCommand;
+import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmSaveCommand;
+import ua.nure.sigma.store.web.command.cart.AddToCartCommand;
 import ua.nure.sigma.store.web.command.cart.CartDetailFillCommand;
 import ua.nure.sigma.store.web.command.cart.LoadCartToDBCommand;
 import ua.nure.sigma.store.web.command.cart.SearchCartCommand;
@@ -94,9 +96,11 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("cartDetails", new CartDetailFillCommand());
         commandKeeper.add("cartSearch", new SearchCartCommand());
         commandKeeper.add("cartContinue", new LoadCartToDBCommand());
+        commandKeeper.add("cartAdd", new AddToCartCommand());
 
         commandKeeper.add("newCustomer", new AddNewCustomerCommand());
         commandKeeper.add("addNewFilm", new AddNewFilmCommand());
+		commandKeeper.add("addNewFilmSave", new AddNewFilmSaveCommand(extensions, validator));
     }
 
 }
