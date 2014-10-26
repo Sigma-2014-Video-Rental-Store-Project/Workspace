@@ -98,6 +98,9 @@
                         <td style="text-align:right; padding-right:5%;"><fmt:formatNumber type="number" minFractionDigits="2" value="${current.rentPrice/100}"/></td>
                         <td style="text-align:center;">
                             <c:choose>
+                                <c:when test="${current.copiesLeft eq 0}">
+                                    <span style="color: #b35a3f;">absent</span>
+                                </c:when>
                                 <c:when test="${uf:isAdded(current.filmId,sessionScope.cart)}">
                                     <span style="color: #3CB371;">added</span>
                                 </c:when>
