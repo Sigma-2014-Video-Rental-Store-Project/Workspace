@@ -44,17 +44,17 @@ CREATE TABLE CATEGORIES
     CATEGORY_NAME  VARCHAR(40) not null
 );
 
-CREATE TABLE FILMS
+CREATE TABLE FILMS in schema_name
 (
-    FILM_ID    		serial primary key,
-    TITLE      		VARCHAR(40) not null,
+    ID    		    serial primary key,
+    TITLE      		text not null,
     YEAR       		integer not null,
-    DESCRIPTION 	VARCHAR(160) not null,
-    COVER			VARCHAR(40) not null,
+    DESCRIPTION 	text not null,
+    COVER			text not null,
     AMOUNT			integer not null,
-    GENERAL_PRICE	double precision not null,
-    RENT_PRICE		double precision not null,
-    BONUS_FOR_RENT	double precision not null
+    GENERAL_PRICE	bigint not null,
+    RENT_PRICE		bigint not null,
+    BONUS_FOR_RENT	bigint not null
 );
 
 CREATE TABLE FILM_CATEGORIES
@@ -67,13 +67,21 @@ CREATE TABLE FILM_CATEGORIES
 
 CREATE TABLE RENT
 (
+    RENT_ID                 bigserial primary key;
     CUSTOMER_ID    			INTEGER REFERENCES CUSTOMERS,
-    FILM_ID        			INTEGER REFERENCES FILMS,
-    COUNT 					INTEGER NOT NULL,
-    RENTED_DATE				DATE NOT NULL,
-    ACCEPTED_FUTURE_DATE	DATE NOT NULL,
-    ACCEPTED_DATE			DATE,
-    PRIMARY KEY 			(CUSTOMER_ID, FILM_ID)
+    RENTED_DATE				DATE NOT NULL
+);
+
+
+CREATE TABLE film_at_rent
+(
+    FILM_ID                 INTEGER REFERENCES FILMS,
+    RENT_ID                 bigint REFERENCES FILMS,
+    COUNT                   INTEGER NOT NULL,
+    ACCEPTED_FUTURE_DATE    DATE NOT NULL,
+    ACCEPTED_DATE           DATE,
+    COPIES_LEFT             INTEGER NOT NULL,
+    RIMARY KEY  (FILM_ID, RENT_ID)
 );
 
 

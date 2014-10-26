@@ -1,9 +1,7 @@
 package ua.nure.sigma.store.launch;
 import java.io.File;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import org.apache.catalina.startup.Tomcat;
 import ua.nure.sigma.store.dao.DAOFactory;
@@ -13,6 +11,34 @@ import ua.nure.sigma.store.web.list.Categories;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
+        Rent rent = new Rent();
+        rent.setCustomerID(1);
+        rent.setRentDate(new Date());
+        List<FilmForRent> forRents = new ArrayList<FilmForRent>();
+        FilmForRent filmForRent =  new FilmForRent();
+        filmForRent.setCopies(2);
+        filmForRent.setFilmID(13);
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 3);
+        dt = c.getTime();
+        filmForRent.setFutureDate(dt);
+        forRents.add(filmForRent);
+        FilmForRent f2 = new FilmForRent();
+        f2.setCopies(3);
+        f2.setFilmID(17);
+        Date dt1 = new Date();
+        c = Calendar.getInstance();
+        c.setTime(dt1);
+        c.add(Calendar.DATE, 2);
+        dt1 = c.getTime();
+        f2.setFutureDate(dt1);
+        forRents.add(f2);
+        rent.setFilmList(forRents);
+        DAOFactory.getInstance().getRentDAO().createRent(rent);
+
 
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();

@@ -15,12 +15,12 @@ import java.util.List;
 public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
 
     private static final String SQL_SELECT_FROM_FILM_AT_RENT_BY_COPIES_AT_RENT =
-            "SELECT sum(count) as rentedCopies FROM FILM_AT_RENT WHERE FILM_ID = ? AND ACCEPTED_DATE IS NULL";
-    private static final String SQL_SELECT_FROM_FILM_RENTED_BY_RENT_ID = "SELECT * FROM FILM_AT_RENT WHERE FILM_ID = ?";
-    private static final String SQL_SELECT_FILM_RENTED = "SELECT * FROM FILM ILM_AT_RENT WHERE RENT_ID = ? AND FILM_ID = ?";
-    private static final String SQL_INSERT_INTO_FILM_AT_RENTED = "INSERT INTO FILM_AT_RENT VALUES(?,?,?,?,?,NULL)";
-    private static final String SQL_UPDATE_FILM_RENTED = "UPDATE FILM_ATRENT SET COPIES_LEFT = ? WHERE RENT_ID =? AND FILM_ID = ?";
-    private static final String SQL_CLOSE_FILM_RENT = "UPDATE FILM_AT_RENT SET ACCEPTED_DATE = CURRENT_DATE, COPIES_LEFT = 0 WHERE RENT_ID = ? AND FILM_ID = ?";
+            "SELECT sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ID = ? AND ACCEPTED_DATE IS NULL";
+    private static final String SQL_SELECT_FROM_FILM_RENTED_BY_RENT_ID = "SELECT * FROM FILM_AT_RENT WHERE ID = ?";
+    private static final String SQL_SELECT_FILM_RENTED = "SELECT * FROM FILM ILM_AT_RENT WHERE RENT_ID = ? AND ID = ?";
+    private static final String SQL_INSERT_INTO_FILM_AT_RENTED = "INSERT INTO FILM_AT_RENT VALUES(?,?,?,?,NULL,?)";
+    private static final String SQL_UPDATE_FILM_RENTED = "UPDATE FILM_ATRENT SET COPIES_LEFT = ? WHERE RENT_ID =? AND ID = ?";
+    private static final String SQL_CLOSE_FILM_RENT = "UPDATE FILM_AT_RENT SET ACCEPTED_DATE = CURRENT_DATE, COPIES_LEFT = 0 WHERE RENT_ID = ? AND ID = ?";
 
 
     private FilmForRent extractFilm(ResultSet rs) throws SQLException {
@@ -107,18 +107,20 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
         return rents;
     }
 
-    public void createFilmsRented(long rentID,FilmForRent forRents, Connection connection){
+    public void createFilmsRented(long rentID,FilmForRent forRents, Connection connection) throws Exception {
         PreparedStatement pstmnt = null;
         ResultSet rs = null;
         try {
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_FILM_AT_RENTED);
-            pstmnt.setLong(2, rentID);
             pstmnt.setInt(1, forRents.getFilmID());
+            pstmnt.setLong(2, rentID);
             pstmnt.setInt(3,forRents.getCopies());
-            pstmnt.setInt(4,forRents.getCopies());
-            pstmnt.setDate(5, (java.sql.Date) forRents.getFutureDate());
+            pstmnt.setDate(4, new java.sql.Date(forRents.getFutureDate().getTime()));
+            pstmnt.setInt(5,forRents.getCopies());
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
+            throw new Exception();
 //            LOG.error("Can not obtain User by login.", e);
         } finally {
             DAOFactory.close(pstmnt);
@@ -126,7 +128,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
         }
     }
     @Override
-    public void createFilmsRented(long rentID, List<FilmForRent> forRents, Connection connection) {
+    public void createFilmsRented(long rentID, List<FilmForRent> forRents, Connection connection) throws Exception {
         for (FilmForRent f:forRents){
             createFilmsRented(rentID,f,connection);
         }
@@ -204,6 +206,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             connection.setAutoCommit(false);
             closeFilmRent(rentID,filmID,connection);
         } catch (Exception e) {
+            DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by login.", e);
         } finally {
             DAOFactory.commitAndClose(connection);
