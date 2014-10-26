@@ -28,6 +28,7 @@ public class UpdateCartCommand extends Command {
             String daysString = request.getParameter("days"+entry.getKey().getFilmId());
             int days = Integer.parseInt(daysString);
             entry.getValue().setCopies(copies);
+            entry.getValue().setCopiesLeft(copies);
             entry.getValue().setDays(days);
         }
         return Paths.COMMAND_CART_DETAILS;

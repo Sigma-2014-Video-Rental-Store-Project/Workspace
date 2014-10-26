@@ -24,7 +24,6 @@ public class FilmForRent {
         this.rentID = rentID;
     }
 
-
     public Date getAcceptedDate() {
         return acceptedDate;
     }

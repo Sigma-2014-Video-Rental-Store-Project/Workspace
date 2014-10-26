@@ -79,6 +79,7 @@ public class Cart {
         System.err.println(filmId);
         FilmForRent filmForRent = new FilmForRent();
         filmForRent.setCopies(1);
+        filmForRent.setCopiesLeft(1);
         filmForRent.setFilmID(filmId);
         filmForRent.setDays(1);
         content.put(film, filmForRent);
