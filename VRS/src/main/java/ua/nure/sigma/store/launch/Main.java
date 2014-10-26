@@ -39,7 +39,8 @@ public class Main {
 //        rent.setFilmList(forRents);
 //        DAOFactory.getInstance().getRentDAO().createRent(rent);
 
-        List<Category> categories = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(10);
+//        List<Category> categories = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(10);
+            Film film = DAOFactory.getInstance().getFilmDAO().findFilmById(10);
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
 
