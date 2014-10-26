@@ -52,6 +52,22 @@ public class Cart {
         return content.size();
     }
 
+    public long getTotalCost(){
+        long totalCost = 0;
+        for(Map.Entry<Film, FilmForRent> entry: content.entrySet()){
+            totalCost += entry.getKey().getRentPrice()*entry.getValue().getCopies()*entry.getValue().getDays();
+        }
+        return totalCost;
+    }
+
+    public long getBonusForRent(){
+        long bonusForRent = 0;
+        for(Map.Entry<Film, FilmForRent> entry: content.entrySet()){
+            bonusForRent += entry.getKey().getBonusForRent()*entry.getValue().getCopies()*entry.getValue().getDays();
+        }
+        return bonusForRent;
+    }
+
     public boolean addNewFilm(Integer filmId) {
         if (contains(filmId)) {
             return false;
@@ -59,6 +75,8 @@ public class Cart {
         DAOFactory daoFactory = DAOFactory.getInstance();
         FilmDAO filmDAO = daoFactory.getFilmDAO();
         Film film = filmDAO.findFilmById(filmId);
+        System.err.println(film);
+        System.err.println(filmId);
         FilmForRent filmForRent = new FilmForRent();
         filmForRent.setCopies(1);
         filmForRent.setFilmID(filmId);

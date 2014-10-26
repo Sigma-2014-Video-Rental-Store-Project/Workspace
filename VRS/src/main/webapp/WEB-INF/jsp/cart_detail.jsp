@@ -28,6 +28,8 @@
     <%--</div>--%>
 
     <div style="padding: 0 10%;">
+        <form action="controller" method="post">
+            <input type="hidden" name="command" value="cartUpdate"/>
         <table id="films-table" class="table table-striped" style="border: 1px solid #CCCCCC;">
             <thead>
             <tr>
@@ -35,7 +37,7 @@
                 <th class="copies-column" scope="col">Copies for rent</th>
                 <th class="price-column" scope="col">Total price</th>
                 <th class="add-column" scope="col">Days</th>
-                <th scope="col"></th>
+                <th scope="col"><button style="padding: 5px 40px;" class="btn btn-primary" type="submit">Update data</button></th>
             </tr>
             </thead>
             <tbody>
@@ -43,7 +45,7 @@
                 <tr>
                     <td style="padding-top: 15px;">${entry.key.title}</td>
                     <td style="text-align:center;">
-                        <input type="number" name="amount" class="form-control"
+                        <input type="number" name="copies${entry.key.filmId}" class="form-control"
                                style="max-width: 150px; margin-bottom:2%; margin-left:3%;"
                                min="1" max=${entry.key.copiesLeft} value="${entry.value.copies}">
                     </td>
@@ -52,7 +54,7 @@
                                           value="${entry.key.rentPrice/100*entry.value.copies}"/>$
                     </td>
                     <td style="text-align:center;">
-                        <input type="number" name="amount" class="form-control"
+                        <input type="number" name="days${entry.key.filmId}" class="form-control"
                                style="max-width: 150px; margin-bottom:2%; margin-left:3%;"
                                min="1" value="${entry.value.days}">
                     </td>
@@ -69,6 +71,7 @@
             </c:forEach>
             </tbody>
         </table>
+        </form>
     </div>
 
     <div style="height: 30px; padding: 0 15%" name="customer_select">
@@ -106,21 +109,23 @@
 
     <div style="width: 100%; float: left; padding: 0 15%; padding-top: 20px;">
         <div style="width: 376px; float: right; text-align: right;">
-            <p style="clear: both; float: left; font-weight: bold;">Total cost without bonus: 100500$</p>
+            <p style="clear: both; float: left; font-weight: bold;">Total cost without bonus:
+                <fmt:formatNumber type="number" minFractionDigits="2" value="${cart.totalCost/100}"/>$</p>
 
-            <p style="clear: both; float: left; font-weight: bold;">Bonus for current rent: 10$</p>
+            <p style="clear: both; float: left; font-weight: bold;">Bonus for current rent:
+                <fmt:formatNumber type="number" minFractionDigits="2" value="${cart.bonusForRent/100}"/>$</p>
             <c:if test="${customerFullName ne null}">
                 <p style="clear: both; float: left; font-weight: bold;">Bonus points available:
-                    <fmt:formatNumber type="number" minFractionDigits="2" value="${cart.currentCustomer.bonus}"/>$</p>
+                    <fmt:formatNumber type="number" minFractionDigits="2" value="${cart.currentCustomer.bonus/100}"/>$</p>
                 <p style="clear: both; float: left; font-weight: bold;">Bonus points activated:
-                    <fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.bonusToUse}"/>$</p>
+                    <fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.bonusToUse/100}"/>$</p>
                 <div style="width: 370px; float: left;">
                     <form action="controller" method="post">
-                        <input type="hidden" name="command" value="useBonus"/>
+                        <input type="hidden" name="command" value="cartUseBonus"/>
                         <label style="float: left; padding-top: 8px;" for="bonus-to-use">Bonus points to use:</label>
                         <input id="bonus-to-use" type="number" name="bonusToUse" class="form-control"
                                style="float: left; margin-bottom:2%; margin-left:3%; width: 100px;" min="1"
-                               max=${cart.currentCustomer.bonus} value="0">
+                               max=${cart.currentCustomer.bonus + 0} value="0">
                         <button style="float: left; margin-left: 15px;" id="use-bonus" class="btn btn-primary" type="submit">Use bonus
                         </button>
                     </form>
@@ -137,7 +142,6 @@
             </form>
         </div>
         <div style="float: right;">
-            <button style="margin-right: 10px;" class="btn btn-primary">Update data</button>
             <button style="margin-right: 10px;" class="btn btn-success">Continue</button>
         </div>
     </div>

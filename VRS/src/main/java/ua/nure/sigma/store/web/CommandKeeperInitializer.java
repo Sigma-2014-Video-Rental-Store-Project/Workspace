@@ -101,6 +101,8 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("cartClear", new ClearCartCommand());
         commandKeeper.add("cartRemove", new RemoveFromCartCommand());
         commandKeeper.add("cartCancelCustomer", new CancelSelectedCustomer());
+        commandKeeper.add("cartUseBonus", new UseBonusCommand());
+        commandKeeper.add("cartUpdate", new UpdateCartCommand());
 
         commandKeeper.add("newCustomer", new AddNewCustomerCommand());
         commandKeeper.add("addNewFilm", new AddNewFilmCommand());
