@@ -18,7 +18,7 @@
     <meta name="description" content="Film edit page.">
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
-    <title>Films edit</title>
+    <title>Add new film</title>
 	<fmt:setLocale value="en_US" />
 </head>
 <body>
@@ -28,7 +28,7 @@
         </div>
 		<div id="content-body">
             <form action="controller" method="post" enctype="multipart/form-data">
-                 <input type="hidden" name="command" value="editFilmSave" />
+                 <input type="hidden" name="command" value="addNewFilmSave" />
 			     <div id=leftside>
 				    <p id="text">Film name:</p>
 				    <input type="text" name="filmTitle" class="form-control" style="margin-bottom:2%;">
