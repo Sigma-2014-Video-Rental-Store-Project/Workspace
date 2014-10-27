@@ -75,8 +75,6 @@ public class Cart {
         DAOFactory daoFactory = DAOFactory.getInstance();
         FilmDAO filmDAO = daoFactory.getFilmDAO();
         Film film = filmDAO.findFilmById(filmId);
-        System.err.println(film);
-        System.err.println(filmId);
         FilmForRent filmForRent = new FilmForRent();
         filmForRent.setCopies(1);
         filmForRent.setCopiesLeft(1);
