@@ -15,7 +15,7 @@ import java.util.List;
 public class CreateCustomerCommand extends Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        return null;
+        return "error";
     }
 
     public CreateCustomerCommand(List<String> imageExtensions, Validator validator) {

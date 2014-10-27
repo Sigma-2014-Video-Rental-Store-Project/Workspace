@@ -13,6 +13,6 @@ import java.io.IOException;
 public class DeleteCustomerCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        return null;
+        return "error";
     }
 }
