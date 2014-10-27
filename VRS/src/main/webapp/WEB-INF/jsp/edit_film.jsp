@@ -27,6 +27,13 @@
             <%@ include file="/WEB-INF/jspf/header.jspf" %>
         </div>
 		<div id="content-body">
+			<div style="width:75%; float:left; position:absolute;">
+			<form id="removeForm" action="controller" method="post" name="editFilmRemove" style="float:right;">
+				<input type="hidden" name="command" value="editFilmRemove" />
+				<input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
+				<button class="btn btn-danger" type="submit">Remove film</button>
+			</form>
+			</div>
             <form action="controller" method="post" enctype="multipart/form-data">
                  <input type="hidden" name="command" value="editFilmSave" />
                  <input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
@@ -64,11 +71,7 @@
 							</select>
 					    </div>
 						<div style="float:right;">
-							<form action="controller" method="post" name="editFilmRemove">
-								<input type="hidden" name="command" value="editFilmRemove" />
-								<input type="hidden" name="filmId" value="${editFilmObject.filmId}" />
-								<button class="btn btn-danger">Remove film</button>
-							</form>
+							
 						</div>
 				    </div>
 				    <div>
@@ -107,7 +110,7 @@
 									<p id="text" >Bonus value: </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"  value="${editFilmObject.bonusForRent}">
+									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"  value="${editFilmObject.bonusForRent/100}">
 								</div>
 						</div>
 					</div>
@@ -154,5 +157,5 @@
             window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
             window.test = $('.testsel').SumoSelect({okCancelInMulti:true });
         });
-  </script>
+</script>
 </html>

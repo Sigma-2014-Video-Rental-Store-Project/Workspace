@@ -34,4 +34,5 @@ public final class Paths {
     public static final String COMMAND_FULL_FILM_LIST = "controller?command=fullFilmList";
     public static final String COMMAND_EDIT_FILM = "controller?command=editFilm";
 	public static final String COMMAND_ADD_NEW_FILM = "controller?command=addNewFilm";
+    public static final String COMMAND_CART_DETAILS = "controller?command=cartDetails";
 }

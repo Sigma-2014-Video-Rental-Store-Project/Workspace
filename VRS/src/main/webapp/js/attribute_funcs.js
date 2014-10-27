@@ -59,3 +59,33 @@ function setSeveralAttr(prmNames, vals){
     window.location.href = base + '?' + res;
     return true;
 }
+function setSeveralAttrForCategory(prmNames, vals){
+    var res = '';
+    var d = location.href.split("#")[0].split("?");
+    var base = d[0];
+    var query = d[1];
+    if(query) {
+        var params = query.split("&");
+        for(var i = 0; i < params.length ; i++) { // page sort direct
+            var keyval = params[i].split("=");
+            var shouldAddToRes = true;
+            for(var j = 0; j < prmNames.length && j < vals.length; j++){ //sort direct
+                if(keyval[0] == prmNames[j]||keyval[0]=="key"){
+                    shouldAddToRes = false;
+                    break;
+                }
+            }
+            if(shouldAddToRes){
+                res += params[i] + '&';
+            }
+        }
+    }
+    for(i = 0; i < prmNames.length && i < vals.length; i++){
+        res += prmNames[i] + '=' + vals[i];
+        if(i != prmNames.length - 1 && i != vals.length - 1){
+            res+='&';
+        }
+    }
+    window.location.href = base + '?' + res;
+    return true;
+}

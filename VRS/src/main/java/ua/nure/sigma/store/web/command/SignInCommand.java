@@ -5,6 +5,8 @@ import ua.nure.sigma.store.dao.AdminDAO;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.Admin;
+import ua.nure.sigma.store.logic.Cart;
+import ua.nure.sigma.store.logic.CartCreator;
 import ua.nure.sigma.store.web.Controller;
 import ua.nure.sigma.store.web.Paths;
 
@@ -31,9 +33,9 @@ public class SignInCommand extends Command {
     private static final String COOKIE_LIFETIME_PARAMETER_NAME = "cookieLifetime";
     private static final String EMAIL_PARAMETER_NAME = "email";
     private static final String PASSWORD_PARAMETER_NAME = "password";
-    private static final String REMEMBER_ME_PARAMETER_NAME =   "remember-me";
-    private static final String REMEMBER_ME_PARAMETER_VALUE =  "remember";
-    private static final String ERROR_CODE_PARAMETER_NAME =  "&errorCode=";
+    private static final String REMEMBER_ME_PARAMETER_NAME = "remember-me";
+    private static final String REMEMBER_ME_PARAMETER_VALUE = "remember";
+    private static final String ERROR_CODE_PARAMETER_NAME = "&errorCode=";
     private static final Logger LOG = Logger.getLogger(SignInCommand.class);
 
     /**
@@ -51,8 +53,6 @@ public class SignInCommand extends Command {
         // Obtain email and password from the request.
         String email = request.getParameter(EMAIL_PARAMETER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER_NAME);
-
-        LOG.debug("Sign in command started.");
 
         // Error handler.
         String forward = Paths.COMMAND_SIGN_IN;
@@ -123,8 +123,20 @@ public class SignInCommand extends Command {
 //            Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", userLocale);
 //        }
 
+        initCart(session);
+
         LOG.debug("Authorization set up process finished.");
 
         return forward;
+    }
+
+    /**
+     * Supplies current user with {@code Cart} instance.
+     * Adds it at the session context.
+     *
+     * @param session that will store reference on the cart.
+     */
+    private static void initCart(HttpSession session) {
+        session.setAttribute(Cart.CART_ATTRIBUTE_NAME, CartCreator.newCart());
     }
 }

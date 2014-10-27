@@ -1,6 +1,7 @@
 package ua.nure.sigma.store.web.command.cart;
 
 import ua.nure.sigma.store.dao.DAOFactory;
+import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.entity.FilmForRent;
 import ua.nure.sigma.store.entity.Rent;
 import ua.nure.sigma.store.web.Paths;
@@ -32,20 +33,6 @@ public class CartDetailFillCommand extends Command {
         if (customers == null) {
             new CustomerListFillAllCustomersCommand().execute(request, response);
         }
-        long bonuses = 0;
-        Rent rent = (Rent) request.getSession().getAttribute(SearchCartCommand.CART_RENT_PARAM_NAME);
-        /*
-        *   Count bonuses
-        */
-        if (rent != null) {
-            List<FilmForRent> filmForRents = rent.getFilmList();
-            long days;
-            for (FilmForRent f : filmForRents) {
-                days = (f.getFutureDate().getTime() - rent.getRentDate().getTime()) / millisecondsInDay;
-                bonuses += DAOFactory.getInstance().getFilmDAO().findFilmById(f.getFilmID()).getBonusForRent() * days;
-            }
-        }
-        request.setAttribute(TOTAL_BONUSES_PARAM_NAME, bonuses);
         return Paths.PAGE_CART_DETAIL_FILMS;
     }
 }

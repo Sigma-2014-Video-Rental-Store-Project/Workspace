@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <jsp:directive.page language="java"
                     contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"/>
+<%@ taglib uri="http://ua.nure.sigma.store/functions" prefix="uf"%>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,13 +29,13 @@
     <div id="category">
         <ul class="nav nav-sidebar">
             <li>
-                <a href="#" onclick="setSeveralAttr(['categories', 'pageIndex'], ['0', '1'])">
+                <a href="#" onclick="setSeveralAttrForCategory(['categories', 'pageIndex'], ['0', '1'])">
                     <c:out value="all categories"/>
                 </a>
             </li>
             <c:forEach items="${categories.model}" var="current">
                 <li>
-                    <a href="#" onclick="setSeveralAttr(['categories', 'pageIndex'], ['${current.id}', '1'])">
+                    <a href="#" onclick="setSeveralAttrForCategory(['categories', 'pageIndex'], ['${current.id}', '1'])">
                         <c:out value="${current.name}"/>
                     </a>
                 </li>
@@ -52,7 +53,7 @@
                 </label>
             </div>
             <div id="add-new-film-button">
-                    <button class="btn btn-success" onclick="controller?command=addNewFilm">Add new film</button>
+                    <a href="controller?command=addNewFilm"><button class="btn btn-success">Add new film</button></a>
             </div>
             <div id="search-buttons">
                 <form class="search" role="form" action="controller" method="get">
@@ -89,12 +90,31 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 <c:forEach items="${films.model}" var="current">
                     <tr>
                         <td><a href="controller?command=filmDetails&filmId=${current.filmId}">${current.title}</a></td>
                         <td style="text-align:center;"><c:out value="${current.copiesLeft}"/></td>
                         <td style="text-align:right; padding-right:5%;"><fmt:formatNumber type="number" minFractionDigits="2" value="${current.rentPrice/100}"/></td>
-                        <td style="text-align:center;"><a class="add-to-cart-link" href="#" onclick="sendGetRequest('${current.filmId}',this)">add</a>&nbsp;</td>
+                        <td style="text-align:center;">
+                            <c:choose>
+                                <c:when test="${current.copiesLeft eq 0}">
+                                    <span style="color: #b35a3f;">absent</span>
+                                </c:when>
+                                <c:when test="${uf:isAdded(current.filmId,sessionScope.cart)}">
+                                    <span style="color: #3CB371;">added</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <form method="post" action="controller" style="display: inline;">
+                                        <input type="hidden" name="command" value="cartAdd"/>
+                                        <input type="hidden" name="returnTo" value="controller?command=fullFilmList"/>
+                                        <input type="hidden" name="filmId" value="${current.filmId}"/>
+                                        <input type="submit" style="color: #6495ED; background: none; border: none; cursor: pointer;" value="add"/>
+                                    </form>
+                                <%--<a class="add-to-cart-link" href="controller?command=cartAdd&filmId=${current.filmId}">add</a>&nbsp;--%>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                         <td style="text-align:center;"><a href="controller?command=editFilm&filmId=${current.filmId}">edit</a>&nbsp;</td>
                     </tr>
                 </c:forEach>

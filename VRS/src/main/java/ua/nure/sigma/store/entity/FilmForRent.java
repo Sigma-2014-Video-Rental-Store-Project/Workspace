@@ -14,6 +14,8 @@ public class FilmForRent {
     private Date futureDate;
     private Date acceptedDate;
 
+    private transient int days;
+
     public int getRentID() {
         return rentID;
     }
@@ -21,7 +23,6 @@ public class FilmForRent {
     public void setRentID(int rentID) {
         this.rentID = rentID;
     }
-
 
     public Date getAcceptedDate() {
         return acceptedDate;
@@ -61,5 +62,13 @@ public class FilmForRent {
 
     public void setCopiesLeft(int copiesLeft) {
         this.copiesLeft = copiesLeft;
+    }
+
+    public int getDays(){
+        return days;
+    }
+
+    public void setDays(int days){
+        this.days = days;
     }
 }

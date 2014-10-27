@@ -3,7 +3,7 @@ package ua.nure.sigma.store.web.command.cart;
 import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Customer;
-import ua.nure.sigma.store.entity.Rent;
+import ua.nure.sigma.store.logic.Cart;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 import ua.nure.sigma.store.web.command.filmlist.FilmListSearchCommand;
@@ -20,13 +20,12 @@ import java.util.List;
 public class SearchCartCommand extends Command {
     private static final Logger LOG = Logger.getLogger(SearchCartCommand.class);
 
-    public static final String CUSTOMER_FULLNAME_PARAM_NAME = "customerFullName";
-    public static final String CART_RENT_PARAM_NAME = "cartRent";
+    public static final String CUSTOMER_FULL_NAME_PARAM_NAME = "customerFullName";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String customerName = request.getParameter(CUSTOMER_FULLNAME_PARAM_NAME);
-        Rent cartRent = (Rent) request.getSession().getAttribute(CART_RENT_PARAM_NAME);
+        String customerName = request.getParameter(CUSTOMER_FULL_NAME_PARAM_NAME);
+        Cart cart = (Cart) request.getSession().getAttribute(Cart.CART_ATTRIBUTE_NAME);
         String[] customerNames = customerName.split(" ");
         if (customerNames.length != 2) {
             return Paths.PAGE_NO_PAGE;
@@ -35,19 +34,10 @@ public class SearchCartCommand extends Command {
         int customerId = -1;
         for (Customer c : customerList) {
             if (c.getFirstName().equals(customerNames[0]) && c.getLastName().equals(customerNames[1])) {
-                customerId = c.getCustomerID();
+                cart.setCurrentCustomer(c);
             }
         }
-
-        /*
-        *   Set cart to customer
-        */
-        if (customerId != -1) {
-            cartRent.setCustomerID(customerId);
-        }
-        customerName = FilmListSearchCommand.decodeGetParameter(customerName);
-        request.getSession().setAttribute(CART_RENT_PARAM_NAME, cartRent);
-        request.setAttribute(CUSTOMER_FULLNAME_PARAM_NAME, customerName);
-        return Paths.PAGE_CART_DETAIL_FILMS;
+        request.getSession().setAttribute(CUSTOMER_FULL_NAME_PARAM_NAME, customerName);
+        return Paths.COMMAND_CART_DETAILS;
     }
 }

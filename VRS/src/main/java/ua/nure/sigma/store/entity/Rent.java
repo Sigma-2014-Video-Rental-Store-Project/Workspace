@@ -16,7 +16,7 @@ public class Rent {
     private int countOfFilm;
 
     public int getCountOfFilm() {
-        return countOfFilm;
+        return filmList.size();
     }
 
     public void setCountOfFilm(int countOfFilm) {
