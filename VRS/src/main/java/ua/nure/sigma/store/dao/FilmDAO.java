@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao;
 
+import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
 
 import java.sql.Connection;
@@ -13,6 +14,7 @@ public interface FilmDAO {
     Film findFilmById(int id);
     public Film findFilmById(Connection connection, int id);
     void createFilm(Film film);
+    void createFilmWithCategories(Film film, List<Category> categoryList);
     void updateFilm(Film film);
     void deleteFilm(Film film);
     void deleteFilm(int filmId);

@@ -87,7 +87,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
             pstmnt.setInt(position, film.getFilmId());
             pstmnt.execute();
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
+            throw new SQLException();
 //            LOG.error("Can not add new client.", e);
         } finally {
             DAOFactory.close(pstmnt);
