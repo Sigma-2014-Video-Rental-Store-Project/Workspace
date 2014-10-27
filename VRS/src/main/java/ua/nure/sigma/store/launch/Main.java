@@ -5,6 +5,7 @@ import java.util.*;
 
 import org.apache.catalina.startup.Tomcat;
 import ua.nure.sigma.store.dao.DAOFactory;
+import ua.nure.sigma.store.dao.FilmDAO;
 import ua.nure.sigma.store.entity.*;
 import ua.nure.sigma.store.web.list.Categories;
 
@@ -40,7 +41,25 @@ public class Main {
 //        DAOFactory.getInstance().getRentDAO().createRent(rent);
 
 //        List<Category> categories = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(10);
-            Film film = DAOFactory.getInstance().getFilmDAO().findFilmById(10);
+
+        Film film = new Film();
+        film.setGeneralPrice(2000);
+        film.setCover("25.jpg");
+        film.setAmount(12);
+        film.setYear(2015);
+        film.setRentPrice(1984);
+        film.setBonusForRent(850);
+        film.setTitle("FxF");
+        film.setDescription("FxF is comming..");
+        List<Category> categories = new ArrayList<Category>();
+        Category category = new Category();
+        category.setId(1);
+        categories.add(category);
+        FilmDAO dao = DAOFactory.getInstance().getFilmDAO();
+        //dao.createFilmWithCategories(film,categories);
+        //Film film = DAOFactory.getInstance().getFilmDAO().findFilmById(10);
+        dao.createFilm(film);
+        int i = dao.getLastID();
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
 
