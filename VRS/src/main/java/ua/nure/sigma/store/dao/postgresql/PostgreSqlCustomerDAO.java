@@ -83,6 +83,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             stmnt = connection.createStatement();
             rs = stmnt.executeQuery(SQL_SELECT_FROM_CUSTOMERS_ALL_CUSTOMER);
             while (rs.next()) {
@@ -117,6 +118,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
 //            LOG.error("Can not obtain User by id.", e);
         } finally {
             DAOFactory.commitAndClose(connection);
+
         }
         return customer;
     }
