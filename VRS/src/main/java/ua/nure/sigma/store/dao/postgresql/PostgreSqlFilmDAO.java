@@ -24,7 +24,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             "UPDATE FILMS SET TITLE = ?, YEAR =?, DESCRIPTION =?, COVER =?, AMOUNT =?, GENERAL_PRICE = ?, RENT_PRICE = ?, BONUS_FOR_RENT = ? WHERE ID = ?";
     private static final String SQL_DELETE_FILM = "DELETE FROM FILMS WHERE ID = ?";
 
-    private static final String SQL_FILMS_CURRENT_ID = "select currval('films_id_seq')";
+    private static final String SQL_FILMS_CURRENT_ID = "select lastvalue from films_id_seq)";
     private Film extractFilm(ResultSet rs) throws SQLException {
         Film film = new Film();
         film.setFilmId(rs.getInt("ID"));
