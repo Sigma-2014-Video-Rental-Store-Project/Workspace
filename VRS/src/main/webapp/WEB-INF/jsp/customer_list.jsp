@@ -14,6 +14,7 @@
 <link href="css/customer_list.css" rel="stylesheet">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,6 +25,7 @@
     <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
     <title>Customers</title>
+    <fmt:setLocale value="en_US" />
 </head>
 <body>
 <f:view>
@@ -116,7 +118,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td><c:out value="${current.bonus}"/></td>
+                    <td style="text-align:right; padding-right:5%;"><fmt:formatNumber type="CURRENCY" value="${current.bonus/100}"/></td>
                         <td><a href="controller?command=editCustomer&customerId=${current.customerID}&get=true">edit</a>&nbsp;</td>
 
                     </tr>
