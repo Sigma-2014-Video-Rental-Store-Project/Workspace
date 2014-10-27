@@ -93,7 +93,16 @@
                     <tr>
                         <td><a href="controller?command=customerDetails&customerId=${current.customerID}">${current.lastName}</a></td>
                         <td><c:out value="${current.copiesRented}"/></td>
-                        <td><c:out value="${current.returnDate}"/></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${current.returnDate == null}">
+                                    <c:out value="No rents"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="${current.returnDate}"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                         <td><c:out value="${current.bonus}"/></td>
                         <td><a href="controller?command=editCustomer&customerId=${current.customerID}&get=true">edit</a>&nbsp;</td>
 
