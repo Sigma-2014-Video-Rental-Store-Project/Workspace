@@ -26,6 +26,9 @@ public class LoadCartToDBCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute(Cart.CART_ATTRIBUTE_NAME);
+        if(cart.getCurrentCustomer() == null){
+            return Paths.COMMAND_CART_DETAILS;
+        }
         if(cart.getContent().size() == 0){
             session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
             session.removeAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);

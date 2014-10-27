@@ -51,7 +51,7 @@
                     </td>
                     <td style="text-align:right; padding-right:2%; padding-top: 15px;">
                         <fmt:formatNumber type="number" minFractionDigits="2"
-                                          value="${entry.key.rentPrice/100*entry.value.copies}"/>$
+                                          value="${entry.key.rentPrice/100*entry.value.copies*entry.value.days}"/>$
                     </td>
                     <td style="text-align:center;">
                         <input type="number" name="days${entry.key.filmId}" class="form-control"
@@ -62,9 +62,7 @@
                         <form method="post" action="controller" style="display: inline;">
                             <input type="hidden" name="command" value="cartRemove"/>
                             <input type="hidden" name="filmId" value="${entry.key.filmId}"/>
-                            <input type="submit"
-                                   style="color: #6495ED; background: none; border: none; cursor: pointer;"
-                                   value="Remove"/>
+                            <input type="submit" style="color: #6495ED; background: none; border: none; cursor: pointer;" value="Remove"/>
                         </form>
                     </td>
                 </tr>
@@ -118,7 +116,7 @@
                 <p style="clear: both; float: left; font-weight: bold;">Bonus points available:
                     <fmt:formatNumber type="number" minFractionDigits="2" value="${cart.currentCustomer.bonus/100}"/>$</p>
                 <p style="clear: both; float: left; font-weight: bold;">Bonus points activated:
-                    <fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.bonusToUse/100}"/>$</p>
+                    <fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.bonusInUse/100}"/>$</p>
                 <div style="width: 370px; float: left;">
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="cartUseBonus"/>
@@ -142,7 +140,10 @@
             </form>
         </div>
         <div style="float: right;">
-            <button style="margin-right: 10px;" class="btn btn-success">Continue</button>
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="cartContinue"/>
+                <button type="submit" style="margin-right: 10px;" class="btn btn-success">Continue</button>
+            </form>
         </div>
     </div>
     <div id="footer">
