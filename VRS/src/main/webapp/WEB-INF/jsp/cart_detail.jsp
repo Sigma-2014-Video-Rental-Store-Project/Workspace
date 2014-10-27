@@ -51,7 +51,7 @@
                     </td>
                     <td style="text-align:right; padding-right:2%; padding-top: 15px;">
                         <fmt:formatNumber type="number" minFractionDigits="2"
-                                          value="${entry.key.rentPrice/100*entry.value.copies}"/>$
+                                          value="${entry.key.rentPrice/100*entry.value.copies*entry.value.days}"/>$
                     </td>
                     <td style="text-align:center;">
                         <input type="number" name="days${entry.key.filmId}" class="form-control"
