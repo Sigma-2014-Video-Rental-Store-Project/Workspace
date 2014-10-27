@@ -62,9 +62,7 @@
                         <form method="post" action="controller" style="display: inline;">
                             <input type="hidden" name="command" value="cartRemove"/>
                             <input type="hidden" name="filmId" value="${entry.key.filmId}"/>
-                            <input type="submit"
-                                   style="color: #6495ED; background: none; border: none; cursor: pointer;"
-                                   value="Remove"/>
+                            <input type="submit" style="color: #6495ED; background: none; border: none; cursor: pointer;" value="Remove"/>
                         </form>
                     </td>
                 </tr>
@@ -142,7 +140,10 @@
             </form>
         </div>
         <div style="float: right;">
-            <button style="margin-right: 10px;" class="btn btn-success">Continue</button>
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="cartContinue"/>
+                <button type="submit" style="margin-right: 10px;" class="btn btn-success">Continue</button>
+            </form>
         </div>
     </div>
     <div id="footer">
