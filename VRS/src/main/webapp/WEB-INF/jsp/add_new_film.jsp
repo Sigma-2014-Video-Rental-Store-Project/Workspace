@@ -44,11 +44,7 @@
 					    <div id="genre" style="float:left;">
 						    <p id="text">Genre:</p>
 							<select name="categoryName" multiple="multiple" onchange="console.log($(this).children(':selected').length)" class="testsel">
-							<c:forEach items="${categories.model}" var="current">
-								<option value="<c:out value="${current.name}"/>"> 
-									<c:out value="${current.name}"/>
-								</option>
-							</c:forEach>
+							
 							</select>
 					    </div>
 				    </div>

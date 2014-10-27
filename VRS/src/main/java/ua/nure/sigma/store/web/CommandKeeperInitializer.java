@@ -7,7 +7,6 @@ import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
 import ua.nure.sigma.store.web.command.addNewCustomer.AddNewCustomerCommand;
-import ua.nure.sigma.store.web.command.addNewCustomer.NewCustomerCommandInitializer;
 import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmCommand;
 import ua.nure.sigma.store.web.command.cart.*;
 import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmSaveCommand;
@@ -71,7 +70,6 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("logout", new LogOutCommand());
         commandKeeper.add("fullFilmList", FilmListCommandInitializer.getCommand());
         commandKeeper.add("customerList", CustomerListCommandInitializer.getCommand());
-        commandKeeper.add("newCustomer", NewCustomerCommandInitializer.getCommand());
         // Edit form specific commands.
         List<String> extensions = new ArrayList<String>();
         extensions.add(".jpg");
