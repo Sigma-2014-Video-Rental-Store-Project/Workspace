@@ -29,7 +29,7 @@
 
     <div style="padding: 0 10%;">
         <form action="controller" method="post">
-            <input type="hidden" name="command" value="cartUpdate"/>
+            <%--<input type="hidden" name="command" value="cartUpdate"/>--%>
         <table id="films-table" class="table table-striped" style="border: 1px solid #CCCCCC;">
             <thead>
             <tr>
@@ -37,7 +37,7 @@
                 <th class="copies-column" scope="col">Copies for rent</th>
                 <th class="price-column" scope="col">Total price</th>
                 <th class="add-column" scope="col">Days</th>
-                <th scope="col"><button style="padding: 5px 40px;" class="btn btn-primary" type="submit">Update data</button></th>
+                <th scope="col"><button style="padding: 5px 40px;" class="btn btn-primary" name="command" value="cartUpdate" type="submit">Update data</button></th>
             </tr>
             </thead>
             <tbody>
