@@ -11,7 +11,9 @@ public class CustomerRentedCopiesComparator implements Comparator<CustomerListIt
 
     @Override
     public int compare(CustomerListItem o1, CustomerListItem o2) {
-        return o1.getCopiesRented() - o2.getCopiesRented();
+        if(o1.getCopiesRented() > o2.getCopiesRented())
+            return 1;
+        return o1.getCopiesRented() < o2.getCopiesRented() ? -1 : 0;
     }
 
 }

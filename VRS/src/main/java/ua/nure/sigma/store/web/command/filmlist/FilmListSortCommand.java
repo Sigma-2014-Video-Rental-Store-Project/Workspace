@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -46,8 +47,10 @@ public class FilmListSortCommand extends Command {
                 return null;
 
             Collections.sort(films, comparator);
-            if (direct.equals(DOWN_DIR))
-                Collections.reverse(films);
+
+            if (direct.equals(DOWN_DIR)){
+                Collections.sort(films, Collections.reverseOrder(comparator));
+            }
 
             LOG.debug("Sorting finished");
         }

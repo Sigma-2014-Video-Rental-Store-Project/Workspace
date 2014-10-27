@@ -31,14 +31,14 @@ public class CustomerListSortCommand extends Command {
         if (sortName != null && direct != null) {
             LOG.debug("Sorting started with sortname = " + sortName + "; direct = " + direct + ".");
 
-            List<CustomerListItem> films = ((Customers) request.getSession().getAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME)).getAllItems();
+            List<CustomerListItem> items = ((Customers) request.getSession().getAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME)).getAllItems();
             Comparator<CustomerListItem> comparator = CustomerComparatorFactory.getComparator(sortName);
             if (comparator == null)
                 return null;
 
-            Collections.sort(films, comparator);
+            Collections.sort(items, comparator);
             if (direct.equals(DOWN_DIR_NAME))
-                Collections.reverse(films);
+                Collections.sort(items, Collections.reverseOrder(comparator));
 
             LOG.debug("Sorting finished");
         }

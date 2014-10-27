@@ -95,7 +95,7 @@
                     <tr>
                         <td><a href="controller?command=filmDetails&filmId=${current.filmId}">${current.title}</a></td>
                         <td style="text-align:center;"><c:out value="${current.copiesLeft}"/></td>
-                        <td style="text-align:right; padding-right:5%;"><fmt:formatNumber type="number" minFractionDigits="2" value="${current.rentPrice/100}"/></td>
+                        <td style="text-align:right; padding-right:5%;"><fmt:formatNumber type="CURRENCY" value="${current.rentPrice/100}"/></td>
                         <td style="text-align:center;">
                             <c:choose>
                                 <c:when test="${current.copiesLeft eq 0}">
