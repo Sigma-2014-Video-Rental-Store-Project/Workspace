@@ -116,7 +116,7 @@
                 <p style="clear: both; float: left; font-weight: bold;">Bonus points available:
                     <fmt:formatNumber type="number" minFractionDigits="2" value="${cart.currentCustomer.bonus/100}"/>$</p>
                 <p style="clear: both; float: left; font-weight: bold;">Bonus points activated:
-                    <fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.bonusToUse/100}"/>$</p>
+                    <fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.bonusInUse/100}"/>$</p>
                 <div style="width: 370px; float: left;">
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="cartUseBonus"/>
