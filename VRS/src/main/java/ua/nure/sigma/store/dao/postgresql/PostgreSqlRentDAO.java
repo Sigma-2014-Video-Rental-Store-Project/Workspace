@@ -93,7 +93,7 @@ public class PostgreSqlRentDAO implements RentDAO {
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
-            pstmnt = connection.prepareStatement(SQL_SELECT_FROM_RENTS_CUSTOMER_BY_RENT_ID);
+            pstmnt = connection.prepareStatement(SQL_SELECT_FROM_RENTS_RENTS__BY_CUSTOMER_ID);
             pstmnt.setLong(1, customerID);
             rs = pstmnt.executeQuery();
             while (rs.next()) {

@@ -15,21 +15,21 @@ import java.util.List;
 public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
 
     private static final String SQL_SELECT_FROM_FILM_AT_RENT_BY_COPIES_AT_RENT =
-            "SELECT sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ID = ? AND ACCEPTED_DATE IS NULL";
-    private static final String SQL_SELECT_FROM_FILM_RENTED_BY_RENT_ID = "SELECT * FROM FILM_AT_RENT WHERE ID = ?";
-    private static final String SQL_SELECT_FILM_RENTED = "SELECT * FROM FILM ILM_AT_RENT WHERE RENT_ID = ? AND ID = ?";
+            "SELECT sum(count) as rentedCopies FROM FILM_AT_RENT WHERE FILM_ID = ? AND ACCEPTED_DATE IS NULL";
+    private static final String SQL_SELECT_FROM_FILM_RENTED_BY_RENT_ID = "SELECT * FROM FILM_AT_RENT WHERE RENT_ID = ?";
+    private static final String SQL_SELECT_FILM_RENTED = "SELECT * FROM FILM_AT_RENT WHERE RENT_ID = ? AND FILM_ID = ?";
     private static final String SQL_INSERT_INTO_FILM_AT_RENTED = "INSERT INTO FILM_AT_RENT VALUES(?,?,?,?,NULL,?)";
-    private static final String SQL_UPDATE_FILM_RENTED = "UPDATE FILM_ATRENT SET COPIES_LEFT = ? WHERE RENT_ID =? AND ID = ?";
-    private static final String SQL_CLOSE_FILM_RENT = "UPDATE FILM_AT_RENT SET ACCEPTED_DATE = CURRENT_DATE, COPIES_LEFT = 0 WHERE RENT_ID = ? AND ID = ?";
+    private static final String SQL_UPDATE_FILM_RENTED = "UPDATE FILM_AT_RENT SET COPIES_LEFT = ? WHERE RENT_ID =? AND FILM_ID = ?";
+    private static final String SQL_CLOSE_FILM_RENT = "UPDATE FILM_AT_RENT SET ACCEPTED_DATE = CURRENT_DATE, COPIES_LEFT = 0 WHERE RENT_ID = ? AND FILM_ID = ?";
 
 
     private FilmForRent extractFilm(ResultSet rs) throws SQLException {
         FilmForRent film = new FilmForRent();
         film.setFilmID(rs.getInt("FILM_ID"));
-        film.setCopies(rs.getInt("COPIES"));
-        film.setCopiesLeft(rs.getInt("COPIES_ LEFT"));
+        film.setCopies(rs.getInt("COUNT"));
+        film.setCopiesLeft(rs.getInt("COPIES_LEFT"));
         film.setAcceptedDate(rs.getDate("ACCEPTED_DATE"));
-        film.setFutureDate(rs.getDate("FUTURE_DATE"));
+        film.setFutureDate(rs.getDate("accepted_FUTURE_DATE"));
         return film;
     }
 
