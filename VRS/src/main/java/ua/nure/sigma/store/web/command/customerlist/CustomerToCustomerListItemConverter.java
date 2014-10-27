@@ -26,6 +26,8 @@ public class CustomerToCustomerListItemConverter {
         FilmRentedDAO filmRentedDAO = DAOFactory.getInstance().getFilmRentedDAO();
         Date today = new Date();
 
+        //testLog(customers, listItems);TODO
+
         for (Customer customer : customers) {
             int copiesRented = 0;
             Date minReturnDate = null;
@@ -60,9 +62,16 @@ public class CustomerToCustomerListItemConverter {
         for (Customer customer : customers) {
             int copiesRented = 0;
             Date minReturnDate = null;
-
-            for (Rent rent : rentDAO.findRentByCustomerID(customer.getCustomerID())) {
-                for (FilmForRent filmForRent : filmRentedDAO.findFilmRentedByRentID(rent.getRentID())) {
+            List<Rent> rents = rentDAO.findRentByCustomerID(customer.getCustomerID());
+            if(rents.size() == 0){
+                System.out.println("rents == 0 for customerid = " + customer.getCustomerID());
+            }
+            for (Rent rent : rents) {
+                List<FilmForRent> filmForRentList = filmRentedDAO.findFilmRentedByRentID(rent.getRentID());
+                if(filmForRentList.size() == 0){
+                    System.out.println("filmForRentList == 0 for rentid = " + rent.getRentID());
+                }
+                for (FilmForRent filmForRent : filmForRentList) {
                     Date rentDate = filmForRent.getFutureDate(); // TODO
                     System.out.println("---customer id = " + customer.getCustomerID());
                     System.out.println("---rent date = " + rent.getRentDate());
