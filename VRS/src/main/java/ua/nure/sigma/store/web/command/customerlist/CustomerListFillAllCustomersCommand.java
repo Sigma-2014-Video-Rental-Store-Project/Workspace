@@ -31,7 +31,7 @@ public class CustomerListFillAllCustomersCommand extends Command {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (request.getSession().getAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME) == null) {
+        //if (request.getSession().getAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME) == null) {
             LOG.debug("Filling session by all customers. Paramname = " + CustomerListCommand.CUSTOMERS_PARAM_NAME);
             DAOFactory df = DAOFactory.getInstance();
             List<Customer> customers = df.getCustomerDAO().findAllCustomers();
@@ -41,7 +41,7 @@ public class CustomerListFillAllCustomersCommand extends Command {
 
             Customers paramCustomers = new Customers(listItems);
             request.getSession().setAttribute(CustomerListCommand.CUSTOMERS_PARAM_NAME, paramCustomers);
-        }
+        //}
         return null;
     }
 

@@ -33,7 +33,7 @@ public class CustomerToCustomerListItemConverter {
             for (Rent rent : rentDAO.findRentByCustomerID(customer.getCustomerID())) {
                 for (FilmForRent filmForRent : filmRentedDAO.findFilmRentedByRentID(rent.getRentID())) {
                     Date rentDate = filmForRent.getFutureDate(); // TODO
-                    if (rentDate.compareTo(today) > 0) {
+                    if (rentDate != null && rentDate.compareTo(today) > 0) {
                         copiesRented++; //Count of copies rented increases.
 
                         if (minReturnDate == null) // If we have no minDate, then set any return date that is more then today
