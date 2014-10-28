@@ -1,0 +1,55 @@
+body {
+  background-color: #eee;
+}
+#header{
+    width: 100%;
+    margin-bottom: 20px;
+    clear: both;
+}
+#customer-info{ //changed
+    width: 20%;
+    float: left;
+}
+#content-body{
+    width: 77%;
+    float: right;
+    margin-right: 1%;
+    margin-left: 1%;
+    position: relative;
+}
+#footer{
+     width: 100%;
+     clear: both;
+ }
+#items{ //changed
+    min-height: 425px;
+    clear: both;
+}
+#pages{
+    width:100%;
+    bottom:0;
+    /*position:absolute;*/
+    margin-top: 20px;
+}
+.name-column{ //changed
+    width: 30%;
+}
+.start-date-column{
+    width: 20%;
+	text-align:center;
+}
+.end-date-column{
+    width: 20%;
+	text-align:right;
+}
+.days-left-column{
+    width: 15%;
+	text-align:center;
+}
+.edit-column{
+    width: 15%;
+	text-align:center;
+}
+.sort-icon{
+    padding-left: 4px;
+}

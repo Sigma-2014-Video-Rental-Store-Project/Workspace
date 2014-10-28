@@ -28,7 +28,7 @@ public final class Paths {
     public static final String PAGE_CART_DETAIL_FILMS = "/WEB-INF/jsp/cart_detail.jsp";
     public static final String PAGE_ADD_NEW_FILM = "/WEB-INF/jsp/add_new_film.jsp";
     public static final String PAGE_ADD_NEW_CUSTOMER = "/WEB-INF/jsp/add_customer.jsp";
-    public static final String PAGE_CUSTOMER_DETAILS = "/WEB-INF/jsp/"; /* todo*/
+    public static final String PAGE_CUSTOMER_DETAILS = "/WEB-INF/jsp/customer_details.jsp";
 
     // Paths of the server command keys:
     public static final String COMMAND_SIGN_IN = "controller?command=signIn";
