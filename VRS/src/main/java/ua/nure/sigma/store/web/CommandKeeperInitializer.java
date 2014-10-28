@@ -6,19 +6,13 @@ import ua.nure.sigma.store.validator.film.*;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
-import ua.nure.sigma.store.web.command.addNewCustomer.*;
-import ua.nure.sigma.store.web.command.editCustomer.*;
+import ua.nure.sigma.store.web.command.addNewCustomer.AddNewCustomerCommand;
 import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmCommand;
-import ua.nure.sigma.store.web.command.cart.*;
 import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmSaveCommand;
-import ua.nure.sigma.store.web.command.cart.AddToCartCommand;
-import ua.nure.sigma.store.web.command.cart.CartDetailFillCommand;
-import ua.nure.sigma.store.web.command.cart.LoadCartToDBCommand;
-import ua.nure.sigma.store.web.command.cart.SearchCartCommand;
+import ua.nure.sigma.store.web.command.cart.*;
+import ua.nure.sigma.store.web.command.customerDetails.CustomerDetailsCommand;
 import ua.nure.sigma.store.web.command.customerlist.CustomerListCommandInitializer;
-import ua.nure.sigma.store.web.command.editCustomer.DeleteCustomerCommand;
 import ua.nure.sigma.store.web.command.editCustomer.EditCustomerCommand;
-import ua.nure.sigma.store.web.command.editCustomer.UpdateCustomerCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmRemoveCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmSaveCommand;
@@ -111,12 +105,14 @@ public final class CommandKeeperInitializer {
 
         //add command to edit customer
         commandKeeper.add("editCustomer", new EditCustomerCommand());
-        commandKeeper.add("editCustomerSave", new EditCustomerSaveCommand(extensions, validator));
-        commandKeeper.add("editCustomerRemove", new EditCustomerRemoveCommand());
+        //    commandKeeper.add("editCustomerSave", new EditCustomerSaveCommand(extensions, validator));
+        //    commandKeeper.add("editCustomerRemove", new EditCustomerRemoveCommand());
 
         //add command to create customer
         commandKeeper.add("addNewCustomer", new AddNewCustomerCommand());
-        commandKeeper.add("addNewCustomerSave", new AddNewCustomerSaveCommand(extensions, validator));
+        //    commandKeeper.add("addNewCustomerSave", new AddNewCustomerSaveCommand(extensions, validator));
+
+        commandKeeper.add("customerDetails", new CustomerDetailsCommand());
     }
 
 }
