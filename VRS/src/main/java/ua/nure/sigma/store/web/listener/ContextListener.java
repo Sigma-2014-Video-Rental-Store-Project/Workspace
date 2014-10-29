@@ -25,7 +25,7 @@ public class ContextListener implements ServletContextListener {
         ServletContext servletContext = event.getServletContext();
         initLog4J(servletContext);
         initFileUploaderParams(servletContext);
-
+        initPhotoFileUploaderParams(servletContext);
         log("Servlet context initialization finished");
     }
 
@@ -54,6 +54,15 @@ public class ContextListener implements ServletContextListener {
     private void initFileUploaderParams(ServletContext servletContext) {
         String realFilmCoversPath = servletContext.getRealPath("filmCovers/");
         servletContext.setAttribute("COVERS_DIR", realFilmCoversPath + File.separator);
+    }
+    /**
+     * Initializes directory values for film cover uploader.
+     *
+     * @param servletContext to get real paths for film cover directory.
+     */
+    private void initPhotoFileUploaderParams(ServletContext servletContext) {
+        String realFilmCoversPath = servletContext.getRealPath("customerPhoto/");
+        servletContext.setAttribute("PHOTO_DIR", realFilmCoversPath + File.separator);
     }
 
     @Override

@@ -2,6 +2,7 @@ package ua.nure.sigma.store.web.command.addNewCustomer;
 
 import org.apache.log4j.Logger;
 
+import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.Sex;
 import ua.nure.sigma.store.web.Paths;
@@ -26,7 +27,7 @@ public class AddNewCustomerCommand extends Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		LOG.debug("AddNewCustomerCommand started.");
-	    List<Sex> sexes = PosgreSqlDAO.getInstance().getSexDAO().findAllSex();
+	    List<Sex> sexes = DAOFactory.getInstance().getSexDAO().findAllSex();
 		Sexes paramSexes = new Sexes(sexes);
 		for (Sex sex : sexes) {
 			LOG.debug(sex.getSexName());

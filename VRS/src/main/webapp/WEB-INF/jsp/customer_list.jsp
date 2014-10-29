@@ -60,7 +60,7 @@
         </div>
 
         <div id="customers">
-            <table id="customers-table" class="table table-striped">
+            <table id="customers-table" class="table">
                 <thead>
                 <tr>
                     <th class="name-column" scope="col">Name
