@@ -3,6 +3,9 @@ package ua.nure.sigma.store.web.command.customerDetails;
 import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Customer;
+import ua.nure.sigma.store.logic.ListForCustomerDetails;
+import ua.nure.sigma.store.states.CustomerDetailsNowRentState;
+import ua.nure.sigma.store.states.CustomerDetailsRentHistoryState;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 
@@ -19,6 +22,9 @@ public class CustomerDetailsCommand extends Command {
     private static final Logger LOG = Logger.getLogger(CustomerDetailsCommand.class);
 
     public static final String CUSTOMER_ID_PARAM_NAME = "customerId";
+    public static final String FILTER_PARAM_NAME = "filter";
+    static final String PAGE_PARAM_NAME = "pageIndex";
+    public static final String CUSTOMER_DETAILS_LIST_PARAM_NAME = "customerDetailsList";
 
     @Override
 
@@ -50,6 +56,30 @@ public class CustomerDetailsCommand extends Command {
             return Paths.PAGE_NO_PAGE;
         }
 
+        ListForCustomerDetails listForCustomerDetails = new ListForCustomerDetails(customer);
+        filter(request, response, listForCustomerDetails);
+        pages(request, response, listForCustomerDetails);
+        request.setAttribute(CUSTOMER_DETAILS_LIST_PARAM_NAME, listForCustomerDetails);
         return Paths.PAGE_CUSTOMER_DETAILS;
+    }
+
+    private void pages(HttpServletRequest request, HttpServletResponse response, ListForCustomerDetails listForCustomerDetails) {
+        String pageString = (String) request.getParameter(PAGE_PARAM_NAME);
+        if (pageString != null && !pageString.equals("")) {
+            listForCustomerDetails = (ListForCustomerDetails) request.getSession().getAttribute(CUSTOMER_DETAILS_LIST_PARAM_NAME);
+            listForCustomerDetails.setPageIndex(Integer.valueOf(pageString));
+            LOG.debug("Selected page=" + pageString);
+        }
+    }
+
+    private void filter(HttpServletRequest request, HttpServletResponse response, ListForCustomerDetails listForCustomerDetails) {
+        String filter = request.getParameter(FILTER_PARAM_NAME);
+        LOG.trace("Start filtering customrtDetails with filter=" + filter);
+        if (filter.equals("") || filter == null || filter.equals("nowRent")) {
+            listForCustomerDetails.setFilterState(new CustomerDetailsNowRentState());
+        } else {
+            listForCustomerDetails.setFilterState(new CustomerDetailsRentHistoryState());
+        }
+        LOG.trace("Finish filtering customerDetails.");
     }
 }
