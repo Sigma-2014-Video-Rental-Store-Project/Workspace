@@ -6,40 +6,61 @@ import java.util.Date;
  * Created by Maksim Sinkevich on 28.10.2014.
  */
 public class CustomerDetails {
-    private String name;
-    private Date startDate;
-    private Date endDate;
-    private int daysLeft;
+    private static final long MILLISECONDS_IN_DAY = 86400000;
+
+    private Film film;
+    private FilmForRent filmForRent;
+    private Rent rent;
+
+    public Rent getRent() {
+        return rent;
+    }
+
+    public FilmForRent getFilmForRent() {
+        return filmForRent;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setRent(Rent rent) {
+        this.rent = rent;
+    }
+
+    public void setFilmForRent(FilmForRent filmForRent) {
+        this.filmForRent = filmForRent;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
 
     public String getName() {
-        return name;
+        return film.getTitle();
     }
 
     public void setName(String name) {
-        this.name = name;
+        film.setTitle(name);
     }
 
     public Date getEndDate() {
-        return endDate;
+        return filmForRent.getAcceptedDate();
     }
 
     public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        filmForRent.setAcceptedDate(endDate);
     }
 
     public Date getStartDate() {
-        return startDate;
+        return rent.getRentDate();
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        rent.setRentDate(startDate);
     }
 
     public int getDaysLeft() {
-        return daysLeft;
-    }
-
-    public void setDaysLeft(int daysLeft) {
-        this.daysLeft = daysLeft;
+        return (int) ((filmForRent.getFutureDate().getTime() - rent.getRentDate().getTime()) / MILLISECONDS_IN_DAY);
     }
 }

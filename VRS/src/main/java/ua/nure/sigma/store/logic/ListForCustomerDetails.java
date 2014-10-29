@@ -53,10 +53,9 @@ public class ListForCustomerDetails {
         for (Rent r : rents) {
             for (FilmForRent f : r.getFilmList()) {
                 CustomerDetails customerDetails = new CustomerDetails();
-                customerDetails.setName(DAOFactory.getInstance().getFilmDAO().findFilmById(f.getFilmID()).getTitle());
-                customerDetails.setStartDate(r.getRentDate());
-                customerDetails.setEndDate(f.getAcceptedDate());
-                customerDetails.setDaysLeft((int) ((f.getFutureDate().getTime() - r.getRentDate().getTime()) / MILLISECONDS_IN_DAY));
+                customerDetails.setFilm(DAOFactory.getInstance().getFilmDAO().findFilmById(f.getFilmID()));
+                customerDetails.setFilmForRent(f);
+                customerDetails.setRent(r);
                 customerDetailsList.add(customerDetails);
             }
         }
