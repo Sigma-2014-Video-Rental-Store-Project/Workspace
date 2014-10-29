@@ -1,7 +1,10 @@
 package ua.nure.sigma.store.logic;
 
 import ua.nure.sigma.store.dao.DAOFactory;
-import ua.nure.sigma.store.entity.*;
+import ua.nure.sigma.store.entity.Customer;
+import ua.nure.sigma.store.entity.CustomerDetails;
+import ua.nure.sigma.store.entity.FilmForRent;
+import ua.nure.sigma.store.entity.Rent;
 import ua.nure.sigma.store.states.IListFilterState;
 import ua.nure.sigma.store.web.Paths;
 
@@ -13,12 +16,10 @@ import java.util.List;
  */
 public class ListForCustomerDetails {
 
-    private static final long MILLISECONDS_IN_DAY = 86400000;
-
     private Pager pager;
     private Customer customer;
     private List<CustomerDetails> customerDetailsList;
-    IListFilterState<CustomerDetails> filterState;
+    private IListFilterState<CustomerDetails> filterState;
 
     public ListForCustomerDetails(Customer customer) {
         this.customer = customer;
@@ -27,6 +28,9 @@ public class ListForCustomerDetails {
         filterState = null;
     }
 
+    /**
+     * @return CustomerDetails on the page.
+     */
     public List<CustomerDetails> getModel() {
         return (List<CustomerDetails>) pager.getModel();
     }
@@ -43,8 +47,9 @@ public class ListForCustomerDetails {
         return Paths.COMMAND_CUSTOMER_DETAILS + "&" + "pageIndex=";
     }
 
-    public void setFilterState(IListFilterState<Film> newState) {
-
+    public void setFilterState(IListFilterState<CustomerDetails> newState) {
+        filterState = newState;
+        pager = new Pager(filterState.getFilteredList(customerDetailsList));
     }
 
     private void createModel(Customer customer) {
