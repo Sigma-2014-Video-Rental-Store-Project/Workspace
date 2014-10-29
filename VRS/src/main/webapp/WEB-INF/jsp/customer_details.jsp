@@ -33,8 +33,12 @@
         <%@ include file="/WEB-INF/jspf/header.jspf" %>
     </div>
     <div id="customer-info">
-        <img id="cover" data-src="holder.js/140x140" class="center"
-             src="filmCovers/${editFilmObject.cover}">
+        <div id="customer-name-block">
+            <p id="customer-name">${films.customer.lastName}
+                <a href="controller?command=editCustomer&customerId=${films.customer.customerId}&get=true">Edit</a></p>
+        </div>
+        <img id="avatar" data-src="holder.js/140x140" class="center"
+             src="customerPhoto/${films.customer.customerPhoto}">
     </div>
     <div id="content-body">
         <div id="buttons">
@@ -73,7 +77,7 @@
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['daysLeft','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a></th>
-                    <th class="add-column" scope="col">Return</th>
+                    <th class="return-column" scope="col">Return</th>
                 </tr>
                 </thead>
                 <tbody>
