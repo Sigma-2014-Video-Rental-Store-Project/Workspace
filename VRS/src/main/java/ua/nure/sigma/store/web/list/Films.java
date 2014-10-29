@@ -13,7 +13,7 @@ import java.util.List;
 public class Films {
     private Pager pager;
     private List<Film> originModel;
-    IListFilterState<Film> filterState;
+    private IListFilterState<Film> filterState;
 
     public Films(List<Film> films) {
         pager = new Pager(films);
@@ -51,4 +51,5 @@ public class Films {
         filterState = newState;
         pager = new Pager(filterState.getFilteredList(originModel));
     }
+
 }
