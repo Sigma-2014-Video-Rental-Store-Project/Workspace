@@ -57,7 +57,7 @@ public class CreateCustomerCommand extends Command{
             // Has to be transferred between two requests.
             request.getSession().setAttribute("errorMessage", errorMessage);
 
-            return Paths.PAGE_CUSTOMER_LIST;
+            return Paths.COMMAND_ADD_NEW_CUSTOMER;
         }
 
         // Sets categories for current customer.
@@ -70,7 +70,7 @@ public class CreateCustomerCommand extends Command{
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("New customer added");
-            LOG.debug("EditcustomerSaveCommand finished.");
+            LOG.debug("EditCustomerSaveCommand finished.");
         }
 
         // Removes error message of this page if it exists.
@@ -103,7 +103,7 @@ public class CreateCustomerCommand extends Command{
         if (nameList == null){
             return "Customer name must consist of three part";
         }
-        Map<String, String> attributes = new HashMap<String, String>(10);
+        Map<String, String> attributes = new HashMap<String, String>(4);
         attributes.put("name", name);
         attributes.put("bonus", bonus);
         attributes.put("sex", sex);
@@ -114,11 +114,11 @@ public class CreateCustomerCommand extends Command{
             return errorMessage;
         }
 
-        SexDAO sexDAO = DAOFactory.getInstance().getSexDAO();
+        int sexID = DAOFactory.getInstance().getSexDAO().findSexIDBySexName(sex).getSexID();
         customer.setLastName(nameList.get(LAST_NAME_POSSITION));
         customer.setMidleName(nameList.get(MIDLE_NAME_POSSITION));
         customer.setFirstName(nameList.get(FIRST_NAME_POSSITION));
-        customer.setSexID(Integer.parseInt(sex));///TODO:
+        customer.setSexID(sexID);
         try {
             customer.addBonus((long) Double.parseDouble(bonus) * 100);
         } catch (NotEnoughOfBonusExeption notEnoughOfBonusExeption) {

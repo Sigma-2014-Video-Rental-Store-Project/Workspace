@@ -2,8 +2,7 @@ package ua.nure.sigma.store.dao.postgresql;
 
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.SexDAO;
-import ua.nure.sigma.store.entity.Admin;
-import ua.nure.sigma.store.entity.Film;
+import ua.nure.sigma.store.entity.Role;
 import ua.nure.sigma.store.entity.Sex;
 
 import java.sql.*;
@@ -17,6 +16,8 @@ public class PostgreSqlSexDAO implements SexDAO{
 
     private static final String SQL_SELECT_FROM_SEX_BY_ID = "SELECT * FROM SEX WHERE SEX_ID = ?";
     private static final String SQL_SELECT_FROM_SEX_ALL_SEX = "SELECT * FROM SEX";
+    private static final String SQL_SELECT_FROM_SEX_BY_NAME =
+            "SELECT * FROM SEX WHERE SEX = ?";
 
     private Sex extractSex(ResultSet rs) throws SQLException {
         Sex sex = new Sex();
@@ -74,5 +75,32 @@ public class PostgreSqlSexDAO implements SexDAO{
             DAOFactory.commitAndClose(connection);
         }
         return admin;
+    }
+
+    @Override
+    public Sex findSexIDBySexName(String sex) {
+        Sex sex1 = null;
+        Connection connection = null;
+        PreparedStatement pstmnt = null;
+        ResultSet rs = null;
+        try {
+            connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
+            pstmnt = connection
+                    .prepareStatement(SQL_SELECT_FROM_SEX_BY_NAME);
+            pstmnt.setString(1, sex);
+            rs = pstmnt.executeQuery();
+            if (rs.next()) {
+                sex1 = extractSex(rs);
+            }
+        } catch (Exception e) {
+            DAOFactory.rollback(connection);
+//            LOG.error("Can not obtain User by login.", e);
+        } finally {
+            DAOFactory.close(pstmnt);
+            DAOFactory.close(rs);
+            DAOFactory.commitAndClose(connection);
+        }
+        return sex1;
     }
 }

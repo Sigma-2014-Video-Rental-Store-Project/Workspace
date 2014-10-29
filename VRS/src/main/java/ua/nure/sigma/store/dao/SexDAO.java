@@ -10,4 +10,5 @@ import java.util.List;
 public interface SexDAO {
     Sex findSexByID(int id);
     List<Sex> findAllSex();
+    Sex findSexIDBySexName(String sex);
 }
