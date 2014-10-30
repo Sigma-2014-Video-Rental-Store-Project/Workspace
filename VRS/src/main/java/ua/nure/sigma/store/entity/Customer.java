@@ -11,7 +11,7 @@ public class Customer {
     private int customerID;
     private String lastName;
     private String firstName;
-    private String midleName;
+    private String middleName;
     private String customerEmail;
     private String customerPhone;
     private int sexID;
@@ -24,7 +24,7 @@ public class Customer {
         customerID = customer.getCustomerID();
         lastName = customer.getLastName();
         firstName = customer.getFirstName();
-        midleName = customer.getMidleName();
+        middleName = customer.getMiddleName();
         customerEmail = customer.getCustomerEmail();
         customerPhone = customer.getCustomerPhone();
         sexID = customer.getSexID();
@@ -56,12 +56,12 @@ public class Customer {
         this.firstName = firstName;
     }
 
-    public String getMidleName() {
-        return midleName;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMidleName(String midleName) {
-        this.midleName = midleName;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getCustomerEmail() {

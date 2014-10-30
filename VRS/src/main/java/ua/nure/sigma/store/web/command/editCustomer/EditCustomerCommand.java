@@ -65,6 +65,10 @@ public class EditCustomerCommand extends Command {
             LOG.warn(String.format("Cannot find film with id equals to %d in the database.", customerId));
             return Paths.PAGE_NO_PAGE;
         }
+        Sex customerSex =  DAOFactory.getInstance().getSexDAO().findSexByID(customerToEdit.getSexID());
+        if(customerSex != null){
+        	request.setAttribute("sex", customerSex);
+        }
         List<Sex> sexes = DAOFactory.getInstance().getSexDAO().findAllSex();
         Sexes paramSexes = new Sexes(sexes);
         for (Sex sex : sexes) {

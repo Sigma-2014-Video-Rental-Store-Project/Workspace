@@ -14,10 +14,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Create new customer">
+  <meta name="description" content="Edit customer">
   <meta name="author" content="Vlad Samotskiy">
   <link rel="icon" href="">
   <title>Create new customer</title>
+  <fmt:setLocale value="en_US" />
 </head>
 <body>
   <div id="header">
@@ -25,9 +26,10 @@
   </div>
   <div id="content-body"> <form action="controller" method="post" enctype="multipart/form-data">
                  <input type="hidden" name="command" value="addNewFilmSave" />
+				 <input type="hidden" name="customerId" value="${editCustomerObject.customerID}" />
 			     <div id=leftside>
 				    <div id="bordered" style="margin-bottom:2%;">
-					    <img id="cover" data-src="holder.js/140x140" class="center" src="customerPhoto/0.jpg" >
+					    <img id="cover" data-src="holder.js/140x140" class="center" src="${editCustomerObject.customerPhoto}" >
 				    </div>
 				    <span class="btn btn-primary btn-file">
 				        Browse...<input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
@@ -39,7 +41,7 @@
 							<p id="text">First name: </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input type="text" name="name" class="form-control" style="margin-bottom:2%; margin-left:1%;">
+							<input type="text" name="firstName" class="form-control" style="margin-bottom:2%; margin-left:1%;" value="${editCustomerObject.firstName}">
 						</div>
 					</div>
 					<div style="float:left; width:100%;">
@@ -47,7 +49,7 @@
 							<p id="text">Last name: </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input type="text" name="name" class="form-control" style="margin-bottom:2%; margin-left:1%;">
+							<input type="text" name="lastName" class="form-control" style="margin-bottom:2%; margin-left:1%;" value="${editCustomerObject.lastName}">
 						</div>
 					</div>
 					<div style="float:left; width:100%;">
@@ -55,7 +57,7 @@
 							<p id="text">Middle name: </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input type="text" name="name" class="form-control" style="margin-bottom:2%; margin-left:1%;">
+							<input type="text" name="middleName" class="form-control" style="margin-bottom:2%; margin-left:1%;" value="${editCustomerObject.middleName}">
 						</div>
 					</div>
 					<div style="float:left; width:100%;">
@@ -63,7 +65,7 @@
 							<p id="text">Email: </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input type="email" name="name" class="form-control" style="margin-bottom:2%; margin-left:1%;" placeholder="example@domen.com">
+							<input type="email" name="email" class="form-control" style="margin-bottom:2%; margin-left:1%;" placeholder="example@domen.com" value="${editCustomerObject.customerEmail}">
 						</div>
 					</div>
 					<div style="float:left; clear:left; width:100%;">
@@ -71,7 +73,7 @@
 							<p id="text">Phone: </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input name="phone" type="text" class="form-control bfh-phone" value="" data-format="+38 (ddd) ddd-dddd" style="margin-bottom:2%; margin-left:1%;">
+							<input name="phone" type="text" class="form-control bfh-phone" value="${editCustomerObject.customerPhone}" data-format="+dd (ddd) ddd-dddd" style="margin-bottom:2%; margin-left:1%;">
 						</div>
 					</div>
 					<div style="float:left; clear:left; width:100%;">
@@ -79,7 +81,7 @@
 							<p id="text">Bonus account (\$): </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:1%;">
+							<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:1%;" value='<fmt:formatNumber type="number" minFractionDigits="2" value="${editCustomerObject.bonus/100}"/>'>
 						</div>
 					</div>
 					<div style="float:left; clear:left; width:100%;">
@@ -89,16 +91,28 @@
 						<div style="float:right; width:60%;">
 							<select name="sex" class="form-control" style="margin-bottom:2%; margin-left:1%;">
 								<c:forEach items="${sexes.model}" var="current">
-									<option value="<c:out value="${current.sexName}"/>"> 
-										<c:out value="${current.sexName}"/>
-									</option>
+									<c:set var="bool" value="false"/>
+									<c:if test="${current.sexName == sex.sexName}">
+										<option value="<c:out value="${current.sexName}"/>" selected> 
+											<c:out value="${current.sexName}"/>
+										</option>
+										<c:set var="bool" value="true"/>
+									</c:if>
+									<c:if test="${bool eq 'false'}">
+										<option value="<c:out value="${current.sexName}"/>"> 
+											<c:out value="${current.sexName}"/>
+										</option>
+									</c:if>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
-					<div style="float:right;">
-						<div style="float:right;">
-							<button type="submit" class="btn btn-success" style="margin-left:3%;">Add new customer</button>
+					<div style="float:right; width:100%;">
+						<div style="float:right; margin-left:1%;">
+							<button type="submit" class="btn btn-success">Save</button>
+						</div>
+						<div style="float:right; margin-left:1%;">
+							<button type="button" class="btn btn-danger">Remove</button>
 						</div>
 						<div style="float:right;">
 							<a href="controller?command=customerList"><button type="button" class="btn btn-default">Cancel</button></a>

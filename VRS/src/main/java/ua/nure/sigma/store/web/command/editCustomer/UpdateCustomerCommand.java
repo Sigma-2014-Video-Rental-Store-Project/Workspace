@@ -139,7 +139,7 @@ public class UpdateCustomerCommand extends Command {
         }
         int sexID = DAOFactory.getInstance().getSexDAO().findSexIDBySexName(sex).getSexID();
         customer.setLastName(nameList.get(CreateCustomerCommand.LAST_NAME_POSSITION));
-        customer.setMidleName(nameList.get(CreateCustomerCommand.MIDLE_NAME_POSSITION));
+        customer.setMiddleName(nameList.get(CreateCustomerCommand.MIDLE_NAME_POSSITION));
         customer.setFirstName(nameList.get(CreateCustomerCommand.FIRST_NAME_POSSITION));
         customer.setSexID(sexID);
         try {

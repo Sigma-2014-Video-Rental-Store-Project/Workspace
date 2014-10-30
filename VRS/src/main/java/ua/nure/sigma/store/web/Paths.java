@@ -29,7 +29,7 @@ public final class Paths {
     public static final String PAGE_ADD_NEW_FILM = "/WEB-INF/jsp/add_new_film.jsp";
     public static final String PAGE_ADD_NEW_CUSTOMER = "/WEB-INF/jsp/add_customer.jsp";
 
-    public static final String PAGE_EDIT_CUSTOMER = "/WEB-INF/jsp/.jsp";///TODO:
+    public static final String PAGE_EDIT_CUSTOMER = "/WEB-INF/jsp/edit_customer.jsp";
     public static final String PAGE_CUSTOMER_DETAILS = "/WEB-INF/jsp/customer_details.jsp";
 
 

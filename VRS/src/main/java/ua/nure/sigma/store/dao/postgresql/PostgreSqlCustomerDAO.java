@@ -31,7 +31,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         customer.setCustomerID(rs.getInt("CUSTOMER_ID"));
         customer.setLastName(rs.getString("LAST_NAME"));
         customer.setFirstName(rs.getString("FIRST_NAME"));
-        customer.setMidleName(rs.getString("MIDLE_NAME"));
+        customer.setMiddleName(rs.getString("MIDLE_NAME"));
         customer.setCustomerEmail(rs.getString("CUSTOMER_EMAIL"));
         customer.setCustomerPhone(rs.getString("CUSTOMER_PHONE"));
         customer.setSexID(rs.getInt("SEX_ID"));
@@ -46,7 +46,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
     int setupPrepareStatement(PreparedStatement pstmnt, Customer customer, int position) throws SQLException {
         pstmnt.setString(position++, customer.getLastName());
         pstmnt.setString(position++, customer.getFirstName());
-        pstmnt.setString(position++, customer.getMidleName());
+        pstmnt.setString(position++, customer.getMiddleName());
         pstmnt.setString(position++, customer.getCustomerEmail());
         pstmnt.setString(position++, customer.getCustomerPhone());
         pstmnt.setInt(position++, customer.getSexID());

@@ -116,7 +116,7 @@ public class CreateCustomerCommand extends Command{
 
         int sexID = DAOFactory.getInstance().getSexDAO().findSexIDBySexName(sex).getSexID();
         customer.setLastName(nameList.get(LAST_NAME_POSSITION));
-        customer.setMidleName(nameList.get(MIDLE_NAME_POSSITION));
+        customer.setMiddleName(nameList.get(MIDLE_NAME_POSSITION));
         customer.setFirstName(nameList.get(FIRST_NAME_POSSITION));
         customer.setSexID(sexID);
         try {
