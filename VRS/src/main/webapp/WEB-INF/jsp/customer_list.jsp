@@ -45,7 +45,7 @@
             </div>
             <div id="add-new-film-button">
                 <form class="add-new-film" role="form" action="controller?command" method="get">
-                    <input type="hidden" name="command" value="newCustomer"/>
+                    <input type="hidden" name="command" value="addNewCustomer"/>
                     <button class="btn btn-success" type="submit">Add customer</button>
                 </form>
             </div>
