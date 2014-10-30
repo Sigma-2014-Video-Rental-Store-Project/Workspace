@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * Created by Maksim Sinkevich on 28.10.2014.
  */
-public class ListForCustomerDetails {
+public class
+        ListForCustomerDetails {
 
     private Pager pager;
     private Customer customer;

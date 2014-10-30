@@ -34,11 +34,11 @@
     </div>
     <div id="customer-info">
         <div id="customer-name-block">
-            <p id="customer-name">${films.customer.lastName}
-                <a href="controller?command=editCustomer&customerId=${films.customer.customerId}&get=true">Edit</a></p>
+            <p id="customer-name">${customerDetailsList.customer.lastName}
+                <a href="controller?command=editCustomer&customerId=${customerDetailsList.customer.customerId}&get=true">Edit</a></p>
         </div>
         <img id="avatar" data-src="holder.js/140x140" class="center"
-             src="customerPhoto/${films.customer.customerPhoto}">
+             src="customerPhoto/${customerDetailsList.customer.customerPhoto}">
     </div>
     <div id="content-body">
         <div id="buttons">
@@ -82,7 +82,7 @@
                 </thead>
                 <tbody>
 
-                <c:forEach items="${films.model}" var="current">
+                <c:forEach items="${customerDetailsList.model}" var="current">
                     <tr>
                         <td>>${current.name}</td>
                         <td><c:out value="${current.startDate}"/></td>
@@ -97,7 +97,7 @@
         </div>
 
         <div id="pages">
-            <c:set var="pager" value="${films.pager}" scope="request"/>
+            <c:set var="pager" value="${customerDetailsList.pager}" scope="request"/>
             <jsp:include page="pager.jsp"/>
         </div>
     </div>
