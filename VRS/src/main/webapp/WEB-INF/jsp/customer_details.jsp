@@ -56,7 +56,7 @@
             <table id="items-table" class="table table-striped">
                 <thead>
                 <tr>
-                    <th class="name-column" scope="col">Name
+                    <th class="name-column" scope="col">Title
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['name','up'])"><u><i
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['name','down'])"><u><i
