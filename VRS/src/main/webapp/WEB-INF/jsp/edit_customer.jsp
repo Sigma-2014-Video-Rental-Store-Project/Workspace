@@ -29,7 +29,7 @@
 				 <input type="hidden" name="customerId" value="${editCustomerObject.customerID}" />
 			     <div id=leftside>
 				    <div id="bordered" style="margin-bottom:2%;">
-					    <img id="cover" data-src="holder.js/140x140" class="center" src="${editCustomerObject.customerPhoto}" >
+					    <img id="cover" data-src="holder.js/140x140" class="center" src="customerPhoto/${editCustomerObject.customerPhoto}" >
 				    </div>
 				    <span class="btn btn-primary btn-file">
 				        Browse...<input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
