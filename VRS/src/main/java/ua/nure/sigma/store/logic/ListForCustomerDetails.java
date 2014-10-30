@@ -52,6 +52,10 @@ public class ListForCustomerDetails {
         pager = new Pager(filterState.getFilteredList(customerDetailsList));
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
     private void createModel(Customer customer) {
         customerDetailsList = new ArrayList<CustomerDetails>();
         List<Rent> rents = DAOFactory.getInstance().getRentDAO().findRentByCustomerID(customer.getCustomerID());
