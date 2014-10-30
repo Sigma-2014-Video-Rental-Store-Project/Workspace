@@ -75,7 +75,7 @@ public class CustomerDetailsCommand extends Command {
     private void filter(HttpServletRequest request, HttpServletResponse response, ListForCustomerDetails listForCustomerDetails) {
         String filter = request.getParameter(FILTER_PARAM_NAME);
         LOG.trace("Start filtering customrtDetails with filter=" + filter);
-        if (filter.equals("") || filter == null || filter.equals("nowRent")) {
+        if (filter == null || filter.equals("") || filter.equals("nowRent")) {
             listForCustomerDetails.setFilterState(new CustomerDetailsNowRentState());
         } else {
             listForCustomerDetails.setFilterState(new CustomerDetailsRentHistoryState());

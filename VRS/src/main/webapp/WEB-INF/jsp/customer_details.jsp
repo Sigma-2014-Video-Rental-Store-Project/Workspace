@@ -35,7 +35,7 @@
     <div id="customer-info">
         <div id="customer-name-block">
             <p id="customer-name">${customerDetailsList.customer.lastName}
-                <a href="controller?command=editCustomer&customerId=${customerDetailsList.customer.customerId}&get=true">Edit</a></p>
+                <a href="controller?command=editCustomer&customerId=${customerDetailsList.customer.customerID}&get=true">Edit</a></p>
         </div>
         <img id="avatar" data-src="holder.js/140x140" class="center"
              src="customerPhoto/${customerDetailsList.customer.customerPhoto}">
