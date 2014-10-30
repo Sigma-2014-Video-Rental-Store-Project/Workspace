@@ -23,11 +23,12 @@ public class PostgreSqlRentDAO implements RentDAO {
     private static final String SQL_UPDATE_RENT_FILM_COPY=
             "UPDATE RENT SET  COUNT = ? WHERE CUSTOMER_ID = ? AND FILM_ID = ?";
 
-    private Rent extractRent(ResultSet rs) throws SQLException {
+    private Rent extractRent(ResultSet rs, Connection connection) throws SQLException {
         Rent rent = new Rent();
         rent.setCustomerID(rs.getInt("CUSTOMER_ID"));
         rent.setRentID(rs.getInt("RENT_ID"));
         rent.setRentDate(rs.getDate("RENTED_DATE"));
+        rent.setFilmList(DAOFactory.getInstance().getFilmRentedDAO().findFilmRentedByRentID(rent.getRentID()));
         return rent;
     }
 
@@ -97,7 +98,8 @@ public class PostgreSqlRentDAO implements RentDAO {
             pstmnt.setLong(1, customerID);
             rs = pstmnt.executeQuery();
             while (rs.next()) {
-                rentList.add(extractRent(rs));
+                rentList.add(extractRent(rs,connection));
+
             }
         } catch (Exception e) {
             DAOFactory.rollback(connection);
