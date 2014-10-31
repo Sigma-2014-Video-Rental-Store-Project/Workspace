@@ -84,7 +84,7 @@
 
                 <c:forEach items="${customerDetailsList.model}" var="current">
                     <tr>
-                        <td>>${current.name}</td>
+                        <td>${current.name}</td>
                         <td><c:out value="${current.startDate}"/></td>
                         <td><c:out value="${current.endDate}"/></td>
                         <td><c:out value="${current.daysLeft}"/></td>
