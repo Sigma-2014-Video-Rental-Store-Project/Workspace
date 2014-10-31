@@ -34,7 +34,7 @@
     </div>
     <div id="customer-info">
         <div id="customer-name-block">
-            <p id="customer-name">${customerDetailsList.customer.lastName}
+            <p><span id="customer-name">${customerDetailsList.customer.lastName}</span>
                 <a href="controller?command=editCustomer&customerId=${customerDetailsList.customer.customerID}&get=true">Edit</a></p>
         </div>
         <img id="avatar" data-src="holder.js/140x140" class="center"
@@ -84,11 +84,20 @@
 
                 <c:forEach items="${customerDetailsList.model}" var="current">
                     <tr>
-                        <td>>${current.name}</td>
+                        <td>${current.name}</td>
                         <td><c:out value="${current.startDate}"/></td>
-                        <td><c:out value="${current.endDate}"/></td>
-                        <td><c:out value="${current.daysLeft}"/></td>
-                        <td style="text-align:center;"><a href="">return</a>&nbsp;</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${current.endDate == null}">
+                                    <c:out value="not returned"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="${current.endDate}"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
+                        <td class="return-column-value"><a href="">return</a>&nbsp;</td>
                         <%--TODO deside func return.--%>
                     </tr>
                 </c:forEach>

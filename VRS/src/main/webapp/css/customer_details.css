@@ -7,11 +7,12 @@ body {
     clear: both;
 }
 #customer-info{ //changed
-    width: 15%;
+    width: 10%;
     float: left;
+    margin-left: 1%;
 }
 #content-body{
-    width: 80%;
+    width: 78%;
     float: right;
     margin-right: 1%;
     margin-left: 1%;
@@ -21,9 +22,10 @@ body {
      width: 100%;
      clear: both;
  }
-#items{ //changed
+#items{
     min-height: 425px;
     clear: both;
+    margin-top: 2%;
 }
 #pages{
     width:100%;
@@ -36,19 +38,16 @@ body {
 }
 .start-date-column{
     width: 20%;
-	text-align:right;
 }
 .end-date-column{
     width: 20%;
-	text-align:right;
 }
 .days-left-column{
     width: 15%;
-	text-align:center;
 }
 .return-column{
     width: 15%;
-	text-align:center;
+    text-align: center;
 }
 .sort-icon{
     padding-left: 4px;
@@ -68,4 +67,13 @@ img.center {
 }
 #customer-name-block{
     margin-left: 8px;
+}
+.days-left-column-value{
+    text-align: center;
+}
+#avatar{
+    margin-top: 20px;
+}
+.return-column-value{
+    text-align: center;
 }
