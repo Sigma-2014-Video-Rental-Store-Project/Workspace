@@ -84,6 +84,7 @@
 
                 <c:forEach items="${customerDetailsList.model}" var="current">
                     <tr>
+<<<<<<< HEAD
                         <td>${current.name}</td>
                         <td><c:out value="${current.startDate}"/></td>
                         <td>
@@ -98,7 +99,13 @@
                         </td>
                         <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
                         <td class="return-column-value"><a href="">return</a>&nbsp;</td>
-                        <%--TODO deside func return.--%>
+                        <form method="post" action="controller" style="display: inline;">
+                                <input type="hidden" name="command" value="returnFilm"/>
+                                <input type="hidden" name="returnTo" value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}"/>
+                                <input type="hidden" name="filmId" value="${current.film.filmId}"/>
+                                <input type="hidden" name="rentId" value="${current.rent.rentId}"/>
+                                <input type="submit" style="color: #6495ED; background: none; border: none; cursor: pointer;" value="add"/>
+                            </form>
                     </tr>
                 </c:forEach>
                 </tbody>

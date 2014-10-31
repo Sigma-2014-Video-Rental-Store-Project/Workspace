@@ -53,6 +53,10 @@ public class
         pager = new Pager(filterState.getFilteredList(customerDetailsList));
     }
 
+    public void setCustomerDetailsList(List<CustomerDetails> customerDetailes) {
+        customerDetailsList = customerDetailes;
+    }
+
     public Customer getCustomer() {
         return customer;
     }

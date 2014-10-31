@@ -1,8 +1,10 @@
 package ua.nure.sigma.store.web.command.customerDetails;
 
 import org.apache.log4j.Logger;
+import ua.nure.sigma.store.comparators.CustomerDetailsComparatorFactory;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Customer;
+import ua.nure.sigma.store.entity.CustomerDetails;
 import ua.nure.sigma.store.logic.ListForCustomerDetails;
 import ua.nure.sigma.store.states.CustomerDetailsNowRentState;
 import ua.nure.sigma.store.states.CustomerDetailsRentHistoryState;
@@ -13,6 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by Maksim Sinkevich on 28.10.2014.
@@ -25,9 +30,12 @@ public class CustomerDetailsCommand extends Command {
     public static final String FILTER_PARAM_NAME = "filter";
     static final String PAGE_PARAM_NAME = "pageIndex";
     public static final String CUSTOMER_DETAILS_LIST_PARAM_NAME = "customerDetailsList";
+    static final String SORT_PARAM_NAME = "sorting";
+    static final String DIRECT_PARAM_NAME = "direct";
+    private static final String UP_DIR = "up";
+    private static final String DOWN_DIR = "down";
 
     @Override
-
     /**
      * This command fills list of orders for customer details list page.
      *
@@ -58,6 +66,7 @@ public class CustomerDetailsCommand extends Command {
 
         ListForCustomerDetails listForCustomerDetails = new ListForCustomerDetails(customer);
         filter(request, response, listForCustomerDetails);
+        sort(request, response, listForCustomerDetails);
         pages(request, response, listForCustomerDetails);
         request.setAttribute(CUSTOMER_DETAILS_LIST_PARAM_NAME, listForCustomerDetails);
         return Paths.PAGE_CUSTOMER_DETAILS;
@@ -68,7 +77,7 @@ public class CustomerDetailsCommand extends Command {
         if (pageString != null && !pageString.equals("")) {
             listForCustomerDetails = (ListForCustomerDetails) request.getSession().getAttribute(CUSTOMER_DETAILS_LIST_PARAM_NAME);
             listForCustomerDetails.setPageIndex(Integer.valueOf(pageString));
-            LOG.debug("Selected page=" + pageString);
+            LOG.trace("Selected page=" + pageString);
         }
     }
 
@@ -81,5 +90,27 @@ public class CustomerDetailsCommand extends Command {
             listForCustomerDetails.setFilterState(new CustomerDetailsRentHistoryState());
         }
         LOG.trace("Finish filtering customerDetails.");
+    }
+
+    private void sort(HttpServletRequest request, HttpServletResponse response, ListForCustomerDetails listForCustomerDetails) {
+        String sortName = request.getParameter(SORT_PARAM_NAME);
+        String direct = request.getParameter(DIRECT_PARAM_NAME);
+        LOG.trace("Sorting started");
+        if (sortName != null && direct != null) {
+            LOG.trace("Sortname=" + sortName + "; direct=" + direct + ".");
+            List<CustomerDetails> customerDetailses = listForCustomerDetails.getModel();
+            Comparator<CustomerDetails> comparator = CustomerDetailsComparatorFactory.getComparator(sortName);
+            if (comparator == null) {
+                return;
+            }
+
+            Collections.sort(customerDetailses, comparator);
+
+            if (direct.equals(DOWN_DIR)) {
+                Collections.sort(customerDetailses, Collections.reverseOrder(comparator));
+            }
+            listForCustomerDetails.setCustomerDetailsList(customerDetailses);
+        }
+        LOG.trace("Sorting finished");
     }
 }

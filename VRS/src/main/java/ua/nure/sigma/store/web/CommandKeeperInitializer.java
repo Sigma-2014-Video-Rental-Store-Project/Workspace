@@ -19,6 +19,7 @@ import ua.nure.sigma.store.web.command.editfilm.EditFilmRemoveCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmSaveCommand;
 import ua.nure.sigma.store.web.command.filmdetails.FilmDetailsCommandInitializer;
 import ua.nure.sigma.store.web.command.filmlist.FilmListCommandInitializer;
+import ua.nure.sigma.store.web.command.customerDetails.FimReturnCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +115,7 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("addNewCustomerSave", new CreateCustomerCommand(extensions, validator));
 
         commandKeeper.add("customerDetails", new CustomerDetailsCommand());
+        commandKeeper.add("returnFilm", new FimReturnCommand());
     }
 
 }
