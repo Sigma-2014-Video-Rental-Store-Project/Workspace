@@ -66,7 +66,7 @@ public class CustomerDetailsCommand extends Command {
 
         ListForCustomerDetails listForCustomerDetails = new ListForCustomerDetails(customer);
         filter(request, response, listForCustomerDetails);
-        filter(request, response, listForCustomerDetails);
+        sort(request, response, listForCustomerDetails);
         pages(request, response, listForCustomerDetails);
         request.setAttribute(CUSTOMER_DETAILS_LIST_PARAM_NAME, listForCustomerDetails);
         return Paths.PAGE_CUSTOMER_DETAILS;
