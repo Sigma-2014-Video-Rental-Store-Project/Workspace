@@ -25,7 +25,7 @@
     <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
     <title>Customer</title>
-    <fmt:setLocale value="en_US" />
+    <fmt:setLocale value="en_US"/>
 </head>
 <body>
 <f:view>
@@ -35,7 +35,8 @@
     <div id="customer-info">
         <div id="customer-name-block">
             <p><span id="customer-name">${customerDetailsList.customer.lastName}</span>
-                <a href="controller?command=editCustomer&customerId=${customerDetailsList.customer.customerID}&get=true">Edit</a></p>
+                <a href="controller?command=editCustomer&customerId=${customerDetailsList.customer.customerID}&get=true">Edit</a>
+            </p>
         </div>
         <img id="avatar" data-src="holder.js/140x140" class="center"
              src="customerPhoto/${customerDetailsList.customer.customerPhoto}">
@@ -84,7 +85,6 @@
 
                 <c:forEach items="${customerDetailsList.model}" var="current">
                     <tr>
-<<<<<<< HEAD
                         <td>${current.name}</td>
                         <td><c:out value="${current.startDate}"/></td>
                         <td>
@@ -98,14 +98,18 @@
                             </c:choose>
                         </td>
                         <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
-                        <td class="return-column-value"><a href="">return</a>&nbsp;</td>
-                        <form method="post" action="controller" style="display: inline;">
+                        <td class="return-column-value">
+                            <form method="post" action="controller" style="display: inline;">
                                 <input type="hidden" name="command" value="returnFilm"/>
-                                <input type="hidden" name="returnTo" value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}"/>
+                                <input type="hidden" name="returnTo"
+                                       value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}"/>
                                 <input type="hidden" name="filmId" value="${current.film.filmId}"/>
-                                <input type="hidden" name="rentId" value="${current.rent.rentId}"/>
-                                <input type="submit" style="color: #6495ED; background: none; border: none; cursor: pointer;" value="add"/>
+                                <input type="hidden" name="rentId" value="${current.rent.rentID}"/>
+                                <input type="submit"
+                                       style="color: #6495ED; background: none; border: none; cursor: pointer;"
+                                       value="return"/>
                             </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
