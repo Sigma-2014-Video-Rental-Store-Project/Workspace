@@ -26,7 +26,7 @@
   </div>
   <div id="content-body">
 	  <form action="controller" method="post" enctype="multipart/form-data">
-                 <input type="hidden" name="command" value="addNewFilmSave" />
+                 <input type="hidden" name="command" value="editCustomerSave" />
 				 <input type="hidden" name="customerId" value="${editCustomerObject.customerID}" />
 			     <div id=leftside>
 				    <div id="bordered" style="margin-bottom:2%;">
@@ -110,10 +110,10 @@
 					</div>
 					<div style="float:right; width:100%;">
 						<div style="float:right; margin-left:1%;">
-							<button type="submit" class="btn btn-success">Save</button>
+							<button type="submit" class="btn btn-success" onclick="submitCustomerForm('update')">Save</button>
 						</div>
 						<div style="float:right; margin-left:1%;">
-							<button type="button" class="btn btn-danger">Remove</button>
+							<button type="button" class="btn btn-danger" onclick="submitCustomerForm('delete')">Remove</button>
 						</div>
 						<div style="float:right;">
 							<a href="controller?command=customerList"><button type="button" class="btn btn-default">Cancel</button></a>
@@ -129,6 +129,7 @@
     <jsp:include page="../jspf/footer.jspf"/>
   </div>
 </body>
+<script type="text/javascript" src="js/submitCustomerForm.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-spinedit.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>

@@ -64,7 +64,7 @@
 							<p id="text">Email: </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input type="email" name="name" class="form-control" style="margin-bottom:2%; margin-left:1%;" placeholder="example@domen.com">
+							<input type="email" name="email" class="form-control" style="margin-bottom:2%; margin-left:1%;" placeholder="example@domen.com">
 						</div>
 					</div>
 					<div style="float:left; clear:left; width:100%;">

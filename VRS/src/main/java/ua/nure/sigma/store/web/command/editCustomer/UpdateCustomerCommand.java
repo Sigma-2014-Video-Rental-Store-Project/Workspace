@@ -8,6 +8,7 @@ import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.exeption.NotEnoughOfBonusExeption;
+import ua.nure.sigma.store.validator.UserValidator;
 import ua.nure.sigma.store.validator.Validator;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
@@ -37,11 +38,10 @@ public class UpdateCustomerCommand extends Command {
     private static final String CUSTOMER_PHONE_PARAM_NAME = "phone";
     private static final String CUSTOMER_BONUS_PARAM_NAME = "bonus";
     private static final String CUSTOMER_SEX_PARAM_NAME = "sex";
-
+    private static final String CUSTOMER_EMAIL_PARAM_NAME = "email";
     private static final Logger LOG = Logger.getLogger(UpdateCustomerCommand.class);
 
     private final List<String> imageExtensions;
-    private final Validator validator;
 
 
     @Override
@@ -116,30 +116,44 @@ public class UpdateCustomerCommand extends Command {
         String bonus = request.getParameter(CUSTOMER_BONUS_PARAM_NAME);
         String phone = request.getParameter(CUSTOMER_PHONE_PARAM_NAME);
         String sex = request.getParameter(CUSTOMER_SEX_PARAM_NAME);
+        String email = request.getParameter(CUSTOMER_EMAIL_PARAM_NAME);
 
-        Map<String, String> attributes = new HashMap<String, String>(6);
-        attributes.put("name", firstName);
-        attributes.put("name", lastName);
-        attributes.put("name", middleName);
-        attributes.put("bonus", bonus);
-        attributes.put("sex", sex);
-        attributes.put("phone", phone);
-
-        String errorMessage = validator.validate(attributes);
+        String errorMessage;
+        errorMessage = UserValidator.validatePartOfName(firstName);
         if (errorMessage != null) {
             return errorMessage;
         }
-        int sexID = DAOFactory.getInstance().getSexDAO().findSexIDBySexName(sex).getSexID();
-        customer.setLastName(lastName);
-        customer.setMiddleName(middleName);
         customer.setFirstName(firstName);
-        customer.setSexID(sexID);
+        errorMessage = UserValidator.validatePartOfName(lastName);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
+        customer.setLastName(lastName);
+        errorMessage = UserValidator.validatePartOfName(middleName);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
+        customer.setMiddleName(middleName);
+        errorMessage = UserValidator.validateEmail(email);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
+        customer.setCustomerEmail(email);
+        errorMessage = UserValidator.validatePhone(phone);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
         customer.setCustomerPhone(phone);
+        errorMessage = UserValidator.validateBonus(bonus);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
         try {
             customer.addBonus((long) Double.parseDouble(bonus) * 100);
         } catch (NotEnoughOfBonusExeption notEnoughOfBonusExeption) {
             return "Count of bonus must be possitive";
         }
+        int sexID = DAOFactory.getInstance().getSexDAO().findSexIDBySexName(sex).getSexID();
 
         return null;
     }
@@ -213,8 +227,7 @@ public class UpdateCustomerCommand extends Command {
         LOG.debug("Finished to upload customer cover image.");
     }
 
-    public UpdateCustomerCommand(List<String> imageExtensions, Validator validator) {
+    public UpdateCustomerCommand(List<String> imageExtensions) {
         this.imageExtensions = imageExtensions;
-        this.validator = validator;
     }
 }

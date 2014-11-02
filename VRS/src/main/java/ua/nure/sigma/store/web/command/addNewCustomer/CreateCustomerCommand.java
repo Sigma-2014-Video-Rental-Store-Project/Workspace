@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.exeption.NotEnoughOfBonusExeption;
+import ua.nure.sigma.store.validator.UserValidator;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 
@@ -29,6 +30,7 @@ public class CreateCustomerCommand extends Command {
 	private static final String CUSTOMER_PHONE_PARAM_NAME = "phone";
 	private static final String CUSTOMER_BONUS_PARAM_NAME = "bonus";
 	private static final String CUSTOMER_SEX_PARAM_NAME = "sex";
+	private static final String CUSTOMER_EMAIL_PARAM_NAME = "email";
 
 	private static final Logger LOG = Logger
 			.getLogger(CreateCustomerCommand.class);
@@ -87,34 +89,46 @@ public class CreateCustomerCommand extends Command {
 		String bonus = request.getParameter(CUSTOMER_BONUS_PARAM_NAME);
 		String phone = request.getParameter(CUSTOMER_PHONE_PARAM_NAME);
 		String sex = request.getParameter(CUSTOMER_SEX_PARAM_NAME);
-		
-		/*exmple of validator:
-		  
+		String email = request.getParameter(CUSTOMER_EMAIL_PARAM_NAME);
+
 		String errorMessage;
 		errorMessage = UserValidator.validatePartOfName(firstName);
 		if (errorMessage != null) {
 			return errorMessage;
 		}
 		customer.setFirstName(firstName);
+		errorMessage = UserValidator.validatePartOfName(lastName);
+		if (errorMessage != null) {
+			return errorMessage;
+		}
+		customer.setLastName(lastName);
+		errorMessage = UserValidator.validatePartOfName(middleName);
+		if (errorMessage != null) {
+			return errorMessage;
+		}
+		customer.setMiddleName(middleName);
 		errorMessage = UserValidator.validateEmail(email);
 		if (errorMessage != null) {
 			return errorMessage;
 		}
-		customer.setEmail(email);	
-		*/	
-		
-		int sexID = DAOFactory.getInstance().getSexDAO()
-				.findSexIDBySexName(sex).getSexID();
-		customer.setLastName(lastName);
-		customer.setMiddleName(middleName);
-		customer.setFirstName(firstName);
-		customer.setSexID(sexID);
+		customer.setCustomerEmail(email);
+		errorMessage = UserValidator.validatePhone(phone);
+		if (errorMessage != null) {
+			return errorMessage;
+		}
 		customer.setCustomerPhone(phone);
+		errorMessage = UserValidator.validateBonus(bonus);
+		if (errorMessage != null) {
+			return errorMessage;
+		}
 		try {
 			customer.addBonus((long) Double.parseDouble(bonus) * 100);
 		} catch (NotEnoughOfBonusExeption notEnoughOfBonusExeption) {
 			return "Count of bonus must be possitive";
 		}
+		int sexID = DAOFactory.getInstance().getSexDAO()
+				.findSexIDBySexName(sex).getSexID();
+
 
 		LOG.debug("Fields sets.");
 		return null;
@@ -210,4 +224,7 @@ public class CreateCustomerCommand extends Command {
 		LOG.debug("Customer updated.");
 	}
 
+	public CreateCustomerCommand(List<String> imageExtensions) {
+		this.imageExtensions = imageExtensions;
+	}
 }

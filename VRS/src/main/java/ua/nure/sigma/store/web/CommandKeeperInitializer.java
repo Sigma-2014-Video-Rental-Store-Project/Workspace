@@ -112,12 +112,12 @@ public final class CommandKeeperInitializer {
 
         //add command to edit customer
         commandKeeper.add("editCustomer", new EditCustomerCommand());
-        commandKeeper.add("editCustomerSave", new UpdateCustomerCommand(extensions, validator));
+        commandKeeper.add("editCustomerSave", new UpdateCustomerCommand(extensions));
         commandKeeper.add("editCustomerRemove", new DeleteCustomerCommand());
 
         //add command to create customer
         commandKeeper.add("addNewCustomer", new AddNewCustomerCommand());
-        commandKeeper.add("addNewCustomerSave", new CreateCustomerCommand());
+        commandKeeper.add("addNewCustomerSave", new CreateCustomerCommand(extensions));
 
         commandKeeper.add("customerDetails", new CustomerDetailsCommand());
         commandKeeper.add("returnFilm", new FimReturnCommand());
