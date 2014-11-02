@@ -5,13 +5,13 @@ var nowRentedFilmsLable = $("#now-rented");
 var historyLable = $("#history-lable");
 
 var activeClass = "active";
-var availableValueName = "withFilms";
-var allValueName = "all";
+var historyValueName = "history";
+var nowRentValueName = "nowRent";
 
 var commandName = "customerList"
 
 var filterParamName = "filter";
-if (getUrlParameter(filterParamName) == availableValueName) {
+if (getUrlParameter(filterParamName) == historyValueName) {
     historyLable.toggleClass(activeClass);
     nowRentedFilmsLable.toggleClass(activeClass);
 }
@@ -41,10 +41,10 @@ function sendGetRequest(filmID, elemnt){
 }
 
 nowRentedFilmsLable.on("click", function () {
-    setAttr(filterParamName, allValueName);
+    setAttr(filterParamName, nowRentValueName);
 });
 historyLable.on("click", function () {
-    setAttr(filterParamName, availableValueName);
+    setAttr(filterParamName, historyValueName);
 });
 function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1);
