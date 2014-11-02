@@ -20,7 +20,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
 
     private static final String SQL_SELECT_FROM_CUSTOMERS_BY_ID = "SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
     private static final String SQL_SELECT_FROM_CUSTOMERS_ALL_CUSTOMER = "SELECT * FROM CUSTOMERS";
-    private static final String SQL_INSERT_INTO_CUSTOMERS = "INSERT INTO CUSTOMERS VALUES(DEFsAULT,?,?,?,?,?,?,?,?)";
+    private static final String SQL_INSERT_INTO_CUSTOMERS = "INSERT INTO CUSTOMERS VALUES(DEFAULT,?,?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_CUSTOMERS =
             "UPDATE FILMS SET LAST_NAME = ?, FIRST_NAME =?, MIDLE_NAME =?, COVER =?, CUSTOMER_EMAIL =?, CUSTOMER_PHONE =?, SEX_ID =?, CUSTOMER_PHOTO, BONUS =? WHERE CUSTOMER_ID = ?";
     private static final String SQL_DELETE_CUSTOMER = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
