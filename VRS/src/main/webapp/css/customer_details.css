@@ -67,6 +67,7 @@ img.center {
 }
 #customer-name-block{
     margin-left: 8px;
+    min-width: 156px;
 }
 .days-left-column-value{
     text-align: center;
