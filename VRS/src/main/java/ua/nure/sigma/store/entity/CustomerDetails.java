@@ -1,11 +1,14 @@
 package ua.nure.sigma.store.entity;
 
+import org.apache.log4j.Logger;
+
 import java.util.Date;
 
 /**
  * Created by Maksim Sinkevich on 28.10.2014.
  */
 public class CustomerDetails {
+    private static final Logger LOG = Logger.getLogger(CustomerDetails.class);
     private static final long MILLISECONDS_IN_DAY = 86400000;
 
     private Film film;
@@ -61,6 +64,8 @@ public class CustomerDetails {
     }
 
     public int getDaysLeft() {
-        return (int) ((filmForRent.getFutureDate().getTime() - rent.getRentDate().getTime()) / MILLISECONDS_IN_DAY);
+        int days = (int) ((filmForRent.getFutureDate().getTime() - System.currentTimeMillis()) / MILLISECONDS_IN_DAY + 1);
+        LOG.debug(days);
+        return days > 0 ? days : 0;
     }
 }
