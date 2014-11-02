@@ -115,7 +115,7 @@ public final class CommandKeeperInitializer {
 
         //add command to create customer
         commandKeeper.add("addNewCustomer", new AddNewCustomerCommand());
-        commandKeeper.add("addNewCustomerSave", new CreateCustomerCommand(extensions, validator));
+        commandKeeper.add("addNewCustomerSave", new CreateCustomerCommand());
 
         commandKeeper.add("customerDetails", new CustomerDetailsCommand());
         commandKeeper.add("returnFilm", new FimReturnCommand());

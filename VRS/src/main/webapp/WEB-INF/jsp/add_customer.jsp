@@ -20,11 +20,12 @@
   <title>Create new customer</title>
 </head>
 <body>
-  <div id="header">
-    <%@ include file="/WEB-INF/jspf/header.jspf" %>
-  </div>
-  <div id="content-body"> <form action="controller" method="post" enctype="multipart/form-data">
-                 <input type="hidden" name="command" value="addNewFilmSave" />
+	<div id="header">
+		<%@ include file="/WEB-INF/jspf/header.jspf" %>
+	  </div>
+		<div id="content-body"> 
+			<form action="controller" method="post" enctype="multipart/form-data">
+                 <input type="hidden" name="command" value="addNewCustomerSave" />
 			     <div id=leftside>
 				    <div id="bordered" style="margin-bottom:2%;">
 					    <img id="cover" data-src="holder.js/140x140" class="center" src="customerPhoto/0.jpg" >
@@ -105,7 +106,7 @@
 						</div>
 					</div>
 					<c:if test="${not empty errorMessage}">
-                        <div class="error" style="margin-top: 130px;"><font face="verdana" size="4" color="red">${errorMessage}</font><div>
+                        <div class="error" style="margin-top: 130px;"><font face="verdana" size="4" color="red">${errorMessage}</font></div>
                     </c:if>
 			    </div>
 			</form>
