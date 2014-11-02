@@ -48,7 +48,7 @@
 							<p id="text">Last name: </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input type="text" name="LastName" class="form-control" style="margin-bottom:2%; margin-left:1%;">
+							<input type="text" name="lastName" class="form-control" style="margin-bottom:2%; margin-left:1%;">
 						</div>
 					</div>
 					<div style="float:left; width:100%;">

@@ -41,13 +41,6 @@ public class CreateCustomerCommand extends Command {
 			HttpServletResponse response) throws IOException, ServletException {
 		LOG.debug("AddNewcustomerSaveCommand started.");
 
-		imageExtensions = new ArrayList<String>();
-		imageExtensions.add(".jpg");
-		imageExtensions.add(".jpeg");
-		imageExtensions.add(".png");
-		imageExtensions.add(".gif");
-		imageExtensions.add(".bmp");
-
 		Customer customer = new Customer();
 
 		// Validates new values for current customer and sets them if they are
@@ -77,7 +70,7 @@ public class CreateCustomerCommand extends Command {
 		// Removes error message of this page if it exists.
 		request.getSession().removeAttribute("errorMessage");
 
-		return Paths.PAGE_CUSTOMER_LIST;
+		return Paths.COMMAND_CUSTOMER_LIST;
 	}
 	
 
@@ -112,7 +105,9 @@ public class CreateCustomerCommand extends Command {
 			return errorMessage;
 		}
 		customer.setCustomerEmail(email);
+		phone = clearPhone(phone);
 		errorMessage = UserValidator.validatePhone(phone);
+		System.out.println(phone);
 		if (errorMessage != null) {
 			return errorMessage;
 		}
@@ -226,5 +221,16 @@ public class CreateCustomerCommand extends Command {
 
 	public CreateCustomerCommand(List<String> imageExtensions) {
 		this.imageExtensions = imageExtensions;
+	}
+	/*
+	 * clear phone from no need symbols
+	 */
+	private String clearPhone(String input){
+		input = input.replace(" ", "");
+		input = input.replace("(", "");
+		input = input.replace(")", "");
+		input = input.replace("-", "");
+		input = input.replace("+", "");
+		return input;
 	}
 }

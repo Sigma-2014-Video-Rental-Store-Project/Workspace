@@ -37,10 +37,11 @@ public final class Paths {
     public static final String COMMAND_SIGN_IN = "controller?command=signIn";
     public static final String COMMAND_FULL_FILM_LIST = "controller?command=fullFilmList";
     public static final String COMMAND_EDIT_FILM = "controller?command=editFilm";
-    public static final String COMMAND_EDIT_CUSTOMER = "controller?command=editCustomer";//TODO:
+    public static final String COMMAND_EDIT_CUSTOMER = "controller?command=editCustomer";
     public static final String COMMAND_ADD_NEW_CUSTOMER = "controller?command=addNewCustomer";
     public static final String COMMAND_ADD_NEW_FILM = "controller?command=addNewFilm";
     public static final String COMMAND_CART_DETAILS = "controller?command=cartDetails";
     public static final String COMMAND_CUSTOMER_DETAILS = "controller?command=customerDetails";
     public static final String COMMAND_ADMIN_LIST = "controller?command=adminList";
+    public static final String COMMAND_CUSTOMER_LIST = "controller?command=customerList";
 }
