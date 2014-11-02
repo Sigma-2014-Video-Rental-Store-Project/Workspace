@@ -97,19 +97,28 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
-                        <td class="return-column-value">
-                            <form method="post" action="controller" style="display: inline;">
-                                <input type="hidden" name="command" value="returnFilm"/>
-                                <input type="hidden" name="returnTo"
-                                       value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}"/>
-                                <input type="hidden" name="filmId" value="${current.film.filmId}"/>
-                                <input type="hidden" name="rentId" value="${current.rent.rentID}"/>
-                                <input type="submit"
-                                       style="color: #6495ED; background: none; border: none; cursor: pointer;"
-                                       value="return"/>
-                            </form>
-                        </td>
+                        <c:choose>
+                            <c:when test="${filter == 'histoty'}">
+                                <td class="days-left-column-value"><c:out value="returned"/></td>
+                                <td class="days-left-column-value"><c:out value="returned"/></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="days-left-column-value"><c:out value="${current.daysLeft}"/>
+                                </td>
+                                <td class="return-column-value">
+                                    <form method="post" action="controller" style="display: inline;">
+                                        <input type="hidden" name="command" value="returnFilm"/>
+                                        <input type="hidden" name="returnTo"
+                                               value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}"/>
+                                        <input type="hidden" name="filmId" value="${current.film.filmId}"/>
+                                        <input type="hidden" name="rentId" value="${current.rent.rentID}"/>
+                                        <input type="submit"
+                                               style="color: #6495ED; background: none; border: none; cursor: pointer;"
+                                               value="return"/>
+                                    </form>
+                                </td>
+                            </c:otherwise>
+                        </c:choose>
                     </tr>
                 </c:forEach>
                 </tbody>
