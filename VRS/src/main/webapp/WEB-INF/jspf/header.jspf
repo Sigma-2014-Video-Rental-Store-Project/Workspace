@@ -9,14 +9,18 @@
                 <li class="active"><a href="controller?command=fullFilmList">Films</a></li>
                 <li><a href="controller?command=customerList">Customers</a></li>
                 <li><a href="controller?command=cartDetails"> <span id="itemInCart" class="badge pull-right">${sessionScope.cart.count}</span>Cart&nbsp</a></li>
-                <c:if test="${user.roleId eq 1}"><li><a href="#mngusr">Manage users</a></li></c:if>
+                <c:if test="${user.roleId eq 1}">
+                    <li>
+                        <a href="controller?command=adminList">Manage users</a>
+                    </li>
+                </c:if>
             </ul>
             <form id="logout" action="controller" method="post" name = "logoutform">
 			<input type="hidden" name="command" value="logout">
 			</form>
 			<a href="#" style="float:right;height:30px;padding:0px 15px;font-size:14px"
 			onclick="document.forms['logoutform'].submit();">Logout</a>
-            <a class="navbar-brand" style="float:right;height:30px;padding:0px 15px;font-size:14px">admin@mail.com</a>
+            <a class="navbar-brand" style="float:right;height:30px;padding:0px 15px;font-size:14px">${sessionScope.user.email}</a>
         </div>
         <!--/.nav-collapse -->
     </div>

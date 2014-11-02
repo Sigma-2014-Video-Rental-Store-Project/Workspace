@@ -10,6 +10,9 @@ import ua.nure.sigma.store.web.command.addNewCustomer.AddNewCustomerCommand;
 import ua.nure.sigma.store.web.command.addNewCustomer.CreateCustomerCommand;
 import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmCommand;
 import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmSaveCommand;
+import ua.nure.sigma.store.web.command.adminList.AdminListCommand;
+import ua.nure.sigma.store.web.command.adminList.ChangeAdminPasswordCommand;
+import ua.nure.sigma.store.web.command.adminList.DeleteAdminCommand;
 import ua.nure.sigma.store.web.command.cart.*;
 import ua.nure.sigma.store.web.command.customerDetails.CustomerDetailsCommand;
 import ua.nure.sigma.store.web.command.customerlist.CustomerListCommandInitializer;
@@ -116,6 +119,10 @@ public final class CommandKeeperInitializer {
 
         commandKeeper.add("customerDetails", new CustomerDetailsCommand());
         commandKeeper.add("returnFilm", new FimReturnCommand());
+
+        commandKeeper.add("adminList", new AdminListCommand());
+        commandKeeper.add("deleteAdmin", new DeleteAdminCommand());
+        commandKeeper.add("changeAdminPassword", new ChangeAdminPasswordCommand());
     }
 
 }
