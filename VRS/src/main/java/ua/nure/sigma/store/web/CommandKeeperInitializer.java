@@ -16,7 +16,9 @@ import ua.nure.sigma.store.web.command.adminList.DeleteAdminCommand;
 import ua.nure.sigma.store.web.command.cart.*;
 import ua.nure.sigma.store.web.command.customerDetails.CustomerDetailsCommand;
 import ua.nure.sigma.store.web.command.customerlist.CustomerListCommandInitializer;
+import ua.nure.sigma.store.web.command.editCustomer.DeleteCustomerCommand;
 import ua.nure.sigma.store.web.command.editCustomer.EditCustomerCommand;
+import ua.nure.sigma.store.web.command.editCustomer.UpdateCustomerCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmRemoveCommand;
 import ua.nure.sigma.store.web.command.editfilm.EditFilmSaveCommand;
@@ -110,8 +112,8 @@ public final class CommandKeeperInitializer {
 
         //add command to edit customer
         commandKeeper.add("editCustomer", new EditCustomerCommand());
-        //    commandKeeper.add("editCustomerSave", new EditCustomerSaveCommand(extensions, validator));
-        //    commandKeeper.add("editCustomerRemove", new EditCustomerRemoveCommand());
+        commandKeeper.add("editCustomerSave", new UpdateCustomerCommand(extensions, validator));
+        commandKeeper.add("editCustomerRemove", new DeleteCustomerCommand());
 
         //add command to create customer
         commandKeeper.add("addNewCustomer", new AddNewCustomerCommand());

@@ -3,11 +3,8 @@ package ua.nure.sigma.store.web.command.addNewCustomer;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
-import ua.nure.sigma.store.dao.SexDAO;
-import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.exeption.NotEnoughOfBonusExeption;
-import ua.nure.sigma.store.validator.UserValidator;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 
@@ -20,26 +17,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.*;
 
 /**
  * Created by vlad on 27.10.14.
  */
 public class CreateCustomerCommand extends Command {
-	private static final String CUSTOMER_NAME_PARAM_NAME = "name";
+	private static final String CUSTOMER_NAME_PARAM_FIRST_NAME = "firstName";
+	private static final String CUSTOMER_NAME_PARAM_LAST_NAME = "lastName";
+	private static final String CUSTOMER_NAME_PARAM_MIDDLE_NAME = "middleName";
 	private static final String CUSTOMER_PHONE_PARAM_NAME = "phone";
 	private static final String CUSTOMER_BONUS_PARAM_NAME = "bonus";
 	private static final String CUSTOMER_SEX_PARAM_NAME = "sex";
 
 	private static final Logger LOG = Logger
 			.getLogger(CreateCustomerCommand.class);
-	public static final int LAST_NAME_POSSITION = 0;
-	public static final int MIDLE_NAME_POSSITION = 1;
-	public static final int FIRST_NAME_POSSITION = 2;
-
 	private List<String> imageExtensions;
 
 	@Override
@@ -87,32 +79,14 @@ public class CreateCustomerCommand extends Command {
 	}
 	
 
-	private List<String> splitCustomerName(String name) {
-		List<String> list = new ArrayList<String>();
-		String[] strings = name.split("\\s+");
-		if (strings.length < 3) {
-			return null;
-		}
-		list.add(strings[LAST_NAME_POSSITION]);
-		list.add(strings[MIDLE_NAME_POSSITION]);
-		list.add(strings[FIRST_NAME_POSSITION]);
-
-		return list;
-
-	}
-
 	private String setUpFieldValues(HttpServletRequest request,
 			Customer customer) {
-		String name = request.getParameter(CUSTOMER_NAME_PARAM_NAME);
+		String firstName = request.getParameter(CUSTOMER_NAME_PARAM_FIRST_NAME);
+		String lastName = request.getParameter(CUSTOMER_NAME_PARAM_LAST_NAME);
+		String middleName = request.getParameter(CUSTOMER_NAME_PARAM_MIDDLE_NAME);
 		String bonus = request.getParameter(CUSTOMER_BONUS_PARAM_NAME);
 		String phone = request.getParameter(CUSTOMER_PHONE_PARAM_NAME);
 		String sex = request.getParameter(CUSTOMER_SEX_PARAM_NAME);
-		List<String> nameList = splitCustomerName(name);
-		if (nameList == null) {
-			return "Customer name must consist of three part";
-		}
-
-		
 		
 		/*exmple of validator:
 		  
@@ -131,10 +105,11 @@ public class CreateCustomerCommand extends Command {
 		
 		int sexID = DAOFactory.getInstance().getSexDAO()
 				.findSexIDBySexName(sex).getSexID();
-		customer.setLastName(nameList.get(LAST_NAME_POSSITION));
-		customer.setMiddleName(nameList.get(MIDLE_NAME_POSSITION));
-		customer.setFirstName(nameList.get(FIRST_NAME_POSSITION));
+		customer.setLastName(lastName);
+		customer.setMiddleName(middleName);
+		customer.setFirstName(firstName);
 		customer.setSexID(sexID);
+		customer.setCustomerPhone(phone);
 		try {
 			customer.addBonus((long) Double.parseDouble(bonus) * 100);
 		} catch (NotEnoughOfBonusExeption notEnoughOfBonusExeption) {

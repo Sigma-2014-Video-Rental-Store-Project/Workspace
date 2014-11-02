@@ -31,7 +31,9 @@ import java.util.Map;
  * Created by vlad on 27.10.14.
  */
 public class UpdateCustomerCommand extends Command {
-    private static final String CUSTOMER_NAME_PARAM_NAME = "name";
+    private static final String CUSTOMER_NAME_PARAM_FIRST_NAME = "firstName";
+    private static final String CUSTOMER_NAME_PARAM_LAST_NAME = "lastName";
+    private static final String CUSTOMER_NAME_PARAM_MIDDLE_NAME = "middleName";
     private static final String CUSTOMER_PHONE_PARAM_NAME = "phone";
     private static final String CUSTOMER_BONUS_PARAM_NAME = "bonus";
     private static final String CUSTOMER_SEX_PARAM_NAME = "sex";
@@ -97,17 +99,6 @@ public class UpdateCustomerCommand extends Command {
         return Paths.PAGE_CUSTOMER_LIST;
     }
 
-    private List<String> splitCustomerName(String name){
-        List<String> list = new ArrayList<String>();
-        String[] strings = name.split("\\s+");
-        if (strings.length < 3){
-            return null;
-        }
-        list.add(strings[CreateCustomerCommand.LAST_NAME_POSSITION]);
-        list.add(strings[CreateCustomerCommand.MIDLE_NAME_POSSITION]);
-        list.add(strings[CreateCustomerCommand.FIRST_NAME_POSSITION]);
-        return list;
-    }
     /**
      * Sets new values for title, amount, description, general price,
      * rent price, bonus for rent and year fields for the current customer.
@@ -119,16 +110,17 @@ public class UpdateCustomerCommand extends Command {
      */
 
     private String setUpFieldValues(HttpServletRequest request, Customer customer) {
-        String name = request.getParameter(CUSTOMER_NAME_PARAM_NAME);
+        String firstName = request.getParameter(CUSTOMER_NAME_PARAM_FIRST_NAME);
+        String lastName = request.getParameter(CUSTOMER_NAME_PARAM_LAST_NAME);
+        String middleName = request.getParameter(CUSTOMER_NAME_PARAM_MIDDLE_NAME);
         String bonus = request.getParameter(CUSTOMER_BONUS_PARAM_NAME);
         String phone = request.getParameter(CUSTOMER_PHONE_PARAM_NAME);
         String sex = request.getParameter(CUSTOMER_SEX_PARAM_NAME);
-        List<String> nameList = splitCustomerName(name);
-        if (nameList == null){
-            return "Customer name must consist of three part";
-        }
-        Map<String, String> attributes = new HashMap<String, String>(4);
-        attributes.put("name", name);
+
+        Map<String, String> attributes = new HashMap<String, String>(6);
+        attributes.put("name", firstName);
+        attributes.put("name", lastName);
+        attributes.put("name", middleName);
         attributes.put("bonus", bonus);
         attributes.put("sex", sex);
         attributes.put("phone", phone);
@@ -138,10 +130,11 @@ public class UpdateCustomerCommand extends Command {
             return errorMessage;
         }
         int sexID = DAOFactory.getInstance().getSexDAO().findSexIDBySexName(sex).getSexID();
-        customer.setLastName(nameList.get(CreateCustomerCommand.LAST_NAME_POSSITION));
-        customer.setMiddleName(nameList.get(CreateCustomerCommand.MIDLE_NAME_POSSITION));
-        customer.setFirstName(nameList.get(CreateCustomerCommand.FIRST_NAME_POSSITION));
+        customer.setLastName(lastName);
+        customer.setMiddleName(middleName);
+        customer.setFirstName(firstName);
         customer.setSexID(sexID);
+        customer.setCustomerPhone(phone);
         try {
             customer.addBonus((long) Double.parseDouble(bonus) * 100);
         } catch (NotEnoughOfBonusExeption notEnoughOfBonusExeption) {

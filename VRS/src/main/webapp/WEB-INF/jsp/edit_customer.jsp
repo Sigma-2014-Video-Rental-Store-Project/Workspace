@@ -24,7 +24,8 @@
   <div id="header">
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
   </div>
-  <div id="content-body"> <form action="controller" method="post" enctype="multipart/form-data">
+  <div id="content-body">
+	  <form action="controller" method="post" enctype="multipart/form-data">
                  <input type="hidden" name="command" value="addNewFilmSave" />
 				 <input type="hidden" name="customerId" value="${editCustomerObject.customerID}" />
 			     <div id=leftside>
@@ -123,7 +124,7 @@
                     </c:if>
 			    </div>
 			</form>
-		</div>
+  </div>
   <div id="footer">
     <jsp:include page="../jspf/footer.jspf"/>
   </div>
