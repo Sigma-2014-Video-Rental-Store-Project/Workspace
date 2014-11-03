@@ -25,8 +25,8 @@
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
   </div>
   <div id="content-body">
-	  <form action="controller" method="post" enctype="multipart/form-data">
-                 <input type="hidden" name="command" value="editCustomerSave" />
+	  <form action="controller"  id="form" method="post" enctype="multipart/form-data">
+                 <input type="hidden" id="customerCommand"  name="command" value="editCustomerSave" />
 				 <input type="hidden" name="customerId" value="${editCustomerObject.customerID}" />
 			     <div id=leftside>
 				    <div id="bordered" style="margin-bottom:2%;">
@@ -110,19 +110,20 @@
 					</div>
 					<div style="float:right; width:100%;">
 						<div style="float:right; margin-left:1%;">
-							<button type="submit" class="btn btn-success" onclick="submitCustomerForm('update')">Save</button>
+							<button class="btn btn-success" onclick="submitCustomerForm('update')>Save</button>
 						</div>
 						<div style="float:right; margin-left:1%;">
-							<button type="button" class="btn btn-danger" onclick="submitCustomerForm('delete')">Remove</button>
+							<button  class="btn btn-danger" onclick="submitCustomerForm('delete')">Remove</button>
 						</div>
 						<div style="float:right;">
 							<a href="controller?command=customerList"><button type="button" class="btn btn-default">Cancel</button></a>
 						</div>
 					</div>
 					<c:if test="${not empty errorMessage}">
-                        <div class="error" style="margin-top: 130px;"><font face="verdana" size="4" color="red">${errorMessage}</font><div>
+                        <div class="error" style="margin-top: 130px;"><font face="verdana" size="4" color="red">${errorMessage}</font></div>
                     </c:if>
 			    </div>
+
 			</form>
   </div>
   <div id="footer">
