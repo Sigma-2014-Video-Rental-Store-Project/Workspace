@@ -52,6 +52,6 @@ public class DeleteCustomerCommand extends Command {
             LOG.debug("DeleteCustomerCommand finished.");
         }
 
-        return Paths.PAGE_CUSTOMER_LIST;
+        return Paths.COMMAND_CUSTOMER_LIST;
     }
 }

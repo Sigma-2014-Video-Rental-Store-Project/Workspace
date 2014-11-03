@@ -96,7 +96,7 @@ public class UpdateCustomerCommand extends Command {
         // Removes error message of this page if it exists.
         request.getSession().removeAttribute("errorMessage");
 
-        return Paths.PAGE_CUSTOMER_LIST;
+        return Paths.COMMAND_CUSTOMER_LIST;
     }
 
     /**
