@@ -110,7 +110,7 @@
 					</div>
 					<div style="float:right; width:100%;">
 						<div style="float:right; margin-left:1%;">
-							<button class="btn btn-success" onclick="submitCustomerForm('update')>Save</button>
+							<button class="btn btn-success" onclick="submitCustomerForm('update')">Save </button>
 						</div>
 						<div style="float:right; margin-left:1%;">
 							<button  class="btn btn-danger" onclick="submitCustomerForm('delete')">Remove</button>
