@@ -24,6 +24,7 @@
       <div class="span5">
         <span id="order">${rent.rentId}</span>
       </div>
+      </div>
 
       <div class="span9">
         <div class="span4">
@@ -32,6 +33,7 @@
         <div class="span5">
           <span id="customer-name">${rent.customerName}</span>
         </div>
+      </div>
 
         <div class="span9">
           <div class="span4">
@@ -40,8 +42,8 @@
           <div class="span5">
             <span id="date">${rent.rentedDate}</span>
           </div>
-
-          <div class="span9">
+        </div>
+        <div class="span9">
             <table id="film" class="table">
               <thead>
               <tr>
@@ -65,8 +67,8 @@
               </c:forEach>
               </tbody>
             </table>
-          </div>
-          <div>
+        </div>
+        <div>
             <div class="span9">
               <div class="span4">TOTAL:</div>
               <div class="span5">
@@ -74,20 +76,20 @@
               </div>
             </div>
             <div class="span9">
-              <div class="span4"></div>
+              <div class="span4">BONUS:</div>
               <div class="span5">
                 <fmt:formatNumber type="CURRENCY" value="${rent.usedBonus/100}"/>
               </div>
             </div>
             <div class="span9">
-              <div class="span4"></div>
+              <div class="span4">FOR PAID:</div>
               <div class="span5">
                 <fmt:formatNumber type="CURRENCY" value="${rent.forPaid/100}"/>
               </div>
             </div>
-          </div>
+        </div>
 
     </div>
-  </div>
+
 </body>
 </html>
