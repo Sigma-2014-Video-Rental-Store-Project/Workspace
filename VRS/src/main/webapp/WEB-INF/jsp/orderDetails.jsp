@@ -17,16 +17,16 @@
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
   </div>
   <div id="center-content-area" style="width:  595pt">
-    <div class="span9">
+    <div class="row">
       <div class="span4">
         <span>Order number:</span>
       </div>
       <div class="span5">
         <span id="order">${rent.rentId}</span>
       </div>
-      </div>
+    </div>
 
-      <div class="span9">
+      <div class="row">
         <div class="span4">
           <span>Customer:</span>
         </div>
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-        <div class="span9">
+        <div class="row">
           <div class="span4">
             <span>Date:</span>
           </div>
@@ -43,7 +43,7 @@
             <span id="date">${rent.rentedDate}</span>
           </div>
         </div>
-        <div class="span9">
+        <div class="row">
             <table id="film" class="table">
               <thead>
               <tr>
@@ -69,19 +69,19 @@
             </table>
         </div>
         <div>
-            <div class="span9">
+            <div class="row">
               <div class="span4">TOTAL:</div>
               <div class="span5">
                 <fmt:formatNumber type="CURRENCY" value="${rent.total/100}"/>
               </div>
             </div>
-            <div class="span9">
+            <div class="row">
               <div class="span4">BONUS:</div>
               <div class="span5">
                 <fmt:formatNumber type="CURRENCY" value="${rent.usedBonus/100}"/>
               </div>
             </div>
-            <div class="span9">
+            <div class="row">
               <div class="span4">FOR PAID:</div>
               <div class="span5">
                 <fmt:formatNumber type="CURRENCY" value="${rent.forPaid/100}"/>
