@@ -38,6 +38,8 @@ public class FimReturnCommand extends Command {
      * @throws ServletException
      */
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        LOG.trace("return film command startred");
+
         String rentIdString = request.getParameter(RENT_ID_PARAM_NAME);
         String filmIdString = request.getParameter(FILM_ID_PARAM_NAME);
 
@@ -53,9 +55,12 @@ public class FimReturnCommand extends Command {
             return Paths.PAGE_NO_PAGE;
         }
         
-        DAOFactory.getInstance().getFilmRentedDAO().closeFilmRent(rentId, filmId);
+        LOG.trace("rent id = "+rentId+", film id = "+filmId);
+
+        DAOFactory.getInstance().getFilmRentedDAO().updateFilmRent(rentId, filmId, 1);
         
         String returnTo = request.getParameter(RETURN_TO_PAGE_PARAM_NAME);
+        LOG.trace("return film command ends");
         return returnTo;
     }
 }
