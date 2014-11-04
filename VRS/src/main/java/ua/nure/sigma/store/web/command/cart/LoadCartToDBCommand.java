@@ -20,6 +20,8 @@ import java.util.*;
  */
 public class LoadCartToDBCommand extends Command {
 
+    public static final String CURRENT_RENT_ATTR_NAME = "current_rent";
+
     private static final long MILLISECONDS_IN_DAY = 86400000;
 
     @Override
@@ -45,6 +47,9 @@ public class LoadCartToDBCommand extends Command {
         }
         rent.setFilmList(list);
         DAOFactory.getInstance().getRentDAO().createRent(rent);
+
+        // Must be cleaned after checkout.
+        session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);
 
         cart.clear();
         session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
