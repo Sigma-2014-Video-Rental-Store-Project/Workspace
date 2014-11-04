@@ -15,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 
 /**
@@ -116,12 +117,11 @@ public class SignInCommand extends Command {
             response.addCookie(idCookie);
         }
 
-        // TODO uncomment when RB will be formed.
-//        // Work with i18n.
-//        String userLocale = admin.getLocale();
-//        if (userLocale != null && !userLocale.isEmpty()) {
-//            Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", userLocale);
-//        }
+      //  // Work with i18n.
+      //   String userLocale = admin.getLocale();
+      //  if (userLocale != null && !userLocale.isEmpty()) {
+      //      Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", userLocale);
+      //  }
 
         initCart(session);
 
