@@ -31,7 +31,7 @@ public final class Paths {
     public static final String PAGE_EDIT_CUSTOMER = "/WEB-INF/jsp/edit_customer.jsp";
     public static final String PAGE_CUSTOMER_DETAILS = "/WEB-INF/jsp/customer_details.jsp";
     public static final String PAGE_ADMIN_LIST = "/WEB-INF/jsp/admin_list.jsp";
-
+    public static final String PAGE_VIEW_ORDER_DETAIL = "/WEB-INF/jsp/orderDetails.jsp";
 
     // Paths of the server command keys:
     public static final String COMMAND_SIGN_IN = "controller?command=signIn";

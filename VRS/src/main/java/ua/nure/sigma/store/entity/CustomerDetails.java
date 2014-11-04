@@ -65,7 +65,10 @@ public class CustomerDetails {
 
     public int getDaysLeft() {
         int days = (int) ((filmForRent.getFutureDate().getTime() - System.currentTimeMillis()) / MILLISECONDS_IN_DAY + 1);
-        LOG.debug(days);
         return days > 0 ? days : 0;
+    }
+
+    public int getCopiesLeft() {
+        return filmForRent.getCopiesLeft();
     }
 }

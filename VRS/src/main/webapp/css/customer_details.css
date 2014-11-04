@@ -78,3 +78,10 @@ img.center {
 .return-column-value{
     text-align: center;
 }
+.copies-column{
+    vertical-align: middle !important;
+}
+.copies-number.form-control{
+    display: inline;
+    width: auto;
+}

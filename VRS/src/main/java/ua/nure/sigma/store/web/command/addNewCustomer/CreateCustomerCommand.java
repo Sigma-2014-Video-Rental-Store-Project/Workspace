@@ -58,7 +58,12 @@ public class CreateCustomerCommand extends Command {
 
 		// Commits new state of the current customer to database.
 		DAOFactory.getInstance().getCustomerDAO().createCustomer(customer);
+		if (customer.getCustomerID() == 0){
+			errorMessage = "coudn't create customer";
+			request.getSession().setAttribute("errorMessage", errorMessage);
 
+			return Paths.COMMAND_ADD_NEW_CUSTOMER;
+		}
 		// Request call for customer cover change.
 		setUpCoverRepresentation(request, customer);
 
@@ -123,7 +128,7 @@ public class CreateCustomerCommand extends Command {
 		}
 		int sexID = DAOFactory.getInstance().getSexDAO()
 				.findSexIDBySexName(sex).getSexID();
-
+		customer.setSexID(sexID);
 
 		LOG.debug("Fields sets.");
 		return null;

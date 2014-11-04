@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao.postgresql;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.CustomerDAO;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Admin;
@@ -20,11 +21,12 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
 
     private static final String SQL_SELECT_FROM_CUSTOMERS_BY_ID = "SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
     private static final String SQL_SELECT_FROM_CUSTOMERS_ALL_CUSTOMER = "SELECT * FROM CUSTOMERS";
-    private static final String SQL_INSERT_INTO_CUSTOMERS = "INSERT INTO CUSTOMERS (customer_id,LAST_NAME , FIRST_NAME , MIDLE_NAME , CUSTOMER_EMAIL, CUSTOMER_PHONE , SEX_ID, CUSTOMER_PHOTO, BONUS) VALUES(DEFAULT,?,?,?,?,?,?,?,?)";
+    private static final String SQL_INSERT_INTO_CUSTOMERS = "INSERT INTO CUSTOMERS (customer_id,LAST_NAME , FIRST_NAME , MIDLE_NAME , CUSTOMER_EMAIL, CUSTOMER_PHONE , SEX_ID, CUSTOMER_PHOTO, BONUS) VALUES(DEFAULT,?,?,?,?,?,?,?,?) RETURNING CUSTOMER_ID";
     private static final String SQL_UPDATE_CUSTOMERS =
             "UPDATE FILMS SET LAST_NAME = ?, FIRST_NAME =?, MIDLE_NAME =?, CUSTOMER_EMAIL =?, CUSTOMER_PHONE =?, SEX_ID =?, CUSTOMER_PHOTO=?, BONUS =? WHERE CUSTOMER_ID = ?";
     private static final String SQL_DELETE_CUSTOMER = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
-
+    private static final Logger LOG = Logger
+            .getLogger(PostgreSqlCustomerDAO.class);
 
     private Customer extractCustomer(ResultSet rs) throws SQLException {
         Customer customer = new Customer();
@@ -33,7 +35,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         customer.setFirstName(rs.getString("FIRST_NAME"));
         customer.setMiddleName(rs.getString("MIDLE_NAME"));
         customer.setCustomerEmail(rs.getString("CUSTOMER_EMAIL"));
-        customer.setCustomerPhone(rs.getString("CUSTOMER_PHONE"));
+        customer.setCustomerPhone( rs.getString("CUSTOMER_PHONE"));
         customer.setSexID(rs.getInt("SEX_ID"));
         customer.setCustomerPhoto(rs.getString("CUSTOMER_PHOTO"));
         try {
@@ -50,7 +52,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
         pstmnt.setString(position++, customer.getCustomerEmail());
         pstmnt.setString(position++, customer.getCustomerPhone());
         pstmnt.setInt(position++, customer.getSexID());
-        pstmnt.setString(position++, customer.getCustomerPhoto());
+        pstmnt.setString(position++, (customer.getCustomerPhoto() == null) ? "0.jpg" : customer.getCustomerPhoto());
         pstmnt.setLong(position++, customer.getBonus());
         return position;
     }
@@ -59,16 +61,20 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
     public void createCustomer(Customer customer) {
         Connection connection = null;
         PreparedStatement pstmnt = null;
+        ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_CUSTOMERS);
             int position = 1;
             setupPrepareStatement(pstmnt,customer,position);
-            pstmnt.execute();
+            rs = pstmnt.executeQuery();
+            if (rs.next()){
+                customer.setCustomerID(rs.getInt(1));
+            }
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not add new client.", e);
+            LOG.error("Can not add new client.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
@@ -115,7 +121,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
             connection.setAutoCommit(false);
             customer = findCustomerByID(connection,id);
         } catch (Exception e) {//
-//            LOG.error("Can not obtain User by id.", e);
+            LOG.error("Can not obtain User by id.", e);
         } finally {
             DAOFactory.commitAndClose(connection);
 
@@ -184,7 +190,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//           LOG.error("Can not update User's block.", e);
+           LOG.error("Can not update User's block.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);

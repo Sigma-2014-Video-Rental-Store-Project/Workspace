@@ -7,6 +7,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Context listener.
@@ -24,6 +27,7 @@ public class ContextListener implements ServletContextListener {
 
         ServletContext servletContext = event.getServletContext();
         initLog4J(servletContext);
+        initI18N(servletContext);
         initFileUploaderParams(servletContext);
         initPhotoFileUploaderParams(servletContext);
         log("Servlet context initialization finished");
@@ -55,6 +59,7 @@ public class ContextListener implements ServletContextListener {
         String realFilmCoversPath = servletContext.getRealPath("filmCovers/");
         servletContext.setAttribute("COVERS_DIR", realFilmCoversPath + File.separator);
     }
+
     /**
      * Initializes directory values for film cover uploader.
      *
@@ -63,6 +68,31 @@ public class ContextListener implements ServletContextListener {
     private void initPhotoFileUploaderParams(ServletContext servletContext) {
         String realFilmCoversPath = servletContext.getRealPath("customerPhoto/");
         servletContext.setAttribute("PHOTO_DIR", realFilmCoversPath + File.separator);
+    }
+
+    /**
+     * Initializes i18n subsystem.
+     *
+     * @param servletContext of executing servlet.
+     */
+    private void initI18N(ServletContext servletContext) {
+        LOG.debug("I18N subsystem initialization started");
+
+        String localesValue = servletContext.getInitParameter("locales");
+        if (localesValue == null || localesValue.isEmpty()) {
+            LOG.warn("'locales' init parameter is empty, the default encoding will be used");
+        } else {
+            List<String> locales = new ArrayList<String>();
+            StringTokenizer st = new StringTokenizer(localesValue);
+            while (st.hasMoreTokens()) {
+                String localeName = st.nextToken();
+                locales.add(localeName);
+            }
+            LOG.debug("Application attribute set: locales --> " + locales);
+            servletContext.setAttribute("locales", locales);
+        }
+
+        LOG.debug("I18N subsystem initialization finished");
     }
 
     @Override
