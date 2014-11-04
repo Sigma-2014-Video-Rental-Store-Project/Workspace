@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao.postgresql;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.AdminDAO;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.entity.Admin;
@@ -19,10 +20,12 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
     private static final String SQL_SELECT_FROM_ADMINS_BY_ID = "SELECT * FROM ADMINS WHERE ADMIN_ID = ?";
     private static final String SQL_SELECT_FROM_ADMINS_ALL_ADMIN = "SELECT * FROM ADMINS";
-    private static final String SQL_INSERT_INTO_ADMINS = "INSERT INTO ADMINS VALUES(?, ?, ?)";
+    private static final String SQL_INSERT_INTO_ADMINS = "INSERT INTO ADMINS(admin_id,role_id,admin_email,password_hash,locale) VALUES(?,?,?,?,DEFAULT)";
     private static final String SQL_UPDATE_ADMIN_PASSWORD = "UPDATE ADMINS SET PASSWORD_HASH = ? WHERE ADMIN_ID = ?";
+    private static final String SQL_UPDATE_ADMIN_LOCALE = "UPDATE ADMINS SET LOCALE = ? WHERE ADMIN_ID = ?";
     private static final String SQL_DELETE_ADMIN = "DELETE FROM ADMINS WHERE ADMIN_ID = ?";
-
+    private static final Logger LOG = Logger
+            .getLogger(PosgreSqlAdminDAO.class);
     /**
      * Extracts User bean from ResultSet object.
      *
@@ -60,7 +63,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             }
         } catch (Exception e) {
 //            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not obtain Admin by login.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
@@ -85,9 +88,8 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             if (rs.next()) {
                 admin = extractAdmin(rs);
             }
-        } catch (Exception e) {
-//            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by id.", e);
+        } catch (Exception e) {//
+            LOG.error("Can not obtain Admin by id.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
@@ -113,7 +115,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             }
         } catch (Exception e) {
 //            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not obtain Admins", e);
         } finally {
             DAOFactory.close(stmnt);
             DAOFactory.close(rs);
@@ -143,7 +145,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not add new client.", e);
+            LOG.error("Can not add new admin.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
@@ -172,6 +174,27 @@ public class PosgreSqlAdminDAO implements AdminDAO{
     }
 
     @Override
+    public void updateAdminLocale(Admin admin) {
+        Connection connection = null;
+        PreparedStatement pstmnt = null;
+        try {
+            connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
+            pstmnt = connection.prepareStatement(SQL_UPDATE_ADMIN_LOCALE);
+            int position = 1;
+            pstmnt.setString(position++, admin.getLocale());
+            pstmnt.setInt(position, admin.getId());
+            pstmnt.execute();
+        } catch (Exception e) {
+            DAOFactory.rollback(connection);
+            LOG.error("Can not update Admin's locale.", e);
+        } finally {
+            DAOFactory.close(pstmnt);
+            DAOFactory.commitAndClose(connection);
+        }
+    }
+
+    @Override
     public void deleteAdmin(Admin admin) {
         Connection connection = null;
         PreparedStatement pstmnt = null;
@@ -184,7 +207,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not update User's block.", e);
+            LOG.error("Can not delete Admin's block.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);

@@ -4,6 +4,7 @@ import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.FilmRentedDAO;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.entity.FilmForRent;
+import ua.nure.sigma.store.exeption.TooManyCopiesForReturnException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -160,20 +161,23 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
     }
 
     @Override
-    public void updateFilmRent(long rentID, int filmID, int copies) {
+    public void updateFilmRent(long rentID, int filmID, int copies) throws Exception {
         Connection connection = null;
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
             int copiesLeft = findFilmRentLeftCopies(rentID,filmID);
-            if (copiesLeft <= copies){
+            if (copiesLeft == copies){
                 closeFilmRent(rentID,filmID, connection);
-            }else {
+            }else  if (copiesLeft <copies){
                 updateFilmRent(rentID,filmID,copies,copiesLeft,connection);
+            }else {
+                throw new TooManyCopiesForReturnException("Copies left less than Copies for return");
             }
 
         } catch (Exception e) {
             DAOFactory.rollback(connection);
+            throw e;
 //            LOG.error("Can not obtain User by login.", e);
         } finally {
 
@@ -216,9 +220,8 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
         PreparedStatement pstmnt = null;
         try {
             pstmnt = connection.prepareStatement(SQL_CLOSE_FILM_RENT);
-
-            pstmnt.setInt(1, filmID);
-            pstmnt.setLong(2, rentID);
+            pstmnt.setLong(1, rentID);
+            pstmnt.setInt(2, filmID);
             pstmnt.executeQuery();
         } catch (Exception e) {
             DAOFactory.rollback(connection);

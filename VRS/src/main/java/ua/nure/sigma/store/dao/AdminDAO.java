@@ -17,7 +17,7 @@ public interface AdminDAO {
     void createAdmin(Admin admin);
     void updateAdminPassword(Admin admin);
     void deleteAdmin(Admin admin);
-
+    void updateAdminLocale(Admin admin);
 
 
 }
