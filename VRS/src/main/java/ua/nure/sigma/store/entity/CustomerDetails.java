@@ -68,4 +68,8 @@ public class CustomerDetails {
         LOG.debug(days);
         return days > 0 ? days : 0;
     }
+
+    public int getCopiesLeft(){
+        return filmForRent.getCopiesLeft();
+    }
 }

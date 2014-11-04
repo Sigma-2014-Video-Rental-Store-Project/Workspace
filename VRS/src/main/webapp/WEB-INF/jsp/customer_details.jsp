@@ -78,6 +78,7 @@
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['daysLeft','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a></th>
+                    <th class="return-column" scope="col">Copies</th>
                     <th class="return-column" scope="col">Return</th>
                 </tr>
                 </thead>
@@ -100,13 +101,18 @@
                         <c:choose>
                             <c:when test="${filter == 'histoty'}">
                                 <td class="days-left-column-value"><c:out value="returned"/></td>
-                                <td class="days-left-column-value"><c:out value="returned"/></td>
+                                <td class="copies-column"><c:out value="copies"/></td>
+                                <td class="return-column-value"><c:out value="reurned"/></td>
                             </c:when>
                             <c:otherwise>
-                                <td class="days-left-column-value"><c:out value="${current.daysLeft}"/>
-                                </td>
-                                <td class="return-column-value">
-                                    <form method="post" action="controller" style="display: inline;">
+                                <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
+                                <form method="post" action="controller" style="display: inline;">
+                                    <td class="copies-column">
+                                        <input type="number" name="amount" class="copies-number form-control"
+                                               style="margin-bottom:2%; margin-left:3%;" min="1"
+                                               max="${current.copiesLeft}" value="${current.copiesLeft}">/${current.copiesLeft}
+                                    </td>
+                                    <td class="return-column-value">
                                         <input type="hidden" name="command" value="returnFilm"/>
                                         <input type="hidden" name="returnTo"
                                                value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}"/>
@@ -115,8 +121,8 @@
                                         <input type="submit"
                                                style="color: #6495ED; background: none; border: none; cursor: pointer;"
                                                value="return"/>
-                                    </form>
-                                </td>
+                                    </td>
+                                </form>
                             </c:otherwise>
                         </c:choose>
                     </tr>
