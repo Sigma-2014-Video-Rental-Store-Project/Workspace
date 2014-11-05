@@ -169,7 +169,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             int copiesLeft = findFilmRentLeftCopies(rentID,filmID);
             if (copiesLeft == copies){
                 closeFilmRent(rentID,filmID, connection);
-            }else  if (copiesLeft <copies){
+            }else  if (copies < copiesLeft){
                 updateFilmRent(rentID,filmID,copies,copiesLeft,connection);
             }else {
                 throw new TooManyCopiesForReturnException("Copies left less than Copies for return");
@@ -193,6 +193,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             pstmnt.setInt(1, copiesLeft-copies);
             pstmnt.setLong(2, rentID);
             pstmnt.setInt(3, filmID);
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by login.", e);
@@ -222,7 +223,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             pstmnt = connection.prepareStatement(SQL_CLOSE_FILM_RENT);
             pstmnt.setLong(1, rentID);
             pstmnt.setInt(2, filmID);
-            pstmnt.executeQuery();
+            pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by login.", e);
@@ -237,6 +238,9 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
             List<FilmForRent> forRents = findFilmRentedByRentID(rentID,connection);
+            for (FilmForRent rent : forRents){
+                closeFilmRent(rentID,rent.getFilmID(),connection);
+            }
         }catch (Exception e){
             DAOFactory.rollback(connection);
         }finally {
