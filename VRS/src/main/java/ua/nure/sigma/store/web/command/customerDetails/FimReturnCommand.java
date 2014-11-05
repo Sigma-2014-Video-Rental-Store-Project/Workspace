@@ -57,8 +57,13 @@ public class FimReturnCommand extends Command {
         
         LOG.trace("rent id = "+rentId+", film id = "+filmId);
 
+        try{
         DAOFactory.getInstance().getFilmRentedDAO().updateFilmRent(rentId, filmId, 1);
-        
+        } catch (Exception e) {
+            LOG.error("Something bad happens in DAO", e);
+            return Paths.PAGE_NO_PAGE;
+        }
+
         String returnTo = request.getParameter(RETURN_TO_PAGE_PARAM_NAME);
         LOG.trace("return film command ends");
         return returnTo;
