@@ -41,6 +41,7 @@ body {
 }
 .edit-column{
     width: 15%;
+    text-align: right;
 }
 #search-buttons{
 }
