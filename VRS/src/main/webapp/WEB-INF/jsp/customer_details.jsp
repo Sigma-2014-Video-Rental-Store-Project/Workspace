@@ -78,7 +78,8 @@
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['daysLeft','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a></th>
-                    <th class="return-column" scope="col">Copies</th>
+                    <th class="return-column" scope="col">Amount</th>
+                    <th class="return-column" scope="col">Copies left</th>
                     <th class="return-column" scope="col">Return</th>
                 </tr>
                 </thead>
@@ -106,6 +107,7 @@
                             </c:when>
                             <c:otherwise>
                                 <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
+                                <td class="days-left-column-value"><c:out value="${current.filmForRent.copies}"/></td>
                                 <form method="post" action="controller" style="display: inline;">
                                     <td class="copies-column">
                                         <input type="number" name="amount" class="copies-number form-control"
