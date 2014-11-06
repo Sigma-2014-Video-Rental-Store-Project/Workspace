@@ -48,6 +48,8 @@ public class UpdateCustomerCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         LOG.debug("EditCustomerSaveCommand started.");
         String customerIdString = request.getParameter(EditCustomerCommand.CUSTOMER_ID_PARAM_NAME);
+        ///TODO: tmp fix for delete eror message, will shoud be removed
+        request.getSession().removeAttribute("errorMessage");
 
         // If this command has been called plain - return 'no page' handler.
         if (customerIdString == null) {

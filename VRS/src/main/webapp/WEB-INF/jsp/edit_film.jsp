@@ -91,7 +91,11 @@
 									<p id="text">General price (\$): </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input type="text" name="generalPrice" class="form-control" style="margin-bottom:2%; margin-left:3%;" value='<fmt:formatNumber type="number" minFractionDigits="2" value="${editFilmObject.generalPrice/100}"/>'>
+									<input type="text" name="generalPrice" class="form-control" style="margin-bottom:2%; margin-left:3%;"
+										   value='<fmt:formatNumber type="number" minFractionDigits="2"
+										    	groupingUsed="false"
+										   		value="${editFilmObject.generalPrice/100}"/>
+										   	'>
 								</div>
 						</div>
 					</div>
@@ -101,7 +105,8 @@
 							    <p id="text">Rent price (\$): </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value='<fmt:formatNumber type="number" minFractionDigits="2" value="${editFilmObject.rentPrice/100}"/>'>
+							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"
+									   value='<fmt:formatNumber type="number" groupingUsed="false" minFractionDigits="2" value="${editFilmObject.rentPrice/100}"/>'>
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
@@ -110,7 +115,9 @@
 									<p id="text" >Bonus value: </p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"  value="${editFilmObject.bonusForRent/100}">
+									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"
+										   value='<fmt:formatNumber type="number" groupingUsed="false" minFractionDigits="2"
+										   value="${editFilmObject.bonusForRent/100}">'/>
 								</div>
 						</div>
 					</div>
