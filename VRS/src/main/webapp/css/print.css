@@ -1,0 +1,3 @@
+@media print {
+    .btn .btn-default div#header {display: none}
+}
