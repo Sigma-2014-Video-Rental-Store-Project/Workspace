@@ -3,6 +3,7 @@ package ua.nure.sigma.store.web;
 
 import ua.nure.sigma.store.validator.Validator;
 import ua.nure.sigma.store.validator.film.*;
+import ua.nure.sigma.store.web.command.ChangeLocaleCommand;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
@@ -126,6 +127,8 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("adminList", new AdminListCommand());
         commandKeeper.add("deleteAdmin", new DeleteAdminCommand());
         commandKeeper.add("changeAdminPassword", new ChangeAdminPasswordCommand());
+
+        commandKeeper.add("changeLocale", new ChangeLocaleCommand());
     }
 
 }

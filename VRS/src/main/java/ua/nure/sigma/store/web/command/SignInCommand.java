@@ -117,11 +117,11 @@ public class SignInCommand extends Command {
             response.addCookie(idCookie);
         }
 
-      //  // Work with i18n.
-      //   String userLocale = admin.getLocale();
-      //  if (userLocale != null && !userLocale.isEmpty()) {
-      //      Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", userLocale);
-      //  }
+        // Work with i18n.
+        String userLocale = admin.getLocale();
+        if (userLocale != null && !userLocale.isEmpty()) {
+            Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", userLocale);
+        }
 
         initCart(session);
 
