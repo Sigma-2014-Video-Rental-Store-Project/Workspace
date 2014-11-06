@@ -19,7 +19,7 @@
     <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
     <title>Films</title>
-	<fmt:setLocale value="en_US" />
+    <fmt:setLocale value="en_US" />
 </head>
 <body>
 <f:view>
@@ -53,13 +53,13 @@
                 </label>
             </div>
             <div id="add-new-film-button">
-                    <a href="controller?command=addNewFilm"><button class="btn btn-success">Add new film</button></a>
+                <a href="controller?command=addNewFilm"><button class="btn btn-success">Add new film</button></a>
             </div>
             <div id="search-buttons">
                 <form class="search" role="form" action="controller" method="get">
                     <input type="hidden" name="command" value="fullFilmList"/>
                     <input id="product_search" style = "float: left; width: 88%;" name="key" type="text"class="form-control"
-		                placeholder="Keywords" required="" autofocus="" autocomplete="off" data-provide="typeahead">
+                           placeholder="Keywords" required="" autofocus="" autocomplete="off" data-provide="typeahead">
                     <button id="search-button" class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>
@@ -111,7 +111,7 @@
                                         <input type="hidden" name="filmId" value="${current.filmId}"/>
                                         <input type="submit" style="color: #6495ED; background: none; border: none; cursor: pointer;" value="add"/>
                                     </form>
-                                <%--<a class="add-to-cart-link" href="controller?command=cartAdd&filmId=${current.filmId}">add</a>&nbsp;--%>
+                                    <%--<a class="add-to-cart-link" href="controller?command=cartAdd&filmId=${current.filmId}">add</a>&nbsp;--%>
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -130,6 +130,7 @@
     </div>
     <div id="footer">
         <jsp:include page="../jspf/footer.jspf"/>
+
     </div>
 </f:view>
 </body>
@@ -141,18 +142,18 @@
 <script src="js/bootstrap-typeahead.js"></script>
 
 <script>
-$(document).ready(function($) {
+    $(document).ready(function($) {
 // Workaround for bug in mouse item selection
-$.fn.typeahead.Constructor.prototype.blur = function() {
-var that = this;
-setTimeout(function () { that.hide() }, 250);
-};
- 
-$('#product_search').typeahead({
-source: function(query, process) {
-return [<c:forEach items="${allFilms.allFilms}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
-}
-});
-})
+        $.fn.typeahead.Constructor.prototype.blur = function() {
+            var that = this;
+            setTimeout(function () { that.hide() }, 250);
+        };
+
+        $('#product_search').typeahead({
+            source: function(query, process) {
+                return [<c:forEach items="${allFilms.allFilms}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
+            }
+        });
+    })
 </script>
 </html>
