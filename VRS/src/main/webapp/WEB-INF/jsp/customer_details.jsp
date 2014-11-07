@@ -100,15 +100,21 @@
                             </c:choose>
                         </td>
                         <c:choose>
-                            <c:when test="${filter == 'histoty'}">
+                            <c:when test="${filter == 'history'}">
                                 <td class="days-left-column-value"><c:out value="returned"/></td>
-                                <td class="copies-column"><c:out value="copies"/></td>
-                                <td class="return-column-value"><c:out value="reurned"/></td>
+                                <td class="days-left-column-value"><c:out value="${current.filmForRent.copies}"/></td>
+                                <c:choose>
+                                        <c:when test="${current.daysLeft!=null}">
+                                            <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
+                                        </c:when>
+                                </c:choose>
+                                <td class="return-column-value"><c:out value="returned"/></td>
                             </c:when>
                             <c:otherwise>
                                 <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
                                 <td class="days-left-column-value"><c:out value="${current.filmForRent.copies}"/></td>
                                 <form method="post" action="controller" style="display: inline;">
+                                <input type="hidden" name="copiesLeft" value="${current.copiesLeft}"/>
                                     <td class="copies-column">
                                         <input type="number" name="amount" class="copies-number form-control"
                                                style="margin-bottom:2%; margin-left:3%;" min="1"

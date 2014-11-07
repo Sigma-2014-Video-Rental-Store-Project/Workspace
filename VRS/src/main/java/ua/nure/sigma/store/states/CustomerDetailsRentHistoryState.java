@@ -13,7 +13,7 @@ public class CustomerDetailsRentHistoryState implements IListFilterState<Custome
     public List<CustomerDetails> getFilteredList(List<CustomerDetails> list) {
         List<CustomerDetails> res = new ArrayList<CustomerDetails>();
         for (CustomerDetails cd : list) {
-            if (cd.getEndDate() != null) {
+            if (cd.getEndDate() != null||cd.getFilmForRent().getCopies()!=cd.getCopiesLeft()) {
                 res.add(cd);
             }
         }

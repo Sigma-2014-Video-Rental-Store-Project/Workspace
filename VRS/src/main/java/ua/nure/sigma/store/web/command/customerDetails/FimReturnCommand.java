@@ -26,6 +26,7 @@ public class FimReturnCommand extends Command {
     public static final String FILM_ID_PARAM_NAME = "filmId";
     public static final String RENT_ID_PARAM_NAME = "rentId";
     public static final String AMOUNT_OF_FILMS_PARAM_NAME = "amount";
+    public static final String TOTAL_AMOUNT_OF_FILMS_PARAM_NAME = "copiesLeft";
 
     @Override
 
@@ -44,17 +45,20 @@ public class FimReturnCommand extends Command {
         String rentIdString = request.getParameter(RENT_ID_PARAM_NAME);
         String filmIdString = request.getParameter(FILM_ID_PARAM_NAME);
         String amountString = request.getParameter(AMOUNT_OF_FILMS_PARAM_NAME);
+        String copiesLeftString = request.getParameter(TOTAL_AMOUNT_OF_FILMS_PARAM_NAME);
 
         int rentId;
         int filmId;
         int amount;
+        int copiesLeft;
 
         try {
             filmId = Integer.parseInt(filmIdString);
             rentId = Integer.parseInt(rentIdString);
             amount = Integer.parseInt(amountString);
+            copiesLeft = Integer.parseInt(copiesLeftString);
         } catch (Exception e) {
-            LOG.error("Cannot parse 'filmId', 'amount' or 'rentId' as Integer value.", e);
+            LOG.error("Cannot parse 'filmId', 'amount', 'copiesLeftleft' or 'rentId' as Integer value.", e);
 
             return Paths.PAGE_NO_PAGE;
         }
@@ -62,7 +66,7 @@ public class FimReturnCommand extends Command {
         LOG.trace("rent id = "+rentId);
         LOG.trace("film id = "+filmId);
         LOG.trace("amount  = "+amount);
-
+        LOG.trace("copiesLeft = "+copiesLeft);
 
         try{
         DAOFactory.getInstance().getFilmRentedDAO().updateFilmRent(rentId, filmId, amount);
