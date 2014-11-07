@@ -21,7 +21,7 @@ public class CustomerToCustomerListItemConverter {
      * @param customers list of customers that are the base for items.
      * @param listItems result list.
      */
-    public static final void convertFromCustomersToCustomerListItems(List<Customer> customers, List<CustomerListItem> listItems) {
+    public static void convertFromCustomersToCustomerListItems(List<Customer> customers, List<CustomerListItem> listItems) {
         RentDAO rentDAO = DAOFactory.getInstance().getRentDAO();
         FilmRentedDAO filmRentedDAO = DAOFactory.getInstance().getFilmRentedDAO();
         Date today = new Date();
