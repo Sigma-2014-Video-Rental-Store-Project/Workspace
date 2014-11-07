@@ -18,8 +18,7 @@
     <meta name="description" content="Film edit page.">
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
-    <title>Add new film</title>
-	<fmt:setLocale value="en_US" />
+    <title><fmt:message key="addfilm.title"/></title>
 </head>
 <body>
     <f:view>
@@ -30,19 +29,19 @@
             <form action="controller" method="post" enctype="multipart/form-data">
                  <input type="hidden" name="command" value="addNewFilmSave" />
 			     <div id=leftside>
-				    <p id="text">Film name:</p>
+				    <p id="text"><fmt:message key="addfilm.name"/></p>
 				    <input type="text" name="filmTitle" class="form-control" style="margin-bottom:2%;">
 				    <div id="bordered" style="margin-bottom:2%;">
 					    <img id="cover" data-src="holder.js/140x140" class="center" src="filmCovers/0.jpg" >
 				    </div>
 				    <span class="btn btn-primary btn-file">
-				        Browse...<input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
+				        <fmt:message key="addfilm.browse"/><input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
 				    </span>
 			    </div>
 			    <div id=rightside>
 				    <div>
 					    <div id="genre" style="float:left;">
-						    <p id="text">Genre:</p>
+						    <p id="text"><fmt:message key="addfilm.genre"/></p>
 							<select name="categoryName" multiple="multiple" onchange="console.log($(this).children(':selected').length)" class="testsel">
 							
 							</select>
@@ -54,7 +53,7 @@
 				    <div>
 					    <div style="float:left; width:45%;">
 						    <div style="float:left;">
-							    <p id="text">Copies: </p>
+							    <p id="text"><fmt:message key="addfilm.copies"/> </p>
 						    </div>
 						    <div style="float:right; width:30%">
 							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max="150" value="0">
@@ -62,7 +61,7 @@
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
 								<div style="float:left;">
-									<p id="text">General price (\$): </p>
+									<p id="text"><fmt:message key="addfilm.genPrice"/></p>
 								</div>
 								<div style="float:right; width:30%;">
 									<input type="text" name="generalPrice" class="form-control" style="margin-bottom:2%; margin-left:3%;">
@@ -72,7 +71,7 @@
 					<div>
 					    <div style="float:left; width:45%;">
 						    <div style="float:left;">
-							    <p id="text">Rent price (\$): </p>
+							    <p id="text"><fmt:message key="addfilm.rentPrice"/> </p>
 						    </div>
 						    <div style="float:right; width:30%">
 							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
@@ -81,7 +80,7 @@
 						<div style="float:right; width:45%; max-width:45%;">
 							
 								<div style="float:left;">
-									<p id="text" >Bonus value: </p>
+									<p id="text" ><fmt:message key="addfilm.bonus"/></p>
 								</div>
 								<div style="float:right; width:30%;">
 									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"  value="">
@@ -91,7 +90,7 @@
 					<div>
 					    <div style="float:left; width:45%;">
 						    <div style="float:left;">
-							    <p id="text">Year: </p>
+							    <p id="text"><fmt:message key="addfilm.year"/></p>
 						    </div>
 						    <div style="float:right; width:30%">
 							    <input name="year" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="">
@@ -101,10 +100,10 @@
 					<div>
 						<div style="float:right; clear:left; width:50%;">
 							<div style="float:right;">
-								<button type="submit" class="btn btn-success" style="margin-left:3%;">Add new film</button>
+								<button type="submit" class="btn btn-success" style="margin-left:3%;"><fmt:message key="filmlist.addNewFilmbtn"/></button>
 							</div>
 							<div style="float:right;">
-								<a href="controller?command=fullFilmList"><button type="button" class="btn btn-default">Cancel</button></a>
+								<a href="controller?command=fullFilmList"><button type="button" class="btn btn-default"><fmt:message key="addfilm.cancel"/></button></a>
 							</div>
 						</div>
 					</div>
@@ -116,6 +115,7 @@
         </div>
         <div id="footer">
         	<jsp:include page="../jspf/footer.jspf"/>
+            <%@include file="/WEB-INF/jspf/locale.jspf"%>
         </div>
     </f:view>
 </body>

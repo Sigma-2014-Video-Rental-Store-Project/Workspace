@@ -18,8 +18,7 @@
     <meta name="description" content="Film list page.">
     <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
-    <title>Films</title>
-	<fmt:setLocale value="en_US" />
+    <title><fmt:message key="filmlist.title"/></title>
 </head>
 <body>
 <f:view>
@@ -30,7 +29,7 @@
         <ul class="nav nav-sidebar">
             <li>
                 <a href="#" onclick="setSeveralAttrForCategory(['categories', 'pageIndex'], ['0', '1'])">
-                    <c:out value="all categories"/>
+                    <c:out value='<fmt:message key="filmlist.allCat"/>'/>
                 </a>
             </li>
             <c:forEach items="${categories.model}" var="current">
@@ -46,21 +45,21 @@
         <div id="buttons">
             <div id="filter-buttons" class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary active" id="all-filter-label">
-                    <input type="radio" id="all-filter" checked> All
+                    <input type="radio" id="all-filter" checked><fmt:message key="filmlist.all"/>
                 </label>
                 <label class="btn btn-primary" id="available-filter-label">
-                    <input type="radio" id="available-filter"> Available
+                    <input type="radio" id="available-filter"><fmt:message key="filmlist.avail"/>
                 </label>
             </div>
             <div id="add-new-film-button">
-                    <a href="controller?command=addNewFilm"><button class="btn btn-success">Add new film</button></a>
+                <a href="controller?command=addNewFilm"><button class="btn btn-success"><fmt:message key="filmlist.addNewFilmbtn"/></button></a>
             </div>
             <div id="search-buttons">
                 <form class="search" role="form" action="controller" method="get">
                     <input type="hidden" name="command" value="fullFilmList"/>
                     <input id="product_search" style = "float: left; width: 88%;" name="key" type="text"class="form-control"
-		                placeholder="Keywords" required="" autofocus="" autocomplete="off" data-provide="typeahead">
-                    <button id="search-button" class="btn btn-primary" type="submit">Search</button>
+                           placeholder='<fmt:message key="filmlist.searchPlaceholder"/>' required="" autofocus="" autocomplete="off" data-provide="typeahead">
+                    <button id="search-button" class="btn btn-primary" type="submit"><fmt:message key="filmlist.search"/></button>
                 </form>
             </div>
         </div>
@@ -69,24 +68,24 @@
             <table id="films-table" class="table table-striped">
                 <thead>
                 <tr>
-                    <th class="name-column" scope="col">Name
+                    <th class="name-column" scope="col"><fmt:message key="filmlist.colName"/>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['name','up'])"><u><i
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['name','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a></th>
-                    <th class="copies-column" scope="col">Copies left
+                    <th class="copies-column" scope="col"><fmt:message key="filmlist.colCopies"/>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['copies','up'])"><u><i
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['copies','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a>
                     </th>
-                    <th class="price-column" scope="col">Price per day
+                    <th class="price-column" scope="col"><fmt:message key="filmlist.colPrice"/>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['price','up'])"><u><i
                                 class="fa fa-arrow-up"></i></u></a>
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['price','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a></th>
-                    <th class="add-column" scope="col">Add to cart</th>
-                    <th class="edit-column" scope="col">Edit</th>
+                    <th class="add-column" scope="col"><fmt:message key="filmlist.colAdd"/></th>
+                    <th class="edit-column" scope="col"><fmt:message key="filmlist.colEdit"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -99,23 +98,23 @@
                         <td style="text-align:center;">
                             <c:choose>
                                 <c:when test="${current.copiesLeft eq 0}">
-                                    <span style="color: #b35a3f;">absent</span>
+                                    <span style="color: #b35a3f;"><fmt:message key="filmlist.absent"/></span>
                                 </c:when>
                                 <c:when test="${uf:isAdded(current.filmId,sessionScope.cart)}">
-                                    <span style="color: #3CB371;">added</span>
+                                    <span style="color: #3CB371;"><fmt:message key="filmlist.added"/></span>
                                 </c:when>
                                 <c:otherwise>
                                     <form method="post" action="controller" style="display: inline;">
                                         <input type="hidden" name="command" value="cartAdd"/>
                                         <input type="hidden" name="returnTo" value="controller?command=fullFilmList"/>
                                         <input type="hidden" name="filmId" value="${current.filmId}"/>
-                                        <input type="submit" style="color: #6495ED; background: none; border: none; cursor: pointer;" value="add"/>
+                                        <input type="submit" style="color: #6495ED; background: none; border: none; cursor: pointer;" value='<fmt:message key="filmlist.addLink"/>'/>
                                     </form>
-                                <%--<a class="add-to-cart-link" href="controller?command=cartAdd&filmId=${current.filmId}">add</a>&nbsp;--%>
+                                    <%--<a class="add-to-cart-link" href="controller?command=cartAdd&filmId=${current.filmId}">add</a>&nbsp;--%>
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td style="text-align:center;"><a href="controller?command=editFilm&filmId=${current.filmId}">edit</a>&nbsp;</td>
+                        <td style="text-align:center;"><a href="controller?command=editFilm&filmId=${current.filmId}"><fmt:message key="filmlist.editLink"/></a>&nbsp;</td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -130,6 +129,8 @@
     </div>
     <div id="footer">
         <jsp:include page="../jspf/footer.jspf"/>
+        <fmt:message key="locale.jspf.current"/>
+        <%@ include file="/WEB-INF/jspf/locale.jspf"%>
     </div>
 </f:view>
 </body>
@@ -141,18 +142,18 @@
 <script src="js/bootstrap-typeahead.js"></script>
 
 <script>
-$(document).ready(function($) {
+    $(document).ready(function($) {
 // Workaround for bug in mouse item selection
-$.fn.typeahead.Constructor.prototype.blur = function() {
-var that = this;
-setTimeout(function () { that.hide() }, 250);
-};
- 
-$('#product_search').typeahead({
-source: function(query, process) {
-return [<c:forEach items="${allFilms.allFilms}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
-}
-});
-})
+        $.fn.typeahead.Constructor.prototype.blur = function() {
+            var that = this;
+            setTimeout(function () { that.hide() }, 250);
+        };
+
+        $('#product_search').typeahead({
+            source: function(query, process) {
+                return [<c:forEach items="${allFilms.allFilms}" var="current">"<c:out value="${current.title}"/>",</c:forEach>];
+            }
+        });
+    })
 </script>
 </html>

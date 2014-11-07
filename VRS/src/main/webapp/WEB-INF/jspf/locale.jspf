@@ -1,36 +1,35 @@
-<%@ include file="/WEB-INF/jspf/page.jspf" %>
-<%@ include file="/WEB-INF/jspf/taglib.jspf" %>
-<div class="side_block">
+<div class="">
     <h4>
         <fmt:message key="locale.jspf.language"/>
     </h4>
-    <div class="subblock">
+
+    <div class="">
         <fmt:message key="locale.jspf.current"/>
-		<span class="emphasis">
-			<c:out value="${sessionScope.user.locale}" />
+		<span>
+			<c:out value="${sessionScope.user.locale}"/>
 		</span>
     </div>
     <form action="controller" method="post">
-        <div class="subblock">
+        <input type="hidden" name="command" value="changeLocale"/>
+        <div class="">
             <fmt:message key="locale.jspf.changeOn"/>
             <select name="newLocale">
                 <c:forEach var="locale" items="${applicationScope.locales}">
                     <c:choose>
                         <c:when test="${sessionScope.user.locale eq locale}">
                             <option selected="selected">
-                                <c:out value="${locale}" />
+                                <c:out value="${locale}"/>
                             </option>
                         </c:when>
                         <c:otherwise>
                             <option>
-                                <c:out value="${locale}" />
+                                <c:out value="${locale}"/>
                             </option>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
             </select>
         </div>
-        <input type="hidden" name="command" value="changeLocale" />
-        <input class="button_av" type="submit" value="<fmt:message key="btn.change"/>">
+        <input class="" type="submit" value="<fmt:message key="btn.change"/>"/>
     </form>
 </div>
