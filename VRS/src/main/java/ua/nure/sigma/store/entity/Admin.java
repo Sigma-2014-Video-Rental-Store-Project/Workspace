@@ -12,7 +12,7 @@ public class Admin {
 	private String email;
 	private int password;
 	private int roleId;
-    private String locale;
+    private int localeId;
 
 	/**
 	 * ID getter.
@@ -96,8 +96,8 @@ public class Admin {
      *
      * @return locale of user.
      */
-    public String getLocale() {
-        return locale;
+    public int getLocale() {
+        return localeId;
     }
 
     /**
@@ -105,7 +105,7 @@ public class Admin {
      *
      * @param locale of user.
      */
-    public void setLocale(String locale) {
-        this.locale = locale;
+    public void setLocale(int locale) {
+        this.localeId = locale;
     }
 }

@@ -53,7 +53,7 @@ public class LoadCartToDBCommand extends Command {
         cart.clear();
         session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
         session.removeAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
-        return Paths.PAGE_VIEW_ORDER_DETAIL;
+        return Paths.COMMAND_ORDER_DETAIL;
     }
     private OrderDetailsView mapToOrderDetailsView(Rent rent, Cart cart){
         return new OrderDetailsView(

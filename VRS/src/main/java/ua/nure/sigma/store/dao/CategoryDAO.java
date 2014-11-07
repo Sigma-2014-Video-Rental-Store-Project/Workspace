@@ -11,8 +11,11 @@ import java.util.List;
  */
 public interface CategoryDAO {
     List<Category> findAllCategory();
+    List<Category> findAllCategory(int local);
+    Category findCategoryByID(int id,int locale);
+    Category findCategoryByID(Connection connection , int id, int locale) throws Exception;
     Category findCategoryByID(int id);
-    Category findCategoryByID(Connection connection , int id);
+    Category findCategoryByID(Connection connection , int id) throws Exception;
 //    Category findCategoryByID(Connection connection, int id)throws SQLException;
     int findCategoryIdByName(String name);
 
