@@ -18,13 +18,7 @@
     <meta name="description" content="Film list page.">
     <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
-<<<<<<< HEAD
-    <title>Films</title>
-
-=======
     <title><fmt:message key="filmlist.title"/></title>
-    <fmt:setLocale value="en_US" />
->>>>>>> 9d211fa46d2b1bd5c254222cf00d926994cd0575
 </head>
 <body>
 <f:view>

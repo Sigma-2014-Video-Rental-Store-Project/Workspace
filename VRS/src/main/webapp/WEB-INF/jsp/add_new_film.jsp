@@ -116,6 +116,7 @@
         </div>
         <div id="footer">
         	<jsp:include page="../jspf/footer.jspf"/>
+            <%@include file="/WEB-INF/jspf/locale.jspf"%>
         </div>
     </f:view>
 </body>
