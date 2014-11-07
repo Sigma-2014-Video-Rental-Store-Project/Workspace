@@ -2,8 +2,7 @@ package ua.nure.sigma.store.web.command.cart;
 
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
-import ua.nure.sigma.store.entity.FilmForRent;
-import ua.nure.sigma.store.entity.Rent;
+import ua.nure.sigma.store.entity.*;
 import ua.nure.sigma.store.logic.Cart;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
@@ -21,7 +20,7 @@ import java.util.*;
 public class LoadCartToDBCommand extends Command {
 
     public static final String CURRENT_RENT_ATTR_NAME = "current_rent";
-
+    public static final String RENT_VIEW_NAME = "rentView";
     private static final long MILLISECONDS_IN_DAY = 86400000;
 
     @Override
@@ -49,11 +48,43 @@ public class LoadCartToDBCommand extends Command {
         DAOFactory.getInstance().getRentDAO().createRent(rent);
 
         // Must be cleaned after checkout.
-        session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);
-
+        //session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);
+        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart));
         cart.clear();
         session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
         session.removeAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
-        return Paths.COMMAND_FULL_FILM_LIST;
+        return Paths.PAGE_VIEW_ORDER_DETAIL;
+    }
+    private OrderDetailsView mapToOrderDetailsView(Rent rent, Cart cart){
+        return new OrderDetailsView(
+                rent.getRentID(),
+                mapCustomerName(cart.getCurrentCustomer()),
+                rent.getRentDate(),
+                mapToRentedFilmView(cart.getContent()),
+                cart.getBonusForRent(),
+                cart.getTotalCost(),
+                cart.getTotalCost()-cart.getBonusForRent()
+        );
+    }
+
+    private String mapCustomerName(Customer customer){
+        return customer.getLastName()+" "
+                + customer.getFirstName().substring(0,1).toUpperCase()
+                +"."
+                +customer.getMiddleName().substring(0,1)
+                +".";
+    }
+    private List<RentedFilmView> mapToRentedFilmView(Map<Film,FilmForRent> rentMap){
+        List<RentedFilmView> filmViews = new ArrayList<RentedFilmView>();
+        for (Map.Entry<Film,FilmForRent> entry : rentMap.entrySet()){
+            filmViews.add(
+                    new RentedFilmView(
+                            entry.getKey().getTitle(),
+                            entry.getValue().getCopies(),
+                            entry.getValue().getFutureDate(),
+                            entry.getKey().getRentPrice()
+                    ));
+        }
+        return filmViews;
     }
 }

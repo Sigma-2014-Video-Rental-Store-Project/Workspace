@@ -82,7 +82,10 @@
 							<p id="text">Bonus account (\$): </p>
 						</div>
 						<div style="float:right; width:60%;">
-							<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:1%;" value='<fmt:formatNumber type="number" minFractionDigits="2" value="${editCustomerObject.bonus/100}"/>'>
+							<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:1%;"
+								   value='<fmt:formatNumber type="number" minFractionDigits="2"
+								   groupingUsed="false"
+								   value="${editCustomerObject.bonus/100}"/>'>
 						</div>
 					</div>
 					<div style="float:left; clear:left; width:100%;">
