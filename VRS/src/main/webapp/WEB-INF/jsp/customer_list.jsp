@@ -25,7 +25,7 @@
     <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
     <title>Customers</title>
-    <fmt:setLocale value="en_US" />
+    <fmt:setLocale value="en_US"/>
 </head>
 <body>
 <f:view>
@@ -52,7 +52,8 @@
             <div id="search-buttons">
                 <form class="search" role="form" action="controller" method="get">
                     <input type="hidden" name="command" value="customerList"/>
-                    <input id="product_search" style = "float: left; width: 88%;" name="key" type="text"class="form-control"
+                    <input id="product_search" style="float: left; width: 88%;" name="key" type="text"
+                           class="form-control"
                            placeholder="Keywords" required="" autofocus="" autocomplete="off" data-provide="typeahead">
                     <button id="search-button" class="btn btn-primary" type="submit">Search</button>
                 </form>
@@ -72,7 +73,8 @@
                     <th class="copies-rented-column" scope="col">Copies rented
                         <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['rentedCopies','up'])"><u><i
                                 class="fa fa-arrow-up"></i></u></a>
-                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['rentedCopies','down'])"><u><i
+                        <a class="sort-icon"
+                           onclick="setSeveralAttr(['sorting','direct'],['rentedCopies','down'])"><u><i
                                 class="fa fa-arrow-down"></i></u></a></th>
 
                     <th class="return-date-column" scope="col">Return date
@@ -93,33 +95,40 @@
                 <tbody>
                 <c:forEach items="${customers.model}" var="current">
                     <c:choose>
-                        <c:when test="${current.leftDays < 4}">
-                            <tr bgcolor="#e0ffff">
+                        <c:when test="${current.leftDays >= 4}">
+                            <tr bgcolor="#ffffffff">
                         </c:when>
-                        <c:when test="${current.leftDays < 3}">
-                            <tr bgcolor="#ffb6c1">
+                        <c:when test="${current.leftDays >= 3}">
+                            <tr bgcolor="#fbff98">
                         </c:when>
-                        <c:when test="${current.leftDays < 2}">
-                            <tr bgcolor="#f08080">
+                        <c:when test="${current.leftDays >= 1}">
+                            <tr bgcolor="#ffd700">
+                        </c:when>
+                        <c:when test="${current.leftDays == 0}">
+                            <tr bgcolor="#ff9600">
                         </c:when>
                         <c:when test="${current.leftDays < 0}">
-                            <tr bgcolor="#808080">
+                            <tr bgcolor="#ff0000">
                         </c:when>
                     </c:choose>
-                        <td><a href="controller?command=customerDetails&customerId=${current.customerID}">${current.lastName}</a></td>
-                        <td><c:out value="${current.copiesRented}"/></td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${current.returnDate == null}">
-                                    <c:out value="No rents"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:out value="${current.returnDate}"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    <td style="text-align:right; padding-right:5%;"><fmt:formatNumber type="CURRENCY" value="${current.bonus/100}"/></td>
-                        <td><a href="controller?command=editCustomer&customerId=${current.customerID}&get=true">edit</a>&nbsp;</td>
+                    <td>
+                        <a href="controller?command=customerDetails&customerId=${current.customerID}">${current.firstName} ${current.lastName}</a>
+                    </td>
+                    <td><c:out value="${current.copiesRented}"/></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${current.returnDate == null}">
+                                <c:out value="No rents"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value="${current.returnDate}"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td style="text-align:right; padding-right:5%;"><fmt:formatNumber type="CURRENCY"
+                                                                                      value="${current.bonus/100}"/></td>
+                    <td class="edit-column value"><a href="controller?command=editCustomer&customerId=${current.customerID}&get=true">edit</a>&nbsp;
+                    </td>
 
                     </tr>
                 </c:forEach>
@@ -145,16 +154,18 @@
 <script src="js/bootstrap-typeahead.js"></script>
 
 <script>
-    $(document).ready(function($) {
+    $(document).ready(function ($) {
 // Workaround for bug in mouse item selection
-        $.fn.typeahead.Constructor.prototype.blur = function() {
+        $.fn.typeahead.Constructor.prototype.blur = function () {
             var that = this;
-            setTimeout(function () { that.hide() }, 250);
+            setTimeout(function () {
+                that.hide()
+            }, 250);
         };
 
         $('#product_search').typeahead({
-            source: function(query, process) {
-                return [<c:forEach items="${customers.model}" var="current">"<c:out value="${current.firstName} ${current.lastName}"/>",</c:forEach>];
+            source: function (query, process) {
+                return [<c:forEach items="${customers.model}" var="current">"<c:out value="${current.firstName} ${current.lastName}"/>", </c:forEach>];
             }
         });
     })

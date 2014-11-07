@@ -25,6 +25,7 @@ public class FimReturnCommand extends Command {
     private static final String RETURN_TO_PAGE_PARAM_NAME = "returnTo";
     public static final String FILM_ID_PARAM_NAME = "filmId";
     public static final String RENT_ID_PARAM_NAME = "rentId";
+    public static final String AMOUNT_OF_FILMS_PARAM_NAME = "amount";
 
     @Override
 
@@ -42,23 +43,29 @@ public class FimReturnCommand extends Command {
 
         String rentIdString = request.getParameter(RENT_ID_PARAM_NAME);
         String filmIdString = request.getParameter(FILM_ID_PARAM_NAME);
+        String amountString = request.getParameter(AMOUNT_OF_FILMS_PARAM_NAME);
 
         int rentId;
         int filmId;
+        int amount;
 
         try {
             filmId = Integer.parseInt(filmIdString);
             rentId = Integer.parseInt(rentIdString);
+            amount = Integer.parseInt(amountString);
         } catch (Exception e) {
-            LOG.error("Cannot parse 'filmId' or 'rentId' as Integer value.", e);
+            LOG.error("Cannot parse 'filmId', 'amount' or 'rentId' as Integer value.", e);
 
             return Paths.PAGE_NO_PAGE;
         }
         
-        LOG.trace("rent id = "+rentId+", film id = "+filmId);
+        LOG.trace("rent id = "+rentId);
+        LOG.trace("film id = "+filmId);
+        LOG.trace("amount  = "+amount);
+
 
         try{
-        DAOFactory.getInstance().getFilmRentedDAO().updateFilmRent(rentId, filmId, 1);
+        DAOFactory.getInstance().getFilmRentedDAO().updateFilmRent(rentId, filmId, amount);
         } catch (Exception e) {
             LOG.error("Something bad happens in DAO", e);
             return Paths.PAGE_NO_PAGE;

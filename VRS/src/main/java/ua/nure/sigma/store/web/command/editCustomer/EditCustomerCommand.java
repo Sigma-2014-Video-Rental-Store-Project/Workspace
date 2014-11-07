@@ -75,6 +75,7 @@ public class EditCustomerCommand extends Command {
             LOG.debug(sex.getSexName());
         }
         request.setAttribute("sexes", paramSexes);
+        request.setAttribute(CUSTOMER_ID_PARAM_NAME, customerIdString);
         request.setAttribute(EDIT_CUSTOMER_OBJECT, customerToEdit);
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("Next film was set as '%s' attribute in the request scope: %s",

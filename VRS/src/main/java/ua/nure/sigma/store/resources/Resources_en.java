@@ -19,7 +19,7 @@ public class Resources_en extends ListResourceBundle {
         { "login.btn", "Sign in"},
         { "login.error", "Wrong login or password"},
         { "filmlist.title", "Films"},
-        { "filmlist.allCat", "<fmt:message key="filmlist."/>"},
+        { "filmlist.allCat", ""},
         { "filmlist.all", "All"},
         { "filmlist.avail", "Available"},
         { "filmlist.addNewFilmbtn", "Add new film"},

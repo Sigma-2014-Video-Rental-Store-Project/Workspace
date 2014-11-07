@@ -11,6 +11,7 @@
     <title>Order details</title>
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/print.css" rel="stylesheet">
 </head>
 <body>
   <div id="header">
@@ -22,7 +23,7 @@
         <span>Order number:</span>
       </div>
       <div class="span5">
-        <span id="order">${rent.rentId}</span>
+        <span id="order">${rentView.rentId}</span>
       </div>
     </div>
 
@@ -31,7 +32,7 @@
           <span>Customer:</span>
         </div>
         <div class="span5">
-          <span id="customer-name">${rent.customerName}</span>
+          <span id="customer-name">${rentView.customerName}</span>
         </div>
       </div>
 
@@ -40,7 +41,7 @@
             <span>Date:</span>
           </div>
           <div class="span5">
-            <span id="date">${rent.rentedDate}</span>
+            <span id="date">${rentView.rentedDate}</span>
           </div>
         </div>
         <div class="row">
@@ -55,7 +56,7 @@
               </tr>
               </thead>
               <tbody>
-              <c:forEach items="${rent.filmViewList}" var="current">
+              <c:forEach items="${rentView.filmViewList}" var="current">
 
                 <td> <c:out value="${current.title}"/></td>
                 <td><c:out value="${current.count}"/></td>
@@ -72,24 +73,28 @@
             <div class="row">
               <div class="span4">TOTAL:</div>
               <div class="span5">
-                <fmt:formatNumber type="CURRENCY" value="${rent.total/100}"/>
+                <fmt:formatNumber type="CURRENCY" value="${rentView.total/100}"/>
               </div>
             </div>
             <div class="row">
               <div class="span4">BONUS:</div>
               <div class="span5">
-                <fmt:formatNumber type="CURRENCY" value="${rent.usedBonus/100}"/>
+                <fmt:formatNumber type="CURRENCY" value="${rentView.usedBonus/100}"/>
               </div>
             </div>
             <div class="row">
               <div class="span4">FOR PAID:</div>
               <div class="span5">
-                <fmt:formatNumber type="CURRENCY" value="${rent.forPaid/100}"/>
+                <fmt:formatNumber type="CURRENCY" value="${rentView.forPaid/100}"/>
               </div>
             </div>
         </div>
 
     </div>
-
+  <div class="row"> <div style="align-self: flex-start">
+    <form>
+      <a href="controller?command=fullFilmList"><button type="button" class="btn btn-default">Cancel</button></a>
+    </form>
+  </div></div>
 </body>
 </html>
