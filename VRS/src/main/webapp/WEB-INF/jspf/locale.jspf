@@ -12,7 +12,7 @@
     <form action="controller" method="post">
         <input type="hidden" name="command" value="changeLocale"/>
         <div class="">
-            <fmt:message key="locale.jspf.changeOn"  bundle="${lang}"/>
+            <fmt:message key="locale.jspf.changeOn"/>
             <select name="newLocale">
                 <c:forEach var="locale" items="${applicationScope.locales}">
                     <c:choose>
@@ -30,6 +30,6 @@
                 </c:forEach>
             </select>
         </div>
-        <input class="button_av" type="submit" value="<fmt:message key="btn.change"/>"  bundle="${lang}"/>
+        <input class="" type="submit" value="<fmt:message key="btn.change"/>"/>
     </form>
 </div>

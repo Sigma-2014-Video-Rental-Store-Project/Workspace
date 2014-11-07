@@ -42,7 +42,7 @@
 
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-        <param-value>package ua.nure.sigma.store.resources</param-value>
+        <param-value>src/main/resources/text</param-value>
     </context-param>
 
     <context-param>

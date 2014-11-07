@@ -19,7 +19,7 @@
     <meta name="author" content="Sergey Laposhko">
     <link rel="icon" href="">
     <title>Films</title>
-    <fmt:setLocale value="en_US" />
+
 </head>
 <body>
 <f:view>
@@ -130,7 +130,8 @@
     </div>
     <div id="footer">
         <jsp:include page="../jspf/footer.jspf"/>
-
+        <fmt:message key="locale.jspf.current"/>
+        <%@ include file="/WEB-INF/jspf/locale.jspf"%>
     </div>
 </f:view>
 </body>
