@@ -2,6 +2,7 @@ package ua.nure.sigma.store.web.command.filmlist;
 
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
+import ua.nure.sigma.store.entity.Admin;
 import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.command.Command;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 public class FilmListCategoryCommand extends Command {
 
+    private  static final String USER_PARAM_NAME = "user";
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String categoriesString = (String) request.getParameter(FilmListCommand.CATEGORIES_PARAM_NAME);
@@ -26,7 +28,9 @@ public class FilmListCategoryCommand extends Command {
         if (categoriesString != null) {
             categoriesId = Integer.parseInt(categoriesString);
         }
-        List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
+        Admin admin = (Admin) request.getSession().getAttribute(USER_PARAM_NAME);
+        List<Category> categories =
+                PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory(admin.getLocale());
         if (categoriesId > 0 && categoriesId <= categories.size()) {
             List<Film> films =
                     DAOFactory.getInstance().getFilmCategoryDAO().findFilmsByCategoryID(categoriesId);
