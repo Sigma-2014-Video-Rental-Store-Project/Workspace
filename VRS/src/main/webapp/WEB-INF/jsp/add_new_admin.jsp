@@ -39,7 +39,7 @@
         </div>
         <div style="width: 40%; float: left; margin: 10px 0; clear:both;">
             <label for="locale" style="float: left;">Locale to set:</label>
-            <select id="locale" name="email" class="form-control" style="float: left;">
+            <select id="locale" name="locale" class="form-control" style="float: left;">
                 <option>en</option>
                 <option>ru</option>
             </select>

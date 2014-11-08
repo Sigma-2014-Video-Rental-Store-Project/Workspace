@@ -1,7 +1,9 @@
 package ua.nure.sigma.store.web.command.addNewAdmin;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.AdminDAO;
 import ua.nure.sigma.store.dao.DAOFactory;
+import ua.nure.sigma.store.dao.LocaleDAO;
 import ua.nure.sigma.store.entity.Admin;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
@@ -23,8 +25,11 @@ public class CreateNewAdminCommand extends Command {
 
     private static final String ERR_MES_PARAM = "errMessage";
 
+    private static final Logger LOG = Logger.getLogger(CreateNewAdminCommand.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        LOG.debug("Command started.");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordRetype = request.getParameter("passwordRetype");
@@ -41,22 +46,26 @@ public class CreateNewAdminCommand extends Command {
             return Paths.COMMAND_ADD_NEW_ADMIN + "&" + ERR_MES_PARAM +
                     "=" + URLEncoder.encode("Specified email is already in use.", "UTF-8");
         }
-        if(password == null || password.isEmpty()){
+        if (password == null || password.isEmpty()) {
             return Paths.COMMAND_ADD_NEW_ADMIN + "&" + ERR_MES_PARAM +
                     "=" + URLEncoder.encode("Specified password must not be empty.", "UTF-8");
         }
-        if(!password.equals(passwordRetype)){
+        if (!password.equals(passwordRetype)) {
             return Paths.COMMAND_ADD_NEW_ADMIN + "&" + ERR_MES_PARAM +
                     "=" + URLEncoder.encode("Two passwords must match each other.", "UTF-8");
         }
-
         admin = new Admin();
         admin.setEmail(email);
+        LOG.trace("Email to set: " + email);
         admin.setPassword(password.hashCode());
-        admin.setLocale(locale);
-        admin.setRoleId(1);
-
+        LocaleDAO localeDAO = daoFactory.getLocaleDAO();
+        System.err.println(localeDAO.findLocaleIdByName(locale));
+        int localeId = localeDAO.findLocaleIdByName(locale);
+        admin.setLocale(localeId);
+        LOG.trace("Locale to set: " + locale);
+        admin.setRoleId(2);
         adminDAO.createAdmin(admin);
+        LOG.debug("Command finished.");
 
         return Paths.COMMAND_ADMIN_LIST;
     }

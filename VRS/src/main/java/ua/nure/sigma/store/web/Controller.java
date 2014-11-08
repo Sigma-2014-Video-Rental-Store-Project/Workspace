@@ -77,7 +77,6 @@ public final class Controller extends HttpServlet {
         if (session.getAttribute(USER_ATTRIBUTE_NAME) != null) {
             return null;
         }
-
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -85,14 +84,13 @@ public final class Controller extends HttpServlet {
                     int id = Integer.parseInt(cookie.getValue());
                     DAOFactory daoFactory = PosgreSqlDAO.getInstance();
                     AdminDAO adminDAO = daoFactory.getAdminDAO();
-                    Admin user = adminDAO.findAdminById(id);
-                    if (user == null) {
+                    Admin admin = adminDAO.findAdminById(id);
+                    if (admin == null) {
                         return Paths.PAGE_NO_PAGE;
                     }
                     session = request.getSession(true);
 
-                    return SignInCommand.setUpAuthorization(session, user, response,
-                            true);
+                    return SignInCommand.setUpAuthorization(session, admin, response, true);
                 }
             }
         }

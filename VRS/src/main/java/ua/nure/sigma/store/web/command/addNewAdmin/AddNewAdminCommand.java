@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.web.command.addNewAdmin;
 
+import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 
