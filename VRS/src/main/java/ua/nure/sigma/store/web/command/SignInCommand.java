@@ -37,6 +37,7 @@ public class SignInCommand extends Command {
     private static final String REMEMBER_ME_PARAMETER_NAME = "remember-me";
     private static final String REMEMBER_ME_PARAMETER_VALUE = "remember";
     private static final String ERROR_CODE_PARAMETER_NAME = "&errorCode=";
+    private static final String LOCALES_LIST_PARAM_NAME = "localesList";
     private static final Logger LOG = Logger.getLogger(SignInCommand.class);
 
     /**
@@ -123,7 +124,7 @@ public class SignInCommand extends Command {
         if (userLocale != null && !userLocale.isEmpty()) {
             Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", userLocale);
         }
-
+        session.setAttribute("localesList",DAOFactory.getInstance().getLocaleDAO().findAlLocale());
         initCart(session);
 
         LOG.debug("Authorization set up process finished.");
