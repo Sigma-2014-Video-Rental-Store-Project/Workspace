@@ -109,7 +109,7 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("cartCancelCustomer", new CancelSelectedCustomer());
         commandKeeper.add("cartUseBonus", new UseBonusCommand());
         commandKeeper.add("cartUpdate", new UpdateCartCommand());
-       // commandKeeper.add("viewOrderDetails", new ViewOrderDetailsCommand());
+       commandKeeper.add("viewOrderDetails", new ViewOrderDetailsCommand());
 
         commandKeeper.add("addNewFilm", new AddNewFilmCommand());
         commandKeeper.add("addNewFilmSave", new AddNewFilmSaveCommand(extensions, validator));

@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao.postgresql;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.SexDAO;
 import ua.nure.sigma.store.entity.Role;
@@ -18,6 +19,8 @@ public class PostgreSqlSexDAO implements SexDAO{
     private static final String SQL_SELECT_FROM_SEX_ALL_SEX = "SELECT * FROM SEX";
     private static final String SQL_SELECT_FROM_SEX_BY_NAME =
             "SELECT * FROM SEX WHERE SEX = ?";
+    private static final Logger LOG = Logger
+            .getLogger(PostgreSqlSexDAO.class);
 
     private Sex extractSex(ResultSet rs) throws SQLException {
         Sex sex = new Sex();

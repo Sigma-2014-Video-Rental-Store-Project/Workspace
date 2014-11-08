@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,18 +8,13 @@
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
 
-    <title>Sign in Video Rental Store</title>
+    <title><fmt:message key="login.title"/></title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="./Signin Template for Bootstrap_files/ie-emulation-modes-warning.js"></script>
-    <style type="text/css"></style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -29,18 +25,17 @@
 
   <body>
     <div class="container">
-
       <form class="form-signin" role="form" action="controller" method="post">
         <input type="hidden" name="command" value="signIn"/>
-        <h2 class="form-signin-heading">Sign in, please.</h2>
-        <input name="email" type="email" class="form-control" placeholder="Email address" required="" autofocus="">
-        <input name="password" type="password" class="form-control" placeholder="Password" required="">
+        <h2 class="form-signin-heading"><fmt:message key="login.CongratText"/></h2>
+        <input name="email" type="email" class="form-control" placeholder='<fmt:message key="login.EmailPlaceholder"/>' required="" autofocus="">
+        <input name="password" type="password" class="form-control" placeholder='<fmt:message key="login.PassPlaceholder"/>' required="">
         <label class="checkbox">
-          <input name="remember-me" type="checkbox" value="remember-me">Remember me
+          <input name="remember-me" type="checkbox" value="remember-me"><fmt:message key="login.remember"/>
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.btn"/></button>
 		<c:if test="${not empty param.errorCode}">
-			<span class="error"><font face="verdana" size="4" color="red">Wrong login or password</font><span>
+			<span class="error"><font face="verdana" size="4" color="red"><fmt:message key="login.error"/>'</font><span>
 		</c:if>
       </form>
 	</div>

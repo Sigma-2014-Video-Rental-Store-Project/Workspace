@@ -20,9 +20,10 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
     private static final String SQL_SELECT_FROM_ADMINS_BY_ID = "SELECT * FROM ADMINS WHERE ADMIN_ID = ?";
     private static final String SQL_SELECT_FROM_ADMINS_ALL_ADMIN = "SELECT * FROM ADMINS";
-    private static final String SQL_INSERT_INTO_ADMINS = "INSERT INTO ADMINS(admin_id,role_id,admin_email,password_hash,locale) VALUES(DEFAULT,?,?,?,DEFAULT)";
+    private static final String SQL_INSERT_INTO_ADMINS = "INSERT INTO ADMINS(admin_id,role_id,admin_email,password_hash,locale_ID" +
+            ") VALUES(DEFAULT,?,?,?,?)";
     private static final String SQL_UPDATE_ADMIN_PASSWORD = "UPDATE ADMINS SET PASSWORD_HASH = ? WHERE ADMIN_ID = ?";
-    private static final String SQL_UPDATE_ADMIN_LOCALE = "UPDATE ADMINS SET LOCALE = ? WHERE ADMIN_ID = ?";
+    private static final String SQL_UPDATE_ADMIN_LOCALE = "UPDATE ADMINS SET LOCALE_ID = ? WHERE ADMIN_ID = ?";
     private static final String SQL_DELETE_ADMIN = "DELETE FROM ADMINS WHERE ADMIN_ID = ?";
     private static final Logger LOG = Logger
             .getLogger(PosgreSqlAdminDAO.class);
@@ -41,7 +42,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
         admin.setEmail(rs.getString("ADMIN_EMAIL"));
         admin.setPassword(rs.getInt("PASSWORD_HASH"));
         admin.setRoleId(rs.getInt("ROLE_ID"));
-        admin.setLocale(rs.getString("LOCALE"));
+        admin.setLocale(rs.getInt("LOCALE_ID"));
         return admin;
     }
 
@@ -143,6 +144,11 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             pstmnt.setInt(position++, admin.getRoleId());
             pstmnt.setString(position++, admin.getEmail());
             pstmnt.setInt(position++, admin.getPassword());
+            if (admin.getLocale()!=0){
+                pstmnt.setInt(position++,admin.getLocale());
+            }else {
+                pstmnt.setString(position++, "DEFAULT");
+            }
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
@@ -183,7 +189,7 @@ public class PosgreSqlAdminDAO implements AdminDAO{
             connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_UPDATE_ADMIN_LOCALE);
             int position = 1;
-            pstmnt.setString(position++, admin.getLocale());
+            pstmnt.setInt(position++, admin.getLocale());
             pstmnt.setInt(position, admin.getId());
             pstmnt.execute();
         } catch (Exception e) {

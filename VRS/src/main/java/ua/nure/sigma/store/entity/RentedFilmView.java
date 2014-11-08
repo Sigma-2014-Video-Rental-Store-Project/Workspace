@@ -34,4 +34,20 @@ public class RentedFilmView {
     public long getPrice() {
         return price;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setAcceptedDate(Date acceptedDate) {
+        this.acceptedDate = acceptedDate;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
 }

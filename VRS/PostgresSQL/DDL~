@@ -14,7 +14,7 @@ CREATE TABLE ADMINS
     ADMIN_ID    bigserial primary key,
     ROLE_ID     bigint not null,
     ADMIN_EMAIL VARCHAR(40) UNIQUE not null,
-    PASSWORD_HASH,
+    PASSWORD_HASH
     foreign key (ROLE_ID) references ROLES (ROLE_ID) ON UPDATE CASCADE ON DELETE SET NULL
 );
 

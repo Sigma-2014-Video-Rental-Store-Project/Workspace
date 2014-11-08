@@ -46,4 +46,5 @@ public final class Paths {
     public static final String COMMAND_ADMIN_LIST = "controller?command=adminList";
     public static final String COMMAND_CUSTOMER_LIST = "controller?command=customerList";
     public static final String COMMAND_ADD_NEW_ADMIN = "controller?command=addNewAdmin";
+    public static final String COMMAND_ORDER_DETAIL = "controller?command=viewOrderDetails";
 }
