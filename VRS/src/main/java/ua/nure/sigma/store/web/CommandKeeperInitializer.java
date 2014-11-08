@@ -7,6 +7,8 @@ import ua.nure.sigma.store.web.command.ChangeLocaleCommand;
 import ua.nure.sigma.store.web.command.LogOutCommand;
 import ua.nure.sigma.store.web.command.SignInCommand;
 import ua.nure.sigma.store.web.command.WrongCommand;
+import ua.nure.sigma.store.web.command.addNewAdmin.AddNewAdminCommand;
+import ua.nure.sigma.store.web.command.addNewAdmin.CreateNewAdminCommand;
 import ua.nure.sigma.store.web.command.addNewCustomer.AddNewCustomerCommand;
 import ua.nure.sigma.store.web.command.addNewCustomer.CreateCustomerCommand;
 import ua.nure.sigma.store.web.command.addNewFilm.AddNewFilmCommand;
@@ -129,6 +131,9 @@ public final class CommandKeeperInitializer {
         commandKeeper.add("changeAdminPassword", new ChangeAdminPasswordCommand());
 
         commandKeeper.add("changeLocale", new ChangeLocaleCommand());
+
+        commandKeeper.add("addNewAdmin", new AddNewAdminCommand());
+        commandKeeper.add("createNewAdmin", new CreateNewAdminCommand());
     }
 
 }
