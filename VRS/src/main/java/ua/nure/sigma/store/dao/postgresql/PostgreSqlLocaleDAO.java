@@ -59,7 +59,7 @@ public class PostgreSqlLocaleDAO implements LocaleDAO {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
             pstmnt = connection
-                    .prepareStatement(SQL_SELECT_FROM_LOCALE_BY_NAME);
+                    .prepareStatement(SQL_SELECT_FROM_LOCALE_BY_ID);
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
