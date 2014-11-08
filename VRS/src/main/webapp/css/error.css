@@ -1,0 +1,25 @@
+#error {
+	top: 50%;
+	left: 50%;
+	background-color: #006699;
+	width: 650px;
+	height: 350px;
+	margin-top: -175px;
+	margin-left: -325px;
+	position: absolute;
+	border: solid 2px #1f2407;
+	border-radius: 20px;
+	text-align: left;
+	font-size: 1.2em;
+	padding: 15px 15px;
+}
+
+
+#error > ul {
+	margin: 10px 5px;
+}
+
+#error > ul > li {
+	margin: 10px 10px;
+	padding: 0 10px;
+}
