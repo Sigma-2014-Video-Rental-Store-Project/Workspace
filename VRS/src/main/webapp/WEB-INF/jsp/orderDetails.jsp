@@ -17,7 +17,7 @@
   <div id="header">
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
   </div>
-  <div id="center-content-area" style="width:  595pt">
+  <div id="center-content-area" style="width: 210mm">
     <div class="row">
       <div class="span4">
         <span>Order number:</span>

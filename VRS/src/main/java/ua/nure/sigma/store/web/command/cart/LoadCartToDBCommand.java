@@ -49,10 +49,10 @@ public class LoadCartToDBCommand extends Command {
 
         // Must be cleaned after checkout.
         //session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);
-        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart));
-        cart.clear();
         session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
         session.removeAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
+        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart));
+        cart.clear();
         return Paths.COMMAND_ORDER_DETAIL;
     }
     private OrderDetailsView mapToOrderDetailsView(Rent rent, Cart cart){
