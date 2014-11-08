@@ -14,32 +14,27 @@ import java.util.Locale;
  */
 public class FilmRentPriceCondition implements Condition {
 
-    private static final long RENT_PRICE_LIMIT = 0;
+    public static final long RENT_PRICE_LIMIT = 0;
+    public static final String EMPTY_RENTAL_PRICE = "The rent price of the film must not be empty.";
+    public static final String SMALL_RENTAL_PRICE = "The rent price of the film must not be lower or equals to " + RENT_PRICE_LIMIT + ".";
+    public static final String INCORRECT_RENTAL_PRICE = "The rent price of the film must be correct integer value.";
 
     @Override
     public String validate(String attribute) {
         if (attribute.isEmpty()) {
-            return "The rent price of the film must not be empty.";
+            return EMPTY_RENTAL_PRICE;
         }
         try {
-//            int rentPrice = (int) Double.parseDouble(attribute) * 100;
-
-           // attribute = "32,00";
-            System.out.println(attribute);
-
             Locale fmtLocale = Locale.getDefault();
             NumberFormat formatter = NumberFormat.getInstance(fmtLocale);
             long rentPrice =  (long)formatter.parse(attribute).doubleValue()*100;
             if (rentPrice < RENT_PRICE_LIMIT) {
-                return "The rent price of the film must not be lower or equals to " + RENT_PRICE_LIMIT + ".";
+                return SMALL_RENTAL_PRICE;
             }
-        } catch (NumberFormatException ex) {
-            return "The rent price of the film must be correct integer value.";
         } catch (ParseException e) {
-            e.printStackTrace();
+            return INCORRECT_RENTAL_PRICE;
         }
 
-        System.out.println("ok");
         return null;
     }
 

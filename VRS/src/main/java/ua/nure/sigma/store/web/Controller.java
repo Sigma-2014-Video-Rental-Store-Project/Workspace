@@ -129,41 +129,29 @@ public final class Controller extends HttpServlet {
     private void process(HttpServletRequest request,
                          HttpServletResponse response, boolean redirect) throws IOException,
             ServletException {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Controller started.");
-        }
+        LOG.debug("Controller started.");
 
         // Extracts command name from the request.
         String commandName = request.getParameter("command");
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("Request parameter: command --> " + commandName);
-        }
+        LOG.trace("Request parameter: command --> " + commandName);
 
         // Obtains command object by its name.
         Command command = commandKeeper.get(commandName);
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("Obtained command --> " + command);
-        }
+        LOG.trace("Obtained command --> " + command);
 
         // Executes command and gets forward address.
         String forward = command.execute(request, response);
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("Forward address --> " + forward);
-        }
+        LOG.trace("Forward address --> " + forward);
 
         if (redirect) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Controller finished, redirection on --> " + forward);
-            }
+            LOG.debug("Controller finished, redirection on --> " + forward);
             response.sendRedirect(forward);
         } else {
 
             // If the forward address is not 'null', then go to the address.
             if (forward != null) {
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("Controller finished, forward on --> " + forward);
-                    LOG.debug("Query string --> " + request.getQueryString());
-                }
+                LOG.debug("Controller finished, forward on --> " + forward);
+                LOG.debug("Query string --> " + request.getQueryString());
                 RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
                 dispatcher.forward(request, response);
             }
