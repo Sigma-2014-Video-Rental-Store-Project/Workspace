@@ -100,7 +100,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
-            pstmnt = connection.prepareStatement(SQL_SELECT_FROM_CATEGORIES_BY_ID_LOCALE);
+            pstmnt = connection.prepareStatement(SQL_SELECT_FROM_CATEGORIES_LOCALE);
             pstmnt.setInt(1,locale);
             rs = pstmnt.executeQuery();
             while (rs.next()) {
