@@ -10,15 +10,17 @@ import ua.nure.sigma.store.validator.Condition;
  */
 public class FilmDescriptionCondition implements Condition {
 
-    private static final int MAX_DESCRIPTION_LENGTH = 360;
+    public static final int MAX_DESCRIPTION_LENGTH = 360;
+    public static final String EMPTY_DESCRIPTION = "The description of the film must not be empty.";
+    public static final String TOO_BIG_DESCRIPTION = "The description of the film must not be greater than " + MAX_DESCRIPTION_LENGTH + " symbols.";
 
     @Override
     public String validate(String attribute) {
         if (attribute.isEmpty()) {
-            return "The description of the film must not be empty.";
+            return EMPTY_DESCRIPTION;
         }
         if (attribute.length() > MAX_DESCRIPTION_LENGTH) {
-            return "The description of the film must not be greater than " + MAX_DESCRIPTION_LENGTH + " symbols.";
+            return TOO_BIG_DESCRIPTION;
         }
 
         return null;

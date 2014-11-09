@@ -6,7 +6,13 @@
     <div class="">
         <fmt:message key="locale.jspf.current"/>
 		<span>
-			<c:out value="${sessionScope.user.locale}"/>
+            <c:forEach var="locale" items="${sessionScope.localesList}">
+                    <c:choose>
+                        <c:when test="${sessionScope.user.locale eq locale.localeId}">
+                            <c:out value="${locale.name}"/>
+                        </c:when>
+                    </c:choose>
+            </c:forEach>
 		</span>
     </div>
     <form action="controller" method="post">
@@ -14,16 +20,16 @@
         <div class="">
             <fmt:message key="locale.jspf.changeOn"/>
             <select name="newLocale">
-                <c:forEach var="locale" items="${applicationScope.locales}">
+                <c:forEach var="locale" items="${sessionScope.localesList}">
                     <c:choose>
-                        <c:when test="${sessionScope.user.locale eq locale}">
+                        <c:when test="${sessionScope.user.locale eq locale.localeId}">
                             <option selected="selected">
-                                <c:out value="${locale}"/>
+                                <c:out value="${locale.name}"/>
                             </option>
                         </c:when>
                         <c:otherwise>
                             <option>
-                                <c:out value="${locale}"/>
+                                <c:out value="${locale.name}"/>
                             </option>
                         </c:otherwise>
                     </c:choose>

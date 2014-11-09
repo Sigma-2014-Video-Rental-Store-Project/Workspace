@@ -28,8 +28,7 @@ import java.util.List;
 public class EditFilmCommand extends Command {
 
     public static final String FILM_ID_PARAM_NAME = "filmId";
-
-    private static final String EDIT_FILM_OBJECT = "editFilmObject";
+    public static final String EDIT_FILM_OBJECT = "editFilmObject";
 
     private static final Logger LOG = Logger.getLogger(EditFilmCommand.class);
 

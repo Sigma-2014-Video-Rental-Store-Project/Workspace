@@ -14,31 +14,28 @@ import java.util.Locale;
  */
 public class FilmGeneralPriceCondition implements Condition {
 
-	private static final long GENERAL_PRICE_LIMIT = 0;
+	public static final long GENERAL_PRICE_LIMIT = 0;
+    public static final String EMPTY_GENERAL_PRICE = "The general price of the film must not be empty.";
+    public static final String SMALL_GENERAL_PRICE = "The general price of the film must not be lower or equals to "
+            + GENERAL_PRICE_LIMIT + ".";
+    public static final String INCORRECT_GENERAL_PRICE = "The general price of the film must be correct integer value.";;
 
-	@Override
+    @Override
 	public String validate(String attribute) {
 		if (attribute.isEmpty()) {
-			return "The general price of the film must not be empty.";
+			return EMPTY_GENERAL_PRICE;
 		}
 		try {
-			// to cent
-			// attribute = "32,00";
-			System.out.println(attribute);
 			Locale fmtLocale = Locale.getDefault();
 			NumberFormat formatter = NumberFormat.getInstance(fmtLocale);
 			long generalPrice = (long) formatter.parse(attribute).doubleValue() * 100;
-			// int generalPrice = (int) Double.parseDouble(attribute) * 100;
 			if (generalPrice < GENERAL_PRICE_LIMIT) {
-				return "The general price of the film must not be lower or equals to "
-						+ GENERAL_PRICE_LIMIT + ".";
+				return SMALL_GENERAL_PRICE;
 			}
-		} catch (NumberFormatException ex) {
-			return "The general price of the film must be correct integer value.";
 		} catch (ParseException e) {
-			return "Incorrect locale";
+			return INCORRECT_GENERAL_PRICE;
 		}
-		System.out.println("ok");
+
 		return null;
 	}
 }

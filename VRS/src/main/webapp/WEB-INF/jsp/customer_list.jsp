@@ -99,16 +99,16 @@
                             <tr bgcolor="#ffffffff">
                         </c:when>
                         <c:when test="${current.leftDays >= 3}">
-                            <tr bgcolor="#fbff98">
+                            <tr bgcolor="#c0ffc0">
                         </c:when>
                         <c:when test="${current.leftDays >= 1}">
-                            <tr bgcolor="#ffd700">
+                            <tr bgcolor="#ffffcc">
                         </c:when>
                         <c:when test="${current.leftDays == 0}">
-                            <tr bgcolor="#ff9600">
+                            <tr bgcolor="#ffffa0">
                         </c:when>
                         <c:when test="${current.leftDays < 0}">
-                            <tr bgcolor="#ff0000">
+                            <tr bgcolor="#ffb7b7">
                         </c:when>
                     </c:choose>
                     <td>

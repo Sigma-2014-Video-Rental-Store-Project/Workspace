@@ -37,11 +37,13 @@ public class ChangeLocaleCommand extends Command {
 
         String newLocale = request.getParameter(LOCALE_PARAM_NAME);
         LOG.trace("Admin " + admin.getId() + " locale: " + admin.getLocale());
-        admin.setLocale(newLocale);
+        admin.setLocale(DAOFactory.getInstance().getLocaleDAO().findLocaleIdByName(newLocale));
         adminDAO.updateAdminLocale(admin);
-        LOG.trace("Update admins " + admin.getId() + " locale to: " + admin.getLocale());
+        LOG.trace("Update admins " + admin.getId() + " locale to: " +
+                DAOFactory.getInstance().getLocaleDAO().findLocaleNameById(admin.getLocale()));
         LOG.debug(adminDAO.findAdminById(admin.getId()).getLocale());
-        Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", admin.getLocale());
+        Config.set(session, "javax.servlet.jsp.jstl.fmt.locale",
+                DAOFactory.getInstance().getLocaleDAO().findLocaleNameById(admin.getLocale()));
         return Paths.COMMAND_FULL_FILM_LIST;
     }
 }

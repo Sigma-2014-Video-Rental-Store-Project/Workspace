@@ -39,18 +39,15 @@
         </button>
         <a style="float: left; width: 12%; min-width: 120px; margin-left: 3%;"
                 class="btn btn-success"
-
-                <%-- Remove stub. --%>
-                onclick="alert('Will be implemented further.')"
-                href="#">
+                href="controller?command=addNewAdmin">
             Add new admin
         </a>
     </form>
 </div>
 
-<c:if test="${not empty sessionScope.errorMessageCAPC}">
+<c:if test="${not empty param.messageCAPC}">
     <div style="padding: 0 10%; color: #a9453f; text-align: center; margin-bottom: 10px;">
-        ${sessionScope.errorMessageCAPC}
+        ${param.messageCAPC}
     </div>
 </c:if>
 

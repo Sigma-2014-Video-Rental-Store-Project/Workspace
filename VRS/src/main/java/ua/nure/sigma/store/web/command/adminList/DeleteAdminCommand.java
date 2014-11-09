@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * This command must be processed by POST method call.
@@ -20,7 +21,7 @@ import java.io.IOException;
  */
 public class DeleteAdminCommand extends Command {
 
-    private static final String ADMIN_ID_PARAM_NAME = "adminId";
+    public static final String ADMIN_ID_PARAM_NAME = "adminId";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -30,6 +31,9 @@ public class DeleteAdminCommand extends Command {
         AdminDAO adminDAO = daoFactory.getAdminDAO();
         adminDAO.deleteAdmin(adminDAO.findAdminById(adminId));
 
-        return Paths.COMMAND_ADMIN_LIST;
+        return Paths.COMMAND_ADMIN_LIST + "&" +
+                ChangeAdminPasswordCommand.MESSAGE_ATTRIBUTE_NAME +
+                "=" + URLEncoder.encode("Admin with ID = " +
+                adminId + " has been deleted.", "UTF-8");
     }
 }

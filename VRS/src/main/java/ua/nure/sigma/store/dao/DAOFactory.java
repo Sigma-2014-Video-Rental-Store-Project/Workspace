@@ -1,6 +1,5 @@
 package ua.nure.sigma.store.dao;
 
-import javax.net.ssl.SSLSocketFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
@@ -49,7 +48,7 @@ public abstract class DAOFactory {
     public abstract FilmCategoryDAO getFilmCategoryDAO();
     public abstract SexDAO getSexDAO();
     public abstract FilmRentedDAO getFilmRentedDAO();
-
+    public abstract LocaleDAO getLocaleDAO();
     public static void commitAndClose(Connection connection) {
 //        LOG.trace("Commit and close operation starts.");
         if (connection != null) {

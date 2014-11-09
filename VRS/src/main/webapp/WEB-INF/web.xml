@@ -69,4 +69,61 @@
         <servlet-name>Controller</servlet-name>
     </filter-mapping>
 
+    <filter>
+        <filter-name>CommandAccessFilter</filter-name>
+        <filter-class>ua.nure.sigma.store.web.filter.CommandAccessFilter</filter-class>
+        <init-param>
+            <param-name>admin</param-name>
+            <param-value>
+                adminList
+                addNewAdmin
+                deleteAdmin
+                changeAdminPassword
+                createNewAdmin
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>common</param-name>
+            <param-value>
+                wrong
+                logout
+                fullFilmList
+                customerList
+                editFilm
+                editFilmRemove
+                editFilmSave
+                filmDetails
+                cartDetails
+                cartSearch
+                cartContinue
+                cartAdd
+                cartClear
+                cartRemove
+                cartCancelCustomer
+                cartUseBonus
+                cartUpdate
+                viewOrderDetails
+                addNewFilm
+                addNewFilmSave
+                editCustomer
+                editCustomerSave
+                editCustomerRemove
+                addNewCustomer
+                addNewCustomerSave
+                customerDetails
+                returnFilm
+                changeLocale
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>out-of-control</param-name>
+            <param-value>signIn</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CommandAccessFilter</filter-name>
+        <servlet-name>Controller</servlet-name>
+    </filter-mapping>
+
 </web-app>

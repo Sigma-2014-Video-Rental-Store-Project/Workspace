@@ -28,7 +28,7 @@
 	  <form action="controller"  id="form" method="post" enctype="multipart/form-data">
                  <input type="hidden" id="customerCommand"  name="command" value="editCustomerSave" />
 				 <input type="hidden" name="customerId" value="${editCustomerObject.customerID}" />
-			     <div id=leftside>
+			     <div id="leftside">
 				    <div id="bordered" style="margin-bottom:2%;">
 					    <img id="cover" data-src="holder.js/140x140" class="center" src="customerPhoto/${editCustomerObject.customerPhoto}" >
 				    </div>
@@ -36,7 +36,7 @@
 				        Browse...<input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
 				    </span>
 			    </div>
-			    <div id=rightside>
+			    <div id="rightside">
 					<div style="float:left; width:100%;">
 						<div style="float:left;">
 							<p id="text">First name: </p>

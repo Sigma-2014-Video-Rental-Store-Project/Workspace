@@ -50,4 +50,9 @@ public class PosgreSqlDAO extends DAOFactory {
     public FilmRentedDAO getFilmRentedDAO() {
         return new PostgreSqlFimsRentedDAO();
     }
+
+    @Override
+    public LocaleDAO getLocaleDAO() {
+        return new PostgreSqlLocaleDAO();
+    }
 }

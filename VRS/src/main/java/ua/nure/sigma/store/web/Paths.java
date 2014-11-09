@@ -32,6 +32,7 @@ public final class Paths {
     public static final String PAGE_CUSTOMER_DETAILS = "/WEB-INF/jsp/customer_details.jsp";
     public static final String PAGE_ADMIN_LIST = "/WEB-INF/jsp/admin_list.jsp";
     public static final String PAGE_VIEW_ORDER_DETAIL = "/WEB-INF/jsp/orderDetails.jsp";
+    public static final String PAGE_ADD_NEW_ADMIN = "/WEB-INF/jsp/add_new_admin.jsp";
 
     // Paths of the server command keys:
     public static final String COMMAND_SIGN_IN = "controller?command=signIn";
@@ -44,4 +45,6 @@ public final class Paths {
     public static final String COMMAND_CUSTOMER_DETAILS = "controller?command=customerDetails";
     public static final String COMMAND_ADMIN_LIST = "controller?command=adminList";
     public static final String COMMAND_CUSTOMER_LIST = "controller?command=customerList";
+    public static final String COMMAND_ADD_NEW_ADMIN = "controller?command=addNewAdmin";
+    public static final String COMMAND_ORDER_DETAIL = "controller?command=viewOrderDetails";
 }
