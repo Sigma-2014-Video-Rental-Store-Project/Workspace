@@ -19,5 +19,4 @@ public interface AdminDAO {
     void deleteAdmin(Admin admin);
     void updateAdminLocale(Admin admin);
 
-
 }
