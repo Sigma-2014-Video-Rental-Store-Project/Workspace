@@ -1,4 +1,4 @@
 @media print {
     .btn .btn-default .btn-default .buttons a#link div#header button#cancel {display: none; }
-    .content { display: none;width: 210mm;}
+    div#content { width: 210mm;}
 }

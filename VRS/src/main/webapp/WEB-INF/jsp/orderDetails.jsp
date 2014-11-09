@@ -17,7 +17,7 @@
   <link href="css/print.css" rel="stylesheet">
 </head>
 <body>
-<div class="content">
+<div id="content" style="max-width: 50%">
   <%--
   <div id="header">
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
@@ -64,9 +64,9 @@
         <tbody>
         <c:forEach items="${sessionScope.rentView.filmViewList}" var="current">
 
-          <td> ${current.title}"</td>
-          <td><${current.count}"</td>
-          <td> ${current.acceptedDate}</td>
+          <td>${current.title}</td>
+          <td>${current.count}</td>
+          <td><fm:formatDate type="date" value="${current.acceptedDate}"></fm:formatDate> </td>
           <td style="text-align:right; padding-right:5%;">
             <fmt:formatNumber type="CURRENCY" value="${current.price/100}"/>
           </td>
