@@ -38,6 +38,7 @@ public class LoadCartToDBCommand extends Command {
             return Paths.COMMAND_CART_DETAILS;
         }
         if(cart.getContent().size() == 0){
+            LOG.debug("cart is empty");
             session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
             session.removeAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
             return Paths.COMMAND_FULL_FILM_LIST;
