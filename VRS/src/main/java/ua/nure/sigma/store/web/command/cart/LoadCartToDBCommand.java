@@ -49,23 +49,24 @@ public class LoadCartToDBCommand extends Command {
         }
         rent.setFilmList(list);
         DAOFactory.getInstance().getRentDAO().createRent(rent);
-
+        Long bonusInUse = Long.parseLong(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
+        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart,bonusInUse));
         // Must be cleaned after checkout.
         //session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);
         session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
         session.removeAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
-        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart));
+
         cart.clear();
         return Paths.COMMAND_ORDER_DETAIL;
     }
-    private OrderDetailsView mapToOrderDetailsView(Rent rent, Cart cart){
+    private OrderDetailsView mapToOrderDetailsView(Rent rent, Cart cart, long usedBonus){
         LOG.debug("Start map to OrderDetailsView");
         return new OrderDetailsView(
                 rent.getRentID(),
                 mapCustomerName(cart.getCurrentCustomer()),
                 rent.getRentDate(),
                 mapToRentedFilmView(cart.getContent()),
-                cart.getBonusForRent(),
+                usedBonus,
                 cart.getTotalCost(),
                 cart.getTotalCost()-cart.getBonusForRent()
         );

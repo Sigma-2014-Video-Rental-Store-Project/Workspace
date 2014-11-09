@@ -52,6 +52,33 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
     }
 
     @Override
+    public List<Category> findCategoriesByFilmID(int id, int localeID) {
+        List<Category> categories = new ArrayList<Category>();
+        Connection connection = null;
+        PreparedStatement pstmnt = null;
+        ResultSet rs = null;
+        CategoryDAO categoryDAO = DAOFactory.getInstance().getCategoryDAO();
+        try {
+            connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
+            pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_CATEGORIES_CATEGORIES_BY_FILM_ID);
+            pstmnt.setInt(1, id);
+            rs = pstmnt.executeQuery();
+            while (rs.next()) {
+                categories.add(categoryDAO.findCategoryByID(connection, rs.getInt("CATEGORY_ID"),localeID));
+            }
+        } catch (Exception e) {
+//            LOG.error("Can not obtain User by id.", e);
+        } finally {
+            DAOFactory.close(pstmnt);
+            DAOFactory.close(rs);
+            DAOFactory.commitAndClose(connection);
+        }
+        return categories;
+    }
+
+
+    @Override
     public List<Category> findCategoriesByFilmID(int id) {
         List<Category> categories = new ArrayList<Category>();
         Connection connection = null;
@@ -76,6 +103,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
         }
         return categories;
     }
+
 
     @Override
     public void createFilmCategory(Film film, Category category, Connection connection) throws SQLException {

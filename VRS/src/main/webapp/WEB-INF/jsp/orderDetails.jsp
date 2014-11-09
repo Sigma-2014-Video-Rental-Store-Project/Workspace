@@ -61,9 +61,9 @@
         <tbody>
         <c:forEach items="${sessionScope.rentView.filmViewList}" var="current">
 
-          <td> <c:out value="${current.title}"/></td>
-          <td><c:out value="${current.count}"/></td>
-          <td> <c:out value="${current.acceptedDate}"/></td>
+          <td> ${current.title}"</td>
+          <td><${current.count}"</td>
+          <td> ${current.acceptedDate}</td>
           <td style="text-align:right; padding-right:5%;">
             <fmt:formatNumber type="CURRENCY" value="${current.price/100}"/>
           </td>
