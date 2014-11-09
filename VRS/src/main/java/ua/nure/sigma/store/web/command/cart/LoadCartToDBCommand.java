@@ -105,6 +105,7 @@ public class LoadCartToDBCommand extends Command {
                             entry.getKey().getRentPrice()
                     ));
             LOG.debug(entry.getKey().getTitle());
+            LOG.debug( entry.getValue().getFutureDate());
             LOG.debug(entry.getValue().getCopies());
         }
         LOG.debug("mapped film Views");
