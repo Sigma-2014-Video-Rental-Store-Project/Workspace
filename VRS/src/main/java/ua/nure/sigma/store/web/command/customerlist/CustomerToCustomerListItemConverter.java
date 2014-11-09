@@ -26,23 +26,22 @@ public class CustomerToCustomerListItemConverter {
         FilmRentedDAO filmRentedDAO = DAOFactory.getInstance().getFilmRentedDAO();
         Date today = new Date();
 
-        //testLog(customers, listItems);TODO
-
         for (Customer customer : customers) {
             int copiesRented = 0;
             Date minReturnDate = null;
 
             for (Rent rent : rentDAO.findRentByCustomerID(customer.getCustomerID())) {
                 for (FilmForRent filmForRent : filmRentedDAO.findFilmRentedByRentID(rent.getRentID())) {
-                    Date rentDate = filmForRent.getFutureDate(); // TODO
-                    if (rentDate != null && rentDate.compareTo(today) > 0) {
+                    Date mustReturnDate = filmForRent.getFutureDate();
+                    Date returnedDate = filmForRent.getAcceptedDate();
+                    if (mustReturnDate != null && returnedDate == null) {
                         copiesRented++; //Count of copies rented increases.
 
                         if (minReturnDate == null) // If we have no minDate, then set any return date that is more then today
-                            minReturnDate = rentDate;
+                            minReturnDate = mustReturnDate;
                         else {
-                            if (rentDate.compareTo(minReturnDate) < 0)
-                                minReturnDate = rentDate;
+                            if (mustReturnDate.compareTo(minReturnDate) < 0)
+                                minReturnDate = mustReturnDate;
                         }
 
                     }
@@ -54,6 +53,12 @@ public class CustomerToCustomerListItemConverter {
         }
     }
 
+    /**
+     * This function is convertFromCustomersToCustomerListItems with LOGs and without committing result. Use it if you want to
+     * debug.
+     * @param customers list of customers that are the base for items.
+     * @param listItems result list.
+     */
     private static void testLog(List<Customer> customers, List<CustomerListItem> listItems) {
         RentDAO rentDAO = DAOFactory.getInstance().getRentDAO();
         FilmRentedDAO filmRentedDAO = DAOFactory.getInstance().getFilmRentedDAO();
@@ -72,19 +77,22 @@ public class CustomerToCustomerListItemConverter {
                     System.out.println("filmForRentList == 0 for rentid = " + rent.getRentID());
                 }
                 for (FilmForRent filmForRent : filmForRentList) {
-                    Date rentDate = filmForRent.getFutureDate(); // TODO
+                    Date mustReturnDate = filmForRent.getFutureDate();
+                    Date returnDate = filmForRent.getAcceptedDate();
                     System.out.println("---customer id = " + customer.getCustomerID());
-                    System.out.println("---rent date = " + rent.getRentDate());
+                    System.out.println("---rent start date = " + rent.getRentDate());
+                    System.out.println("---mustReturnDate = " + mustReturnDate);
+                    System.out.println("---returnDate = " + returnDate);
                     System.out.println("---film for rentID  = " + filmForRent.getFilmID());
                     System.out.println("----");
-                    if (rentDate.compareTo(today) > 0) {
+                    if (mustReturnDate.compareTo(today) > 0) {
                         copiesRented++; //Count of copies rented increases.
 
                         if (minReturnDate == null) // If we have no minDate, then set any return date that is more then today
-                            minReturnDate = rentDate;
+                            minReturnDate = mustReturnDate;
                         else {
-                            if (rentDate.compareTo(minReturnDate) < 0)
-                                minReturnDate = rentDate;
+                            if (mustReturnDate.compareTo(minReturnDate) < 0)
+                                minReturnDate = mustReturnDate;
                         }
 
                     }
@@ -93,7 +101,6 @@ public class CustomerToCustomerListItemConverter {
             System.out.println("+++copies = " + copiesRented);
             System.out.println("+++rent date = " + minReturnDate);
             CustomerListItem item = new CustomerListItem(customer, minReturnDate, copiesRented);
-            //listItems.add(item);
         }
     }
 
