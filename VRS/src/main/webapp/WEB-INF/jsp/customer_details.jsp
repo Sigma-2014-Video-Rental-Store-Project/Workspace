@@ -116,7 +116,7 @@
                                 <form method="post" action="controller" style="display: inline;">
                                 <input type="hidden" name="copiesLeft" value="${current.copiesLeft}"/>
                                     <td class="copies-column">
-                                        <input type="number" name="amount" class="copies-number form-control"
+                                        <input type="number" required="" name="amount" class="copies-number form-control"
                                                style="margin-bottom:2%; margin-left:3%;" min="1"
                                                max="${current.copiesLeft}" value="${current.copiesLeft}">/${current.copiesLeft}
                                     </td>

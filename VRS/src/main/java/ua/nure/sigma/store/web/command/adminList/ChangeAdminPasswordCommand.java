@@ -25,10 +25,9 @@ import java.net.URLEncoder;
 public class ChangeAdminPasswordCommand extends Command {
 
     public static final String MESSAGE_ATTRIBUTE_NAME = "messageCAPC";
-
-    private static final String ADMIN_ID_PARAM_NAME = "adminId";
-    private static final String ADMIN_PASSWORD_PARAM_NAME = "password";
-    private static final String ADMIN_PASSWORD_RETYPE_PARAM_NAME = "passwordRetype";
+    public static final String ADMIN_ID_PARAM_NAME = "adminId";
+    public static final String ADMIN_PASSWORD_PARAM_NAME = "password";
+    public static final String ADMIN_PASSWORD_RETYPE_PARAM_NAME = "passwordRetype";
 
     private static final Logger LOG = Logger.getLogger(ChangeAdminPasswordCommand.class);
 
@@ -48,7 +47,6 @@ public class ChangeAdminPasswordCommand extends Command {
         if (errorMessage != null) {
             returnTo += "&" + MESSAGE_ATTRIBUTE_NAME + "=" + URLEncoder.encode(errorMessage, "UTF-8");
         } else {
-            request.getSession().removeAttribute(ChangeAdminPasswordCommand.MESSAGE_ATTRIBUTE_NAME);
             DAOFactory daoFactory = DAOFactory.getInstance();
             AdminDAO adminDAO = daoFactory.getAdminDAO();
             Admin admin = adminDAO.findAdminById(adminId);
@@ -65,9 +63,6 @@ public class ChangeAdminPasswordCommand extends Command {
     private String validatePassword(String password, String retype) {
         if (password == null || password.isEmpty()) {
             return "Empty password field";
-        }
-        if (retype == null || retype.isEmpty()) {
-            return "Empty retype password field";
         }
         if (!password.equals(retype)) {
             return "Passwords do not match each other.";

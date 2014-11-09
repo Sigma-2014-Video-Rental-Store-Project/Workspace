@@ -21,7 +21,7 @@ import java.net.URLEncoder;
  */
 public class DeleteAdminCommand extends Command {
 
-    private static final String ADMIN_ID_PARAM_NAME = "adminId";
+    public static final String ADMIN_ID_PARAM_NAME = "adminId";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

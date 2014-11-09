@@ -20,7 +20,6 @@ public class CommandAccessFilter implements Filter {
 
 	private static final Logger LOG = Logger.getLogger(CommandAccessFilter.class);
 
-	// Commands access.
 	private List<String> adminOnly = new ArrayList<String>();
 	private List<String> commons = new ArrayList<String>();
 	private List<String> outOfControl = new ArrayList<String>();
@@ -80,19 +79,29 @@ public class CommandAccessFilter implements Filter {
 
 		// Gets session (do not creates it if not exists).
 		HttpSession session = httpRequest.getSession(false);
+
+        // Processed by Controller directly.
 		if (session == null) {
 			return null;
 		}
 		Admin user = (Admin) session.getAttribute("user");
+
+        // Processed by Controller directly.
 		if (user == null) {
 			return null;
 		}
+
+        // If authorized user wants to sign in again.
 		if (outOfControl.contains(commandName)) {
 			return Paths.PAGE_NO_PAGE;
 		}
-		if (adminOnly.contains(commandName) && user.getId() == 1) {
+
+        // If admin only request.
+		if (adminOnly.contains(commandName) && user.getRoleId() == 1) {
 			return null;
 		}
+
+        // If general request.
         if(commons.contains(commandName)){
             return null;
         }
@@ -102,6 +111,7 @@ public class CommandAccessFilter implements Filter {
             return Paths.COMMAND_FULL_FILM_LIST;
         }
 
+        // If cannot access specified resource.
         return Paths.PAGE_NO_PAGE;
 	}
 
