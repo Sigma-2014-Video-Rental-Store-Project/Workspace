@@ -3,6 +3,7 @@ package ua.nure.sigma.store.web.command.cart;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.*;
+import ua.nure.sigma.store.exeption.NotEnoughOfBonusExeption;
 import ua.nure.sigma.store.logic.Cart;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
@@ -46,6 +47,13 @@ public class LoadCartToDBCommand extends Command {
         }
         rent.setFilmList(list);
         DAOFactory.getInstance().getRentDAO().createRent(rent);
+        long bonusDelta = (Long)session.getAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
+        try {
+            cart.getCurrentCustomer().addBonus(-bonusDelta);
+        } catch (NotEnoughOfBonusExeption notEnoughOfBonusExeption) {
+            throw new RuntimeException(notEnoughOfBonusExeption);
+        }
+        DAOFactory.getInstance().getCustomerDAO().updateCustomer(cart.getCurrentCustomer());
 
         // Must be cleaned after checkout.
         //session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);

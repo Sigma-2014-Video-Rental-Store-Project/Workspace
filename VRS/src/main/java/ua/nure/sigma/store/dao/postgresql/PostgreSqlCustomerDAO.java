@@ -23,7 +23,7 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
     private static final String SQL_SELECT_FROM_CUSTOMERS_ALL_CUSTOMER = "SELECT * FROM CUSTOMERS";
     private static final String SQL_INSERT_INTO_CUSTOMERS = "INSERT INTO CUSTOMERS (customer_id,LAST_NAME , FIRST_NAME , MIDLE_NAME , CUSTOMER_EMAIL, CUSTOMER_PHONE , SEX_ID, CUSTOMER_PHOTO, BONUS) VALUES(DEFAULT,?,?,?,?,?,?,?,?) RETURNING CUSTOMER_ID";
     private static final String SQL_UPDATE_CUSTOMERS =
-            "UPDATE FILMS SET LAST_NAME = ?, FIRST_NAME =?, MIDLE_NAME =?, CUSTOMER_EMAIL =?, CUSTOMER_PHONE =?, SEX_ID =?, CUSTOMER_PHOTO=?, BONUS =? WHERE CUSTOMER_ID = ?";
+            "UPDATE CUSTOMERS SET LAST_NAME = ?, FIRST_NAME =?, MIDLE_NAME =?, CUSTOMER_EMAIL =?, CUSTOMER_PHONE =?, SEX_ID =?, CUSTOMER_PHOTO=?, BONUS = ? WHERE CUSTOMER_ID = ?";
     private static final String SQL_DELETE_CUSTOMER = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
     private static final Logger LOG = Logger
             .getLogger(PostgreSqlCustomerDAO.class);
@@ -185,9 +185,9 @@ public class PostgreSqlCustomerDAO implements CustomerDAO{
             connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_UPDATE_CUSTOMERS);
             int position = 1;
-            setupPrepareStatement(pstmnt,customer,position);
-            pstmnt.setInt(position++, customer.getCustomerID());
-            pstmnt.execute();
+            position = setupPrepareStatement(pstmnt,customer,position);
+            pstmnt.setInt(position, customer.getCustomerID());
+            pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
            LOG.error("Can not update User's block.", e);
