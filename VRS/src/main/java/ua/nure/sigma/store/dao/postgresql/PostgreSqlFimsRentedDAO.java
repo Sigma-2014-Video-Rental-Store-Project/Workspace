@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao.postgresql;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.FilmRentedDAO;
 import ua.nure.sigma.store.entity.Film;
@@ -22,7 +23,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
     private static final String SQL_INSERT_INTO_FILM_AT_RENTED = "INSERT INTO FILM_AT_RENT VALUES(?,?,?,?,NULL,?)";
     private static final String SQL_UPDATE_FILM_RENTED = "UPDATE FILM_AT_RENT SET COPIES_LEFT = ? WHERE RENT_ID =? AND FILM_ID = ?";
     private static final String SQL_CLOSE_FILM_RENT = "UPDATE FILM_AT_RENT SET ACCEPTED_DATE = CURRENT_DATE, COPIES_LEFT = 0 WHERE RENT_ID = ? AND FILM_ID = ?";
-
+    private static final Logger LOG = Logger.getLogger(PostgreSqlFimsRentedDAO.class);
 
     private FilmForRent extractFilm(ResultSet rs) throws SQLException {
         FilmForRent film = new FilmForRent();
@@ -121,8 +122,8 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
+            LOG.error("Can not obtain User by login.", e);
             throw new Exception();
-//            LOG.error("Can not obtain User by login.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);

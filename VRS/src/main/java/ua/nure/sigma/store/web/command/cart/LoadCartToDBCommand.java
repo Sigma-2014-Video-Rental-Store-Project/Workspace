@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.web.command.cart;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.*;
@@ -22,6 +23,8 @@ public class LoadCartToDBCommand extends Command {
     public static final String CURRENT_RENT_ATTR_NAME = "current_rent";
     public static final String RENT_VIEW_NAME = "rentView";
     private static final long MILLISECONDS_IN_DAY = 86400000;
+    private static final Logger LOG = Logger.getLogger(LoadCartToDBCommand.class);
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -46,28 +49,31 @@ public class LoadCartToDBCommand extends Command {
         }
         rent.setFilmList(list);
         DAOFactory.getInstance().getRentDAO().createRent(rent);
-
+        Long bonusInUse = Long.parseLong(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
+        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart,bonusInUse));
         // Must be cleaned after checkout.
         //session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);
         session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
         session.removeAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
-        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart));
+
         cart.clear();
         return Paths.COMMAND_ORDER_DETAIL;
     }
-    private OrderDetailsView mapToOrderDetailsView(Rent rent, Cart cart){
+    private OrderDetailsView mapToOrderDetailsView(Rent rent, Cart cart, long usedBonus){
+        LOG.debug("Start map to OrderDetailsView");
         return new OrderDetailsView(
                 rent.getRentID(),
                 mapCustomerName(cart.getCurrentCustomer()),
                 rent.getRentDate(),
                 mapToRentedFilmView(cart.getContent()),
-                cart.getBonusForRent(),
+                usedBonus,
                 cart.getTotalCost(),
                 cart.getTotalCost()-cart.getBonusForRent()
         );
     }
 
     private String mapCustomerName(Customer customer){
+        LOG.debug("Srart map Cutomer name");
         return customer.getLastName()+" "
                 + customer.getFirstName().substring(0,1).toUpperCase()
                 +"."
@@ -75,6 +81,7 @@ public class LoadCartToDBCommand extends Command {
                 +".";
     }
     private List<RentedFilmView> mapToRentedFilmView(Map<Film,FilmForRent> rentMap){
+        LOG.debug("Start map film view");
         List<RentedFilmView> filmViews = new ArrayList<RentedFilmView>();
         for (Map.Entry<Film,FilmForRent> entry : rentMap.entrySet()){
             filmViews.add(
@@ -84,7 +91,10 @@ public class LoadCartToDBCommand extends Command {
                             entry.getValue().getFutureDate(),
                             entry.getKey().getRentPrice()
                     ));
+            LOG.debug(entry.getKey().getTitle());
+            LOG.debug(entry.getValue().getCopies());
         }
+        LOG.debug("mapped film Views");
         return filmViews;
     }
 }
