@@ -169,7 +169,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
             category = findCategoryByID(connection, id, locale);
         } catch (Exception e) {
 //            DAOFactory.rollback(connection);
-            LOG.error("Can not find Category by id.", e);
+            LOG.error("Can not find Category by id and locale", e);
          } finally {
             DAOFactory.commitAndClose(connection);
         }
@@ -185,7 +185,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
         try {
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_CATEGORIES_BY_ID_LOCALE);
             pstmnt.setInt(1, id);
-            pstmnt.setInt(1, locale);
+            pstmnt.setInt(2, locale);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 category = extractCategory(rs);
