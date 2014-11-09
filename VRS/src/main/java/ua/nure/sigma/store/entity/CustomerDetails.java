@@ -47,12 +47,16 @@ public class CustomerDetails {
         film.setTitle(name);
     }
 
-    public Date getEndDate() {
+    public Date getAcceptedDate() {
         return filmForRent.getAcceptedDate();
     }
 
-    public void setEndDate(Date endDate) {
+    public void setAcceptedDate(Date endDate) {
         filmForRent.setAcceptedDate(endDate);
+    }
+
+    public Date getFutureDate(){
+        return filmForRent.getFutureDate();
     }
 
     public Date getStartDate() {

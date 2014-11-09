@@ -69,56 +69,80 @@
                                 class="fa fa-arrow-down"></i></u></a>
                     </th>
                     <th class="end-date-column" scope="col">End date
-                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['endDate','up'])"><u><i
-                                class="fa fa-arrow-up"></i></u></a>
-                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['endDate','down'])"><u><i
-                                class="fa fa-arrow-down"></i></u></a></th>
-                    <th class="days-left-column" scope="col">Days left
-                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['daysLeft','up'])"><u><i
-                                class="fa fa-arrow-up"></i></u></a>
-                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['daysLeft','down'])"><u><i
-                                class="fa fa-arrow-down"></i></u></a></th>
-                    <th class="return-column" scope="col">Amount</th>
-                    <th class="return-column" scope="col">Copies left</th>
-                    <th class="return-column" scope="col">Return</th>
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['endDate','up'])"><i
+                                class="fa fa-arrow-up"></i></a>
+                        <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['endDate','down'])"><i
+                                class="fa fa-arrow-down"></i></a></th>
+                    <c:choose>
+                        <c:when test="${filter == 'history'}">
+                            <th class="amount-column" scope="col">Amount</th>
+                            <th class="copies-left-column" scope="col">Copies left</th>
+                            <th class="status-column" scope="col">Status
+                                <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['status','up'])"><i
+                                        class="fa fa-arrow-up"></i></a>
+                                <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['status','down'])"><i
+                                        class="fa fa-arrow-down"></i></a></th>
+                            </th>
+                        </c:when>
+                        <c:otherwise>
+                            <th class="days-left-column" scope="col">Days left
+                                <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['daysLeft','up'])"><u><i
+                                        class="fa fa-arrow-up"></i></u></a>
+                                <a class="sort-icon" onclick="setSeveralAttr(['sorting','direct'],['daysLeft','down'])"><u><i
+                                        class="fa fa-arrow-down"></i></u></a></th>
+                            <th class="copies-left-column" scope="col">Copies left</th>
+                            <th class="status-column" scope="col">Return</th>
+                        </c:otherwise>
+                    </c:choose>
                 </tr>
                 </thead>
                 <tbody>
 
                 <c:forEach items="${customerDetailsList.model}" var="current">
                     <tr>
-                        <td>${current.name}</td>
-                        <td><c:out value="${current.startDate}"/></td>
-                        <td>
+                        <td class="name-column-value">${current.name}</td>
+                        <td class="start-date-column-value"><c:out value="${current.startDate}"/></td>
+                        <td class="end-date-column-value">
                             <c:choose>
-                                <c:when test="${current.endDate == null}">
-                                    <c:out value="not returned"/>
+                                <c:when test="${current.futureDate == null}">
+                                    <c:out value="No date"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:out value="${current.endDate}"/>
+                                    <c:out value="${current.futureDate}"/>
                                 </c:otherwise>
                             </c:choose>
                         </td>
                         <c:choose>
                             <c:when test="${filter == 'history'}">
-                                <td class="days-left-column-value"><c:out value="returned"/></td>
-                                <td class="days-left-column-value"><c:out value="${current.filmForRent.copies}"/></td>
-                                <c:choose>
-                                        <c:when test="${current.daysLeft!=null}">
-                                            <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
+                                <td class="amount-column-value"><c:out value="${current.filmForRent.copies - current.copiesLeft}/${current.filmForRent.copies}"/></td>
+                                <td class="copies-left-column-value">
+                                    <c:choose>
+                                        <c:when test="${current.copiesLeft!=null}">
+                                            <c:out value="${current.copiesLeft}"/>
                                         </c:when>
-                                </c:choose>
-                                <td class="return-column-value"><c:out value="returned"/></td>
+                                    </c:choose>
+                                </td>
+                                <td class="status-column-value">
+                                    <c:choose>
+                                        <c:when test="${current.acceptedDate == null}">
+                                            <c:out value="Rented"></c:out>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:out value="Returned"></c:out>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                             </c:when>
                             <c:otherwise>
                                 <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
-                                <td class="days-left-column-value"><c:out value="${current.filmForRent.copies}"/></td>
                                 <form method="post" action="controller" style="display: inline;">
-                                <input type="hidden" name="copiesLeft" value="${current.copiesLeft}"/>
-                                    <td class="copies-column">
-                                        <input type="number" required="" name="amount" class="copies-number form-control"
+                                    <input type="hidden" name="copiesLeft" value="${current.copiesLeft}"/>
+                                    <td class="copies-lef-column">
+                                        <input type="number" required="" name="amount"
+                                               class="copies-number form-control"
                                                style="margin-bottom:2%; margin-left:3%;" min="1"
-                                               max="${current.copiesLeft}" value="${current.copiesLeft}">/${current.copiesLeft}
+                                               max="${current.copiesLeft}"
+                                               value="${current.copiesLeft}">/${current.copiesLeft}
                                     </td>
                                     <td class="return-column-value">
                                         <input type="hidden" name="command" value="returnFilm"/>
@@ -128,7 +152,7 @@
                                         <input type="hidden" name="rentId" value="${current.rent.rentID}"/>
                                         <input type="submit"
                                                style="color: #6495ED; background: none; border: none; cursor: pointer;"
-                                               value="return"/>
+                                               value="Return"/>
                                     </td>
                                 </form>
                             </c:otherwise>
