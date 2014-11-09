@@ -2,6 +2,7 @@ package ua.nure.sigma.store.web.command.filmdetails;
 
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
+import ua.nure.sigma.store.entity.Admin;
 import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.command.Command;
@@ -17,17 +18,24 @@ import java.util.List;
  * Created by Vlad Samotskiy on 18.10.14.
  */
 public class FilmDetailsFillCommand extends Command {
+	private  static final String USER_PARAM_NAME = "user";
+	
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String filmIDString = request.getParameter(FilmDetailsCommand.FILMID_PARAM_NAME);
 		List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
+		Admin admin = (Admin) request.getSession().getAttribute(USER_PARAM_NAME);
+		System.out.println("locale=" + admin.getLocale());
         int filmId = 0;
         Film film = new Film();
         try {
             if (filmIDString != null) {
                 filmId = Integer.parseInt(filmIDString);
                 film = DAOFactory.getInstance().getFilmDAO().findFilmById(filmId);
-				List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId);
+				List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId,admin.getLocale());
+				for (Category c : categoryOfCurrentFilmList) {
+					System.out.println(c.getName());
+				}
 				String cat = "";
 				for(int i = 0; i < categoryOfCurrentFilmList.size(); i++){
 					if(i<categoryOfCurrentFilmList.size()-1){

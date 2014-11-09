@@ -3,6 +3,7 @@ package ua.nure.sigma.store.web.command.editfilm;
 import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
+import ua.nure.sigma.store.entity.Admin;
 import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Film;
 import ua.nure.sigma.store.web.Paths;
@@ -29,6 +30,7 @@ public class EditFilmCommand extends Command {
 
     public static final String FILM_ID_PARAM_NAME = "filmId";
     public static final String EDIT_FILM_OBJECT = "editFilmObject";
+    private  static final String USER_PARAM_NAME = "user";
 
     private static final Logger LOG = Logger.getLogger(EditFilmCommand.class);
 
@@ -72,12 +74,14 @@ public class EditFilmCommand extends Command {
 
             return Paths.PAGE_NO_PAGE;
         }
-
-        List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
+        
+        Admin admin = (Admin) request.getSession().getAttribute(USER_PARAM_NAME);
+        List<Category> categories =
+                PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory(admin.getLocale());
         Categories paramCategories = new Categories(categories);
         request.setAttribute("categories", paramCategories);
-
-        List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId);
+        
+        List<Category> categoryOfCurrentFilmList = DAOFactory.getInstance().getFilmCategoryDAO().findCategoriesByFilmID(filmId,admin.getLocale());
         Categories categoryOfCurrentFilm = new Categories(categoryOfCurrentFilmList);
         request.setAttribute("filmCategory", categoryOfCurrentFilm);
 

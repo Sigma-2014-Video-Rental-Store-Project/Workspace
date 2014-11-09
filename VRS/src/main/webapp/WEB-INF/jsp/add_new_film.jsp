@@ -30,12 +30,12 @@
                  <input type="hidden" name="command" value="addNewFilmSave" />
 			     <div id=leftside>
 				    <p id="text"><fmt:message key="addfilm.name"/></p>
-				    <input type="text" name="filmTitle" class="form-control" style="margin-bottom:2%;">
+				    <input type="text" name="filmTitle" class="form-control" style="margin-bottom:2%;"/>
 				    <div id="bordered" style="margin-bottom:2%;">
-					    <img id="cover" data-src="holder.js/140x140" class="center" src="filmCovers/0.jpg" >
+					    <img id="cover" data-src="holder.js/140x140" class="center" src="filmCovers/0.jpg" />
 				    </div>
 				    <span class="btn btn-primary btn-file">
-				        <fmt:message key="addfilm.browse"/><input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);">
+				        <fmt:message key="addfilm.browse"/><input type="file" id="inputFile" name="inputFile" onChange="setUpCoverRepresentation(this);"/>
 				    </span>
 			    </div>
 			    <div id=rightside>
@@ -56,7 +56,7 @@
 							    <p id="text"><fmt:message key="addfilm.copies"/> </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max="150" value="0">
+							    <input type="number" name="amount" class="form-control" style="margin-bottom:2%; margin-left:3%;" min="0" max="150" value="0"/>
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
@@ -64,7 +64,7 @@
 									<p id="text"><fmt:message key="addfilm.genPrice"/></p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input type="text" name="generalPrice" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+									<input type="text" name="generalPrice" class="form-control" style="margin-bottom:2%; margin-left:3%;"/>
 								</div>
 						</div>
 					</div>
@@ -74,7 +74,7 @@
 							    <p id="text"><fmt:message key="addfilm.rentPrice"/> </p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;">
+							    <input name="rentPrice" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"/>
 						    </div>
 						</div>
 						<div style="float:right; width:45%; max-width:45%;">
@@ -83,7 +83,7 @@
 									<p id="text" ><fmt:message key="addfilm.bonus"/></p>
 								</div>
 								<div style="float:right; width:30%;">
-									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"  value="">
+									<input name="bonus" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;"  value=""/>
 								</div>
 						</div>
 					</div>
@@ -93,7 +93,7 @@
 							    <p id="text"><fmt:message key="addfilm.year"/></p>
 						    </div>
 						    <div style="float:right; width:30%">
-							    <input name="year" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value="">
+							    <input name="year" type="text" class="form-control" style="margin-bottom:2%; margin-left:3%;" value=""/>
 						    </div>
 						</div>
 					</div>
@@ -108,14 +108,15 @@
 						</div>
 					</div>
 					<c:if test="${not empty errorMessage}">
-                        <div class="error" style="margin-top: 130px;"><font face="verdana" size="4" color="red">${errorMessage}</font><div>
+                        <div class="error" style="margin-top: 130px;"><font face="verdana" size="4" color="red">${errorMessage}</font></div>
                     </c:if>
 			    </div>
 			</form>
         </div>
         <div id="footer">
         	<jsp:include page="../jspf/footer.jspf"/>
-            <%@include file="/WEB-INF/jspf/locale.jspf"%>
+        	<fmt:message key="locale.jspf.current"/>
+        	<%@ include file="/WEB-INF/jspf/locale.jspf"%>
         </div>
     </f:view>
 </body>
