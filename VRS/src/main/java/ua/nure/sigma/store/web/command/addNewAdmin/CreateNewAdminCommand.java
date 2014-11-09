@@ -23,7 +23,7 @@ import java.net.URLEncoder;
  */
 public class CreateNewAdminCommand extends Command {
 
-    private static final String ERR_MES_PARAM = "errMessage";
+    public static final String ERR_MES_PARAM = "errMessage";
 
     private static final Logger LOG = Logger.getLogger(CreateNewAdminCommand.class);
 
@@ -59,7 +59,6 @@ public class CreateNewAdminCommand extends Command {
         LOG.trace("Email to set: " + email);
         admin.setPassword(password.hashCode());
         LocaleDAO localeDAO = daoFactory.getLocaleDAO();
-        System.err.println(localeDAO.findLocaleIdByName(locale));
         int localeId = localeDAO.findLocaleIdByName(locale);
         admin.setLocale(localeId);
         LOG.trace("Locale to set: " + locale);
