@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
 import ua.nure.sigma.store.entity.*;
+import ua.nure.sigma.store.exeption.NotEnoughOfBonusExeption;
 import ua.nure.sigma.store.logic.Cart;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
@@ -52,17 +53,17 @@ public class LoadCartToDBCommand extends Command {
         }
         rent.setFilmList(list);
         DAOFactory.getInstance().getRentDAO().createRent(rent);
-        Locale fmtLocale = Locale.getDefault();
-        NumberFormat formatter = NumberFormat.getInstance(fmtLocale);
-        long bonusInUse
-                = 0;
-        try {
-            bonusInUse = (long) formatter.parse((String) session.getAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME)).longValue();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart,bonusInUse));
+        long bonusDelta = (Long)session.getAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
+        try {
+            cart.getCurrentCustomer().addBonus(-bonusDelta);
+        } catch (NotEnoughOfBonusExeption notEnoughOfBonusExeption) {
+            throw new RuntimeException(notEnoughOfBonusExeption);
+        }
+        DAOFactory.getInstance().getCustomerDAO().updateCustomer(cart.getCurrentCustomer());
+
+        session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart,bonusDelta));
+
         // Must be cleaned after checkout.
         //session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);
         session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
