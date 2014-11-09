@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao.postgresql;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.*;
 import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.entity.Film;
@@ -17,12 +18,14 @@ public class PostgreSqlRentDAO implements RentDAO {
 
     private static final String SQL_SELECT_FROM_RENTS_CUSTOMER_BY_RENT_ID = "SELECT * FROM RENT WHERE RENT_ID = ?";
     private static final String SQL_SELECT_FROM_RENTS_RENTS__BY_CUSTOMER_ID = "SELECT * FROM RENT WHERE CUSTOMER_ID =?";
-    private static final String SQL_INSERT_INTO_RENTS = "INSERT INTO RENT(RENT_ID, CUSTOMER_ID, RENTED_DATE)  VALUES(DEFAULT,?,CURRENT_DATE) RETURNING RENT_ID; ";
+    private static final String SQL_INSERT_INTO_RENTS = "INSERT INTO RENT(RENT_ID, CUSTOMER_ID, RENTED_DATE)  VALUES(DEFAULT,?,CURRENT_DATE) RETURNING RENT_ID, RENTED_DATE";
     private static final String SQL_UPDATE_RENTS=
             "UPDATE RENT SET  ACCEPTED_DATE = now() WHERE CUSTOMER_ID = ? AND FILM_ID = ?";
     private static final String SQL_UPDATE_RENT_FILM_COPY=
             "UPDATE RENT SET  COUNT = ? WHERE CUSTOMER_ID = ? AND FILM_ID = ?";
 
+
+    private static final Logger LOG = Logger.getLogger(PostgreSqlRentDAO.class);
     private Rent extractRent(ResultSet rs, Connection connection) throws SQLException {
         Rent rent = new Rent();
         rent.setCustomerID(rs.getInt("CUSTOMER_ID"));
@@ -47,12 +50,16 @@ public class PostgreSqlRentDAO implements RentDAO {
             pstmnt.setInt(position++,rent.getCustomerID());
             rs = pstmnt.executeQuery();
             if (rs.next()){
-                currentID = rs.getLong(1);
+                rent.setRentID(rs.getLong("RENT_ID"));
+                LOG.debug(rent.getRentID());
+                rent.setRentDate(rs.getDate("RENTED_DATE"));
+                LOG.debug(rent.getRentDate());
             }
-            DAOFactory.getInstance().getFilmRentedDAO().createFilmsRented(currentID, rent.getFilmList(),connection);
+            DAOFactory.getInstance().getFilmRentedDAO().createFilmsRented(rent.getRentID(), rent.getFilmList(),connection);
+
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not add new client.", e);
+            LOG.error("Can not create rent.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
