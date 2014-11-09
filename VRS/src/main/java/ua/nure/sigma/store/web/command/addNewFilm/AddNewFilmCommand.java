@@ -3,6 +3,7 @@ package ua.nure.sigma.store.web.command.addNewFilm;
 import org.apache.log4j.Logger;
 
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
+import ua.nure.sigma.store.entity.Admin;
 import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 public class AddNewFilmCommand extends Command{
 	 public static final String FILM_ID_PARAM_NAME = "filmId";
+	 private  static final String USER_PARAM_NAME = "user";
 
 	    private static final Logger LOG = Logger.getLogger(AddNewFilmCommand.class);
 
@@ -34,7 +36,9 @@ public class AddNewFilmCommand extends Command{
 	                          HttpServletResponse response) throws IOException, ServletException {
 	        LOG.debug("AddNewFilmCommand started.");
 	        
-	        List<Category> categories = PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory();
+	        Admin admin = (Admin) request.getSession().getAttribute(USER_PARAM_NAME);
+	        List<Category> categories =
+	                PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory(admin.getLocale());
 	        Categories paramCategories = new Categories(categories);
 	        request.setAttribute("categories", paramCategories);
 

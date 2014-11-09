@@ -29,7 +29,7 @@
         <ul class="nav nav-sidebar">
             <li>
                 <a href="#" onclick="setSeveralAttrForCategory(['categories', 'pageIndex'], ['0', '1'])">
-                    <c:out value='<fmt:message key="filmlist.allCat"/>'/>
+                    <fmt:message key="filmlist.allCat"/>
                 </a>
             </li>
             <c:forEach items="${categories.model}" var="current">
@@ -59,7 +59,7 @@
                     <input type="hidden" name="command" value="fullFilmList"/>
                     <input id="product_search" style = "float: left; width: 88%;" name="key" type="text"class="form-control"
                            placeholder='<fmt:message key="filmlist.searchPlaceholder"/>' required="" autofocus="" autocomplete="off" data-provide="typeahead">
-                    <button id="search-button" class="btn btn-primary" type="submit"><fmt:message key="filmlist.search"/></button>
+                    <button id="search-button" class="btn btn-primary" type="submit"><fmt:message key="filmlist.searchbtn"/></button>
                 </form>
             </div>
         </div>
@@ -94,7 +94,7 @@
                     <tr>
                         <td><a href="controller?command=filmDetails&filmId=${current.filmId}">${current.title}</a></td>
                         <td style="text-align:center;"><c:out value="${current.copiesLeft}"/></td>
-                        <td style="text-align:right; padding-right:5%;"><fmt:formatNumber type="CURRENCY" value="${current.rentPrice/100}"/></td>
+                        <td style="text-align:right; padding-right:5%;">\$<fmt:formatNumber type="number" minFractionDigits="2" value="${current.rentPrice/100}"/></td>
                         <td style="text-align:center;">
                             <c:choose>
                                 <c:when test="${current.copiesLeft eq 0}">
