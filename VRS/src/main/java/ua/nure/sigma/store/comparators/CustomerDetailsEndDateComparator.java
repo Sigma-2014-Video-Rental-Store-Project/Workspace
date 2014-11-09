@@ -11,12 +11,12 @@ public class CustomerDetailsEndDateComparator implements Comparator<CustomerDeta
 
     @Override
     public int compare(CustomerDetails o1, CustomerDetails o2) {
-        if (o1.getEndDate() == null && o2.getEndDate() == null)
+        if (o1.getFutureDate() == null && o2.getFutureDate() == null)
             return 0;
-        if (o1.getEndDate() == null)
+        if (o1.getFutureDate() == null)
             return -1;
-        if (o2.getEndDate() == null)
+        if (o2.getFutureDate() == null)
             return 1;
-        return o1.getEndDate().compareTo(o2.getEndDate());
+        return o1.getFutureDate().compareTo(o2.getFutureDate());
     }
 }
