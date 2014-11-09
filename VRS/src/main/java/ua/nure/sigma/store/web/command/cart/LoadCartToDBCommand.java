@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.*;
+import java.util.Locale;
 
 /**
  * Created by Maksim Sinkevich on 24.10.2014.
@@ -49,7 +52,16 @@ public class LoadCartToDBCommand extends Command {
         }
         rent.setFilmList(list);
         DAOFactory.getInstance().getRentDAO().createRent(rent);
-        Long bonusInUse = Long.parseLong(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
+        Locale fmtLocale = Locale.getDefault();
+        NumberFormat formatter = NumberFormat.getInstance(fmtLocale);
+        long bonusInUse
+                = 0;
+        try {
+            bonusInUse = (long) formatter.parse((String) session.getAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME)).longValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         session.setAttribute(RENT_VIEW_NAME, mapToOrderDetailsView(rent,cart,bonusInUse));
         // Must be cleaned after checkout.
         //session.setAttribute(CURRENT_RENT_ATTR_NAME, rent);
