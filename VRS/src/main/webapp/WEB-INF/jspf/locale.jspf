@@ -1,25 +1,9 @@
-<div class="">
-    <h4>
-        <fmt:message key="locale.jspf.language"/>
-    </h4>
-
-    <div class="">
-        <fmt:message key="locale.jspf.current"/>
-		<span>
-            <c:forEach var="locale" items="${sessionScope.localesList}">
-                    <c:choose>
-                        <c:when test="${sessionScope.user.locale eq locale.localeId}">
-                            <c:out value="${locale.name}"/>
-                        </c:when>
-                    </c:choose>
-            </c:forEach>
-		</span>
-    </div>
+<div class="collapse navbar-collapse">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="changeLocale"/>
-        <div class="">
-            <fmt:message key="locale.jspf.changeOn"/>
-            <select name="newLocale">
+
+        <p class="text-muted"><fmt:message key="locale.jspf.changeOn"/>
+            <select class="form-control bfh-languages" name="newLocale">
                 <c:forEach var="locale" items="${sessionScope.localesList}">
                     <c:choose>
                         <c:when test="${sessionScope.user.locale eq locale.localeId}">
@@ -35,7 +19,7 @@
                     </c:choose>
                 </c:forEach>
             </select>
-        </div>
-        <input class="" type="submit" value="<fmt:message key="btn.change"/>"/>
+            <input class="btn btn-default" type="submit" value="<fmt:message key="btn.change"/>"/>
+        </p>
     </form>
 </div>
