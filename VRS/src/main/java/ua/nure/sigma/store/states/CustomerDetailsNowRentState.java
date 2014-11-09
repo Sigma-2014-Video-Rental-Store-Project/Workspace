@@ -14,7 +14,7 @@ public class CustomerDetailsNowRentState implements IListFilterState<CustomerDet
     public List<CustomerDetails> getFilteredList(List<CustomerDetails> list) {
         List<CustomerDetails> res = new ArrayList<CustomerDetails>();
         for (CustomerDetails cd : list) {
-            if (cd.getEndDate() == null) {
+            if (cd.getAcceptedDate() == null) {
                 res.add(cd);
             }
         }
