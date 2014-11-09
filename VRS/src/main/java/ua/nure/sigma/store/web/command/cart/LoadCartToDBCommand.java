@@ -26,7 +26,6 @@ public class LoadCartToDBCommand extends Command {
     private static final long MILLISECONDS_IN_DAY = 86400000;
     private static final Logger LOG = Logger.getLogger(LoadCartToDBCommand.class);
 
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();

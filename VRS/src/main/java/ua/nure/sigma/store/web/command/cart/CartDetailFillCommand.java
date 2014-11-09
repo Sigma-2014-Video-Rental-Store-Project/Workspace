@@ -33,6 +33,7 @@ public class CartDetailFillCommand extends Command {
         if (customers == null) {
             new CustomerListFillAllCustomersCommand().execute(request, response);
         }
+        request.getSession().setAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME, 0L);
         return Paths.PAGE_CART_DETAIL_FILMS;
     }
 }

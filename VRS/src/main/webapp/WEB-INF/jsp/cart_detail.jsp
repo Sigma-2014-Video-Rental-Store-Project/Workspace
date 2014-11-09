@@ -123,7 +123,7 @@
                         <label style="float: left; padding-top: 8px;" for="bonus-to-use">Bonus points to use:</label>
                         <input id="bonus-to-use" type="number" name="bonusToUse" class="form-control"
                                style="float: left; margin-bottom:2%; margin-left:3%; width: 100px;" min="1"
-                               max=${cart.currentCustomer.bonus + 0} value="0">
+                               max="${cart.currentCustomer.bonus + 0}" value="0">
                         <button style="float: left; margin-left: 15px;" id="use-bonus" class="btn btn-primary" type="submit">Use bonus
                         </button>
                     </form>
