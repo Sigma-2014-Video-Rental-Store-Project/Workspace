@@ -18,7 +18,6 @@
 <meta name="author" content="Vlad Samotskiy">
 <link rel="icon" href="">
 <title><fmt:message key="editcustomer.title" /></title>
-<fmt:setLocale value="en_US" />
 </head>
 <body>
 	<div id="header">

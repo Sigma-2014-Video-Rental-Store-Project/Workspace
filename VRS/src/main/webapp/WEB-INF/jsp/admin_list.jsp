@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Admin list page.">
     <meta name="author" content="Denys Shevchenko">
-    <title>Admin list</title>
+    <title><fmt:message key="adminlist.title" /></title>
 </head>
 <body>
 <div id="header">
@@ -29,18 +29,18 @@
                name="adminEmail"
                type="text"
                class="form-control"
-               placeholder="Select administrator"
+               placeholder='<fmt:message key="adminlist.placeholder" />'
                autocomplete="off"
                data-provide="typeahead">
         <button style="float: left; width: 12%; min-width: 100px; margin-left: 3%;"
                 class="btn btn-primary"
                 type="submit">
-            Search
+            <fmt:message key="filmlist.searchbtn" />
         </button>
         <a style="float: left; width: 12%; min-width: 120px; margin-left: 3%;"
                 class="btn btn-success"
                 href="controller?command=addNewAdmin">
-            Add new admin
+            <fmt:message key="adminlist.addnewadmin" />
         </a>
     </form>
 </div>
@@ -55,9 +55,9 @@
     <table id="films-table" class="table table-striped" style="border: 1px solid #CCCCCC;">
         <thead>
         <tr>
-            <th class="name-column" style="width:15%;" scope="col">Admin name</th>
-            <th class="name-column" scope="col">Password</th>
-            <th class="price-column" scope="col" style="padding-right: 38px; width: 10%;">Delete</th>
+            <th class="name-column" style="width:15%;" scope="col"><fmt:message key="adminlist.adminname" /></th>
+            <th class="name-column" scope="col"><fmt:message key="adminlist.pass" /></th>
+            <th class="price-column" scope="col" style="padding-right: 38px; width: 10%;"><fmt:message key="adminlist.delete" /></th>
         </tr>
         </thead>
         <tbody>
@@ -68,9 +68,9 @@
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="changeAdminPassword"/>
                         <input type="hidden" name="adminId" value="${admin.id}"/>
-                        <input type="password" name="password" class="form-control" placeholder="Enter new password" style="width: 30%; float: left; margin-right: 10px;"/>
-                        <input type="password" name="passwordRetype" class="form-control" placeholder="Retype new password" style="width: 30%; float: left;margin-right: 10px;"/>
-                        <input type="submit" value="Apply new password" class="btn btn-warning" style="float: left;"/>
+                        <input type="password" name="password" class="form-control" placeholder='<fmt:message key="adminlist.newpass" />' style="width: 30%; float: left; margin-right: 10px;"/>
+                        <input type="password" name="passwordRetype" class="form-control" placeholder='<fmt:message key="adminlist.retrynewpass" />' style="width: 30%; float: left;margin-right: 10px;"/>
+                        <input type="submit" value='<fmt:message key="adminlist.applynewpass" />' class="btn btn-warning" style="float: left;"/>
                     </form>
                 </td>
                 <td style="padding-top: 15px;">
@@ -79,10 +79,10 @@
                             <c:when test="${admin.roleId eq 2}">
                                 <input type="hidden" name="command" value="deleteAdmin"/>
                                 <input type="hidden" name="adminId" value="${admin.id}"/>
-                                <input type="submit" value="Delete" class="btn btn-danger" style="float: right; margin-right: 15px; padding: 5px 25px;"/>
+                                <input type="submit" value=<fmt:message key="adminlist.delete" /> class="btn btn-danger" style="float: right; margin-right: 15px; padding: 5px 25px;"/>
                             </c:when>
                             <c:otherwise>
-                                <span style="float:right;margin-right: 15px;font-weight: bold;">Root cannot be deleted</span>
+                                <span style="float:right;margin-right: 15px;font-weight: bold;"><fmt:message key="adminlist.roodcant" /></span>
                             </c:otherwise>
                         </c:choose>
                     </form>

@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Admin list page.">
     <meta name="author" content="Denys Shevchenko">
-    <title>Admin list</title>
+    <title><fmt:message key="addadmin.title" /></title>
 </head>
 <body>
 <div id="header">
@@ -22,29 +22,29 @@
 </div>
 
 <div style="padding: 0 10%;">
-    <div style="font-weight: bold; font-size: 2em; margin-bottom: 20px;">Add new administrator</div>
+    <div style="font-weight: bold; font-size: 2em; margin-bottom: 20px;"><fmt:message key="addadmin.head" /></div>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="createNewAdmin"/>
         <div style="width: 40%; float: left; margin: 10px 0;">
             <label for="email" style="float: left;">Email:</label>
-            <input id="email" type="email" name="email" class="form-control" placeholder="Enter email" style="float: left;"/>
+            <input id="email" type="email" name="email" class="form-control" placeholder='<fmt:message key="addadmin.entemail"/>' style="float: left;"/>
         </div>
         <div style="width: 40%; float: left; margin: 10px 0; clear:both;">
-            <label for="password" style="float: left;">Password:</label>
-            <input id="password" type="password" name="password" class="form-control" placeholder="Enter password" style="float: left;"/>
+            <label for="password" style="float: left;"><fmt:message key="addadmin.pass" /></label>
+            <input id="password" type="password" name="password" class="form-control" placeholder='<fmt:message key="addadmin.entpass"/>' style="float: left;"/>
         </div>
         <div style="width: 40%; float: left; margin: 10px 0; clear:both;">
-            <label for="passwordRetype" style="float: left;">Retype password:</label>
-            <input id="passwordRetype" type="password" name="passwordRetype" class="form-control" placeholder="Retype password" style="float: left;"/>
+            <label for="passwordRetype" style="float: left;"><fmt:message key="addadmin.ret" /></label>
+            <input id="passwordRetype" type="password" name="passwordRetype" class="form-control" placeholder='<fmt:message key="addadmin.entret" />' style="float: left;"/>
         </div>
         <div style="width: 40%; float: left; margin: 10px 0; clear:both;">
-            <label for="locale" style="float: left;">Locale to set:</label>
+            <label for="locale" style="float: left;"><fmt:message key="addadmin.loc" /></label>
             <select id="locale" name="locale" class="form-control" style="float: left;">
                 <option>en</option>
                 <option>ru</option>
             </select>
         </div>
-        <input type="submit" value="Create new administrator" class="btn btn-success" style="float: left; clear: both; margin-top: 15px;"/>
+        <input type="submit" value='<fmt:message key="addadmin.btn" />' class="btn btn-success" style="float: left; clear: both; margin-top: 15px;"/>
     </form>
     <c:if test="${not empty param.errMessage}">
         <div style="color: #a9453f; text-align: left; margin-top: 20px; float: left; clear:both;">

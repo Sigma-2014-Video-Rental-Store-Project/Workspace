@@ -25,7 +25,6 @@
 <meta name="author" content="Sergey Laposhko">
 <link rel="icon" href="">
 <title><fmt:message key="customerdetails.title" /></title>
-<fmt:setLocale value="en_US" />
 </head>
 <body>
 	<f:view>
@@ -108,7 +107,6 @@
 					</thead>
 					<tbody>
 
-<<<<<<< HEAD
 						<c:forEach items="${customerDetailsList.model}" var="current">
 							<tr>
 								<td class="name-column-value">${current.name}</td>
@@ -158,11 +156,13 @@
 												value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}" />
 												<input type="hidden" name="filmId"
 												value="${current.film.filmId}" /> <input type="hidden"
-												name="days" value="${(current.futureDate.getTime()-current.startDate.getTime())/(1000 * 60 * 60 * 24)}" /> <input
-												type="hidden" name="rentId" value="${current.rent.rentID}" />
-												<input type="submit"
+												name="days"
+												value="${(current.futureDate.getTime()-current.startDate.getTime())/(1000 * 60 * 60 * 24)}" />
+												<input type="hidden" name="rentId"
+												value="${current.rent.rentID}" /> <input type="submit"
 												style="color: #6495ED; background: none; border: none; cursor: pointer;"
-												value="Return" /></td>
+												value='<fmt:message
+											key="customerdetails.return" />' /></td>
 										</form>
 									</c:otherwise>
 								</c:choose>
