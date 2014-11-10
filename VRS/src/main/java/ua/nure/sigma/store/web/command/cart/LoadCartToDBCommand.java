@@ -14,7 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.*;
+import java.util.Locale;
 
 /**
  * Created by Maksim Sinkevich on 24.10.2014.
@@ -34,6 +37,7 @@ public class LoadCartToDBCommand extends Command {
             return Paths.COMMAND_CART_DETAILS;
         }
         if(cart.getContent().size() == 0){
+            LOG.debug("cart is empty");
             session.removeAttribute(SearchCartCommand.CUSTOMER_FULL_NAME_PARAM_NAME);
             session.removeAttribute(UseBonusCommand.BONUS_IN_USE_PARAM_NAME);
             return Paths.COMMAND_FULL_FILM_LIST;
@@ -101,6 +105,7 @@ public class LoadCartToDBCommand extends Command {
                             entry.getKey().getRentPrice()
                     ));
             LOG.debug(entry.getKey().getTitle());
+            LOG.debug( entry.getValue().getFutureDate());
             LOG.debug(entry.getValue().getCopies());
         }
         LOG.debug("mapped film Views");
