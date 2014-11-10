@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
+import ua.nure.sigma.store.entity.Admin;
 import ua.nure.sigma.store.entity.Sex;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
@@ -22,12 +23,14 @@ import java.util.List;
 
 // this command invoke addNewFilm.jsp
 public class AddNewCustomerCommand extends Command{
+	private  static final String USER_PARAM_NAME = "user";
 	
 	private static final Logger LOG = Logger.getLogger(AddNewCustomerCommand.class);
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		LOG.debug("AddNewCustomerCommand started.");
-	    List<Sex> sexes = DAOFactory.getInstance().getSexDAO().findAllSex();
+		Admin admin = (Admin) request.getSession().getAttribute(USER_PARAM_NAME);
+	    List<Sex> sexes = DAOFactory.getInstance().getSexDAO().findAllSex(admin.getLocale());
 		Sexes paramSexes = new Sexes(sexes);
 		for (Sex sex : sexes) {
 			LOG.debug(sex.getSexName());
