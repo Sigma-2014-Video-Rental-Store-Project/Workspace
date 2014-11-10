@@ -7,6 +7,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import static org.powermock.api.easymock.PowerMock.mockStatic;
+import static org.powermock.api.easymock.PowerMock.replay;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import ua.nure.sigma.store.dao.AdminDAO;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.LocaleDAO;
@@ -14,15 +18,18 @@ import ua.nure.sigma.store.entity.Admin;
 import static org.easymock.EasyMock.*;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(DAOFactory.class)
 public class PosgreSqlAdminDAOTest {
 
     static AdminDAO adminDAO;
-
+    static Admin admin;
     @Before
     public void setUp() throws Exception {
-//        adminDAO = DAOFactory.getInstance().getAdminDAO();
+        adminDAO = DAOFactory.getInstance().getAdminDAO();
+        admin = new Admin();
+        admin.setEmail("test@com");
+        admin.setLocale(1);
+        admin.setRoleId(1);
+        admin.setPassword("test".hashCode());
 //        DAOFactory daoFactory = mock(DAOFactory.class);
 //        LocaleDAO localeDAO = mock(LocaleDAO.class);
 //        AdminDAO adminDAOmock = mock(AdminDAO.class);
@@ -39,42 +46,34 @@ public class PosgreSqlAdminDAOTest {
 
     @Test
     public void testFindAdminByLogin() throws Exception {
-
+//        DAOFactory daoFactory = mock(DAOFactory.class);
+////        LocaleDAO localeDAO = mock(LocaleDAO.class);
+//        PosgreSqlAdminDAO adminDAOmock = mock(PosgreSqlAdminDAO.class);
+//        when(daoFactory.getAdminDAO()).thenReturn(adminDAOmock);
+//        staticMo
+        Admin expect = new Admin();
+        assertNotNull(adminDAO.findAdminByLogin("admin1@vrs.com"));
 
     }
 
     @Test
     public void testFindAdminById() throws Exception {
-
+        assertNotNull(adminDAO.findAdminById(1));
     }
 
     @Test
     public void testFindAllAdmins() throws Exception {
-
+        assertNotEquals(adminDAO.findAllAdmins().size(), 0);
     }
 
-    @Test
-    public void testFindAllAdmin() throws Exception {
-
-    }
 
     @Test
     public void testCreateAdmin() throws Exception {
-
+        adminDAO.createAdmin(admin);
+        adminDAO.updateAdminPassword(admin);
+        adminDAO.updateAdminLocale(admin);
+        adminDAO.deleteAdmin(admin);
+        assertTrue(true);
     }
 
-    @Test
-    public void testUpdateAdminPassword() throws Exception {
-
-    }
-
-    @Test
-    public void testUpdateAdminLocale() throws Exception {
-
-    }
-
-    @Test
-    public void testDeleteAdmin() throws Exception {
-
-    }
 }

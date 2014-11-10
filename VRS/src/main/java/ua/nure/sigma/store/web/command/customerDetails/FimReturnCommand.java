@@ -56,13 +56,13 @@ public class FimReturnCommand extends Command {
         int amount;
         int userId;
         int days;
-
+LOG.trace("days = "+ daysString);
         try {
             filmId = Integer.parseInt(filmIdString);
             rentId = Integer.parseInt(rentIdString);
             amount = Integer.parseInt(amountString);
             userId = Integer.parseInt(userIdString);
-            days   = Integer.parseInt(daysString);
+            days   = (int)Double.parseDouble(daysString);
         } catch (Exception e) {
             LOG.error("Cannot parse 'filmId', 'amount', 'copiesLeftleft' or 'rentId' as Integer value.", e);
             return Paths.PAGE_NO_PAGE;
