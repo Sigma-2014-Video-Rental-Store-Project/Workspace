@@ -18,14 +18,14 @@ public class PostgreSqlSexDAO implements SexDAO{
     private static final String SQL_SELECT_FROM_SEX_BY_ID = "SELECT * FROM SEX_LOCALE WHERE SEX_ID = ? AND LOCALE_ID = ?";
     private static final String SQL_SELECT_FROM_SEX_ALL_SEX = "SELECT * FROM SEX_LOCALE WHERE LOCALE_ID =?";
     private static final String SQL_SELECT_FROM_SEX_BY_NAME =
-            "SELECT * FROM SEX WHERE SEX = ?";
+            "SELECT * FROM SEX WHERE name = ?";
     private static final Logger LOG = Logger
             .getLogger(PostgreSqlSexDAO.class);
 
     private Sex extractSex(ResultSet rs) throws SQLException {
         Sex sex = new Sex();
         sex.setSexID(rs.getInt("SEX_ID"));
-        sex.setSexName(rs.getString("SEX"));
+        sex.setSexName(rs.getString("name"));
         return sex;
     }
 
