@@ -110,7 +110,7 @@
 				<div style="float: right;">
 					<div style="float: right;">
 						<button type="submit" class="btn btn-success"
-							style="margin-left: 3%;"><fmt:message key="addfilm.addnewcustomerbtn" /></button>
+							style="margin-left: 3%;"><fmt:message key="newcustomer.addnewcustomerbtn" /></button>
 					</div>
 					<div style="float: right;">
 						<a href="controller?command=customerList"><button
