@@ -13,10 +13,10 @@ import java.util.List;
  * Created by nikolaienko on 07.10.14.
  */
 public class PostgreSqlCategoryDAO implements CategoryDAO{
-    private static final String SQL_SELECT_FROM_CATEGORIES_BY_ID_LOCALE = "SELECT * FROM CATEGORY_LOCALE WHERE CATEGORY_ID = ? LOCALE_ID =?";
+    private static final String SQL_SELECT_FROM_CATEGORIES_BY_ID_LOCALE = "SELECT * FROM CATEGORY_LOCALE WHERE CATEGORY_ID = ? and locale_id=?";
     private static final String SQL_SELECT_FROM_CATEGORIES= "SELECT * FROM CATEGORY_LOCALE WHERE LOCALE_ID = 1";
     private static final String SQL_SELECT_FROM_CATEGORIES_LOCALE = "SELECT * FROM CATEGORY_LOCALE WHERE LOCALE_ID = ?";
-    private static final String SQL_SELECT_FROM_CATEGORIES_BY_ID = "SELECT * FROM CATEGORY_LOCALE WHERE CATEGORY_ID = ? LOCALE_ID = 1";
+    private static final String SQL_SELECT_FROM_CATEGORIES_BY_ID = "SELECT * FROM CATEGORY_LOCALE WHERE CATEGORY_ID = ? AND LOCALE_ID = 1";
     private static final String SQL_SELECT_FROM_CATEGORIES_BY_NAME =
             "SELECT CATEGORY_ID FROM CATEGORY_LOCALE WHERE NAME = ?";
     private static final Logger LOG = Logger
@@ -60,8 +60,8 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
      */
     private Category extractCategory(ResultSet rs) throws SQLException {
         Category category = new Category();
-        category.setId(rs.getInt("CATEGORY_ID"));
-        category.setName(rs.getString("NAME"));
+        category.setId(rs.getInt("category_id"));
+        category.setName(rs.getString("name"));
 
         return category;
     }
@@ -191,6 +191,7 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
                 category = extractCategory(rs);
             }
         }catch (Exception e){
+            LOG.debug("findCategoryByID(Connection connection, int id, int locale) ex");
             throw e;
         }finally {
             DAOFactory.close(pstmnt);
