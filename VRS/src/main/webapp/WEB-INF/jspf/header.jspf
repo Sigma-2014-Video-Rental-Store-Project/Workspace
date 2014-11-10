@@ -16,9 +16,9 @@
                         <a href="controller?command=adminList">Manage users</a>
                     </li>
                 </c:if>
-            </ul>
-            <ul class="nav navbar-nav" style="font-size:16px">
-                <%@ include file="/WEB-INF/jspf/locale.jspf" %>
+                <li>
+                    <%@ include file="/WEB-INF/jspf/locale.jspf" %>
+                </li>
             </ul>
             <form id="logout" action="controller" method="post" name="logoutform">
                 <input type="hidden" name="command" value="logout">
