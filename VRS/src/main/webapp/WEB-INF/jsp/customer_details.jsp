@@ -149,7 +149,7 @@
                                         <input type="hidden" name="returnTo"
                                                value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}"/>
                                         <input type="hidden" name="filmId" value="${current.film.filmId}"/>
-                                        <input type="hidden" name="days" value="${current.filmForRent.days}"/>
+                                        <input type="hidden" name="days" value="${(current.futureDate.getTime()-current.startDate.getTime())/(1000 * 60 * 60 * 24)}"/>
                                         <input type="hidden" name="rentId" value="${current.rent.rentID}"/>
                                         <input type="submit"
                                                style="color: #6495ED; background: none; border: none; cursor: pointer;"
