@@ -17,12 +17,12 @@ public class PostgreSqlSexDAOTest {
 
     @Test
     public void testFindSexByID() throws Exception {
-        assertNotNull(dao.findSexByID(1));
+        assertNotNull(dao.findSexByID(1,1));
     }
 
     @Test
     public void testFindAllSex() throws Exception {
-        assertNotEquals(dao.findAllSex().size(), 0);
+        assertNotEquals(dao.findAllSex(1).size(), 0);
     }
 
     @Test

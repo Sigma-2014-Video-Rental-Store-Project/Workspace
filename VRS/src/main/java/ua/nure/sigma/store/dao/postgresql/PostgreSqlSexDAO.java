@@ -67,7 +67,7 @@ public class PostgreSqlSexDAO implements SexDAO{
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
             stmnt = connection.prepareStatement(SQL_SELECT_FROM_SEX_ALL_SEX);
-            stmnt.setInt(locale);
+            stmnt.setInt(1,locale);
             rs = stmnt.executeQuery();
             while (rs.next()) {
                 admin.add(extractSex(rs));
