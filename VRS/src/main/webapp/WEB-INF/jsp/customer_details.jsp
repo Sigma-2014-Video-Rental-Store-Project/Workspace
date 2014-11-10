@@ -136,7 +136,7 @@
                             <c:otherwise>
                                 <td class="days-left-column-value"><c:out value="${current.daysLeft}"/></td>
                                 <form method="post" action="controller" style="display: inline;">
-                                    <input type="hidden" name="copiesLeft" value="${current.copiesLeft}"/>
+                                    <input type="hidden" name="userId" value="${customerDetailsList.customer.customerID}"/>
                                     <td class="copies-lef-column">
                                         <input type="number" required="" name="amount"
                                                class="copies-number form-control"
@@ -149,6 +149,7 @@
                                         <input type="hidden" name="returnTo"
                                                value="controller?command=customerDetails&customerId=${customerDetailsList.customer.customerID}"/>
                                         <input type="hidden" name="filmId" value="${current.film.filmId}"/>
+                                        <input type="hidden" name="days" value="${current.days}"/>
                                         <input type="hidden" name="rentId" value="${current.rent.rentID}"/>
                                         <input type="submit"
                                                style="color: #6495ED; background: none; border: none; cursor: pointer;"
