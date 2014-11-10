@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class PostgreSqlSexDAO implements SexDAO{
 
-    private static final String SQL_SELECT_FROM_SEX_BY_ID = "SELECT * FROM SEX WHERE SEX_ID = ?";
-    private static final String SQL_SELECT_FROM_SEX_ALL_SEX = "SELECT * FROM SEX";
+    private static final String SQL_SELECT_FROM_SEX_BY_ID = "SELECT * FROM SEX_LOCALE WHERE SEX_ID = ? AND LOCALE_ID = ?";
+    private static final String SQL_SELECT_FROM_SEX_ALL_SEX = "SELECT * FROM SEX_LOCALE WHERE LOCALE_ID =?";
     private static final String SQL_SELECT_FROM_SEX_BY_NAME =
             "SELECT * FROM SEX WHERE SEX = ?";
     private static final Logger LOG = Logger
@@ -30,7 +30,7 @@ public class PostgreSqlSexDAO implements SexDAO{
     }
 
     @Override
-    public Sex findSexByID(int id) {
+    public Sex findSexByID(int id, int locale) {
         Sex sex = null;
         Connection connection = null;
         PreparedStatement pstmnt = null;
@@ -40,6 +40,7 @@ public class PostgreSqlSexDAO implements SexDAO{
             connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_SEX_BY_ID);
             pstmnt.setInt(1, id);
+            pstmnt.setInt(2, locale);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 sex = extractSex(rs);
@@ -57,16 +58,17 @@ public class PostgreSqlSexDAO implements SexDAO{
     }
 
     @Override
-    public List<Sex> findAllSex() {
+    public List<Sex> findAllSex(int locale) {
         List<Sex> admin = new ArrayList<Sex>();
         Connection connection = null;
-        Statement stmnt = null;
+        PreparedStatement stmnt = null;
         ResultSet rs = null;
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
-            stmnt = connection.createStatement();
-            rs = stmnt.executeQuery(SQL_SELECT_FROM_SEX_ALL_SEX);
+            stmnt = connection.prepareStatement(SQL_SELECT_FROM_SEX_ALL_SEX);
+            stmnt.setInt(locale);
+            rs = stmnt.executeQuery();
             while (rs.next()) {
                 admin.add(extractSex(rs));
             }
