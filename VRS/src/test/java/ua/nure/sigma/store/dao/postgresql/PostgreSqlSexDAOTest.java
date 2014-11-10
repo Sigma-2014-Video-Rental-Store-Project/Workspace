@@ -15,18 +15,4 @@ public class PostgreSqlSexDAOTest {
         dao = DAOFactory.getInstance().getSexDAO();
     }
 
-    @Test
-    public void testFindSexByID() throws Exception {
-        assertNotNull(dao.findSexByID(1,1));
-    }
-
-    @Test
-    public void testFindAllSex() throws Exception {
-        assertNotEquals(dao.findAllSex(1).size(), 0);
-    }
-
-    @Test
-    public void testFindSexIDBySexName() throws Exception {
-        assertNotNull(dao.findSexIDBySexName("male"));
-    }
 }
