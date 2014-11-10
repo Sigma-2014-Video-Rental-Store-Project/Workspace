@@ -17,7 +17,7 @@ public class PostgreSqlSexDAOTest {
 
     @Test
     public void testFindSexByID() throws Exception {
-        assertNotNull(dao.findSexByID(1,1));
+        assertNotNull(dao.findSexByID(1,2));
     }
 
     @Test

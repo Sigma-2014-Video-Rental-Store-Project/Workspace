@@ -45,6 +45,7 @@ public class PostgreSqlSexDAO implements SexDAO{
             if (rs.next()) {
                 sex = extractSex(rs);
             }
+            return sex;
         } catch (Exception e) {
 //            DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by id.", e);
@@ -72,6 +73,7 @@ public class PostgreSqlSexDAO implements SexDAO{
             while (rs.next()) {
                 admin.add(extractSex(rs));
             }
+            return admin;
         } catch (Exception e) {
 //            LOG.error("Can not obtain User by login.", e);
         } finally {
@@ -98,6 +100,7 @@ public class PostgreSqlSexDAO implements SexDAO{
             if (rs.next()) {
                 sex1 = extractSex(rs);
             }
+            return sex1;
         } catch (Exception e) {
             DAOFactory.rollback(connection);
 //            LOG.error("Can not obtain User by login.", e);
