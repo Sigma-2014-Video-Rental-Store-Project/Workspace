@@ -20,8 +20,8 @@ import java.util.List;
 public class CustomerListSortCommand extends Command {
 
     private static final Logger LOG = Logger.getLogger(CustomerListSortCommand.class);
-    private static final String UP_DIR_NAME = "up";
-    private static final String DOWN_DIR_NAME = "down";
+    static final String UP_DIR_NAME = "up";
+    static final String DOWN_DIR_NAME = "down";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

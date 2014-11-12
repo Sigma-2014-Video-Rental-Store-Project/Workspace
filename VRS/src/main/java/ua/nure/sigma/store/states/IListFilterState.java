@@ -1,7 +1,5 @@
 package ua.nure.sigma.store.states;
 
-import ua.nure.sigma.store.entity.Film;
-
 import java.util.List;
 
 /**
