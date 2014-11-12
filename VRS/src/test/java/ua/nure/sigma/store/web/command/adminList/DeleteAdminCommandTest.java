@@ -33,6 +33,7 @@ public class DeleteAdminCommandTest {
         // Prepare mocks for representation attributes.
         Admin admin = new Admin();
         admin.setId(1);
+        admin.setEmail("admin@gmail.com");
         List<Admin> admins = new ArrayList<Admin>();
         admins.add(admin);
 
@@ -64,8 +65,8 @@ public class DeleteAdminCommandTest {
         // Test target object.
         assertEquals(Paths.COMMAND_ADMIN_LIST + "&" +
                 ChangeAdminPasswordCommand.MESSAGE_ATTRIBUTE_NAME +
-                "=" + URLEncoder.encode("Admin with ID = " +
-                1 + " has been deleted.", "UTF-8"), result);
+                "=" + URLEncoder.encode("Admin with email = " +
+                "admin@gmail.com" + " has been deleted.", "UTF-8"), result);
     }
 
 }

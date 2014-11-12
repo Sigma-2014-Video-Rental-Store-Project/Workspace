@@ -39,6 +39,9 @@ public class AddNewFilmCommand extends Command{
 	        Admin admin = (Admin) request.getSession().getAttribute(USER_PARAM_NAME);
 	        List<Category> categories =
 	                PosgreSqlDAO.getInstance().getCategoryDAO().findAllCategory(admin.getLocale());
+	        for (Category category : categories) {
+				System.out.println(category.getName());
+			}
 	        Categories paramCategories = new Categories(categories);
 	        request.setAttribute("categories", paramCategories);
 

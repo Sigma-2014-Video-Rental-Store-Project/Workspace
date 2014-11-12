@@ -37,7 +37,7 @@
 					<p id="text">
 						${editFilmObject.title} (${editFilmObject.year}) <a
 							href="controller?command=editFilm&filmId=${editFilmObject.filmId}&get=true"><fmt:message
-								key="filmdetails.editLink" /></a>
+								key="filmdetails.editlink" /></a>
 					</p>
 
 					<div id="bordered" style="margin-bottom: 2%;">
@@ -49,7 +49,7 @@
 				</div>
 				<div id=rightside>
 					<div>
-						<div id="genre" style="margin-bottom: 0.5%;">
+						<div style="margin-bottom: 0.5%;">
 							<p id="text"><fmt:message key="addfilm.genre"/> ${catString}</p>
 						</div>
 					</div>
@@ -99,8 +99,6 @@
 				</div>
 				<div id="footer">
 					<jsp:include page="../jspf/footer.jspf" />
-					<fmt:message key="locale.jspf.current" />
-					<%@ include file="/WEB-INF/jspf/locale.jspf"%>
 				</div>
 			</div>
 		</form>

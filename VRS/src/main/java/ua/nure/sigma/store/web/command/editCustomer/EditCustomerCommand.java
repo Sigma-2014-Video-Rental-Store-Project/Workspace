@@ -3,6 +3,7 @@ package ua.nure.sigma.store.web.command.editCustomer;
 import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.postgresql.PosgreSqlDAO;
+import ua.nure.sigma.store.entity.Admin;
 import ua.nure.sigma.store.entity.Category;
 import ua.nure.sigma.store.entity.Customer;
 import ua.nure.sigma.store.entity.Film;
@@ -24,7 +25,7 @@ import java.util.List;
 public class EditCustomerCommand extends Command {
 
     public static final String CUSTOMER_ID_PARAM_NAME = "customerId";
-
+    private  static final String USER_PARAM_NAME = "user";
     private static final String EDIT_CUSTOMER_OBJECT = "editCustomerObject";
 
     private static final Logger LOG = Logger.getLogger(EditCustomerCommand.class);
@@ -65,11 +66,12 @@ public class EditCustomerCommand extends Command {
             LOG.warn(String.format("Cannot find film with id equals to %d in the database.", customerId));
             return Paths.PAGE_NO_PAGE;
         }
-        Sex customerSex =  DAOFactory.getInstance().getSexDAO().findSexByID(customerToEdit.getSexID());
+        Admin admin = (Admin) request.getSession().getAttribute(USER_PARAM_NAME);
+        Sex customerSex =  DAOFactory.getInstance().getSexDAO().findSexByID(customerToEdit.getSexID(),admin.getLocale());
         if(customerSex != null){
         	request.setAttribute("sex", customerSex);
         }
-        List<Sex> sexes = DAOFactory.getInstance().getSexDAO().findAllSex();
+        List<Sex> sexes = DAOFactory.getInstance().getSexDAO().findAllSex(admin.getLocale());
         Sexes paramSexes = new Sexes(sexes);
         for (Sex sex : sexes) {
             LOG.debug(sex.getSexName());
