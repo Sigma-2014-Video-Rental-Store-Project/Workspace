@@ -6,14 +6,14 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav" style="font-size:16px">
-                <li><a href="controller?command=fullFilmList">Films</a></li>
-                <li><a href="controller?command=customerList">Customers</a></li>
+                <li><a href="controller?command=fullFilmList"><fmt:message key="header.films" /></a></li>
+                <li><a href="controller?command=customerList"><fmt:message key="header.customers" /></a></li>
                 <li><a href="controller?command=cartDetails"> <span id="itemInCart"
-                                                                    class="badge pull-right">${sessionScope.cart.count}</span>Cart&nbsp</a>
+                                                                    class="badge pull-right">${sessionScope.cart.count}</span><fmt:message key="header.cart" /></a>
                 </li>
                 <c:if test="${user.roleId eq 1}">
                     <li>
-                        <a href="controller?command=adminList">Manage users</a>
+                        <a href="controller?command=adminList"><fmt:message key="header.manage" /></a>
                     </li>
                 </c:if>
                 <li>
@@ -24,9 +24,9 @@
                 <input type="hidden" name="command" value="logout">
             </form>
             <a href="#" style="float:right;height:30px;padding:0px 15px;font-size:14px"
-               onclick="document.forms['logoutform'].submit();">Logout</a>
+               onclick="document.forms['logoutform'].submit();"><fmt:message key="header.logout" /></a>
             <a class="navbar-brand"
-               style="float:right;height:30px;padding:0px 15px;font-size:14px">${sessionScope.user.email}</a>
+               style="float:right;height:30px;padding:0px;font-size:14px">${sessionScope.user.email}</a>
         </div>
         <!--/.nav-collapse -->
     </div>

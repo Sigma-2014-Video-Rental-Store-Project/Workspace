@@ -17,58 +17,43 @@
   <link href="css/print.css" rel="stylesheet">
 </head>
 <body>
-<div id="content" style="max-width: 50%; margin-left: 3%">
-  <%--
-  <div id="header">
-    <%@ include file="/WEB-INF/jspf/header.jspf" %>
-  </div>
-  --%>
+<div id="content" style="max-width: 50%; margin-left: 3%; margin-top:1%;">
   <div id="center-content-area">
     <div class="row">
       <div class="span4">
-        <span>Order number:</span>
-      </div>
-      <div class="span5">
-        <span id="order">${sessionScope.rentView.rentId}</span>
+        <span>Order number: <span id="order">${sessionScope.rentView.rentId}</span></span>
       </div>
     </div>
 
     <div class="row">
       <div class="span4">
-        <span>Customer:</span>
-      </div>
-      <div class="span5">
-        <span id="customer-name">${sessionScope.rentView.customerName}</span>
+        <span>Customer: <span id="customer-name">${sessionScope.rentView.customerName}</span></span>
       </div>
     </div>
 
     <div class="row">
       <div class="span4">
-        <span>Date:</span>
-      </div>
-      <div class="span5">
-        <span id="date">${sessionScope.rentView.rentedDate}</span>
+        <span>Date: <span id="date">${sessionScope.rentView.rentedDate}</span></span>
       </div>
     </div>
     <div class="row">
       <table id="film" class="table">
         <thead>
         <tr>
-          <th class="name-column span3" scope="col">  Film   </th>
-          <th class="count span2" scope="col"> Copies rented  </th>
-          <th class="return-date-column span2" scope="col"> Acception date </th>
-          <th class="bonus-column span2" scope="col">Price </th>
-          <th class="note span3" scope="col">Note</th>
+          <th style="width:20%;">  Film   </th>
+          <th style="width:20%;"> Copies rented  </th>
+          <th style="width:20%;"> Acception date </th>
+          <th style="text-align:right; width:7%;">Price </th>
+          <th style="text-align:center;">Note</th>
         </tr>
-        </thead>cd
         <tbody>
         <c:forEach items="${sessionScope.rentView.filmViewList}" var="current">
 
           <td>${current.title}</td>
           <td>${current.count}</td>
           <td><fmt:formatDate type="date" pattern="dd-MM-yyyy" value="${current.acceptedDate}"></fmt:formatDate></td>
-          <td style="text-align:right; padding-right:5%;">
-            <fmt:formatNumber type="CURRENCY" value="${current.price/100}"/>
+          <td style="text-align:right; margin-left:auto; margin-right:auto;">
+             $<fmt:formatNumber type="number" minFractionDigits="2" value="${current.price/100}"/>
           </td>
           <td></td>
         </c:forEach>
@@ -77,22 +62,13 @@
     </div>
     <div>
       <div class="row">
-        <div class="span4">TOTAL:</div>
-        <div class="span5">
-          <fmt:formatNumber type="CURRENCY" value="${sessionScope.rentView.total/100}"/>
-        </div>
+        <div class="span4">TOTAL: $<fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.rentView.total/100}"/></div>
       </div>
       <div class="row">
-        <div class="span4">BONUS:</div>
-        <div class="span5">
-          <fmt:formatNumber type="CURRENCY" value="${sessionScope.rentView.usedBonus/100}"/>
-        </div>
+        <div class="span4">BONUS: $<fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.rentView.usedBonus/100}"/></div>
       </div>
       <div class="row">
-        <div class="span4">FOR PAID:</div>
-        <div class="span5">
-          <fmt:formatNumber type="CURRENCY" value="${sessionScope.rentView.forPaid/100}"/>
-        </div>
+        <div class="span4">FOR PAID: $<fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.rentView.forPaid/100}"/></div>
       </div>
     </div>
 
