@@ -37,7 +37,7 @@ public class DeleteAdminCommandTest {
         List<Admin> admins = new ArrayList<Admin>();
         admins.add(admin);
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
         when(adminDAOMock.findAdminById(1)).thenReturn(admin);
 

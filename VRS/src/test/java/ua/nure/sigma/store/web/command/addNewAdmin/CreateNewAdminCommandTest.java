@@ -41,7 +41,7 @@ public class CreateNewAdminCommandTest {
         LocaleDAO localeDAOMock = mock(LocaleDAO.class);
         when(localeDAOMock.findLocaleIdByName("en")).thenReturn(1);
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
 
         // DAOFactory mock;
@@ -80,7 +80,7 @@ public class CreateNewAdminCommandTest {
         LocaleDAO localeDAOMock = mock(LocaleDAO.class);
         when(localeDAOMock.findLocaleIdByName("en")).thenReturn(1);
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
 
         // DAOFactory mock;
@@ -124,7 +124,7 @@ public class CreateNewAdminCommandTest {
         LocaleDAO localeDAOMock = mock(LocaleDAO.class);
         when(localeDAOMock.findLocaleIdByName("en")).thenReturn(1);
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
         when(adminDAOMock.findAdminByLogin("email@vrs.com")).thenReturn(admin);
 
@@ -162,7 +162,7 @@ public class CreateNewAdminCommandTest {
         LocaleDAO localeDAOMock = mock(LocaleDAO.class);
         when(localeDAOMock.findLocaleIdByName("en")).thenReturn(1);
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
 
         // DAOFactory mock;
@@ -199,7 +199,7 @@ public class CreateNewAdminCommandTest {
         LocaleDAO localeDAOMock = mock(LocaleDAO.class);
         when(localeDAOMock.findLocaleIdByName("en")).thenReturn(1);
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
 
         // DAOFactory mock;

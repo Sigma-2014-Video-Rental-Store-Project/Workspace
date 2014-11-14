@@ -39,7 +39,7 @@ public class AdminListCommandTest {
         admins.add(otherAdmin);
 
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
         when(adminDAOMock.findAllAdmins()).thenReturn(admins);
 

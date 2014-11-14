@@ -14,21 +14,10 @@ import java.util.List;
 /**
  * Created by nikolaienko on 07.10.14.
  */
-public class PostgreSqlFilmDAO implements FilmDAO {
-
-    private static final String SQL_SELECT_FROM_FILM_BY_ID =
-            "Select films.ID ,TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT, coalesce(rented.rentedCopies, 0) as rentedCp from films LEFT OUTER JOIN (SELECT film_id, sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ACCEPTED_DATE IS NULL group by film_ID) rented on rented.film_ID = films.ID WHERE FILMS.ID = ? ";
-    private static final String SQL_SELECT_FROM_FILMS_ALL_FILM =
-            "Select films.ID ,TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT, coalesce(rented.rentedCopies,  0) as rentedCp from films LEFT OUTER JOIN (SELECT film_ID, sum(count) as rentedCopies FROM FILM_AT_RENT WHERE ACCEPTED_DATE IS NULL group by film_ID) rented on rented.film_ID = films.ID";
-    private static final String SQL_INSERT_INTO_FILMS = "INSERT INTO FILMS (ID, TITLE, YEAR, DESCRIPTION, COVER, AMOUNT, GENERAL_PRICE, RENT_PRICE, BONUS_FOR_RENT) VALUES(DEFAULT,?,?,?,?,?,?,?,?)  RETURNING ID";
-    private static final String SQL_UPDATE_FILM =
-            "UPDATE FILMS SET TITLE = ?, YEAR =?, DESCRIPTION =?, COVER =?, AMOUNT =?, GENERAL_PRICE = ?, RENT_PRICE = ?, BONUS_FOR_RENT = ? WHERE ID = ?";
-    private static final String SQL_DELETE_FILM = "DELETE FROM FILMS WHERE ID = ?";
-
-    private static final String SQL_FILMS_CURRENT_ID = "select lastvalue from films_id_seq)";
+public class PostgreSqlFilmDAO implements FilmDAO, FilmSqlQuery {
 
     private static final Logger LOG = Logger
-            .getLogger(this.getClass());
+            .getLogger(PostgreSqlFilmDAO.class);
 
     private Film extractFilm(ResultSet rs) throws SQLException {
         Film film = new Film();
@@ -91,8 +80,9 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         PreparedStatement pstmnt = null;
         ResultSet rs = null;
         try {
+            int position = 1;
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_BY_ID);
-            pstmnt.setInt(1, id);
+            pstmnt.setInt(position, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 film = extractFilm(rs);
@@ -119,22 +109,24 @@ public class PostgreSqlFilmDAO implements FilmDAO {
     }
 
     @Override
-    public void createFilm(Film film) {
-        Connection connection = null;
+    public void createFilm(Film film, Connection connection) throws Exception {
         PreparedStatement pstmnt = null;
+        ResultSet rs = null;
         try {
-            connection = DAOFactory.getConnection();
-            connection.setAutoCommit(false);
             pstmnt = connection.prepareStatement(SQL_INSERT_INTO_FILMS);
             int position = 1;
             setupPrepareStatement(pstmnt, film, position);
-            pstmnt.execute();
+            rs = pstmnt.executeQuery();
+            if (rs.next()){
+                film.setFilmId(rs.getInt(1));
+            }
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not add new client.", e);
+            LOG.error("Can not add new Film.", e);
+            throw e;
         } finally {
+            DAOFactory.close(rs);
             DAOFactory.close(pstmnt);
-            DAOFactory.commitAndClose(connection);
         }
     }
 
@@ -142,17 +134,11 @@ public class PostgreSqlFilmDAO implements FilmDAO {
     public void createFilmWithCategories(Film film, List<Category> categoryList) {
         Connection connection = null;
         PreparedStatement pstmnt = null;
-        ResultSet rs = null;
+
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
-            pstmnt = connection.prepareStatement(SQL_INSERT_INTO_FILMS);
-            int position = 1;
-            setupPrepareStatement(pstmnt,film,position);
-            rs = pstmnt.executeQuery();
-            if (rs.next()){
-                film.setFilmId(rs.getInt(1));
-            }
+            createFilm(film,connection);
             FilmCategoryDAO categoryDAO = DAOFactory.getInstance().getFilmCategoryDAO();
             for (Category category : categoryList){
                 categoryDAO.createFilmCategory(film,category,connection);
@@ -160,7 +146,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
 
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not add new client.", e);
+            LOG.error("Can not add new film with categories.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
@@ -180,9 +166,8 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             pstmnt.setInt(position, film.getFilmId());
             pstmnt.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
             DAOFactory.rollback(connection);
-            LOG.error("Can not update User's block.", e);
+            LOG.error("Can not update Film's block.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
