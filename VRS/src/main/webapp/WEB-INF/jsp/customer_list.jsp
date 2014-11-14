@@ -132,7 +132,7 @@
 										<c:out value="No rents" />
 									</c:when>
 									<c:otherwise>
-										<c:out value="${current.returnDate}" />
+										<fmt:formatDate value="${current.returnDate}" pattern="dd.MM.yyyy"/>
 									</c:otherwise>
 								</c:choose></td>
 							<td style="text-align: right; padding-right: 5%;">\$<fmt:formatNumber

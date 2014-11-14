@@ -100,8 +100,7 @@
                                     class="fa fa-arrow-down"></i></u></a></th>
                             <th class="copies-left-column" scope="col"><fmt:message
                                     key="customerdetails.copies"/></th>
-                            <th class="status-column" scope="col"><fmt:message
-                                    key="customerdetails.return"/></th>
+                            <th class="status-column" scope="col"></th>
                         </c:otherwise>
                     </c:choose>
                 </tr>
@@ -111,14 +110,14 @@
                 <c:forEach items="${customerDetailsList.model}" var="current">
                     <tr>
                         <td class="name-column-value">${current.name}</td>
-                        <td class="start-date-column-value"><c:out
-                                value="${current.startDate}"/></td>
+                        <td class="start-date-column-value">
+                            <fmt:formatDate value="${current.startDate}" pattern="dd.MM.yyyy"/></td>
                         <td class="end-date-column-value"><c:choose>
                             <c:when test="${current.futureDate == null}">
                                 <fmt:message key="customerdetails.nodate"/>
                             </c:when>
                             <c:otherwise>
-                                <c:out value="${current.futureDate}"/>
+                                <fmt:formatDate value="${current.futureDate}" pattern="dd.MM.yyyy"/></td>
                             </c:otherwise>
                         </c:choose></td>
                         <c:choose>
@@ -146,7 +145,7 @@
                                       style="display: inline;">
                                     <input type="hidden" name="userId"
                                            value="${customerDetailsList.customer.customerID}"/>
-                                    <td class="copies-lef-column"><input type="number"
+                                    <td class="copies-left-column-value"><input type="number"
                                                                          required="" name="amount"
                                                                          class="copies-number form-control"
                                                                          style="margin-bottom: 2%; margin-left: 3%;"
