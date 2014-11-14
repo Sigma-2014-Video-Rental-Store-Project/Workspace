@@ -14,8 +14,6 @@ import java.util.List;
  */
 public class PosgreSqlAdminDAO implements AdminDAO{
 
-//   private static final Logger LOG = Logger.getLogger(DerbyUserDAO.class);
-
     private static final String SQL_SELECT_FROM_ADMINS_BY_EMAIL =
             "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
     private static final String SQL_SELECT_FROM_ADMINS_BY_ID = "SELECT * FROM ADMINS WHERE ADMIN_ID = ?";

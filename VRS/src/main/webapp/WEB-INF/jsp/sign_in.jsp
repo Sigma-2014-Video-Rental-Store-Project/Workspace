@@ -7,7 +7,7 @@
     <meta name="description" content="signin page for Rental Store">
     <meta name="author" content="Vlad Samotskiy">
     <link rel="icon" href="">
-
+	<fmt:setLocale value="en_GB" />
     <title><fmt:message key="login.title"/></title>
 
     <!-- Bootstrap core CSS -->
@@ -30,9 +30,11 @@
         <h2 class="form-signin-heading"><fmt:message key="login.CongratText"/></h2>
         <input name="email" type="email" class="form-control" placeholder='<fmt:message key="login.EmailPlaceholder"/>' required="" autofocus="">
         <input name="password" type="password" class="form-control" placeholder='<fmt:message key="login.PassPlaceholder"/>' required="">
+		<div class="checkbox">
         <label class="checkbox">
           <input name="remember-me" type="checkbox" value="remember-me"><fmt:message key="login.remember"/>
         </label>
+		<div>
         <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.btn"/></button>
 		<c:if test="${not empty param.errorCode}">
 			<span class="error"><font face="verdana" size="4" color="red"><fmt:message key="login.error"/>'</font><span>

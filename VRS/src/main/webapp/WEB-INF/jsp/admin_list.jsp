@@ -37,11 +37,13 @@
                 type="submit">
             <fmt:message key="filmlist.searchbtn" />
         </button>
-        <a style="float: left; width: 12%; min-width: 120px; margin-left: 3%;"
-                class="btn btn-success"
-                href="controller?command=addNewAdmin">
-            <fmt:message key="adminlist.addnewadmin" />
-        </a>
+        <div style="width: 12%; float:left;"> 
+            <a style="float: left; min-width: 120px; margin-left: 3%;"
+                    class="btn btn-success"
+                    href="controller?command=addNewAdmin">
+                <fmt:message key="adminlist.addnewadmin" />
+            </a>
+        </div> 
     </form>
 </div>
 

@@ -2,6 +2,7 @@ package ua.nure.sigma.store.web.command.adminList;
 
 import ua.nure.sigma.store.dao.AdminDAO;
 import ua.nure.sigma.store.dao.DAOFactory;
+import ua.nure.sigma.store.entity.Admin;
 import ua.nure.sigma.store.web.Paths;
 import ua.nure.sigma.store.web.command.Command;
 
@@ -29,11 +30,12 @@ public class DeleteAdminCommand extends Command {
         int adminId = Integer.parseInt(adminIdString);
         DAOFactory daoFactory = DAOFactory.getInstance();
         AdminDAO adminDAO = daoFactory.getAdminDAO();
+        Admin admin = adminDAO.findAdminById(adminId);
         adminDAO.deleteAdmin(adminDAO.findAdminById(adminId));
 
         return Paths.COMMAND_ADMIN_LIST + "&" +
                 ChangeAdminPasswordCommand.MESSAGE_ATTRIBUTE_NAME +
-                "=" + URLEncoder.encode("Admin with ID = " +
-                adminId + " has been deleted.", "UTF-8");
+                "=" + URLEncoder.encode("Admin with email = " +
+                admin.getEmail() + " has been deleted.", "UTF-8");
     }
 }

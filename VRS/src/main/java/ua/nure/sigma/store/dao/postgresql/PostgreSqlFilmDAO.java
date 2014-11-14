@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao.postgresql;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.FilmCategoryDAO;
 import ua.nure.sigma.store.dao.FilmDAO;
@@ -25,6 +26,10 @@ public class PostgreSqlFilmDAO implements FilmDAO {
     private static final String SQL_DELETE_FILM = "DELETE FROM FILMS WHERE ID = ?";
 
     private static final String SQL_FILMS_CURRENT_ID = "select lastvalue from films_id_seq)";
+
+    private static final Logger LOG = Logger
+            .getLogger(this.getClass());
+
     private Film extractFilm(ResultSet rs) throws SQLException {
         Film film = new Film();
         film.setFilmId(rs.getInt("ID"));
@@ -37,7 +42,6 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         film.setRentPrice(rs.getLong("RENT_PRICE"));
         film.setBonusForRent(rs.getLong("BONUS_FOR_RENT"));
         film.setCopiesLeft(film.getAmount()- rs.getInt("rentedCp"));
-        //film.setCopiesLeft(film.getAmount()- Integer.parseInt(rs.getString("rentedCp")));
         return film;
     }
 
@@ -56,8 +60,7 @@ public class PostgreSqlFilmDAO implements FilmDAO {
                 admin.add(extractFilm(rs));
             }
         } catch (Exception e) {
-//            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not obtain Films.", e);
         } finally {
             DAOFactory.close(stmnt);
             DAOFactory.close(rs);
@@ -76,28 +79,26 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             connection.setAutoCommit(false);
             film = findFilmById(connection, id);
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by id.", e);
+            LOG.error("Can not obtain Film by id.", e);
         } finally {
             DAOFactory.commitAndClose(connection);
         }
         return film;
     }
 
-    public Film findFilmById(Connection connection, int id) {
+    public Film findFilmById(Connection connection, int id) throws Exception{
         Film film = null;
         PreparedStatement pstmnt = null;
         ResultSet rs = null;
         try {
             pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_BY_ID);
-            //noinspection JpaQueryApiInspection
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
                 film = extractFilm(rs);
             }
         } catch (Exception e) {
-
+            throw e;
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
@@ -181,17 +182,13 @@ public class PostgreSqlFilmDAO implements FilmDAO {
         } catch (Exception e) {
             e.printStackTrace();
             DAOFactory.rollback(connection);
-//            LOG.error("Can not update User's block.", e);
+            LOG.error("Can not update User's block.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
         }
     }
 
-    @Override
-    public void deleteFilm(Film film) {
-        deleteFilm(film.getFilmId());
-    }
 
     @Override
     public void deleteFilm(int filmId) {
@@ -206,35 +203,11 @@ public class PostgreSqlFilmDAO implements FilmDAO {
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not update User's block.", e);
+            LOG.error("Can not delete Film's block.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
         }
     }
 
-    @Override
-    public int getLastID() {
-        int id=0;
-        Connection connection = null;
-        Statement stmnt = null;
-        ResultSet rs = null;
-        try {
-            connection = DAOFactory.getConnection();
-            connection.setAutoCommit(false);
-            stmnt = connection.createStatement();
-            rs = stmnt.executeQuery(SQL_FILMS_CURRENT_ID);
-            if (rs.next()) {
-                id =  rs.getInt("currval");
-            }
-        } catch (Exception e) {
-//            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by login.", e);
-        } finally {
-            DAOFactory.close(stmnt);
-            DAOFactory.close(rs);
-            DAOFactory.commitAndClose(connection);
-        }
-        return id;
-    }
 }

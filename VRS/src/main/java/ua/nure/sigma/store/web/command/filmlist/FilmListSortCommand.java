@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class FilmListSortCommand extends Command {
 
-    private static final String UP_DIR = "up";
-    private static final String DOWN_DIR = "down";
+    static final String UP_DIR = "up";
+    static final String DOWN_DIR = "down";
     private static final Logger LOG = Logger.getLogger(FilmListSortCommand.class);
 
     /**

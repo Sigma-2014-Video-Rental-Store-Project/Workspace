@@ -2,10 +2,10 @@
     <form action="controller" method="post">
         <input type="hidden" name="command" value="changeLocale"/>
 
-        <p class="text-muted" style="float: left"><fmt:message key="locale.jspf.changeOn"/>&nbsp;</p>
+        <p class="text-muted" style="float: left"><fmt:message key="locale.jspf.language"/>&nbsp;</p>
 
         <div style="float: left;">
-            <select class="form-control bfh-languages" name="newLocale">
+            <select class="bfh-languages" name="newLocale">
                 <c:forEach var="locale" items="${sessionScope.localesList}">
                     <c:choose>
                         <c:when test="${sessionScope.user.locale eq locale.localeId}">
@@ -23,7 +23,7 @@
             </select>
         </div>
         <div style="float: left;">
-            <input class="btn btn-default" type="submit" value="<fmt:message key="btn.change"/>"/>
+            <input class="btn btn-default" type="submit" value="<fmt:message key="btn.change"/>" style="padding:0; margin-left:5%;"/>
         </div>
     </form>
 </div>
