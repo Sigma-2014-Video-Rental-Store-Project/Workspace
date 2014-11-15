@@ -66,6 +66,7 @@ public class CustomerDetailsCommand extends Command {
         }
 
         ListForCustomerDetails listForCustomerDetails = new ListForCustomerDetails(customer);
+        request.setAttribute(CUSTOMER_DETAILS_LIST_PARAM_NAME, listForCustomerDetails);
         filter(request, response, listForCustomerDetails);
         sort(request, response, listForCustomerDetails);
         pages(request, response, listForCustomerDetails);
@@ -76,9 +77,9 @@ public class CustomerDetailsCommand extends Command {
     private void pages(HttpServletRequest request, HttpServletResponse response, ListForCustomerDetails listForCustomerDetails) {
         String pageString = (String) request.getParameter(PAGE_PARAM_NAME);
         if (pageString != null && !pageString.equals("")) {
-            listForCustomerDetails = (ListForCustomerDetails) request.getSession().getAttribute(CUSTOMER_DETAILS_LIST_PARAM_NAME);
-            listForCustomerDetails.setPageIndex(Integer.valueOf(pageString));
+            listForCustomerDetails = (ListForCustomerDetails) request.getAttribute(CUSTOMER_DETAILS_LIST_PARAM_NAME);
             LOG.trace("Selected page=" + pageString);
+            listForCustomerDetails.setPageIndex(Integer.valueOf(pageString));
         }
     }
 
