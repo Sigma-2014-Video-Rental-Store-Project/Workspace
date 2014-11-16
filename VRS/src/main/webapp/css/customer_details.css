@@ -6,13 +6,13 @@ body {
     margin-bottom: 20px;
     clear: both;
 }
-#customer-info{ //changed
-    width: 10%;
+#customer-info{
+    width: 7%;
     float: left;
     margin-left: 1%;
 }
 #content-body{
-    width: 78%;
+    width: 90%;
     float: right;
     margin-right: 1%;
     margin-left: 1%;
@@ -76,10 +76,14 @@ img.center {
     margin-top: 20px;
 }
 .return-column-value{
-    text-align: center;
+    text-align: right;
 }
-.copies-column{
+.copies-left-column-value{
+    text-align: right;
     vertical-align: middle !important;
+}
+.copies-left-column {
+    text-align: right;
 }
 .copies-number.form-control{
     display: inline;
