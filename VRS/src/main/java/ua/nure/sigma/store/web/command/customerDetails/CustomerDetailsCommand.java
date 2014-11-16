@@ -61,7 +61,6 @@ public class CustomerDetailsCommand extends Command {
         Customer customer = DAOFactory.getInstance().getCustomerDAO().findCustomerByID(custId);
         if (customer == null) {
             LOG.error("Cannot find customer by id: " + custId);
-
             return Paths.PAGE_NO_PAGE;
         }
 
