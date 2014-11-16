@@ -21,16 +21,16 @@ public class PostgreSqlFilmDAO implements FilmDAO, FilmSqlQuery {
 
     private Film extractFilm(ResultSet rs) throws SQLException {
         Film film = new Film();
-        film.setFilmId(rs.getInt("ID"));
-        film.setTitle(rs.getString("TITLE"));
-        film.setYear(rs.getInt("YEAR"));
-        film.setDescription(rs.getString("DESCRIPTION"));
-        film.setCover(rs.getString("COVER"));
-        film.setAmount(rs.getInt("AMOUNT"));
-        film.setGeneralPrice(rs.getLong("GENERAL_PRICE"));
-        film.setRentPrice(rs.getLong("RENT_PRICE"));
-        film.setBonusForRent(rs.getLong("BONUS_FOR_RENT"));
-        film.setCopiesLeft(film.getAmount()- rs.getInt("rentedCp"));
+        film.setFilmId(rs.getInt(FILM_ID_PARAM));
+        film.setTitle(rs.getString(TITLE_PARAM));
+        film.setYear(rs.getInt(YEAR_PARAM));
+        film.setDescription(rs.getString(DESCRIPTION_PARAM));
+        film.setCover(rs.getString(COVER_PARAM));
+        film.setAmount(rs.getInt(AMOUNT_PARAM));
+        film.setGeneralPrice(rs.getLong(GENERAL_PRICE_PARAM));
+        film.setRentPrice(rs.getLong(RENT_PRICE_PARAM));
+        film.setBonusForRent(rs.getLong(BONUS_FOR_RENT_PARAM));
+        film.setCopiesLeft(film.getAmount()- rs.getInt(RENTED_COPY_PARAM));
         return film;
     }
 

@@ -27,11 +27,11 @@ public class PostgreSqlAdminDAO implements AdminDAO, AdminSqlQuery{
      */
     private Admin extractAdmin(ResultSet rs) throws SQLException {
         Admin admin = new Admin();
-        admin.setId(rs.getInt("ADMIN_ID"));
-        admin.setEmail(rs.getString("ADMIN_EMAIL"));
-        admin.setPassword(rs.getInt("PASSWORD_HASH"));
-        admin.setRoleId(rs.getInt("ROLE_ID"));
-        admin.setLocale(rs.getInt("LOCALE_ID"));
+        admin.setId(rs.getInt(ADMIN_ID_PARAM));
+        admin.setEmail(rs.getString(EMAIL_PARAM));
+        admin.setPassword(rs.getInt(PASSWORD_PARAM));
+        admin.setRoleId(rs.getInt(ROLE_ID_PARAM));
+        admin.setLocale(rs.getInt(LOCALE_ID_PARAM));
         return admin;
     }
 

@@ -14,4 +14,10 @@ public interface AdminSqlQuery {
     static final String SQL_UPDATE_ADMIN_PASSWORD = "UPDATE ADMINS SET PASSWORD_HASH = ? WHERE ADMIN_ID = ?";
     static final String SQL_UPDATE_ADMIN_LOCALE = "UPDATE ADMINS SET LOCALE_ID = ? WHERE ADMIN_ID = ?";
     static final String SQL_DELETE_ADMIN = "DELETE FROM ADMINS WHERE ADMIN_ID = ?";
+
+    static final String ADMIN_ID_PARAM = "ADMIN_ID";
+    static final String EMAIL_PARAM = "ADMIN_EMAIL";
+    static final String PASSWORD_PARAM = "PASSWORD_HASH";
+    static final String ROLE_ID_PARAM = "ROLE_ID";
+    static final String LOCALE_ID_PARAM = "LOCALE_ID";
 }

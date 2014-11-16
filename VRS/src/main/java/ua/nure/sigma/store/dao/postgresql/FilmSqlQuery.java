@@ -14,4 +14,15 @@ public interface FilmSqlQuery  {
     static final String SQL_DELETE_FILM = "DELETE FROM FILMS WHERE ID = ?";
 
     static final String SQL_FILMS_CURRENT_ID = "select lastvalue from films_id_seq)";
+
+    static final String FILM_ID_PARAM = "ID";
+    static final String TITLE_PARAM = "TITLE";
+    static final String YEAR_PARAM = "YEAR";
+    static final String DESCRIPTION_PARAM = "DESCRIPTION";
+    static final String COVER_PARAM = "COVER";
+    static final String AMOUNT_PARAM = "AMOUNT";
+    static final String GENERAL_PRICE_PARAM = "GENERAL_PRICE";
+    static final String RENT_PRICE_PARAM = "RENT_PRICE";
+    static final String BONUS_FOR_RENT_PARAM = "BONUS_FOR_RENT";
+    static final String RENTED_COPY_PARAM = "rentedCp";
 }
