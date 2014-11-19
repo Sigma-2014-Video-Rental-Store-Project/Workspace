@@ -52,7 +52,13 @@ public class EditFilmRemoveCommand extends Command {
         }
 
         // Tries to remove film with specified id.
-        DAOFactory.getInstance().getFilmDAO().deleteFilm(filmId);
+		try {
+			DAOFactory.getInstance().getFilmDAO().deleteFilm(filmId);
+		} catch (Exception e) {
+			request.getSession().setAttribute("errorMessage",
+					"Can not delete film which now in rent.");
+			return Paths.COMMAND_EDIT_FILM + "&filmId=" + filmId + "&get=true";
+		}
         if (LOG.isDebugEnabled()) {
             LOG.debug(String.format("Next film with id equals to '%d' has been deleted from the database.",
                     filmId));
