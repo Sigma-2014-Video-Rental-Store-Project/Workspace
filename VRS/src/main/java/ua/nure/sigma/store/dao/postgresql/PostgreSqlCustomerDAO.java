@@ -19,6 +19,7 @@ import java.util.List;
 public class PostgreSqlCustomerDAO implements CustomerDAO, CustomerSqlQuery{
 
 
+    private static final String SQL_DEBTOR = "SELECT FILM_ID FROM FILM_AT_RENT, RENT WHERE RENT.CUSTOMER_ID = ? AND FILM_AT_RENT.RENT_ID = RENT.RENT_ID AND FILM_AT_RENT.accepted_date is not null";
     private static final Logger LOG = Logger
             .getLogger(PostgreSqlCustomerDAO.class);
 
@@ -140,17 +141,18 @@ public class PostgreSqlCustomerDAO implements CustomerDAO, CustomerSqlQuery{
     }
 
     @Override
-    public void deleteCustomer(Customer customer) {
+    public void deleteCustomer(Customer customer) throws Exception {
         deleteCustomerByID(customer.getCustomerID());
     }
 
     @Override
-    public void deleteCustomerByID(int id) {
+    public void deleteCustomerByID(int id) throws Exception {
         Connection connection = null;
         PreparedStatement pstmnt = null;
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
+            if (checkDebtor(connection,id)) throw new Exception();
             pstmnt = connection.prepareStatement(SQL_DELETE_CUSTOMER);
             int position = 1;
             pstmnt.setInt(position, id);
@@ -158,11 +160,29 @@ public class PostgreSqlCustomerDAO implements CustomerDAO, CustomerSqlQuery{
         } catch (Exception e) {
             DAOFactory.rollback(connection);
             LOG.error("Can not delete Customer's block.", e);
+            throw e;
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
         }
 
+    }
+
+    private boolean checkDebtor(Connection connection, int customerId){
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        boolean b = false;
+        try {
+            pstm = connection.prepareStatement(SQL_DEBTOR);
+            pstm.setInt(1,customerId);
+            rs = pstm.executeQuery();
+            if (rs.next())  b = true;
+        }catch (Exception e){
+            return false;
+        }finally {
+            DAOFactory.close(pstm);
+        }
+        return b;
     }
 
     @Override
