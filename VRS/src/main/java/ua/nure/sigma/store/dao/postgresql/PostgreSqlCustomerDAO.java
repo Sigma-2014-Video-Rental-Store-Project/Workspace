@@ -178,9 +178,10 @@ public class PostgreSqlCustomerDAO implements CustomerDAO, CustomerSqlQuery{
             rs = pstm.executeQuery();
             if (rs.next())  b = true;
         }catch (Exception e){
-            return false;
+            LOG.debug("checkDebtor for customer exception");
         }finally {
             DAOFactory.close(pstm);
+            DAOFactory.close(rs);
         }
         return b;
     }

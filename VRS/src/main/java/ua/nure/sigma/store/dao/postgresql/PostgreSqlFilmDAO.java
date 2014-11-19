@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class PostgreSqlFilmDAO implements FilmDAO, FilmSqlQuery {
 
+    private static final String SQL_DEBT_FILM = "SELECT rent_id FROM FILM_AT_RENT WHERE film_id =? AND accepted_date is not null";
     private static final Logger LOG = Logger
             .getLogger(PostgreSqlFilmDAO.class);
 
@@ -182,6 +183,7 @@ public class PostgreSqlFilmDAO implements FilmDAO, FilmSqlQuery {
         try {
             connection = DAOFactory.getConnection();
             connection.setAutoCommit(false);
+            if (checkDebt(connection,filmId)) throw new Exception();
             pstmnt = connection.prepareStatement(SQL_DELETE_FILM);
             int position = 1;
             pstmnt.setInt(position, filmId);
@@ -193,6 +195,24 @@ public class PostgreSqlFilmDAO implements FilmDAO, FilmSqlQuery {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);
         }
+    }
+
+    private boolean checkDebt(Connection connection, int filmID){
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        boolean b = false;
+        try {
+            pstm = connection.prepareStatement(SQL_DEBT_FILM);
+            pstm.setInt(1,filmID);
+            rs = pstm.executeQuery();
+            if (rs.next())  b = true;
+        }   catch (Exception e){
+            LOG.debug("checkDebt for film exception");
+        }   finally {
+                DAOFactory.close(pstm);
+                DAOFactory.close(rs);
+        }
+        return b;
     }
 
 }
