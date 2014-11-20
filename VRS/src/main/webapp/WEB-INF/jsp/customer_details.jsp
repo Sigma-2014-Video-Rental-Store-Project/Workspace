@@ -32,7 +32,7 @@
     <div id="header">
         <%@ include file="/WEB-INF/jspf/header.jspf" %>
     </div>
-    <div id="customer-info">
+    <div id="customer-info" style="width:20%;">
         <div id="customer-name-block">
             <p>
                 <span id="customer-name">${customerDetailsList.customer.lastName}</span>
@@ -44,7 +44,7 @@
         <img id="avatar" data-src="holder.js/140x140" class="center"
              src="customerPhoto/${customerDetailsList.customer.customerPhoto}"/>
     </div>
-    <div id="content-body">
+    <div id="content-body" style="width:75%;">
         <div id="buttons">
             <div id="filter-buttons" class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary active" id="now-rented"> <input
