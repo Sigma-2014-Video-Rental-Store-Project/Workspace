@@ -15,11 +15,8 @@ import java.util.List;
 /**
  * Created by vlad on 07.11.14.
  */
-public class PostgreSqlLocaleDAO implements LocaleDAO {
+public class PostgreSqlLocaleDAO implements LocaleDAO, LocaleSqlQuery {
 
-    private static final String SQL_SELECT_FROM_LOCALE_BY_ID = "SELECT * FROM LOCALE WHERE LOCALE_ID = ?";
-    private static final String SQL_SELECT_FROM_LOCALE_BY_NAME = "SELECT * FROM LOCALE WHERE NAME = ?";
-    private static final String SQL_SELECT_FROM_LOCALE = "SELECT * FROM LOCALE";
     private static final Logger LOG = Logger
             .getLogger(PostgreSqlLocaleDAO.class);
     @Override
@@ -36,10 +33,9 @@ public class PostgreSqlLocaleDAO implements LocaleDAO {
             pstmnt.setString(1, locale);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
-                id = rs.getInt("locale_id");
+                id = rs.getInt(LOCALE_ID_PARAM);
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
             LOG.error("Can not obtain Locale by name.", e);
         } finally {
             DAOFactory.close(pstmnt);
@@ -63,10 +59,9 @@ public class PostgreSqlLocaleDAO implements LocaleDAO {
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             if (rs.next()) {
-                locale = rs.getString("name");
+                locale = rs.getString(LOCALE_NAME_PARAM);
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
             LOG.error("Can not obtain Locale by id.", e);
         } finally {
             DAOFactory.close(pstmnt);
@@ -88,11 +83,10 @@ public class PostgreSqlLocaleDAO implements LocaleDAO {
             stmnt = connection.createStatement();
             rs = stmnt.executeQuery(SQL_SELECT_FROM_LOCALE);
             while (rs.next()) {
-                localeList.add(new Locale(rs.getInt("locale_id"),rs.getString("name")));
+                localeList.add(new Locale(rs.getInt(LOCALE_ID_PARAM),rs.getString(LOCALE_NAME_PARAM)));
             }
         } catch (Exception e) {
-//            DAOFactory.rollback(connection);
-            LOG.error("Can not obtain Admins", e);
+            LOG.error("Can not obtain all locale", e);
         } finally {
             DAOFactory.close(stmnt);
             DAOFactory.close(rs);

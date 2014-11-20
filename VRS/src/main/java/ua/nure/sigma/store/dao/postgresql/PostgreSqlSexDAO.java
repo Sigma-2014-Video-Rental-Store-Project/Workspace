@@ -13,19 +13,16 @@ import java.util.List;
 /**
  * Created by nikolaienko on 07.10.14.
  */
-public class PostgreSqlSexDAO implements SexDAO{
+public class PostgreSqlSexDAO implements SexDAO,SexSqlQuery{
 
-    private static final String SQL_SELECT_FROM_SEX_BY_ID = "SELECT * FROM SEX_LOCALE WHERE SEX_ID = ? AND LOCALE_ID = ?";
-    private static final String SQL_SELECT_FROM_SEX_ALL_SEX = "SELECT * FROM SEX_LOCALE WHERE LOCALE_ID =?";
-    private static final String SQL_SELECT_FROM_SEX_BY_NAME =
-            "SELECT * FROM SEX WHERE SEX = ?";
+
     private static final Logger LOG = Logger
             .getLogger(PostgreSqlSexDAO.class);
 
     private Sex extractSex(ResultSet rs) throws SQLException {
         Sex sex = new Sex();
-        sex.setSexID(rs.getInt("SEX_ID"));
-        sex.setSexName(rs.getString("SEX"));
+        sex.setSexID(rs.getInt(SEX_ID_PARAM));
+        sex.setSexName(rs.getString(SEX_NAME_PARAM));
         return sex;
     }
 
@@ -45,9 +42,9 @@ public class PostgreSqlSexDAO implements SexDAO{
             if (rs.next()) {
                 sex = extractSex(rs);
             }
+            return sex;
         } catch (Exception e) {
-//            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by id.", e);
+            LOG.error("Can not obtain all Sex.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
@@ -72,8 +69,9 @@ public class PostgreSqlSexDAO implements SexDAO{
             while (rs.next()) {
                 admin.add(extractSex(rs));
             }
+            return admin;
         } catch (Exception e) {
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not obtain All sex by locale", e);
         } finally {
             DAOFactory.close(stmnt);
             DAOFactory.close(rs);
@@ -98,9 +96,9 @@ public class PostgreSqlSexDAO implements SexDAO{
             if (rs.next()) {
                 sex1 = extractSex(rs);
             }
+            return sex1;
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not obtain Sex by name.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);

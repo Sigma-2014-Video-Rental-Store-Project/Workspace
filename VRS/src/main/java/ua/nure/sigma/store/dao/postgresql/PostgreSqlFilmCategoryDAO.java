@@ -1,5 +1,6 @@
 package ua.nure.sigma.store.dao.postgresql;
 
+import org.apache.log4j.Logger;
 import ua.nure.sigma.store.dao.CategoryDAO;
 import ua.nure.sigma.store.dao.DAOFactory;
 import ua.nure.sigma.store.dao.FilmCategoryDAO;
@@ -17,14 +18,11 @@ import java.util.List;
 /**
  * Created by nikolaienko on 07.10.14.
  */
-public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
+public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO,FilmCategoriesSqlQuery {
 
-    private static final String SQL_SELECT_FROM_FILM_CATEGORIES_CATEGORIES_BY_FILM_ID =
-            "SELECT * FROM FILM_CATEGORIES WHERE film_id = ?";
-    private static final String SQL_SELECT_FROM_FILM_CATEGORY_BY_CATEGORY_ID = "SELECT FILM_ID FROM FILM_CATEGORIES WHERE CATEGORY_ID = ?";
-    private static final String SQL_INSERT_INTO_FILM_CATEGORIES = "INSERT INTO FILM_CATEGORIES VALUES(?,?)";
-    private static final String SQL_DELETE_FILM_CATEGORIES = "DELETE FROM FILM_CATEGORIES WHERE FILM_ID = ?";
 
+    private static final Logger LOG = Logger
+            .getLogger(PostgreSqlFilmCategoryDAO.class);
     @Override
     public List<Film> findFilmsByCategoryID(int id) {
         List<Film> films = new ArrayList<Film>();
@@ -39,10 +37,10 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             while (rs.next()) {
-                films.add(filmDAO.findFilmById(connection, rs.getInt("FILM_ID")));
+                films.add(filmDAO.findFilmById(connection, rs.getInt(FilmSqlQuery.FILM_ID_PARAM)));
             }
         } catch (Exception e) {           
-//            LOG.error("Can not obtain User by id.", e);
+            LOG.error("Can not obtain Films by category id.", e);
         } finally {
 	        DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
@@ -65,10 +63,10 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
             pstmnt.setInt(1, id);
             rs = pstmnt.executeQuery();
             while (rs.next()) {
-                categories.add(categoryDAO.findCategoryByID(connection, rs.getInt("category_id"),localeID));
+                categories.add(categoryDAO.findCategoryByID(connection, rs.getInt(CategorySqlQuery.CATEGORY_ID_PARAM),localeID));
             }
         }   catch (Exception e) {
-//                LOG.error("Can not obtain Film categories by id and locale", e);
+                LOG.error("Can not obtain Film categories by id and locale", e);
         }   finally {
                 DAOFactory.close(pstmnt);
                 DAOFactory.close(rs);
@@ -80,28 +78,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
 
     @Override
     public List<Category> findCategoriesByFilmID(int id) {
-        List<Category> categories = new ArrayList<Category>();
-        Connection connection = null;
-        PreparedStatement pstmnt = null;
-        ResultSet rs = null;
-        CategoryDAO categoryDAO = DAOFactory.getInstance().getCategoryDAO();
-        try {
-            connection = DAOFactory.getConnection();
-            connection.setAutoCommit(false);
-            pstmnt = connection.prepareStatement(SQL_SELECT_FROM_FILM_CATEGORIES_CATEGORIES_BY_FILM_ID);
-            pstmnt.setInt(1, id);
-            rs = pstmnt.executeQuery();
-            while (rs.next()) {
-                categories.add(categoryDAO.findCategoryByID(connection, rs.getInt("CATEGORY_ID")));
-            }
-        } catch (Exception e) {
-//            LOG.error("Can not obtain User by id.", e);
-        } finally {
-            DAOFactory.close(pstmnt);
-            DAOFactory.close(rs);
-            DAOFactory.commitAndClose(connection);
-        }
-        return categories;
+        return findCategoriesByFilmID(id, 1);
     }
 
 
@@ -115,8 +92,8 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
             pstmnt.setInt(position, film.getFilmId());
             pstmnt.execute();
         } catch (Exception e) {
+            LOG.error("Can not create link between film and category");
             throw new SQLException();
-//            LOG.error("Can not add new client.", e);
         } finally {
             DAOFactory.close(pstmnt);
         }
@@ -169,6 +146,8 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
     public void deleteFilmCategories(int filmID) {
         Connection connection = null;
         try {
+            connection = DAOFactory.getConnection();
+            connection.setAutoCommit(false);
             deleteFilmCategories(filmID,connection);
         } catch (Exception e){
 
@@ -188,7 +167,7 @@ public class PostgreSqlFilmCategoryDAO implements FilmCategoryDAO {
             pstmnt.executeUpdate();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not add new client.", e);
+            LOG.error("Can not unlinked category from film", e);
         } finally {
             DAOFactory.close(pstmnt);
         }

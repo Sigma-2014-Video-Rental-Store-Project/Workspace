@@ -18,7 +18,7 @@ import ua.nure.sigma.store.entity.Admin;
 import static org.easymock.EasyMock.*;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
-public class PosgreSqlAdminDAOTest {
+public class PostgreSqlAdminDAOTest {
 
     static AdminDAO adminDAO;
     static Admin admin;
@@ -32,7 +32,7 @@ public class PosgreSqlAdminDAOTest {
         admin.setPassword("test".hashCode());
 //        DAOFactory daoFactory = mock(DAOFactory.class);
 //        LocaleDAO localeDAO = mock(LocaleDAO.class);
-//        AdminDAO adminDAOmock = mock(AdminDAO.class);
+//        PostgreSqlAdminDAO adminDAOmock = mock(PostgreSqlAdminDAO.class);
 //        when(daoFactory.getLocaleDAO()).thenReturn(localeDAO);
 //        when(daoFactory.getAdminDAO()).thenReturn(adminDAOmock);
 //        expect(DAOFactory.getInstance()).andReturn(daoFactory);
@@ -48,7 +48,7 @@ public class PosgreSqlAdminDAOTest {
     public void testFindAdminByLogin() throws Exception {
 //        DAOFactory daoFactory = mock(DAOFactory.class);
 ////        LocaleDAO localeDAO = mock(LocaleDAO.class);
-//        PosgreSqlAdminDAO adminDAOmock = mock(PosgreSqlAdminDAO.class);
+//        PostgreSqlAdminDAO adminDAOmock = mock(PostgreSqlAdminDAO.class);
 //        when(daoFactory.getAdminDAO()).thenReturn(adminDAOmock);
 //        staticMo
         Admin expect = new Admin();

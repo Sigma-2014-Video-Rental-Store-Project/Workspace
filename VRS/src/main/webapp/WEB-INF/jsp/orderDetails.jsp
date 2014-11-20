@@ -48,14 +48,14 @@
         </tr>
         <tbody>
         <c:forEach items="${sessionScope.rentView.filmViewList}" var="current">
-
-          <td>${current.title}</td>
-          <td>${current.count}</td>
-          <td><fmt:formatDate type="date" pattern="dd-MM-yyyy" value="${current.acceptedDate}"></fmt:formatDate></td>
-          <td style="text-align:right; margin-left:auto; margin-right:auto;">
-             $<fmt:formatNumber type="number" minFractionDigits="2" value="${current.price/100}"/>
-          </td>
-          <td></td>
+          <tr>
+            <td>${current.title}</td>
+            <td>${current.count}</td>
+            <td><fmt:formatDate type="date" pattern="dd-MM-yyyy" value="${current.acceptedDate}"></fmt:formatDate></td>
+            <td style="text-align:right; margin-left:auto; margin-right:auto;">
+               $<fmt:formatNumber type="number" minFractionDigits="2" value="${current.price/100}"/>
+            </td>
+          <tr>
         </c:forEach>
         </tbody>
       </table>

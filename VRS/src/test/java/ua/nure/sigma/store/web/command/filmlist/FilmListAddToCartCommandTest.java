@@ -41,20 +41,20 @@ import ua.nure.sigma.store.logic.Cart;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(DAOFactory.class)
 public class FilmListAddToCartCommandTest {
-    
+
     private static final String ADD_TO_CART_ID = "1";
     private static final int DEFAULT_RENT_DAYS = 3;
     private static final int DEFAULT_COPIES = 1;
 
     @Test
     public void testExecuteExtra() throws Exception {
-	int id = 1;
-	int countOfCopies = 5;
-	//Films
-	List<Film> films = new ArrayList<Film>();
-	films.add(new Film());
-	films.add(new Film());
-	
+        int id = 1;
+        int countOfCopies = 5;
+        //Films
+        List<Film> films = new ArrayList<Film>();
+        films.add(new Film());
+        films.add(new Film());
+
         // FilmRentedDAO mock.
         FilmRentedDAO filmRentedDAOMock = mock(FilmRentedDAO.class);
         when(filmRentedDAOMock.findFilmCopiesAtRent(id)).thenReturn(countOfCopies);
@@ -63,7 +63,7 @@ public class FilmListAddToCartCommandTest {
         DAOFactory daoFactory = mock(DAOFactory.class);
         when(daoFactory.getFilmRentedDAO()).thenReturn(filmRentedDAOMock);
 
-        
+
         // Prepare DAOFactory for search of entity.
         mockStatic(DAOFactory.class);
         expect(DAOFactory.getInstance()).andReturn(daoFactory);
@@ -74,12 +74,12 @@ public class FilmListAddToCartCommandTest {
         when(requestMock.getSession()).thenReturn(sessionMock);
         when(requestMock.getParameter(FilmListCommand.ADD_TO_CART_ID_PARAM_NAME)).thenReturn(String.valueOf(id));
         HttpServletResponse responseMock = mock(HttpServletResponse.class);
-	
+
         //Command
-	FilmListAddToCartCommand addToCartCommand = new FilmListAddToCartCommand();
-	String res = addToCartCommand.execute(requestMock, responseMock);
-	
-	verify(sessionMock).setAttribute(Matchers.eq(FilmListCommand.CART_PARAM_NAME), any(Cart.class));
+        FilmListAddToCartCommand addToCartCommand = new FilmListAddToCartCommand();
+        String res = addToCartCommand.execute(requestMock, responseMock);
+
+        verify(sessionMock).setAttribute(Matchers.eq(FilmListCommand.CART_PARAM_NAME), any(Cart.class));
     }
 
     @Test
@@ -122,7 +122,6 @@ public class FilmListAddToCartCommandTest {
         HttpServletResponse responseMock = mock(HttpServletResponse.class);
 
         Object result = filmListAddToCartCommand.execute(requestMock, responseMock);
-
 
 
         assertEquals(null, result);

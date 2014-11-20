@@ -79,11 +79,11 @@ img.center {
     text-align: right;
 }
 .copies-left-column-value{
-    text-align: right;
+    text-align: center;
     vertical-align: middle !important;
 }
 .copies-left-column {
-    text-align: right;
+    text-align: center;
 }
 .copies-number.form-control{
     display: inline;

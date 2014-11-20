@@ -14,23 +14,14 @@ import java.util.List;
 /**
  * Created by nikolaienko on 07.10.14.
  */
-public class PostgreSqlRentDAO implements RentDAO {
-
-    private static final String SQL_SELECT_FROM_RENTS_CUSTOMER_BY_RENT_ID = "SELECT * FROM RENT WHERE RENT_ID = ?";
-    private static final String SQL_SELECT_FROM_RENTS_RENTS__BY_CUSTOMER_ID = "SELECT * FROM RENT WHERE CUSTOMER_ID =?";
-    private static final String SQL_INSERT_INTO_RENTS = "INSERT INTO RENT(RENT_ID, CUSTOMER_ID, RENTED_DATE)  VALUES(DEFAULT,?,CURRENT_DATE) RETURNING RENT_ID, RENTED_DATE";
-    private static final String SQL_UPDATE_RENTS=
-            "UPDATE RENT SET  ACCEPTED_DATE = now() WHERE CUSTOMER_ID = ? AND FILM_ID = ?";
-    private static final String SQL_UPDATE_RENT_FILM_COPY=
-            "UPDATE RENT SET  COUNT = ? WHERE CUSTOMER_ID = ? AND FILM_ID = ?";
-
+public class PostgreSqlRentDAO implements RentDAO, RentSqlQuery {
 
     private static final Logger LOG = Logger.getLogger(PostgreSqlRentDAO.class);
     private Rent extractRent(ResultSet rs, Connection connection) throws SQLException {
         Rent rent = new Rent();
-        rent.setCustomerID(rs.getInt("CUSTOMER_ID"));
-        rent.setRentID(rs.getInt("RENT_ID"));
-        rent.setRentDate(rs.getDate("RENTED_DATE"));
+        rent.setCustomerID(rs.getInt(CUSTOMER_ID_PARAM));
+        rent.setRentID(rs.getInt(RENT_ID_PARAM));
+        rent.setRentDate(rs.getDate(RENTED_DATE_PARAM));
         rent.setFilmList(DAOFactory.getInstance().getFilmRentedDAO().findFilmRentedByRentID(rent.getRentID()));
         return rent;
     }
@@ -50,10 +41,8 @@ public class PostgreSqlRentDAO implements RentDAO {
             pstmnt.setInt(position++,rent.getCustomerID());
             rs = pstmnt.executeQuery();
             if (rs.next()){
-                rent.setRentID(rs.getLong("RENT_ID"));
-                LOG.debug(rent.getRentID());
-                rent.setRentDate(rs.getDate("RENTED_DATE"));
-                LOG.debug(rent.getRentDate());
+                rent.setRentID(rs.getLong(RENT_ID_PARAM));
+                rent.setRentDate(rs.getDate(RENTED_DATE_PARAM));
             }
             DAOFactory.getInstance().getFilmRentedDAO().createFilmsRented(rent.getRentID(), rent.getFilmList(),connection);
 
@@ -82,8 +71,7 @@ public class PostgreSqlRentDAO implements RentDAO {
                 customer = DAOFactory.getInstance().getCustomerDAO().findCustomerByID(connection,rs.getInt("CUSTOMER_ID"));
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by id.", e);
+            LOG.error("Can not obtain Customer by rentId.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
@@ -109,8 +97,7 @@ public class PostgreSqlRentDAO implements RentDAO {
 
             }
         } catch (Exception e) {
-            DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by id.", e);
+            LOG.error("Can not obtain all order by customer id.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);

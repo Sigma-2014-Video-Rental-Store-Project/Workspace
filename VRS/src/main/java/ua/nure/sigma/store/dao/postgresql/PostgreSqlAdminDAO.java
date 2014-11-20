@@ -12,21 +12,10 @@ import java.util.List;
 /**
  * Created by nikolaienko on 07.10.14.
  */
-public class PosgreSqlAdminDAO implements AdminDAO{
+public class PostgreSqlAdminDAO implements AdminDAO, AdminSqlQuery{
 
-//   private static final Logger LOG = Logger.getLogger(DerbyUserDAO.class);
-
-    private static final String SQL_SELECT_FROM_ADMINS_BY_EMAIL =
-            "SELECT * FROM ADMINS WHERE ADMIN_EMAIL = ?";
-    private static final String SQL_SELECT_FROM_ADMINS_BY_ID = "SELECT * FROM ADMINS WHERE ADMIN_ID = ?";
-    private static final String SQL_SELECT_FROM_ADMINS_ALL_ADMIN = "SELECT * FROM ADMINS";
-    private static final String SQL_INSERT_INTO_ADMINS = "INSERT INTO ADMINS(admin_id,role_id,admin_email,password_hash,locale_ID" +
-            ") VALUES(DEFAULT,?,?,?,?)";
-    private static final String SQL_UPDATE_ADMIN_PASSWORD = "UPDATE ADMINS SET PASSWORD_HASH = ? WHERE ADMIN_ID = ?";
-    private static final String SQL_UPDATE_ADMIN_LOCALE = "UPDATE ADMINS SET LOCALE_ID = ? WHERE ADMIN_ID = ?";
-    private static final String SQL_DELETE_ADMIN = "DELETE FROM ADMINS WHERE ADMIN_ID = ?";
     private static final Logger LOG = Logger
-            .getLogger(PosgreSqlAdminDAO.class);
+            .getLogger(PostgreSqlAdminDAO.class);
     /**
      * Extracts User bean from ResultSet object.
      *
@@ -38,11 +27,11 @@ public class PosgreSqlAdminDAO implements AdminDAO{
      */
     private Admin extractAdmin(ResultSet rs) throws SQLException {
         Admin admin = new Admin();
-        admin.setId(rs.getInt("ADMIN_ID"));
-        admin.setEmail(rs.getString("ADMIN_EMAIL"));
-        admin.setPassword(rs.getInt("PASSWORD_HASH"));
-        admin.setRoleId(rs.getInt("ROLE_ID"));
-        admin.setLocale(rs.getInt("LOCALE_ID"));
+        admin.setId(rs.getInt(ADMIN_ID_PARAM));
+        admin.setEmail(rs.getString(EMAIL_PARAM));
+        admin.setPassword(rs.getInt(PASSWORD_PARAM));
+        admin.setRoleId(rs.getInt(ROLE_ID_PARAM));
+        admin.setLocale(rs.getInt(LOCALE_ID_PARAM));
         return admin;
     }
 

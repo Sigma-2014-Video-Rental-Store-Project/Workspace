@@ -12,11 +12,10 @@ import java.util.List;
 public interface FilmDAO {
     List<Film> findAllFilms();
     Film findFilmById(int id);
-    public Film findFilmById(Connection connection, int id);
-    void createFilm(Film film);
+    public Film findFilmById(Connection connection, int id) throws Exception;
+    void createFilm(Film film, Connection connection) throws Exception;
     void createFilmWithCategories(Film film, List<Category> categoryList);
     void updateFilm(Film film);
-    void deleteFilm(Film film);
     void deleteFilm(int filmId);
-    int getLastID();
+
 }

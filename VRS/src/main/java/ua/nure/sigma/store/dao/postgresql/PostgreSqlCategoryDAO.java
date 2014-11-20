@@ -12,14 +12,8 @@ import java.util.List;
 /**
  * Created by nikolaienko on 07.10.14.
  */
-public class PostgreSqlCategoryDAO implements CategoryDAO{
-    private static final String SQL_SELECT_FROM_CATEGORIES_BY_ID_LOCALE = "SELECT * FROM CATEGORY_LOCALE WHERE CATEGORY_ID = ? and locale_id=?";
-    private static final String SQL_SELECT_FROM_CATEGORIES= "SELECT * FROM CATEGORY_LOCALE WHERE LOCALE_ID = 1";
-    private static final String SQL_SELECT_FROM_CATEGORIES_LOCALE = "SELECT * FROM CATEGORY_LOCALE WHERE LOCALE_ID = ?";
-    private static final String SQL_SELECT_FROM_CATEGORIES_BY_ID = "SELECT * FROM CATEGORY_LOCALE WHERE CATEGORY_ID = ? AND LOCALE_ID = 1";
-    private static final String SQL_SELECT_FROM_CATEGORIES_BY_NAME =
-            "SELECT CATEGORY_ID FROM CATEGORY_LOCALE WHERE NAME = ?";
-    private static final Logger LOG = Logger
+public class PostgreSqlCategoryDAO implements CategoryDAO, CategorySqlQuery{
+       private static final Logger LOG = Logger
             .getLogger(PostgreSqlCategoryDAO.class);
     @Override
     public int findCategoryIdByName(String name) {
@@ -38,7 +32,6 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
                 id = rs.getInt("CATEGORY_ID");
             }
         } catch (Exception e) {
-//            DAOFactory.rollback(connection);
             LOG.error("Can not find Category id by name.", e);
         } finally {
             DAOFactory.close(pstmnt);
@@ -60,8 +53,8 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
      */
     private Category extractCategory(ResultSet rs) throws SQLException {
         Category category = new Category();
-        category.setId(rs.getInt("category_id"));
-        category.setName(rs.getString("name"));
+        category.setId(rs.getInt(CATEGORY_ID_PARAM));
+        category.setName(rs.getString(CATEGORY_NAME_PARAM));
 
         return category;
     }
@@ -81,7 +74,6 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
                 categoryList.add(extractCategory(rs));
             }
         } catch (Exception e) {
-//            DAOFactory.rollback(connection);
             LOG.error("Can not find all Categories.", e);
         } finally {
             DAOFactory.close(stmnt);
@@ -128,7 +120,6 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
             connection.setAutoCommit(false);
             category = findCategoryByID(connection,id);
         } catch (Exception e) {
-//            DAOFactory.rollback(connection);
             LOG.error("Can not find Category by id.", e);
         } finally {
             DAOFactory.commitAndClose(connection);
@@ -168,7 +159,6 @@ public class PostgreSqlCategoryDAO implements CategoryDAO{
             connection.setAutoCommit(false);
             category = findCategoryByID(connection, id, locale);
         } catch (Exception e) {
-//            DAOFactory.rollback(connection);
             LOG.error("Can not find Category by id and locale", e);
          } finally {
             DAOFactory.commitAndClose(connection);

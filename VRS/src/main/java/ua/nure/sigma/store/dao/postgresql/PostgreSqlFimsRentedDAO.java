@@ -14,24 +14,17 @@ import java.util.List;
 /**
  * Created by vlad on 16.10.14.
  */
-public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
+public class PostgreSqlFimsRentedDAO implements FilmRentedDAO, FilmRentedSqlQuery {
 
-    private static final String SQL_SELECT_FROM_FILM_AT_RENT_BY_COPIES_AT_RENT =
-            "SELECT sum(count) as rentedCopies FROM FILM_AT_RENT WHERE FILM_ID = ? AND ACCEPTED_DATE IS NULL";
-    private static final String SQL_SELECT_FROM_FILM_RENTED_BY_RENT_ID = "SELECT * FROM FILM_AT_RENT WHERE RENT_ID = ?";
-    private static final String SQL_SELECT_FILM_RENTED = "SELECT * FROM FILM_AT_RENT WHERE RENT_ID = ? AND FILM_ID = ?";
-    private static final String SQL_INSERT_INTO_FILM_AT_RENTED = "INSERT INTO FILM_AT_RENT VALUES(?,?,?,?,NULL,?)";
-    private static final String SQL_UPDATE_FILM_RENTED = "UPDATE FILM_AT_RENT SET COPIES_LEFT = ? WHERE RENT_ID =? AND FILM_ID = ?";
-    private static final String SQL_CLOSE_FILM_RENT = "UPDATE FILM_AT_RENT SET ACCEPTED_DATE = CURRENT_DATE, COPIES_LEFT = 0 WHERE RENT_ID = ? AND FILM_ID = ?";
-    private static final Logger LOG = Logger.getLogger(PostgreSqlFimsRentedDAO.class);
+     private static final Logger LOG = Logger.getLogger(PostgreSqlFimsRentedDAO.class);
 
     private FilmForRent extractFilm(ResultSet rs) throws SQLException {
         FilmForRent film = new FilmForRent();
-        film.setFilmID(rs.getInt("FILM_ID"));
-        film.setCopies(rs.getInt("COUNT"));
-        film.setCopiesLeft(rs.getInt("COPIES_LEFT"));
-        film.setAcceptedDate(rs.getDate("ACCEPTED_DATE"));
-        film.setFutureDate(rs.getDate("accepted_FUTURE_DATE"));
+        film.setFilmID(rs.getInt(FILM_ID_PARAM));
+        film.setCopies(rs.getInt(COUNT_PARAM));
+        film.setCopiesLeft(rs.getInt(COPIES_LEFT_PARAM));
+        film.setAcceptedDate(rs.getDate(ACCEPTED_DATE_PARAM));
+        film.setFutureDate(rs.getDate(FUTURE_DATE_PARAM));
         return film;
     }
 
@@ -47,7 +40,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
                 rents.add(extractFilm(rs));
             }
         } catch (Exception e) {
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not obtain RENTED FILMS by RENT_ID.", e);
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.close(rs);
@@ -67,7 +60,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             copiesLeft = findFilmRentLeftCopies(rentID,filmID,connection);
 
         } catch (Exception e) {
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not obtain rented film by login.", e);
         } finally {
             DAOFactory.commitAndClose(connection);
         }
@@ -83,7 +76,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             pstmnt.setInt(2, filmID);
             rs = pstmnt.executeQuery();
             if (rs.next()){
-                copiesLeft = rs.getInt("COPIES_LEFT");
+                copiesLeft = rs.getInt(COPIES_LEFT_PARAM);
             }
         } catch (Exception e) {
 //            LOG.error("Can not obtain User by login.", e);
@@ -102,7 +95,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             connection.setAutoCommit(false);
             rents = findFilmRentedByRentID(rentID,connection);
         } catch (Exception e) {
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not obtain Rented films by rentID.", e);
         } finally {
             DAOFactory.commitAndClose(connection);
         }
@@ -122,7 +115,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not create rented film entity", e);
             throw new Exception();
         } finally {
             DAOFactory.close(pstmnt);
@@ -148,7 +141,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             preparedStatement = connection.prepareStatement(SQL_SELECT_FROM_FILM_AT_RENT_BY_COPIES_AT_RENT);
             rs = preparedStatement.executeQuery();
             if (rs.next()){
-                copies = rs.getInt("rentedCopies");
+                copies = rs.getInt(RENTED_COPY_PARAM);
             }
 
         } catch (Exception e) {
@@ -227,7 +220,7 @@ public class PostgreSqlFimsRentedDAO implements FilmRentedDAO {
             pstmnt.execute();
         } catch (Exception e) {
             DAOFactory.rollback(connection);
-//            LOG.error("Can not obtain User by login.", e);
+            LOG.error("Can not close order.", e);
         } finally {
             DAOFactory.close(pstmnt);
         }

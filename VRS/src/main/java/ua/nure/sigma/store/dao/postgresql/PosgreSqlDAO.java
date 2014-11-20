@@ -7,8 +7,8 @@ import ua.nure.sigma.store.dao.*;
  */
 public class PosgreSqlDAO extends DAOFactory {
     @Override
-    public AdminDAO getAdminDAO() {
-        return new PosgreSqlAdminDAO();
+    public ua.nure.sigma.store.dao.AdminDAO getAdminDAO() {
+        return new PostgreSqlAdminDAO();
     }
 
     @Override

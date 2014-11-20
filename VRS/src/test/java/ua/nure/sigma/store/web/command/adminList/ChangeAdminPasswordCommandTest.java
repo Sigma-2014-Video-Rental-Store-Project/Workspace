@@ -33,7 +33,7 @@ public class ChangeAdminPasswordCommandTest {
         admin.setId(1);
         admin.setEmail("admin@vrs.com");
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
         when(adminDAOMock.findAdminById(1)).thenReturn(admin);
 
@@ -75,7 +75,7 @@ public class ChangeAdminPasswordCommandTest {
         admin.setId(1);
         admin.setEmail("admin@vrs.com");
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
         when(adminDAOMock.findAdminById(1)).thenReturn(admin);
 
@@ -113,7 +113,7 @@ public class ChangeAdminPasswordCommandTest {
         admin.setId(1);
         admin.setEmail("admin@vrs.com");
 
-        // AdminDAO mock.
+        // PostgreSqlAdminDAO mock.
         AdminDAO adminDAOMock = mock(AdminDAO.class);
         when(adminDAOMock.findAdminById(1)).thenReturn(admin);
 
