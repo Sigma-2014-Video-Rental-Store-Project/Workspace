@@ -177,7 +177,7 @@ public class PostgreSqlFilmDAO implements FilmDAO, FilmSqlQuery {
 
 
     @Override
-    public void deleteFilm(int filmId) {
+    public void deleteFilm(int filmId) throws Exception {
         Connection connection = null;
         PreparedStatement pstmnt = null;
         try {
@@ -191,6 +191,7 @@ public class PostgreSqlFilmDAO implements FilmDAO, FilmSqlQuery {
         } catch (Exception e) {
             DAOFactory.rollback(connection);
             LOG.error("Can not delete Film's block.", e);
+            throw e;
         } finally {
             DAOFactory.close(pstmnt);
             DAOFactory.commitAndClose(connection);

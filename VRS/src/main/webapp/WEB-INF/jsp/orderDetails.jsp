@@ -68,7 +68,7 @@
         <div class="span4">BONUS: $<fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.rentView.usedBonus/100}"/></div>
       </div>
       <div class="row">
-        <div class="span4">FOR PAID: $<fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.rentView.forPaid/100}"/></div>
+        <div class="span4">FOR PAID: $<fmt:formatNumber type="number" minFractionDigits="2" value="${sessionScope.rentView.forPaid/100-sessionScope.rentView.usedBonus/100}"/></div>
       </div>
     </div>
 

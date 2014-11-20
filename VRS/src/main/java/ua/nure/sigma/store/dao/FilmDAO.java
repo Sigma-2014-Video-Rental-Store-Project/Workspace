@@ -16,6 +16,6 @@ public interface FilmDAO {
     void createFilm(Film film, Connection connection) throws Exception;
     void createFilmWithCategories(Film film, List<Category> categoryList);
     void updateFilm(Film film);
-    void deleteFilm(int filmId);
+    void deleteFilm(int filmId) throws Exception;
 
 }

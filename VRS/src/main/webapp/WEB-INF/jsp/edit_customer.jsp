@@ -143,7 +143,7 @@
 					<div style="float: right; margin-left: 1%;">
 						<button class="btn btn-success"
 							onclick="submitCustomerForm('update')">
-							<fmt:message key="editfilm.savebtn" />
+							<fmt:message key="editcustomer.savebtn" />
 						</button>
 					</div>
 					<div style="float: right; margin-left: 1%;">

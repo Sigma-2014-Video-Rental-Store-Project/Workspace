@@ -121,9 +121,9 @@
                         <input type="hidden" name="command" value="cartUseBonus"/>
                         <label style="float: left; padding-top: 8px;" for="bonus-to-use"><fmt:message key="cart.bonususe"/></label>
                         <div style="float: left; margin-bottom:2%; margin-left:3%; margin-right:3%; width: 15%;"><input id="bonus-to-use" type="number" name="bonusToUse" class="form-control"
-                               min="0"
-                               max="${cart.currentCustomer.bonus + 0}" value="0">
-                               <p style="font-size:12px; float:left;">1 bonus=$0.01</p>
+                                                                                                                        min="0"
+                                                                                                                        max="${cart.currentCustomer.bonus + 0}" value="0">
+                            <p style="font-size:12px; float:left;">1 bonus=$0.01</p>
                         </div>
                         
                         <button style="float: left;" id="use-bonus" class="btn btn-primary" type="submit"><fmt:message key="cart.bonusbtn"/></button>

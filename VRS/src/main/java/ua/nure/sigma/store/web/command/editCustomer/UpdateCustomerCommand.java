@@ -81,7 +81,7 @@ public class UpdateCustomerCommand extends Command {
             // Has to be transferred between two requests.
             request.getSession().setAttribute("errorMessage", errorMessage);
 
-            return Paths.COMMAND_EDIT_CUSTOMER + "&customerID=" + customerID;
+            return Paths.COMMAND_EDIT_CUSTOMER + "&customerId=" + customerID + "&get=true";
         }
 
         // Request call for customer cover change.
@@ -145,6 +145,11 @@ public class UpdateCustomerCommand extends Command {
         if (errorMessage != null) {
             return errorMessage;
         }
+        phone = phone.replace("(","");
+        phone = phone.replace(")","");
+        phone = phone.replace("+","");
+        phone = phone.replace("-","");
+        phone = phone.replace(" ","");
         customer.setCustomerPhone(phone);
         errorMessage = UserValidator.validateBonus(bonus);
         if (errorMessage != null) {

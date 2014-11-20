@@ -41,12 +41,18 @@ public class UserValidator {
 	}
 
 	public static String validatePhone(String input) {
-		if (input.isEmpty()) {
+		input = input.replace("(","");
+		input = input.replace(")","");
+		input = input.replace("+","");
+		input = input.replace("-","");
+		input = input.replace(" ","");
+		if (input.isEmpty() && !input.equals("38")) {
 			return "The phone must not be empty.";
 		}
 		if (!input.matches("[0-9]+")) {
 			return "Phone must contains only numbers";
 		}
+		System.out.println(input);
 		return null;
 	}
 

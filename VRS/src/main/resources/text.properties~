@@ -74,7 +74,6 @@ newcustomer.sex=Sex:
 newcustomer.addnewcustomerbtn=Add new customer
 editcustomer.remove=Remove
 editcustomer.title=Edit customer
-editcustomer.savebtn=Save customer
 customerdetails.title=Customer
 customerdetails.nowrented=Now rented
 customerdetails.history=History

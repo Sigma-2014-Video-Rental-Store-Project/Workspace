@@ -21,8 +21,11 @@ public class UseBonusCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         String bonusInUseString = request.getParameter("bonusToUse");
+        System.out.println(bonusInUseString);
         Long bonusInUse = Long.parseLong(bonusInUseString);
+        System.out.println(bonusInUse);
         session.setAttribute(BONUS_IN_USE_PARAM_NAME, bonusInUse);
+        System.out.println(session.getAttribute(BONUS_IN_USE_PARAM_NAME));
         return Paths.COMMAND_CART_DETAILS;
     }
 }
