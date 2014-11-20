@@ -33,7 +33,10 @@ body {
     /*position:absolute;*/
     margin-top: 20px;
 }
-.name-column{ //changed
+.name-column{ 
+    width: 25%;
+}
+.name-column-value{ 
     width: 25%;
 }
 .start-date-column{
